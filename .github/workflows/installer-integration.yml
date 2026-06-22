@@ -1,0 +1,118 @@
+﻿name: Installer integration
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/install/**'
+      - 'src/DEMON/cli/**'
+      - 'tests/install/**'
+      - '.github/workflows/installer-integration.yml'
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  container-matrix:
+    name: ${{ matrix.image }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - ubuntu:22.04
+          - ubuntu:24.04
+          - fedora:40
+
+    container: ${{ matrix.image }}
+
+    steps:
+      - name: Install prereqs (Ubuntu/Debian)
+        if: contains(matrix.image, 'ubuntu') || contains(matrix.image, 'debian')
+        run: |
+          apt-get update
+          apt-get install -y curl git python3 sudo
+
+      - name: Install prereqs (Fedora)
+        if: contains(matrix.image, 'fedora')
+        run: |
+          dnf install -y curl git python3 sudo
+
+      - name: Create non-root user
+        run: useradd -m -s /bin/bash testuser
+
+      - uses: actions/checkout@v4
+        with:
+          path: DEMON-src
+
+      - name: Install Ollama mock
+        run: install -m 755 "$GITHUB_WORKSPACE/DEMON-src/tests/install/bash/stubs/ollama-mock" /usr/local/bin/ollama
+
+      - name: Run installer
+        run: |
+          chown -R testuser:testuser /home/testuser "$GITHUB_WORKSPACE/DEMON-src"
+          su testuser -c '
+            export DEMON_REPO_URL=file://'"$GITHUB_WORKSPACE"'/DEMON-src
+            cd '"$GITHUB_WORKSPACE"'/DEMON-src
+            bash scripts/install/install.sh --no-bg-orchestrator
+          '
+
+      - name: Verify install state
+        run: |
+          su testuser -c '
+            test -d ~/.DEMON/src
+            test -d ~/.DEMON/.venv
+            test -f ~/.DEMON/config.toml
+            test -f ~/.DEMON/.state/install-state.json
+            test -L ~/.local/bin/DEMON
+          '
+
+      - name: Verify DEMON --version
+        run: su testuser -c '~/.local/bin/DEMON --version'
+
+      - name: Verify DEMON doctor exits 0
+        run: su testuser -c '~/.local/bin/DEMON doctor'
+
+      - name: Verify uninstall is clean
+        run: |
+          su testuser -c '
+            ~/.local/bin/DEMON-uninstall
+            test ! -d ~/.DEMON
+            test ! -L ~/.local/bin/DEMON
+          '
+
+  macos:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ollama mock
+        run: sudo install -m 755 tests/install/bash/stubs/ollama-mock /usr/local/bin/ollama
+
+      - name: Run installer
+        run: |
+          export DEMON_REPO_URL=file://$(pwd)
+          bash scripts/install/install.sh --no-bg-orchestrator
+
+      - name: Verify install state
+        run: |
+          test -d ~/.DEMON/src
+          test -d ~/.DEMON/.venv
+          test -f ~/.DEMON/config.toml
+          test -L ~/.local/bin/DEMON
+
+      - name: Verify DEMON --version
+        run: ~/.local/bin/DEMON --version
+
+      - name: Verify DEMON doctor exits 0
+        run: ~/.local/bin/DEMON doctor
+
+      - name: Verify uninstall is clean
+        run: |
+          ~/.local/bin/DEMON-uninstall
+          test ! -d ~/.DEMON
+          test ! -L ~/.local/bin/DEMON

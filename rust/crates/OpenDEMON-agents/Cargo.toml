@@ -1,0 +1,20 @@
+﻿[package]
+name = "DEMON-agents"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+DEMON-core = { path = "../DEMON-core" }
+DEMON-engine = { path = "../DEMON-engine" }
+DEMON-tools = { path = "../DEMON-tools" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+regex = { workspace = true }
+sha2 = { workspace = true }
+once_cell = { workspace = true }
+parking_lot = { workspace = true }
+rig-core = { workspace = true }
+async-trait = { workspace = true }
+tokio = { workspace = true }

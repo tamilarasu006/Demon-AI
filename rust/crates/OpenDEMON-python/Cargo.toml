@@ -1,0 +1,32 @@
+﻿[package]
+name = "DEMON-python"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "DEMON_rust"
+crate-type = ["cdylib"]
+
+[dependencies]
+DEMON-core = { path = "../DEMON-core" }
+DEMON-engine = { path = "../DEMON-engine" }
+DEMON-security = { path = "../DEMON-security" }
+DEMON-tools = { path = "../DEMON-tools" }
+DEMON-agents = { path = "../DEMON-agents" }
+DEMON-traces = { path = "../DEMON-traces" }
+DEMON-telemetry = { path = "../DEMON-telemetry" }
+DEMON-learning = { path = "../DEMON-learning" }
+DEMON-mcp = { path = "../DEMON-mcp" }
+DEMON-sessions = { path = "../DEMON-sessions" }
+DEMON-workflow = { path = "../DEMON-workflow" }
+DEMON-skills = { path = "../DEMON-skills" }
+DEMON-recipes = { path = "../DEMON-recipes" }
+DEMON-templates = { path = "../DEMON-templates" }
+DEMON-a2a = { path = "../DEMON-a2a" }
+DEMON-scheduler = { path = "../DEMON-scheduler" }
+pyo3 = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+once_cell = { workspace = true }
+parking_lot = { workspace = true }

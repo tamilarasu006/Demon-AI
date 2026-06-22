@@ -1,0 +1,28 @@
+﻿[package]
+name = "DEMON-tools"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+DEMON-core = { path = "../DEMON-core" }
+DEMON-engine = { path = "../DEMON-engine" }
+DEMON-security = { path = "../DEMON-security" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tokio = { workspace = true }
+reqwest = { workspace = true }
+rusqlite = { workspace = true }
+regex = { workspace = true }
+once_cell = { workspace = true }
+uuid = { workspace = true }
+parking_lot = { workspace = true }
+meval = { workspace = true }
+sha2 = { workspace = true }
+chrono = { workspace = true }
+rig-core = { workspace = true }
+schemars = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3"

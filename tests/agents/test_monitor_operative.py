@@ -1,9 +1,9 @@
-﻿"""Tests for MonitorOperativeAgent."""
+"""Tests for MonitorOperativeAgent."""
 
 from unittest.mock import MagicMock
 
-from DEMON.agents.monitor_operative import MonitorOperativeAgent
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents.monitor_operative import MonitorOperativeAgent
+from OpenDEMON.core.registry import AgentRegistry
 
 
 def _make_engine(content: str = "Hello") -> MagicMock:
@@ -22,7 +22,7 @@ class TestMonitorOperativeAgent:
     def test_registration(self) -> None:
         # Import triggers registration; re-register after autouse fixture
         # clears the registry (same pattern as test_monitor.py)
-        import DEMON.agents.monitor_operative  # noqa: F401
+        import OpenDEMON.agents.monitor_operative  # noqa: F401
 
         if not AgentRegistry.contains("monitor_operative"):
             AgentRegistry.register_value("monitor_operative", MonitorOperativeAgent)

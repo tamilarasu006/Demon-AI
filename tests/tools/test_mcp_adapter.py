@@ -1,16 +1,16 @@
-﻿"""Tests for the MCP tool adapter — round-trip through MCPServer + MCPClient."""
+"""Tests for the MCP tool adapter — round-trip through MCPServer + MCPClient."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.mcp.client import MCPClient
-from DEMON.mcp.server import MCPServer
-from DEMON.mcp.transport import InProcessTransport
-from DEMON.tools._stubs import ToolSpec
-from DEMON.tools.calculator import CalculatorTool
-from DEMON.tools.mcp_adapter import MCPToolAdapter, MCPToolProvider
-from DEMON.tools.think import ThinkTool
+from OpenDEMON.mcp.client import MCPClient
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.mcp.transport import InProcessTransport
+from OpenDEMON.tools._stubs import ToolSpec
+from OpenDEMON.tools.calculator import CalculatorTool
+from OpenDEMON.tools.mcp_adapter import MCPToolAdapter, MCPToolProvider
+from OpenDEMON.tools.think import ThinkTool
 
 
 @pytest.fixture
@@ -103,7 +103,7 @@ class TestMCPToolProvider:
         assert "think" in names
 
     def test_discovered_tools_are_base_tool(self, client):
-        from DEMON.tools._stubs import BaseTool
+        from OpenDEMON.tools._stubs import BaseTool
 
         provider = MCPToolProvider(client)
         tools = provider.discover()

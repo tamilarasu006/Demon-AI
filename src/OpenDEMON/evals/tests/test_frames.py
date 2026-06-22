@@ -1,10 +1,10 @@
-﻿"""Tests for FRAMES scorer (judge prompt formatting and verdict parsing)."""
+"""Tests for FRAMES scorer (judge prompt formatting and verdict parsing)."""
 
 from __future__ import annotations
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.frames_judge import _GRADER_TEMPLATE, FRAMESScorer
-from DEMON.evals.tests.conftest import MockBackend
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.frames_judge import _GRADER_TEMPLATE, FRAMESScorer
+from OpenDEMON.evals.tests.conftest import MockBackend
 
 
 class TestGraderTemplate:

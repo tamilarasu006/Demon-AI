@@ -1,4 +1,4 @@
-﻿"""CLI commands for API key management."""
+"""CLI commands for API key management."""
 
 from __future__ import annotations
 
@@ -8,11 +8,11 @@ import stat
 
 import click
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     DEFAULT_CONFIG_DIR,
     DEFAULT_CONFIG_PATH,
 )
-from DEMON.server.auth_middleware import generate_api_key
+from OpenDEMON.server.auth_middleware import generate_api_key
 
 
 @click.group("auth")

@@ -1,4 +1,4 @@
-﻿"""Integration test for MiniMax cloud provider.
+"""Integration test for MiniMax cloud provider.
 
 Requires MINIMAX_API_KEY environment variable to be set.
 Run with: pytest tests/integration/test_minimax_cloud.py -v
@@ -10,9 +10,9 @@ import os
 
 import pytest
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine.cloud import CloudEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine.cloud import CloudEngine
 
 _MINIMAX_KEY = os.environ.get("MINIMAX_API_KEY", "")
 _skip_no_key = pytest.mark.skipif(

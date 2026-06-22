@@ -1,6 +1,6 @@
-﻿"""Tests for speech ABC and data types."""
+"""Tests for speech ABC and data types."""
 
-from DEMON.speech._stubs import Segment, SpeechBackend, TranscriptionResult
+from OpenDEMON.speech._stubs import Segment, SpeechBackend, TranscriptionResult
 
 
 def test_transcription_result():

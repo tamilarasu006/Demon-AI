@@ -1,4 +1,4 @@
-﻿"""``DEMON model`` — model management subcommands."""
+"""``DEMON model`` — model management subcommands."""
 
 from __future__ import annotations
 
@@ -12,11 +12,11 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from DEMON.core.config import load_config
-from DEMON.core.registry import ModelRegistry
-from DEMON.engine import discover_engines, discover_models
-from DEMON.intelligence import merge_discovered_models, register_builtin_models
-from DEMON.intelligence.model_catalog import BUILTIN_MODELS
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.registry import ModelRegistry
+from OpenDEMON.engine import discover_engines, discover_models
+from OpenDEMON.intelligence import merge_discovered_models, register_builtin_models
+from OpenDEMON.intelligence.model_catalog import BUILTIN_MODELS
 
 
 @click.group()

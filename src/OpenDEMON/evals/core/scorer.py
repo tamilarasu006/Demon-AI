@@ -1,12 +1,12 @@
-﻿"""Abstract base classes for scoring."""
+"""Abstract base classes for scoring."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.backend import InferenceBackend
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class Scorer(ABC):

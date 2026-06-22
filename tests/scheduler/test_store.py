@@ -1,10 +1,10 @@
-﻿"""Tests for SchedulerStore — SQLite CRUD for scheduled tasks and run logs."""
+"""Tests for SchedulerStore — SQLite CRUD for scheduled tasks and run logs."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.scheduler.store import SchedulerStore
+from OpenDEMON.scheduler.store import SchedulerStore
 
 
 @pytest.fixture()

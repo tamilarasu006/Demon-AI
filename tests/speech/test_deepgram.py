@@ -1,12 +1,12 @@
-﻿"""Tests for Deepgram speech backend."""
+"""Tests for Deepgram speech backend."""
 
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.core.registry import SpeechRegistry
-from DEMON.speech._stubs import TranscriptionResult
-from DEMON.speech.deepgram import DeepgramSpeechBackend
+from OpenDEMON.core.registry import SpeechRegistry
+from OpenDEMON.speech._stubs import TranscriptionResult
+from OpenDEMON.speech.deepgram import DeepgramSpeechBackend
 
 
 @pytest.fixture(autouse=True)
@@ -34,7 +34,7 @@ def test_deepgram_transcribe():
     mock_client.listen.rest.v.return_value.transcribe_file.return_value = mock_result
 
     with patch("DEMON.speech.deepgram.DeepgramClient", return_value=mock_client):
-        from DEMON.speech.deepgram import DeepgramSpeechBackend
+        from OpenDEMON.speech.deepgram import DeepgramSpeechBackend
 
         backend = DeepgramSpeechBackend(api_key="test-key")
         result = backend.transcribe(b"fake audio", format="wav")
@@ -45,7 +45,7 @@ def test_deepgram_transcribe():
 
 def test_deepgram_health():
     with patch("DEMON.speech.deepgram.DeepgramClient"):
-        from DEMON.speech.deepgram import DeepgramSpeechBackend
+        from OpenDEMON.speech.deepgram import DeepgramSpeechBackend
 
         backend = DeepgramSpeechBackend(api_key="test-key")
         assert backend.health() is True
@@ -53,7 +53,7 @@ def test_deepgram_health():
 
 def test_deepgram_health_no_key():
     with patch("DEMON.speech.deepgram.DeepgramClient"):
-        from DEMON.speech.deepgram import DeepgramSpeechBackend
+        from OpenDEMON.speech.deepgram import DeepgramSpeechBackend
 
         backend = DeepgramSpeechBackend.__new__(DeepgramSpeechBackend)
         backend._client = None

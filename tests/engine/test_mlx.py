@@ -1,4 +1,4 @@
-﻿"""Tests for the MLX engine (OpenAI-compatible)."""
+"""Tests for the MLX engine (OpenAI-compatible)."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.openai_compat_engines import MLXEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.openai_compat_engines import MLXEngine
 
 
 @pytest.fixture()

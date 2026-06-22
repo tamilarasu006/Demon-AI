@@ -1,4 +1,4 @@
-﻿"""Ollama inference engine backend."""
+"""Ollama inference engine backend."""
 
 from __future__ import annotations
 
@@ -10,15 +10,15 @@ from typing import Any, Dict, List
 
 import httpx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message
-from DEMON.engine._base import (
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message
+from OpenDEMON.engine._base import (
     EngineConnectionError,
     InferenceEngine,
     estimate_prompt_tokens,
     messages_to_dicts,
 )
-from DEMON.engine._stubs import StreamChunk
+from OpenDEMON.engine._stubs import StreamChunk
 
 logger = logging.getLogger(__name__)
 
@@ -104,7 +104,7 @@ class OllamaEngine(InferenceEngine):
         # Apply structured output / JSON mode
         response_format = kwargs.get("response_format")
         if response_format is not None:
-            from DEMON.engine._stubs import ResponseFormat
+            from OpenDEMON.engine._stubs import ResponseFormat
 
             if isinstance(response_format, ResponseFormat):
                 payload["format"] = "json"

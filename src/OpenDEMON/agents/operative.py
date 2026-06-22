@@ -1,4 +1,4 @@
-﻿"""OperativeAgent — persistent, scheduled agent for autonomous operation.
+"""OperativeAgent — persistent, scheduled agent for autonomous operation.
 
 Extends ToolUsingAgent with built-in session persistence and state recall.
 Designed for Operators: autonomous agents that run on a schedule with
@@ -11,12 +11,12 @@ import json
 import logging
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall, ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool
 
 logger = logging.getLogger(__name__)
 

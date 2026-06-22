@@ -1,4 +1,4 @@
-﻿"""TerminalBench task environment — per-task Docker lifecycle + test execution."""
+"""TerminalBench task environment — per-task Docker lifecycle + test execution."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 from types import TracebackType
 from typing import Any, MutableMapping, Optional, Type
 
-from DEMON.evals.core.environment import TaskEnvironmentError
+from OpenDEMON.evals.core.environment import TaskEnvironmentError
 
 LOGGER = logging.getLogger(__name__)
 

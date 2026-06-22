@@ -1,4 +1,4 @@
-﻿"""TerminalBench V2.1 scorer.
+"""TerminalBench V2.1 scorer.
 
 Two modes:
 
@@ -25,8 +25,8 @@ import uuid
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

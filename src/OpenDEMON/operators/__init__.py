@@ -1,7 +1,7 @@
-﻿"""Operators — persistent, scheduled autonomous agents."""
+"""Operators — persistent, scheduled autonomous agents."""
 
-from DEMON.operators.loader import load_operator
-from DEMON.operators.manager import OperatorManager
-from DEMON.operators.types import OperatorManifest
+from OpenDEMON.operators.loader import load_operator
+from OpenDEMON.operators.manager import OperatorManager
+from OpenDEMON.operators.types import OperatorManifest
 
 __all__ = ["OperatorManifest", "OperatorManager", "load_operator"]

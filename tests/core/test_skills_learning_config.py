@@ -1,9 +1,9 @@
-﻿"""Tests for SkillsLearningConfig and its wiring into LearningConfig."""
+"""Tests for SkillsLearningConfig and its wiring into LearningConfig."""
 
 from __future__ import annotations
 
-from DEMON.core.config import LearningConfig, SkillsLearningConfig
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.config import LearningConfig, SkillsLearningConfig
+from OpenDEMON.core.paths import get_config_dir
 
 
 class TestSkillsLearningConfig:

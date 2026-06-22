@@ -1,4 +1,4 @@
-﻿"""RBAC capability system — fine-grained permission model for tool dispatch."""
+"""RBAC capability system — fine-grained permission model for tool dispatch."""
 
 from __future__ import annotations
 
@@ -65,7 +65,7 @@ class CapabilityPolicy:
         self._policies: Dict[str, AgentPolicy] = {}
         self._default_deny = default_deny
 
-        from DEMON._rust_bridge import get_rust_module
+        from OpenDEMON._rust_bridge import get_rust_module
 
         _rust = get_rust_module()
         self._rust_impl = _rust.CapabilityPolicy(default_deny=default_deny)

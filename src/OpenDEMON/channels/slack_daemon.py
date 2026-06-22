@@ -1,4 +1,4 @@
-﻿"""Slack Socket Mode daemon — listens for DMs and responds with DeepResearch.
+"""Slack Socket Mode daemon — listens for DMs and responds with DeepResearch.
 
 Run as a standalone process or import start_slack_daemon() to spawn
 from the server. Uses slack-bolt for reliable Socket Mode handling.
@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 logger = logging.getLogger(__name__)
 
@@ -50,9 +50,9 @@ def run_slack_daemon(
     from slack_bolt import App
     from slack_bolt.adapter.socket_mode import SocketModeHandler
 
-    from DEMON.agents.deep_research import DeepResearchAgent
-    from DEMON.engine.ollama import OllamaEngine
-    from DEMON.server.agent_manager_routes import (
+    from OpenDEMON.agents.deep_research import DeepResearchAgent
+    from OpenDEMON.engine.ollama import OllamaEngine
+    from OpenDEMON.server.agent_manager_routes import (
         _build_deep_research_tools,
     )
 

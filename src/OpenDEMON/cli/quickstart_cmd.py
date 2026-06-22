@@ -1,4 +1,4 @@
-﻿"""``DEMON quickstart`` — guided 5-step setup for new users."""
+"""``DEMON quickstart`` — guided 5-step setup for new users."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import logging
 import click
 from rich.console import Console
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     DEFAULT_CONFIG_DIR,
     DEFAULT_CONFIG_PATH,
     detect_hardware,
@@ -21,10 +21,10 @@ logger = logging.getLogger(__name__)
 def _check_engine_health(engine_key: str) -> bool:
     """Return True if the recommended engine is reachable."""
     try:
-        import DEMON.engine  # noqa: F401 — trigger registration
-        from DEMON.core.config import load_config
-        from DEMON.core.registry import EngineRegistry
-        from DEMON.engine import _discovery
+        import OpenDEMON.engine  # noqa: F401 — trigger registration
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.core.registry import EngineRegistry
+        from OpenDEMON.engine import _discovery
 
         config = load_config()
         if engine_key not in EngineRegistry.keys():
@@ -39,9 +39,9 @@ def _check_engine_health(engine_key: str) -> bool:
 def _discover_healthy_engines() -> list[str]:
     """Return keys for all healthy engines discovered at runtime."""
     try:
-        import DEMON.engine  # noqa: F401 — trigger registration
-        from DEMON.core.config import load_config
-        from DEMON.engine import _discovery
+        import OpenDEMON.engine  # noqa: F401 — trigger registration
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.engine import _discovery
 
         config = load_config()
         return [key for key, _ in _discovery.discover_engines(config)]
@@ -53,9 +53,9 @@ def _discover_healthy_engines() -> list[str]:
 def _check_model_available(engine_key: str) -> bool:
     """Return True if at least one model is available on the engine."""
     try:
-        from DEMON.core.config import load_config
-        from DEMON.core.registry import EngineRegistry
-        from DEMON.engine import _discovery
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.core.registry import EngineRegistry
+        from OpenDEMON.engine import _discovery
 
         config = load_config()
         if engine_key not in EngineRegistry.keys():

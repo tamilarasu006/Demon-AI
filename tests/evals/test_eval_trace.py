@@ -1,10 +1,10 @@
-﻿"""Tests for QueryTrace and TurnTrace data model."""
+"""Tests for QueryTrace and TurnTrace data model."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.evals.core.trace import QueryTrace, TurnTrace
+from OpenDEMON.evals.core.trace import QueryTrace, TurnTrace
 
 
 class TestTurnTrace:

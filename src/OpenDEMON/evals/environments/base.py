@@ -1,4 +1,4 @@
-﻿"""Abstract base for multi-turn task environments."""
+"""Abstract base for multi-turn task environments."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import time
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.types import EvalRecord
 
 _THINK_TAG_RE = re.compile(r"<think>.*?</think>", re.DOTALL)
 

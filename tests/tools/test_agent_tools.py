@@ -1,10 +1,10 @@
-﻿"""Tests for inter-agent lifecycle tools."""
+"""Tests for inter-agent lifecycle tools."""
 
 from __future__ import annotations
 
 import json
 
-from DEMON.tools.agent_tools import (
+from OpenDEMON.tools.agent_tools import (
     _SPAWNED_AGENTS,
     AgentKillTool,
     AgentListTool,

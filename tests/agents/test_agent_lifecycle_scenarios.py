@@ -1,4 +1,4 @@
-﻿"""Agent lifecycle scenario tests.
+"""Agent lifecycle scenario tests.
 
 Twelve+ scenarios exercising the full managed-agent stack (manager, executor,
 scheduler) with real SQLite state and a scripted FakeEngine.
@@ -10,8 +10,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.agents.errors import RetryableError
-from DEMON.core.events import EventType
+from OpenDEMON.agents.errors import RetryableError
+from OpenDEMON.core.events import EventType
 from tests.agents.scenario_harness import ScenarioHarness
 
 # ---------------------------------------------------------------------------

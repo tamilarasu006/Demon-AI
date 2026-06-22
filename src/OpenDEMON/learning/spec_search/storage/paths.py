@@ -1,4 +1,4 @@
-﻿"""Filesystem path resolution for the spec-search subsystem.
+"""Filesystem path resolution for the spec-search subsystem.
 
 The keystone of artifact isolation (spec §11): the resolved spec-search root
 must NEVER be inside the DEMON source tree. ``resolve_spec_search_root``
@@ -13,8 +13,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.core.paths import ConfigurationError, get_config_dir
-from DEMON.security.file_utils import secure_mkdir
+from OpenDEMON.core.paths import ConfigurationError, get_config_dir
+from OpenDEMON.security.file_utils import secure_mkdir
 
 # ``ConfigurationError`` is re-exported from ``DEMON.core.paths`` (it used
 # to be defined here). Spec search now resolves the home dir through the unified

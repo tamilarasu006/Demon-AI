@@ -1,10 +1,10 @@
-﻿"""Tests for the pub/sub event bus."""
+"""Tests for the pub/sub event bus."""
 
 from __future__ import annotations
 
 import threading
 
-from DEMON.core.events import (
+from OpenDEMON.core.events import (
     Event,
     EventBus,
     EventType,
@@ -94,14 +94,14 @@ class TestEventBus:
 
 class TestAgentEventTypes:
     def test_agent_tick_events_exist(self):
-        from DEMON.core.events import EventType
+        from OpenDEMON.core.events import EventType
 
         assert EventType.AGENT_TICK_START
         assert EventType.AGENT_TICK_END
         assert EventType.AGENT_TICK_ERROR
 
     def test_agent_operational_events_exist(self):
-        from DEMON.core.events import EventType
+        from OpenDEMON.core.events import EventType
 
         assert EventType.AGENT_BUDGET_EXCEEDED
         assert EventType.AGENT_STALL_DETECTED

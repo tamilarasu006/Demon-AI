@@ -1,4 +1,4 @@
-﻿"""Tests for tool_calls extraction in _OpenAICompatibleEngine and OllamaEngine."""
+"""Tests for tool_calls extraction in _OpenAICompatibleEngine and OllamaEngine."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import json
 
 import httpx
 
-from DEMON.core.types import Message, Role
-from DEMON.engine._openai_compat import _OpenAICompatibleEngine
-from DEMON.engine.ollama import OllamaEngine
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._openai_compat import _OpenAICompatibleEngine
+from OpenDEMON.engine.ollama import OllamaEngine
 
 # ---------------------------------------------------------------------------
 # _OpenAICompatibleEngine tests

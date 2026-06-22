@@ -1,4 +1,4 @@
-﻿"""FastAPI routes for the morning digest."""
+"""FastAPI routes for the morning digest."""
 
 from __future__ import annotations
 
@@ -8,13 +8,13 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from DEMON.agents.digest_store import DigestStore
-from DEMON.cli.digest_cmd import (
+from OpenDEMON.agents.digest_store import DigestStore
+from OpenDEMON.cli.digest_cmd import (
     _cancel_scheduler_tasks,
     _create_scheduler_task,
     _save_digest_schedule,
 )
-from DEMON.core.config import load_config
+from OpenDEMON.core.config import load_config
 
 
 class ScheduleUpdate(BaseModel):
@@ -65,7 +65,7 @@ def create_digest_router(*, db_path: str = "") -> APIRouter:
     async def generate_digest():
         """Force re-generation of the digest."""
         try:
-            from DEMON.sdk import DEMON
+            from OpenDEMON.sdk import DEMON
 
             with DEMON() as j:
                 result = j.ask("Generate my morning digest", agent="morning_digest")

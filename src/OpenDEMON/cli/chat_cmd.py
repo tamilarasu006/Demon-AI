@@ -1,4 +1,4 @@
-﻿"""``DEMON chat`` — interactive multi-turn chat REPL."""
+"""``DEMON chat`` — interactive multi-turn chat REPL."""
 
 from __future__ import annotations
 
@@ -9,9 +9,9 @@ import click
 from rich.console import Console
 from rich.markdown import Markdown
 
-from DEMON.cli._tool_names import resolve_tool_names
-from DEMON.core.config import load_config
-from DEMON.core.types import Message, Role
+from OpenDEMON.cli._tool_names import resolve_tool_names
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.types import Message, Role
 
 
 def _read_input(prompt: str = "You> ") -> Optional[str]:
@@ -67,8 +67,8 @@ def chat(
     )
 
     # Resolve engine
-    from DEMON.engine import get_engine
-    from DEMON.intelligence import register_builtin_models
+    from OpenDEMON.engine import get_engine
+    from OpenDEMON.intelligence import register_builtin_models
 
     register_builtin_models()
 
@@ -80,7 +80,7 @@ def chat(
     engine_name, engine = resolved
     model = model_name or config.intelligence.default_model
     if not model:
-        from DEMON.engine import discover_engines, discover_models
+        from OpenDEMON.engine import discover_engines, discover_models
 
         all_engines = discover_engines(config)
         all_models = discover_models(all_engines)
@@ -96,9 +96,9 @@ def chat(
     agent_key = agent_name or config.agent.default_agent
     if agent_key and agent_key != "none":
         try:
-            import DEMON.agents  # noqa: F401 — trigger registration
-            from DEMON.core.events import EventBus
-            from DEMON.core.registry import AgentRegistry
+            import OpenDEMON.agents  # noqa: F401 — trigger registration
+            from OpenDEMON.core.events import EventBus
+            from OpenDEMON.core.registry import AgentRegistry
 
             if AgentRegistry.contains(agent_key):
                 agent_cls = AgentRegistry.get(agent_key)
@@ -111,9 +111,9 @@ def chat(
                         getattr(config.agent, "tools", None),
                     )
                     if tool_names_list:
-                        import DEMON.tools  # noqa: F401 — trigger registration
-                        from DEMON.core.registry import ToolRegistry
-                        from DEMON.tools._stubs import BaseTool
+                        import OpenDEMON.tools  # noqa: F401 — trigger registration
+                        from OpenDEMON.core.registry import ToolRegistry
+                        from OpenDEMON.tools._stubs import BaseTool
 
                         tool_instances = []
                         for tname in tool_names_list:
@@ -146,7 +146,7 @@ def chat(
                     "prompt_builder"
                     in _inspect.signature(agent_cls.__init__).parameters
                 ):
-                    from DEMON.prompt.builder import SystemPromptBuilder
+                    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
                     kwargs["prompt_builder"] = SystemPromptBuilder(
                         agent_template=config.agent.default_system_prompt or "",
@@ -167,21 +167,21 @@ def chat(
     )
 
     # Background-work status banner (disappears after first user message)
-    from DEMON.cli._bg_state import get_status
-    from DEMON.cli._chat_banner import render_startup_banner
+    from OpenDEMON.cli._bg_state import get_status
+    from OpenDEMON.cli._chat_banner import render_startup_banner
 
     _banner = render_startup_banner(get_status())
     if _banner:
         console.print(f"[dim cyan]{_banner}[/dim cyan]")
 
     # Completion-notification dispatcher (fires once per task per session)
-    from DEMON.cli._chat_notifications import NotificationDispatcher
+    from OpenDEMON.cli._chat_notifications import NotificationDispatcher
 
     _notifications = NotificationDispatcher(get_status())
 
     # Conversation state
     if not system_prompt:
-        from DEMON.prompt.builder import SystemPromptBuilder
+        from OpenDEMON.prompt.builder import SystemPromptBuilder
 
         builder = SystemPromptBuilder(
             agent_template=config.agent.default_system_prompt or "",

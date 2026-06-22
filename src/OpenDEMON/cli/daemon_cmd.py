@@ -1,4 +1,4 @@
-﻿"""``DEMON start|stop|restart|status`` — daemon management commands."""
+"""``DEMON start|stop|restart|status`` — daemon management commands."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import time
 import click
 from rich.console import Console
 
-from DEMON.core.config import DEFAULT_CONFIG_DIR, load_config
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR, load_config
 
 _PID_FILE = DEFAULT_CONFIG_DIR / "server.pid"
 _LOG_FILE = DEFAULT_CONFIG_DIR / "server.log"

@@ -1,4 +1,4 @@
-﻿"""Tests for LearningOrchestrator opt-in skill optimization (Plan 2A)."""
+"""Tests for LearningOrchestrator opt-in skill optimization (Plan 2A)."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ class TestOrchestratorSkillAutoOptimize:
     def test_auto_optimize_disabled_by_default_does_not_call_skill_optimizer(
         self, tmp_path: Path
     ) -> None:
-        from DEMON.learning.learning_orchestrator import (
+        from OpenDEMON.learning.learning_orchestrator import (
             LearningOrchestrator,
         )
 
@@ -29,7 +29,7 @@ class TestOrchestratorSkillAutoOptimize:
             mock_optimize.assert_not_called()
 
     def test_auto_optimize_enabled_calls_skill_optimizer(self, tmp_path: Path) -> None:
-        from DEMON.learning.learning_orchestrator import (
+        from OpenDEMON.learning.learning_orchestrator import (
             LearningOrchestrator,
         )
 
@@ -64,7 +64,7 @@ class TestOrchestratorRunSkillTrigger:
         return store
 
     def _make_config(self, *, auto_optimize: bool):
-        from DEMON.core.config import (
+        from OpenDEMON.core.config import (
             DEMONConfig,
             LearningConfig,
             SkillsLearningConfig,
@@ -82,7 +82,7 @@ class TestOrchestratorRunSkillTrigger:
     def test_run_does_not_call_skill_optimizer_when_disabled(
         self, tmp_path: Path
     ) -> None:
-        from DEMON.learning.learning_orchestrator import (
+        from OpenDEMON.learning.learning_orchestrator import (
             LearningOrchestrator,
         )
 
@@ -105,10 +105,10 @@ class TestOrchestratorRunSkillTrigger:
     def test_run_calls_skill_optimizer_when_enabled(
         self, tmp_path: Path
     ) -> None:
-        from DEMON.learning.agents.skill_optimizer import (
+        from OpenDEMON.learning.agents.skill_optimizer import (
             SkillOptimizationResult,
         )
-        from DEMON.learning.learning_orchestrator import (
+        from OpenDEMON.learning.learning_orchestrator import (
             LearningOrchestrator,
         )
 

@@ -1,4 +1,4 @@
-﻿"""Tools-pillar appliers: add/remove tools, edit descriptions.
+"""Tools-pillar appliers: add/remove tools, edit descriptions.
 
 See spec §4.1 op semantics for tool ops.
 """
@@ -7,13 +7,13 @@ from __future__ import annotations
 
 import re
 
-from DEMON.learning.spec_search.execute.base import (
+from OpenDEMON.learning.spec_search.execute.base import (
     ApplyContext,
     ApplyResult,
     EditApplier,
     ValidationResult,
 )
-from DEMON.learning.spec_search.models import Edit, EditOp
+from OpenDEMON.learning.spec_search.models import Edit, EditOp
 
 
 class AddToolToAgentApplier(EditApplier):

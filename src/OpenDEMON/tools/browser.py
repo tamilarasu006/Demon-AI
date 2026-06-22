@@ -1,13 +1,13 @@
-﻿"""Browser automation tools — Playwright-based web interaction."""
+"""Browser automation tools — Playwright-based web interaction."""
 
 from __future__ import annotations
 
 import base64
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 class _BrowserSession:
@@ -104,7 +104,7 @@ class BrowserNavigateTool(BaseTool):
         # SSRF check — never skipped. check_ssrf falls back to a pure-Python
         # implementation when the Rust backend is unavailable, so an
         # uncompiled extension must not silently disable SSRF protection.
-        from DEMON.security.ssrf import check_ssrf
+        from OpenDEMON.security.ssrf import check_ssrf
 
         ssrf_error = check_ssrf(url)
         if ssrf_error:

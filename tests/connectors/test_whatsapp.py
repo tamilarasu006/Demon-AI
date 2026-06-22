@@ -1,12 +1,12 @@
-﻿"""Tests for the WhatsApp chat export connector."""
+"""Tests for the WhatsApp chat export connector."""
 
 from __future__ import annotations
 
 from datetime import datetime, timezone
 from pathlib import Path
 
-from DEMON.connectors.whatsapp import WhatsAppConnector
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors.whatsapp import WhatsAppConnector
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -184,7 +184,7 @@ def test_sync_status_after_sync(tmp_path: Path) -> None:
 
 def test_registry_registration() -> None:
     """WhatsAppConnector is registered under 'whatsapp' in ConnectorRegistry."""
-    from DEMON.connectors.whatsapp import WhatsAppConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.whatsapp import WhatsAppConnector  # noqa: PLC0415
 
     ConnectorRegistry.register_value("whatsapp", WhatsAppConnector)
     assert ConnectorRegistry.contains("whatsapp")

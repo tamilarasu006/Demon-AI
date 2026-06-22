@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.analytics.redaction.
+"""Tests for DEMON.analytics.redaction.
 
 Two layers of guarantee are tested here:
   - Value-level: ``redact()`` drops string values that match any PII
@@ -15,12 +15,12 @@ from __future__ import annotations
 
 import pytest
 
-from DEMON.analytics.events import (
+from OpenDEMON.analytics.events import (
     REGISTRY,
     known_event_names,
     validate_event,
 )
-from DEMON.analytics.redaction import (
+from OpenDEMON.analytics.redaction import (
     MAX_STR_LEN,
     hash_id,
     looks_like_pii,

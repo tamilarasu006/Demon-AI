@@ -1,4 +1,4 @@
-﻿"""Detect how DEMON was installed so we can show the right upgrade
+"""Detect how DEMON was installed so we can show the right upgrade
 command (and run the right upgrade command for ``DEMON self-update``).
 
 Three install paths are supported today:
@@ -44,7 +44,7 @@ def detect_install() -> InstallInfo:
     try:
         import DEMON
 
-        pkg_file = Path(DEMON.__file__).resolve()
+        pkg_file = Path(OpenDEMON.__file__).resolve()
     except Exception:
         return InstallInfo(
             kind="unknown",

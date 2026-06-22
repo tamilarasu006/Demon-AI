@@ -1,4 +1,4 @@
-﻿"""End-to-end test: create agent from template, add task, verify state."""
+"""End-to-end test: create agent from template, add task, verify state."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.agents.manager import AgentManager
+from OpenDEMON.agents.manager import AgentManager
 
 
 @pytest.fixture

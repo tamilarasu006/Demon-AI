@@ -1,16 +1,16 @@
-﻿"""Tests for the MCP client."""
+"""Tests for the MCP client."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.mcp.client import MCPClient
-from DEMON.mcp.protocol import MCPError
-from DEMON.mcp.server import MCPServer
-from DEMON.mcp.transport import InProcessTransport
-from DEMON.tools._stubs import ToolSpec
-from DEMON.tools.calculator import CalculatorTool
-from DEMON.tools.think import ThinkTool
+from OpenDEMON.mcp.client import MCPClient
+from OpenDEMON.mcp.protocol import MCPError
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.mcp.transport import InProcessTransport
+from OpenDEMON.tools._stubs import ToolSpec
+from OpenDEMON.tools.calculator import CalculatorTool
+from OpenDEMON.tools.think import ThinkTool
 
 
 @pytest.fixture

@@ -1,4 +1,4 @@
-﻿"""``DEMON optimize`` — LLM-driven configuration optimization CLI."""
+"""``DEMON optimize`` — LLM-driven configuration optimization CLI."""
 
 from __future__ import annotations
 
@@ -14,8 +14,8 @@ from rich.table import Table
 def _get_trace_store():
     """Return a TraceStore from user config, or None on failure."""
     try:
-        from DEMON.core.config import load_config
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.traces.store import TraceStore
 
         cfg = load_config()
         return TraceStore(cfg.traces.db_path)
@@ -84,7 +84,7 @@ def optimize_run(
     data = None
     if config_path is not None:
         try:
-            from DEMON.learning.optimize.config import load_optimize_config
+            from OpenDEMON.learning.optimize.config import load_optimize_config
         except ImportError:
             console.print("[red]Optimization framework not available.[/red]")
             sys.exit(1)
@@ -106,7 +106,7 @@ def optimize_run(
     benchmark_specs = None
     if data is not None:
         try:
-            from DEMON.learning.optimize.config import load_benchmark_specs
+            from OpenDEMON.learning.optimize.config import load_benchmark_specs
 
             specs = load_benchmark_specs(data)
             if len(specs) > 1:
@@ -135,16 +135,16 @@ def optimize_run(
     console.print(f"[cyan]Max samples/trial:[/cyan] {max_samples}")
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.learning.optimize.config import load_objectives
-        from DEMON.learning.optimize.llm_optimizer import LLMOptimizer
-        from DEMON.learning.optimize.optimizer import OptimizationEngine
-        from DEMON.learning.optimize.search_space import (
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.learning.optimize.config import load_objectives
+        from OpenDEMON.learning.optimize.llm_optimizer import LLMOptimizer
+        from OpenDEMON.learning.optimize.optimizer import OptimizationEngine
+        from OpenDEMON.learning.optimize.search_space import (
             DEFAULT_SEARCH_SPACE,
             build_search_space,
         )
-        from DEMON.learning.optimize.store import OptimizationStore
-        from DEMON.learning.optimize.trial_runner import (
+        from OpenDEMON.learning.optimize.store import OptimizationStore
+        from OpenDEMON.learning.optimize.trial_runner import (
             MultiBenchTrialRunner,
             TrialRunner,
         )
@@ -164,7 +164,7 @@ def optimize_run(
         # Build optimizer backend for cloud LLM
         optimizer_backend = None
         try:
-            from DEMON.evals.cli import _build_judge_backend
+            from OpenDEMON.evals.cli import _build_judge_backend
 
             optimizer_backend = _build_judge_backend(optimizer_model)
         except Exception:
@@ -240,8 +240,8 @@ def optimize_status() -> None:
     console = Console()
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.learning.optimize.store import OptimizationStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.learning.optimize.store import OptimizationStore
 
         db_path = DEFAULT_CONFIG_DIR / "optimize.db"
         if not db_path.exists():
@@ -288,8 +288,8 @@ def optimize_results(run_id: str) -> None:
     console = Console()
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.learning.optimize.store import OptimizationStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.learning.optimize.store import OptimizationStore
 
         db_path = DEFAULT_CONFIG_DIR / "optimize.db"
         if not db_path.exists():
@@ -357,9 +357,9 @@ def optimize_best(run_id: str, output: Optional[str]) -> None:
     console = Console()
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.learning.optimize.optimizer import OptimizationEngine
-        from DEMON.learning.optimize.store import OptimizationStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.learning.optimize.optimizer import OptimizationEngine
+        from OpenDEMON.learning.optimize.store import OptimizationStore
 
         db_path = DEFAULT_CONFIG_DIR / "optimize.db"
         if not db_path.exists():
@@ -457,9 +457,9 @@ def skills(policy: str, min_traces: int, dry_run: bool) -> None:
     from rich.console import Console
     from rich.table import Table
 
-    from DEMON.core.events import EventBus
-    from DEMON.learning.agents.skill_optimizer import SkillOptimizer
-    from DEMON.skills.manager import SkillManager
+    from OpenDEMON.core.events import EventBus
+    from OpenDEMON.learning.agents.skill_optimizer import SkillOptimizer
+    from OpenDEMON.skills.manager import SkillManager
 
     console = Console()
     store = _get_trace_store()

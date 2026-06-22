@@ -1,4 +1,4 @@
-﻿"""SkillOptimizer — per-skill DSPy/GEPA optimization wrapper (Plan 2A).
+"""SkillOptimizer — per-skill DSPy/GEPA optimization wrapper (Plan 2A).
 
 Buckets traces by skill name, runs the underlying optimizer on each skill's
 bucket, and writes the result as a sidecar overlay file in
@@ -19,10 +19,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.paths import get_config_dir
-from DEMON.core.types import Trace, TraceStep
-from DEMON.skills.manager import SkillManager
-from DEMON.skills.overlay import SkillOverlay, write_overlay
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.types import Trace, TraceStep
+from OpenDEMON.skills.manager import SkillManager
+from OpenDEMON.skills.overlay import SkillOverlay, write_overlay
 
 LOGGER = logging.getLogger(__name__)
 
@@ -86,7 +86,7 @@ class SkillOptimizer:
         if overlay_dir is None:
             # Try config first; fall back to the default tree.
             try:
-                from DEMON.core.config import load_config
+                from OpenDEMON.core.config import load_config
 
                 cfg = load_config()
                 cfg_dir = getattr(
@@ -201,8 +201,8 @@ class SkillOptimizer:
         optimizer's output `system_prompt` as the new skill description if
         non-empty.  Plan 2B will measure and refine.
         """
-        from DEMON.core.config import DSPyOptimizerConfig
-        from DEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
+        from OpenDEMON.core.config import DSPyOptimizerConfig
+        from OpenDEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
 
         cfg = DSPyOptimizerConfig(
             min_traces=max(1, self._min_traces),
@@ -260,8 +260,8 @@ class SkillOptimizer:
         skill_traces: List[Trace],
     ) -> _OptimizerOutput:
         """Run GEPAAgentOptimizer on the bucket.  Same shape as _run_dspy."""
-        from DEMON.core.config import GEPAOptimizerConfig
-        from DEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
+        from OpenDEMON.core.config import GEPAOptimizerConfig
+        from OpenDEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
 
         cfg = GEPAOptimizerConfig(min_traces=max(1, self._min_traces))
         optimizer = GEPAAgentOptimizer(cfg)

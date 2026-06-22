@@ -1,4 +1,4 @@
-﻿"""Google Drive connector — bulk file sync via the Drive REST API v3.
+"""Google Drive connector — bulk file sync via the Drive REST API v3.
 
 Uses OAuth 2.0 tokens stored locally (see :mod:`DEMON.connectors.oauth`).
 All network calls are isolated in module-level functions (``_gdrive_api_*``)
@@ -12,9 +12,9 @@ from typing import Any, Dict, Iterator, List, Optional
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.connectors.google_auth import call_with_refresh
-from DEMON.connectors.oauth import (
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.connectors.google_auth import call_with_refresh
+from OpenDEMON.connectors.oauth import (
     GOOGLE_ALL_SCOPES,
     build_google_auth_url,
     delete_tokens,
@@ -22,9 +22,9 @@ from DEMON.connectors.oauth import (
     resolve_google_credentials,
     save_tokens,
 )
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 # ---------------------------------------------------------------------------
 # Constants

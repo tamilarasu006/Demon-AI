@@ -1,4 +1,4 @@
-﻿"""Live smoke test — full pipeline with real markdown files.
+"""Live smoke test — full pipeline with real markdown files.
 
 NOT mocked. Uses the actual DEMON docs/ directory as an Obsidian-like vault.
 Exercises: ObsidianConnector → SyncEngine → KnowledgeStore → knowledge_search tool.
@@ -11,11 +11,11 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.connectors.obsidian import ObsidianConnector
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.connectors.sync_engine import SyncEngine
-from DEMON.tools.knowledge_search import KnowledgeSearchTool
+from OpenDEMON.connectors.obsidian import ObsidianConnector
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors.sync_engine import SyncEngine
+from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
 
 # Use the real DEMON docs directory
 DOCS_DIR = Path(__file__).resolve().parents[2] / "docs"

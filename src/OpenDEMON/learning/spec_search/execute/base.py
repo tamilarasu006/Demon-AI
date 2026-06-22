@@ -1,4 +1,4 @@
-﻿"""EditApplier ABC, registry, and context types for the execute phase.
+"""EditApplier ABC, registry, and context types for the execute phase.
 
 Each concrete applier implements validate/apply/rollback for a single EditOp.
 Appliers are registered in an EditApplierRegistry keyed by EditOp.
@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import ClassVar
 
-from DEMON.learning.spec_search.models import Edit, EditOp
+from OpenDEMON.learning.spec_search.models import Edit, EditOp
 
 
 @dataclass

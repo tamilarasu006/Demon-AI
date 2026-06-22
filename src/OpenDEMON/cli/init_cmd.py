@@ -1,4 +1,4 @@
-﻿"""``DEMON init`` — detect hardware, generate config, write to disk."""
+"""``DEMON init`` — detect hardware, generate config, write to disk."""
 
 from __future__ import annotations
 
@@ -11,11 +11,11 @@ from rich.console import Console
 from rich.markup import escape
 from rich.panel import Panel
 
-from DEMON.cli._banner import print_banner
-from DEMON.cli._bootstrap import detect_cloud_keys
-from DEMON.cli.model import find_model_spec, hf_download, ollama_pull
-from DEMON.cli.scan_cmd import PrivacyScanner
-from DEMON.core.config import (
+from OpenDEMON.cli._banner import print_banner
+from OpenDEMON.cli._bootstrap import detect_cloud_keys
+from OpenDEMON.cli.model import find_model_spec, hf_download, ollama_pull
+from OpenDEMON.cli.scan_cmd import PrivacyScanner
+from OpenDEMON.core.config import (
     DEFAULT_CONFIG_DIR,
     DEFAULT_CONFIG_PATH,
     _available_memory_gb,

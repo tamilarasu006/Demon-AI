@@ -1,12 +1,12 @@
-﻿"""Deepgram speech-to-text backend (cloud)."""
+"""Deepgram speech-to-text backend (cloud)."""
 
 from __future__ import annotations
 
 import os
 from typing import List, Optional
 
-from DEMON.core.registry import SpeechRegistry
-from DEMON.speech._stubs import SpeechBackend, TranscriptionResult
+from OpenDEMON.core.registry import SpeechRegistry
+from OpenDEMON.speech._stubs import SpeechBackend, TranscriptionResult
 
 try:
     from deepgram import DeepgramClient, PrerecordedOptions

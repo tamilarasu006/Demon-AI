@@ -1,9 +1,9 @@
-﻿"""Tests for prompt injection scanner."""
+"""Tests for prompt injection scanner."""
 
 from __future__ import annotations
 
-from DEMON.security.injection_scanner import InjectionScanner
-from DEMON.security.types import ThreatLevel
+from OpenDEMON.security.injection_scanner import InjectionScanner
+from OpenDEMON.security.types import ThreatLevel
 
 
 class TestInjectionScanner:

@@ -1,4 +1,4 @@
-﻿"""Shared fixtures for server route tests.
+"""Shared fixtures for server route tests.
 
 Server tests build apps via ``create_app``, which (with traces enabled by
 default) wires a ``TraceStore`` at the real ``~/.DEMON/traces.db``. Now
@@ -20,7 +20,7 @@ def _isolate_traces_db(tmp_path, monkeypatch):
     wrapping it to rewrite ``traces.db_path`` only affects calls made during
     the test — there is no global leak.
     """
-    from DEMON.core import config as _config
+    from OpenDEMON.core import config as _config
 
     real_load_config = _config.load_config
     db_path = str(tmp_path / "traces.db")

@@ -1,8 +1,8 @@
-﻿"""Tests for SystemPromptBuilder skill few-shot injection (Plan 2A)."""
+"""Tests for SystemPromptBuilder skill few-shot injection (Plan 2A)."""
 
 from __future__ import annotations
 
-from DEMON.prompt.builder import SystemPromptBuilder
+from OpenDEMON.prompt.builder import SystemPromptBuilder
 
 
 class TestSystemPromptBuilderFewShot:

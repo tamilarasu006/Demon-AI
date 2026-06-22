@@ -1,4 +1,4 @@
-﻿"""PaperArena: scientific literature reasoning benchmark.
+"""PaperArena: scientific literature reasoning benchmark.
 
 Evaluates agents on research paper comprehension with three question types:
 MC (multiple choice), CA (closed answer), OA (open answer) across
@@ -15,9 +15,9 @@ import random
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 logger = logging.getLogger(__name__)
 

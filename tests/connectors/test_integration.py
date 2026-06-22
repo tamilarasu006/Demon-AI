@@ -1,4 +1,4 @@
-﻿"""Integration test: Obsidian vault → SyncEngine → KnowledgeStore → knowledge_search."""
+"""Integration test: Obsidian vault → SyncEngine → KnowledgeStore → knowledge_search."""
 
 from __future__ import annotations
 
@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.connectors.obsidian import ObsidianConnector
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.connectors.sync_engine import SyncEngine
-from DEMON.tools.knowledge_search import KnowledgeSearchTool
+from OpenDEMON.connectors.obsidian import ObsidianConnector
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors.sync_engine import SyncEngine
+from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
 
 # ---------------------------------------------------------------------------
 # Fixtures

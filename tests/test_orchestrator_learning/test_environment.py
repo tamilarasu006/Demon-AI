@@ -1,15 +1,15 @@
-﻿"""Tests for orchestrator RL environment."""
+"""Tests for orchestrator RL environment."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.types import ToolResult
-from DEMON.learning.intelligence.orchestrator.environment import (
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.learning.intelligence.orchestrator.environment import (
     OrchestratorEnvironment,
 )
-from DEMON.learning.intelligence.orchestrator.types import OrchestratorAction
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.learning.intelligence.orchestrator.types import OrchestratorAction
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # -- Mock tool ---------------------------------------------------------------
 

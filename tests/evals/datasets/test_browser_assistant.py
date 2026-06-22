@@ -1,6 +1,6 @@
-﻿"""Tests for the browser_assistant dataset."""
+"""Tests for the browser_assistant dataset."""
 
-from DEMON.evals.datasets.browser_assistant import (
+from OpenDEMON.evals.datasets.browser_assistant import (
     BrowserAssistantDataset,
 )
 

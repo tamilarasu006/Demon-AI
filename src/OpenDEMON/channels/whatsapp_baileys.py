@@ -1,4 +1,4 @@
-﻿"""WhatsAppBaileysChannel -- bidirectional WhatsApp messaging via Baileys protocol.
+"""WhatsAppBaileysChannel -- bidirectional WhatsApp messaging via Baileys protocol.
 
 Spawns a Node.js subprocess that runs the Baileys bridge (JSON-line protocol
 on stdio).  The bridge handles QR-code authentication, message sending, and
@@ -15,15 +15,15 @@ import threading
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.channels._stubs import (
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelHandler,
     ChannelMessage,
     ChannelStatus,
 )
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import ChannelRegistry
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""Tests for the EvalRunner."""
+"""Tests for the EvalRunner."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ import json
 
 import pytest
 
-from DEMON.evals.core.runner import (
+from OpenDEMON.evals.core.runner import (
     EvalRunner,
     _metric_stats,
     _metric_stats_to_dict,
 )
-from DEMON.evals.core.types import EvalRecord, MetricStats, RunConfig
-from DEMON.evals.tests.conftest import MockBackend, MockDataset, MockScorer
+from OpenDEMON.evals.core.types import EvalRecord, MetricStats, RunConfig
+from OpenDEMON.evals.tests.conftest import MockBackend, MockDataset, MockScorer
 
 
 class TestEvalRunner:

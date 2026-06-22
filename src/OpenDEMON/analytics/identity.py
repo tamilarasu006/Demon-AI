@@ -1,4 +1,4 @@
-﻿"""Anonymous identity for external analytics.
+"""Anonymous identity for external analytics.
 
 One UUID v4 per install, persisted to disk on first use. The same file
 is referenced by ``scripts/install/install.sh`` so install-time beacon
@@ -12,7 +12,7 @@ from __future__ import annotations
 import uuid
 from pathlib import Path
 
-from DEMON.core.config import AnalyticsConfig
+from OpenDEMON.core.config import AnalyticsConfig
 
 
 def get_or_create_anon_id(path: Path | str) -> str:

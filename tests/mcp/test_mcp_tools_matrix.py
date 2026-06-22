@@ -1,14 +1,14 @@
-﻿"""Matrix tests — verify every built-in tool is discoverable and callable via MCP."""
+"""Matrix tests — verify every built-in tool is discoverable and callable via MCP."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.mcp.client import MCPClient
-from DEMON.mcp.server import MCPServer
-from DEMON.mcp.transport import InProcessTransport
-from DEMON.tools.calculator import CalculatorTool
-from DEMON.tools.think import ThinkTool
+from OpenDEMON.mcp.client import MCPClient
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.mcp.transport import InProcessTransport
+from OpenDEMON.tools.calculator import CalculatorTool
+from OpenDEMON.tools.think import ThinkTool
 
 # Tool configs: (tool_class, call_arguments, expected_substring)
 _TOOL_CONFIGS = {

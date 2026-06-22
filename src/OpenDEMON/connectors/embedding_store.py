@@ -1,4 +1,4 @@
-﻿"""EmbeddingStore --- disk-persistent ColBERT token-level embeddings.
+"""EmbeddingStore --- disk-persistent ColBERT token-level embeddings.
 
 Stores per-chunk ColBERTv2 token embeddings as individual ``.pt`` files on
 disk with a SQLite index for O(1) chunk_id lookups.  Designed to be used by
@@ -51,7 +51,7 @@ class EmbeddingStore:
 
     def __init__(self, store_dir: str = "") -> None:
         if not store_dir:
-            from DEMON.core.config import DEFAULT_CONFIG_DIR
+            from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
             store_dir = str(DEFAULT_CONFIG_DIR / "embeddings")
 

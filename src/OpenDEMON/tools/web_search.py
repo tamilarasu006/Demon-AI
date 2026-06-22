@@ -1,4 +1,4 @@
-﻿"""Web search tool — Tavily API with DuckDuckGo fallback."""
+"""Web search tool — Tavily API with DuckDuckGo fallback."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ import logging
 import os
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.security.ssrf import check_ssrf
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.security.ssrf import check_ssrf
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 logger = logging.getLogger(__name__)
 

@@ -1,10 +1,10 @@
-﻿"""Tests for the skills overlay loader/writer (Plan 2A)."""
+"""Tests for the skills overlay loader/writer (Plan 2A)."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.skills.overlay import (
+from OpenDEMON.skills.overlay import (
     SkillOverlay,
     SkillOverlayLoader,
     write_overlay,

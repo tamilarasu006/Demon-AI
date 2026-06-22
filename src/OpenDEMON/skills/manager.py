@@ -1,4 +1,4 @@
-﻿"""SkillManager — coordinates skill discovery, catalog, tool wrapping, and execution."""
+"""SkillManager — coordinates skill discovery, catalog, tool wrapping, and execution."""
 
 from __future__ import annotations
 
@@ -6,14 +6,14 @@ import html
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.events import EventBus
-from DEMON.core.paths import get_config_dir
-from DEMON.skills.dependency import validate_dependencies
-from DEMON.skills.executor import SkillExecutor, SkillResult
-from DEMON.skills.loader import discover_skills
-from DEMON.skills.tool_adapter import SkillTool
-from DEMON.skills.types import SkillManifest
-from DEMON.tools._stubs import BaseTool, ToolExecutor
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.skills.dependency import validate_dependencies
+from OpenDEMON.skills.executor import SkillExecutor, SkillResult
+from OpenDEMON.skills.loader import discover_skills
+from OpenDEMON.skills.tool_adapter import SkillTool
+from OpenDEMON.skills.types import SkillManifest
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor
 
 
 class SkillManager:
@@ -42,7 +42,7 @@ class SkillManager:
             # Try to read from config first; fall back to the default
             # ~/.DEMON/learning/skills/ if config can't be loaded.
             try:
-                from DEMON.core.config import load_config
+                from OpenDEMON.core.config import load_config
 
                 cfg = load_config()
                 cfg_dir = getattr(
@@ -102,7 +102,7 @@ class SkillManager:
 
         Bad overlays are silently ignored — they should not break discovery.
         """
-        from DEMON.skills.overlay import SkillOverlayLoader
+        from OpenDEMON.skills.overlay import SkillOverlayLoader
 
         loader = SkillOverlayLoader(self._overlay_dir)
         for name, manifest in self._skills.items():
@@ -253,7 +253,7 @@ class SkillManager:
         hyphens, no underscores) so the resulting manifests load cleanly
         through the discovery walker.
         """
-        from DEMON.learning.agents.skill_discovery import SkillDiscovery
+        from OpenDEMON.learning.agents.skill_discovery import SkillDiscovery
 
         traces = trace_store.list_traces(limit=10000)
         discovery = SkillDiscovery(
@@ -394,7 +394,7 @@ class SkillManager:
                     continue
                 # Fall back to parsed manifest name
                 try:
-                    from DEMON.skills.loader import load_skill_directory
+                    from OpenDEMON.skills.loader import load_skill_directory
 
                     manifest = load_skill_directory(candidate)
                     if manifest is not None and manifest.name == name:

@@ -1,10 +1,10 @@
-﻿"""Tests for the SkillParser strict + tolerant passes."""
+"""Tests for the SkillParser strict + tolerant passes."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.skills.parser import SkillParseError, SkillParser
+from OpenDEMON.skills.parser import SkillParseError, SkillParser
 
 
 class TestStrictRequiredFields:

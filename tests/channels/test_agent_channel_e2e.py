@@ -1,4 +1,4 @@
-﻿"""Agent-channel E2E tests — using WebChatChannel (in-memory, no external deps)."""
+"""Agent-channel E2E tests — using WebChatChannel (in-memory, no external deps)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from tests.agents.scenario_harness import ScenarioHarness
 
 def test_agent_sends_to_webchat(scenario_harness: ScenarioHarness):
     """Agent runs and completes tick with WebChatChannel available."""
-    from DEMON.channels.webchat import WebChatChannel
+    from OpenDEMON.channels.webchat import WebChatChannel
 
     h = scenario_harness
     webchat = WebChatChannel()
@@ -47,7 +47,7 @@ def test_channel_failure_does_not_crash_agent(scenario_harness: ScenarioHarness)
 
 def test_agent_with_channel_binding(scenario_harness: ScenarioHarness):
     """Agent with a channel binding completes tick without error."""
-    from DEMON.channels.webchat import WebChatChannel
+    from OpenDEMON.channels.webchat import WebChatChannel
 
     h = scenario_harness
     webchat = WebChatChannel()

@@ -1,4 +1,4 @@
-﻿"""Tests for channel session store."""
+"""Tests for channel session store."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.server.session_store import SessionStore
+from OpenDEMON.server.session_store import SessionStore
 
 
 @pytest.fixture

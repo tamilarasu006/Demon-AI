@@ -1,4 +1,4 @@
-﻿"""CLI for the DEMON evaluation framework."""
+"""CLI for the DEMON evaluation framework."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 
-from DEMON.evals.core.display import (
+from OpenDEMON.evals.core.display import (
     print_banner,
     print_completion,
     print_full_results,
@@ -206,7 +206,7 @@ def _build_backend(
         fp_base_url, fp_api_key = base_url, api_key
 
     if backend_name == "DEMON-agent":
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         return DEMONAgentBackend(
             engine_key=engine_key,
@@ -220,7 +220,7 @@ def _build_backend(
             api_key=fp_api_key,
         )
     elif backend_name == "DEMON-direct":
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         return DEMONDirectBackend(
             engine_key=engine_key,
@@ -230,7 +230,7 @@ def _build_backend(
             api_key=fp_api_key,
         )
     elif backend_name == "hermes":
-        from DEMON.evals.backends.external import HermesBackend
+        from OpenDEMON.evals.backends.external import HermesBackend
 
         if not base_url or not api_key:
             raise click.UsageError(
@@ -243,7 +243,7 @@ def _build_backend(
             api_key=api_key,
         )
     elif backend_name == "openclaw":
-        from DEMON.evals.backends.external import OpenClawBackend
+        from OpenDEMON.evals.backends.external import OpenClawBackend
 
         if not base_url or not api_key:
             raise click.UsageError(
@@ -264,166 +264,166 @@ def _build_backend(
 def _build_dataset(benchmark: str, subset: str | None = None):
     """Construct the dataset provider for a benchmark."""
     if benchmark == "supergpqa":
-        from DEMON.evals.datasets.supergpqa import SuperGPQADataset
+        from OpenDEMON.evals.datasets.supergpqa import SuperGPQADataset
 
         return SuperGPQADataset()
     elif benchmark == "gpqa":
-        from DEMON.evals.datasets.gpqa import GPQADataset
+        from OpenDEMON.evals.datasets.gpqa import GPQADataset
 
         return GPQADataset()
     elif benchmark == "mmlu-pro":
-        from DEMON.evals.datasets.mmlu_pro import MMLUProDataset
+        from OpenDEMON.evals.datasets.mmlu_pro import MMLUProDataset
 
         return MMLUProDataset()
     elif benchmark == "math500":
-        from DEMON.evals.datasets.math500 import MATH500Dataset
+        from OpenDEMON.evals.datasets.math500 import MATH500Dataset
 
         return MATH500Dataset()
     elif benchmark == "natural-reasoning":
-        from DEMON.evals.datasets.natural_reasoning import NaturalReasoningDataset
+        from OpenDEMON.evals.datasets.natural_reasoning import NaturalReasoningDataset
 
         return NaturalReasoningDataset()
     elif benchmark == "hle":
-        from DEMON.evals.datasets.hle import HLEDataset
+        from OpenDEMON.evals.datasets.hle import HLEDataset
 
         return HLEDataset()
     elif benchmark == "simpleqa":
-        from DEMON.evals.datasets.simpleqa import SimpleQADataset
+        from OpenDEMON.evals.datasets.simpleqa import SimpleQADataset
 
         return SimpleQADataset()
     elif benchmark == "wildchat":
-        from DEMON.evals.datasets.wildchat import WildChatDataset
+        from OpenDEMON.evals.datasets.wildchat import WildChatDataset
 
         return WildChatDataset()
     elif benchmark == "ipw":
-        from DEMON.evals.datasets.ipw_mixed import IPWDataset
+        from OpenDEMON.evals.datasets.ipw_mixed import IPWDataset
 
         return IPWDataset()
     elif benchmark == "gaia":
-        from DEMON.evals.datasets.gaia import GAIADataset
+        from OpenDEMON.evals.datasets.gaia import GAIADataset
 
         return GAIADataset()
     elif benchmark == "frames":
-        from DEMON.evals.datasets.frames import FRAMESDataset
+        from OpenDEMON.evals.datasets.frames import FRAMESDataset
 
         return FRAMESDataset()
     elif benchmark == "swebench":
-        from DEMON.evals.datasets.swebench import SWEBenchDataset
+        from OpenDEMON.evals.datasets.swebench import SWEBenchDataset
 
         return SWEBenchDataset()
     elif benchmark == "swefficiency":
-        from DEMON.evals.datasets.swefficiency import SWEfficiencyDataset
+        from OpenDEMON.evals.datasets.swefficiency import SWEfficiencyDataset
 
         return SWEfficiencyDataset()
     elif benchmark == "terminalbench":
-        from DEMON.evals.datasets.terminalbench import TerminalBenchDataset
+        from OpenDEMON.evals.datasets.terminalbench import TerminalBenchDataset
 
         return TerminalBenchDataset()
     elif benchmark == "terminalbench-native":
-        from DEMON.evals.datasets.terminalbench_native import (
+        from OpenDEMON.evals.datasets.terminalbench_native import (
             TerminalBenchNativeDataset,
         )
 
         return TerminalBenchNativeDataset()
     elif benchmark == "terminalbench-v2.1":
-        from DEMON.evals.datasets.terminalbench_v2_1 import (
+        from OpenDEMON.evals.datasets.terminalbench_v2_1 import (
             TerminalBenchV21Dataset,
         )
 
         return TerminalBenchV21Dataset()
     elif benchmark == "email_triage":
-        from DEMON.evals.datasets.email_triage import EmailTriageDataset
+        from OpenDEMON.evals.datasets.email_triage import EmailTriageDataset
 
         return EmailTriageDataset()
     elif benchmark == "morning_brief":
-        from DEMON.evals.datasets.morning_brief import MorningBriefDataset
+        from OpenDEMON.evals.datasets.morning_brief import MorningBriefDataset
 
         return MorningBriefDataset()
     elif benchmark == "research_mining":
-        from DEMON.evals.datasets.research_mining import ResearchMiningDataset
+        from OpenDEMON.evals.datasets.research_mining import ResearchMiningDataset
 
         return ResearchMiningDataset()
     elif benchmark == "knowledge_base":
-        from DEMON.evals.datasets.knowledge_base import KnowledgeBaseDataset
+        from OpenDEMON.evals.datasets.knowledge_base import KnowledgeBaseDataset
 
         return KnowledgeBaseDataset()
     elif benchmark == "coding_task":
-        from DEMON.evals.datasets.coding_task import CodingTaskDataset
+        from OpenDEMON.evals.datasets.coding_task import CodingTaskDataset
 
         return CodingTaskDataset()
     elif benchmark == "loghub":
-        from DEMON.evals.datasets.loghub import LogHubDataset
+        from OpenDEMON.evals.datasets.loghub import LogHubDataset
 
         return LogHubDataset()
     elif benchmark == "ama-bench":
-        from DEMON.evals.datasets.ama_bench import AMABenchDataset
+        from OpenDEMON.evals.datasets.ama_bench import AMABenchDataset
 
         return AMABenchDataset()
     elif benchmark == "lifelong-agent":
-        from DEMON.evals.datasets.lifelong_agent import LifelongAgentDataset
+        from OpenDEMON.evals.datasets.lifelong_agent import LifelongAgentDataset
 
         return LifelongAgentDataset(subset=subset or "db_bench")
     elif benchmark == "deepplanning":
-        from DEMON.evals.datasets.deepplanning import DeepPlanningDataset
+        from OpenDEMON.evals.datasets.deepplanning import DeepPlanningDataset
 
         return DeepPlanningDataset()
     elif benchmark == "paperarena":
-        from DEMON.evals.datasets.paperarena import PaperArenaDataset
+        from OpenDEMON.evals.datasets.paperarena import PaperArenaDataset
 
         return PaperArenaDataset()
     elif benchmark == "webchorearena":
-        from DEMON.evals.datasets.webchorearena import WebChoreArenaDataset
+        from OpenDEMON.evals.datasets.webchorearena import WebChoreArenaDataset
 
         return WebChoreArenaDataset()
     elif benchmark == "workarena":
-        from DEMON.evals.datasets.workarena import WorkArenaDataset
+        from OpenDEMON.evals.datasets.workarena import WorkArenaDataset
 
         return WorkArenaDataset()
     elif benchmark == "coding_assistant":
-        from DEMON.evals.datasets.coding_assistant import CodingAssistantDataset
+        from OpenDEMON.evals.datasets.coding_assistant import CodingAssistantDataset
 
         return CodingAssistantDataset()
     elif benchmark == "security_scanner":
-        from DEMON.evals.datasets.security_scanner import SecurityScannerDataset
+        from OpenDEMON.evals.datasets.security_scanner import SecurityScannerDataset
 
         return SecurityScannerDataset()
     elif benchmark == "daily_digest":
-        from DEMON.evals.datasets.daily_digest import DailyDigestDataset
+        from OpenDEMON.evals.datasets.daily_digest import DailyDigestDataset
 
         return DailyDigestDataset()
     elif benchmark == "doc_qa":
-        from DEMON.evals.datasets.doc_qa import DocQADataset
+        from OpenDEMON.evals.datasets.doc_qa import DocQADataset
 
         return DocQADataset()
     elif benchmark == "browser_assistant":
-        from DEMON.evals.datasets.browser_assistant import BrowserAssistantDataset
+        from OpenDEMON.evals.datasets.browser_assistant import BrowserAssistantDataset
 
         return BrowserAssistantDataset()
     elif benchmark == "pinchbench":
-        from DEMON.evals.datasets.pinchbench import PinchBenchDataset
+        from OpenDEMON.evals.datasets.pinchbench import PinchBenchDataset
 
         return PinchBenchDataset(path=subset)
     elif benchmark == "taubench":
-        from DEMON.evals.datasets.taubench import TauBenchDataset
+        from OpenDEMON.evals.datasets.taubench import TauBenchDataset
 
         domains = subset.split(",") if subset else None
         return TauBenchDataset(domains=domains)
     elif benchmark == "livecodebench":
-        from DEMON.evals.datasets.livecodebench import LiveCodeBenchDataset
+        from OpenDEMON.evals.datasets.livecodebench import LiveCodeBenchDataset
 
         return LiveCodeBenchDataset()
     elif benchmark in ("liveresearch", "deepresearch"):
-        from DEMON.evals.datasets.liveresearch import LiveResearchBenchDataset
+        from OpenDEMON.evals.datasets.liveresearch import LiveResearchBenchDataset
 
         return LiveResearchBenchDataset(path=subset)
     elif benchmark == "liveresearchbench":
-        from DEMON.evals.datasets.liveresearchbench import (
+        from OpenDEMON.evals.datasets.liveresearchbench import (
             LiveResearchBenchDataset as LRBDataset,
         )
 
         return LRBDataset()
     elif benchmark == "toolcall15":
-        from DEMON.evals.datasets.toolcall15 import ToolCall15Dataset
+        from OpenDEMON.evals.datasets.toolcall15 import ToolCall15Dataset
 
         return ToolCall15Dataset()
     else:
@@ -433,161 +433,161 @@ def _build_dataset(benchmark: str, subset: str | None = None):
 def _build_scorer(benchmark: str, judge_backend, judge_model: str):
     """Construct the scorer for a benchmark."""
     if benchmark == "supergpqa":
-        from DEMON.evals.scorers.supergpqa_mcq import SuperGPQAScorer
+        from OpenDEMON.evals.scorers.supergpqa_mcq import SuperGPQAScorer
 
         return SuperGPQAScorer(judge_backend, judge_model)
     elif benchmark == "gpqa":
-        from DEMON.evals.scorers.gpqa_mcq import GPQAScorer
+        from OpenDEMON.evals.scorers.gpqa_mcq import GPQAScorer
 
         return GPQAScorer(judge_backend, judge_model)
     elif benchmark == "mmlu-pro":
-        from DEMON.evals.scorers.mmlu_pro_mcq import MMLUProScorer
+        from OpenDEMON.evals.scorers.mmlu_pro_mcq import MMLUProScorer
 
         return MMLUProScorer(judge_backend, judge_model)
     elif benchmark == "math500" or benchmark == "natural-reasoning":
-        from DEMON.evals.scorers.reasoning_judge import ReasoningJudgeScorer
+        from OpenDEMON.evals.scorers.reasoning_judge import ReasoningJudgeScorer
 
         return ReasoningJudgeScorer(judge_backend, judge_model)
     elif benchmark == "hle":
-        from DEMON.evals.scorers.hle_judge import HLEScorer
+        from OpenDEMON.evals.scorers.hle_judge import HLEScorer
 
         return HLEScorer(judge_backend, judge_model)
     elif benchmark == "simpleqa":
-        from DEMON.evals.scorers.simpleqa_judge import SimpleQAScorer
+        from OpenDEMON.evals.scorers.simpleqa_judge import SimpleQAScorer
 
         return SimpleQAScorer(judge_backend, judge_model)
     elif benchmark == "wildchat":
-        from DEMON.evals.scorers.wildchat_judge import WildChatScorer
+        from OpenDEMON.evals.scorers.wildchat_judge import WildChatScorer
 
         return WildChatScorer(judge_backend, judge_model)
     elif benchmark == "ipw":
-        from DEMON.evals.scorers.ipw_mixed import IPWMixedScorer
+        from OpenDEMON.evals.scorers.ipw_mixed import IPWMixedScorer
 
         return IPWMixedScorer(judge_backend, judge_model)
     elif benchmark == "gaia":
-        from DEMON.evals.scorers.gaia_exact import GAIAScorer
+        from OpenDEMON.evals.scorers.gaia_exact import GAIAScorer
 
         return GAIAScorer(judge_backend, judge_model)
     elif benchmark == "frames":
-        from DEMON.evals.scorers.frames_judge import FRAMESScorer
+        from OpenDEMON.evals.scorers.frames_judge import FRAMESScorer
 
         return FRAMESScorer(judge_backend, judge_model)
     elif benchmark == "swebench":
-        from DEMON.evals.scorers.swebench_structural import SWEBenchScorer
+        from OpenDEMON.evals.scorers.swebench_structural import SWEBenchScorer
 
         return SWEBenchScorer(judge_backend, judge_model)
     elif benchmark == "swefficiency":
-        from DEMON.evals.scorers.swefficiency_structural import SWEfficiencyScorer
+        from OpenDEMON.evals.scorers.swefficiency_structural import SWEfficiencyScorer
 
         return SWEfficiencyScorer(judge_backend, judge_model)
     elif benchmark == "terminalbench":
-        from DEMON.evals.scorers.terminalbench_judge import TerminalBenchScorer
+        from OpenDEMON.evals.scorers.terminalbench_judge import TerminalBenchScorer
 
         return TerminalBenchScorer(judge_backend, judge_model)
     elif benchmark == "terminalbench-native":
-        from DEMON.evals.scorers.terminalbench_native_structural import (
+        from OpenDEMON.evals.scorers.terminalbench_native_structural import (
             TerminalBenchNativeScorer,
         )
 
         return TerminalBenchNativeScorer(judge_backend, judge_model)
     elif benchmark == "terminalbench-v2.1":
-        from DEMON.evals.scorers.terminalbench_v2_1 import (
+        from OpenDEMON.evals.scorers.terminalbench_v2_1 import (
             TerminalBenchV21Scorer,
         )
 
         return TerminalBenchV21Scorer(judge_backend, judge_model)
     elif benchmark == "email_triage":
-        from DEMON.evals.scorers.email_triage import EmailTriageScorer
+        from OpenDEMON.evals.scorers.email_triage import EmailTriageScorer
 
         return EmailTriageScorer(judge_backend, judge_model)
     elif benchmark == "morning_brief":
-        from DEMON.evals.scorers.morning_brief import MorningBriefScorer
+        from OpenDEMON.evals.scorers.morning_brief import MorningBriefScorer
 
         return MorningBriefScorer(judge_backend, judge_model)
     elif benchmark == "research_mining":
-        from DEMON.evals.scorers.research_mining import ResearchMiningScorer
+        from OpenDEMON.evals.scorers.research_mining import ResearchMiningScorer
 
         return ResearchMiningScorer(judge_backend, judge_model)
     elif benchmark == "knowledge_base":
-        from DEMON.evals.scorers.knowledge_base import KnowledgeBaseScorer
+        from OpenDEMON.evals.scorers.knowledge_base import KnowledgeBaseScorer
 
         return KnowledgeBaseScorer(judge_backend, judge_model)
     elif benchmark == "coding_task":
-        from DEMON.evals.scorers.coding_task import CodingTaskScorer
+        from OpenDEMON.evals.scorers.coding_task import CodingTaskScorer
 
         return CodingTaskScorer(judge_backend, judge_model)
     elif benchmark == "loghub":
-        from DEMON.evals.scorers.loghub_scorer import LogHubScorer
+        from OpenDEMON.evals.scorers.loghub_scorer import LogHubScorer
 
         return LogHubScorer(judge_backend, judge_model)
     elif benchmark == "ama-bench":
-        from DEMON.evals.scorers.ama_bench_judge import AMABenchScorer
+        from OpenDEMON.evals.scorers.ama_bench_judge import AMABenchScorer
 
         return AMABenchScorer(judge_backend, judge_model)
     elif benchmark == "lifelong-agent":
-        from DEMON.evals.scorers.lifelong_agent_scorer import LifelongAgentScorer
+        from OpenDEMON.evals.scorers.lifelong_agent_scorer import LifelongAgentScorer
 
         return LifelongAgentScorer(judge_backend, judge_model)
     elif benchmark == "deepplanning":
-        from DEMON.evals.scorers.deepplanning_scorer import DeepPlanningScorer
+        from OpenDEMON.evals.scorers.deepplanning_scorer import DeepPlanningScorer
 
         return DeepPlanningScorer(judge_backend, judge_model)
     elif benchmark == "paperarena":
-        from DEMON.evals.scorers.paperarena_judge import PaperArenaScorer
+        from OpenDEMON.evals.scorers.paperarena_judge import PaperArenaScorer
 
         return PaperArenaScorer(judge_backend, judge_model)
     elif benchmark == "webchorearena":
-        from DEMON.evals.scorers.webchorearena_scorer import WebChoreArenaScorer
+        from OpenDEMON.evals.scorers.webchorearena_scorer import WebChoreArenaScorer
 
         return WebChoreArenaScorer(judge_backend, judge_model)
     elif benchmark == "workarena":
-        from DEMON.evals.scorers.workarena_scorer import WorkArenaScorer
+        from OpenDEMON.evals.scorers.workarena_scorer import WorkArenaScorer
 
         return WorkArenaScorer(judge_backend, judge_model)
     elif benchmark == "coding_assistant":
-        from DEMON.evals.scorers.coding_assistant import CodingAssistantScorer
+        from OpenDEMON.evals.scorers.coding_assistant import CodingAssistantScorer
 
         return CodingAssistantScorer(judge_backend, judge_model)
     elif benchmark == "security_scanner":
-        from DEMON.evals.scorers.security_scanner import SecurityScannerScorer
+        from OpenDEMON.evals.scorers.security_scanner import SecurityScannerScorer
 
         return SecurityScannerScorer(judge_backend, judge_model)
     elif benchmark == "daily_digest":
-        from DEMON.evals.scorers.daily_digest import DailyDigestScorer
+        from OpenDEMON.evals.scorers.daily_digest import DailyDigestScorer
 
         return DailyDigestScorer(judge_backend, judge_model)
     elif benchmark == "doc_qa":
-        from DEMON.evals.scorers.doc_qa import DocQAScorer
+        from OpenDEMON.evals.scorers.doc_qa import DocQAScorer
 
         return DocQAScorer(judge_backend, judge_model)
     elif benchmark == "browser_assistant":
-        from DEMON.evals.scorers.browser_assistant import BrowserAssistantScorer
+        from OpenDEMON.evals.scorers.browser_assistant import BrowserAssistantScorer
 
         return BrowserAssistantScorer(judge_backend, judge_model)
     elif benchmark == "pinchbench":
-        from DEMON.evals.scorers.pinchbench import PinchBenchScorer
+        from OpenDEMON.evals.scorers.pinchbench import PinchBenchScorer
 
         return PinchBenchScorer(judge_backend, judge_model)
     elif benchmark == "taubench":
-        from DEMON.evals.scorers.taubench import TauBenchScorer
+        from OpenDEMON.evals.scorers.taubench import TauBenchScorer
 
         return TauBenchScorer(judge_backend, judge_model)
     elif benchmark == "livecodebench":
-        from DEMON.evals.scorers.livecodebench import LiveCodeBenchScorer
+        from OpenDEMON.evals.scorers.livecodebench import LiveCodeBenchScorer
 
         return LiveCodeBenchScorer(judge_backend, judge_model)
     elif benchmark in ("liveresearch", "deepresearch"):
-        from DEMON.evals.scorers.liveresearch import LiveResearchBenchScorer
+        from OpenDEMON.evals.scorers.liveresearch import LiveResearchBenchScorer
 
         return LiveResearchBenchScorer(judge_backend, judge_model)
     elif benchmark == "liveresearchbench":
-        from DEMON.evals.scorers.liveresearchbench import (
+        from OpenDEMON.evals.scorers.liveresearchbench import (
             LiveResearchBenchScorer as LRBScorer,
         )
 
         return LRBScorer(judge_backend, judge_model)
     elif benchmark == "toolcall15":
-        from DEMON.evals.scorers.toolcall15 import ToolCall15Scorer
+        from OpenDEMON.evals.scorers.toolcall15 import ToolCall15Scorer
 
         return ToolCall15Scorer(judge_backend, judge_model)
     else:
@@ -602,7 +602,7 @@ def _build_judge_backend(judge_model: str, engine_key: str = "cloud"):
     LLM-judge scorers will raise a clear error when they actually try
     to use the backend rather than failing at startup.
     """
-    from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+    from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
     try:
         return DEMONDirectBackend(engine_key=engine_key)
@@ -641,7 +641,7 @@ def _build_trackers(config) -> list:
     trackers = []
     if getattr(config, "wandb_project", ""):
         try:
-            from DEMON.evals.trackers.wandb_tracker import WandbTracker
+            from OpenDEMON.evals.trackers.wandb_tracker import WandbTracker
 
             trackers.append(
                 WandbTracker(
@@ -657,7 +657,7 @@ def _build_trackers(config) -> list:
             ) from exc
     if getattr(config, "sheets_spreadsheet_id", ""):
         try:
-            from DEMON.evals.trackers.sheets_tracker import SheetsTracker
+            from OpenDEMON.evals.trackers.sheets_tracker import SheetsTracker
 
             trackers.append(
                 SheetsTracker(
@@ -687,8 +687,8 @@ def _run_terminalbench_native(
     already-running OpenAI-compatible endpoint; when unset, the legacy local
     vLLM default (http://localhost:8000/v1) is used.
     """
-    from DEMON.engine.openai_compat_engines import normalize_openai_base_url
-    from DEMON.evals.backends.terminalbench_native import (
+    from OpenDEMON.engine.openai_compat_engines import normalize_openai_base_url
+    from OpenDEMON.evals.backends.terminalbench_native import (
         TerminalBenchNativeBackend,
         summarize_benchmark_results,
     )
@@ -780,7 +780,7 @@ def _run_single(
     explicitly deferred. The CLI single-run path (``suite_mode=False``)
     honors ``--base-url``/``--api-key`` for every backend.
     """
-    from DEMON.evals.core.runner import EvalRunner
+    from OpenDEMON.evals.core.runner import EvalRunner
 
     if console is None:
         console = Console()
@@ -876,9 +876,9 @@ def _run_agentic(
     import asyncio
     from pathlib import Path as _Path
 
-    from DEMON.evals.core.agentic_runner import AgenticRunner
-    from DEMON.evals.core.event_recorder import EventRecorder
-    from DEMON.evals.core.export import (
+    from OpenDEMON.evals.core.agentic_runner import AgenticRunner
+    from OpenDEMON.evals.core.event_recorder import EventRecorder
+    from OpenDEMON.evals.core.export import (
         export_artifacts_manifest,
         export_jsonl,
         export_summary_json,
@@ -919,7 +919,7 @@ def _run_agentic(
             )
 
     # Build agent via SystemBuilder
-    from DEMON.system import SystemBuilder
+    from OpenDEMON.system import SystemBuilder
 
     builder = SystemBuilder()
     if config.engine_key:
@@ -935,8 +935,8 @@ def _run_agentic(
     # Build TelemetrySession (optional — only if energy monitoring available)
     telemetry_session = None
     try:
-        from DEMON.telemetry.energy_monitor import create_energy_monitor
-        from DEMON.telemetry.session import TelemetrySession
+        from OpenDEMON.telemetry.energy_monitor import create_energy_monitor
+        from OpenDEMON.telemetry.session import TelemetrySession
 
         monitor = create_energy_monitor()
         if monitor is not None:
@@ -1015,7 +1015,7 @@ def _run_agentic(
 
     # Try HF dataset export (optional)
     try:
-        from DEMON.evals.core.export import export_hf_dataset
+        from OpenDEMON.evals.core.export import export_hf_dataset
 
         hf_path = run_dir / "hf_dataset"
         export_hf_dataset(traces, hf_path)
@@ -1122,7 +1122,7 @@ def _run_from_config(
     model_filter: str | None = None,
 ) -> None:
     """Load a TOML config and run the full models x benchmarks matrix."""
-    from DEMON.evals.core.config import expand_suite, load_eval_config
+    from OpenDEMON.evals.core.config import expand_suite, load_eval_config
 
     console = Console()
 
@@ -1387,7 +1387,7 @@ def run(
             "Missing option '-m' / '--model' (required when --config is not provided)"
         )
 
-    from DEMON.evals.core.types import RunConfig
+    from OpenDEMON.evals.core.types import RunConfig
 
     tool_list = [t.strip() for t in tools.split(",") if t.strip()] if tools else []
 
@@ -1500,8 +1500,8 @@ def run_all(
     """Run all benchmarks."""
     _setup_logging(verbose)
 
-    from DEMON.evals.core.runner import EvalRunner
-    from DEMON.evals.core.types import RunConfig
+    from OpenDEMON.evals.core.runner import EvalRunner
+    from OpenDEMON.evals.core.types import RunConfig
 
     console = Console()
 
@@ -1657,7 +1657,7 @@ def reparse_judge(jsonl_path, out_path, in_place, summary_out):
     import statistics
     from pathlib import Path as _Path
 
-    from DEMON.evals.scorers.liveresearch import rescore_from_metadata
+    from OpenDEMON.evals.scorers.liveresearch import rescore_from_metadata
 
     in_path = _Path(jsonl_path)
     if in_place:

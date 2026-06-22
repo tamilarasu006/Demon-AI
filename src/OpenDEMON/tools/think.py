@@ -1,12 +1,12 @@
-﻿"""Think tool — zero-cost reasoning scratchpad."""
+"""Think tool — zero-cost reasoning scratchpad."""
 
 from __future__ import annotations
 
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("think")
@@ -41,7 +41,7 @@ class ThinkTool(BaseTool):
     def execute(self, **params: Any) -> ToolResult:
         thought = params.get("thought", "")
         try:
-            from DEMON._rust_bridge import get_rust_module
+            from OpenDEMON._rust_bridge import get_rust_module
 
             _rust = get_rust_module()
             content = _rust.ThinkTool().execute(thought)

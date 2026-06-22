@@ -1,11 +1,11 @@
-﻿"""Tests for Merkle audit trail (Phase 14.6)."""
+"""Tests for Merkle audit trail (Phase 14.6)."""
 
 from __future__ import annotations
 
 import time
 
-from DEMON.security.audit import AuditLogger
-from DEMON.security.types import (
+from OpenDEMON.security.audit import AuditLogger
+from OpenDEMON.security.types import (
     ScanFinding,
     SecurityEvent,
     SecurityEventType,

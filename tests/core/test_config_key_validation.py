@@ -1,10 +1,10 @@
-﻿"""Tests for config key validation."""
+"""Tests for config key validation."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.config import validate_config_key
+from OpenDEMON.core.config import validate_config_key
 
 
 class TestValidateConfigKey:

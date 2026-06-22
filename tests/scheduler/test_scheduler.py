@@ -1,4 +1,4 @@
-﻿"""Tests for TaskScheduler — scheduling logic, lifecycle, and execution."""
+"""Tests for TaskScheduler — scheduling logic, lifecycle, and execution."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.scheduler.scheduler import ScheduledTask, TaskScheduler
-from DEMON.scheduler.store import SchedulerStore
+from OpenDEMON.scheduler.scheduler import ScheduledTask, TaskScheduler
+from OpenDEMON.scheduler.store import SchedulerStore
 
 
 @pytest.fixture()

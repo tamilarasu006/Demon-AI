@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.optimize.llm_optimizer module."""
+"""Tests for DEMON.optimize.llm_optimizer module."""
 
 from __future__ import annotations
 
@@ -8,11 +8,11 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.evals.core.backend import InferenceBackend
-from DEMON.evals.core.types import RunSummary
-from DEMON.learning.optimize.llm_optimizer import LLMOptimizer
-from DEMON.learning.optimize.types import (
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.core.types import RunSummary
+from OpenDEMON.learning.optimize.llm_optimizer import LLMOptimizer
+from OpenDEMON.learning.optimize.types import (
     SampleScore,
     SearchDimension,
     SearchSpace,

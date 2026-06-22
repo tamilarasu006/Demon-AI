@@ -1,4 +1,4 @@
-﻿"""Spotify connector — recently played tracks via Spotify Web API.
+"""Spotify connector — recently played tracks via Spotify Web API.
 
 Uses OAuth2 tokens stored locally. Requires user-read-recently-played scope.
 """
@@ -12,9 +12,9 @@ from typing import Any, Dict, Iterator, Optional
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
 
 _SPOTIFY_API_BASE = "https://api.spotify.com/v1"
 _SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
@@ -64,7 +64,7 @@ class SpotifyConnector(BaseConnector):
         """Return Spotify OAuth authorization URL."""
         from urllib.parse import urlencode
 
-        from DEMON.connectors.oauth import (
+        from OpenDEMON.connectors.oauth import (
             get_client_credentials,
             get_provider_for_connector,
         )
@@ -87,7 +87,7 @@ class SpotifyConnector(BaseConnector):
 
     def handle_callback(self, code: str) -> None:
         """Exchange authorization code for tokens and save."""
-        from DEMON.connectors.oauth import (
+        from OpenDEMON.connectors.oauth import (
             _CONNECTORS_DIR,
             _exchange_token,
             get_client_credentials,

@@ -1,4 +1,4 @@
-﻿"""Tests for SkillManager — discovery, catalog, tools, and resolve."""
+"""Tests for SkillManager — discovery, catalog, tools, and resolve."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.core.events import EventBus
-from DEMON.core.types import ToolResult
-from DEMON.skills.manager import SkillManager
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec  # noqa: F401
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.skills.manager import SkillManager
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec  # noqa: F401
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -297,8 +297,8 @@ class TestSkillManagerResolve:
 class TestSkillManagerSourcedLayout:
     def test_discovers_skills_under_source_subdirs(self, tmp_path: Path):
         """SkillManager.discover() finds skills in <source>/<name>/ layout."""
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
 
         # Build hermes/<name>/ and openclaw/<name>/ subdirs
         for source, name in [("hermes", "apple-notes"), ("openclaw", "etherscan")]:
@@ -316,8 +316,8 @@ class TestSkillManagerSourcedLayout:
 
     def test_flat_and_sourced_layout_coexist(self, tmp_path: Path):
         """Both flat ./<name>/ and ./<source>/<name>/ are discovered."""
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
 
         # Flat layout
         flat = tmp_path / "my-flat-skill"
@@ -344,9 +344,9 @@ class TestSkillManagerOverlayLoading:
     def test_overlay_description_overrides_manifest(self, tmp_path: Path):
         """When an overlay exists, the optimized description replaces
         the manifest's description after discover()."""
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
-        from DEMON.skills.overlay import SkillOverlay, write_overlay
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
+        from OpenDEMON.skills.overlay import SkillOverlay, write_overlay
 
         skill_dir = tmp_path / "skills" / "research-skill"
         skill_dir.mkdir(parents=True)
@@ -373,9 +373,9 @@ class TestSkillManagerOverlayLoading:
         assert manifest.description == "A much better optimized description"
 
     def test_overlay_few_shot_stored_in_metadata(self, tmp_path: Path):
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
-        from DEMON.skills.overlay import SkillOverlay, write_overlay
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
+        from OpenDEMON.skills.overlay import SkillOverlay, write_overlay
 
         skill_dir = tmp_path / "skills" / "test-skill"
         skill_dir.mkdir(parents=True)
@@ -409,8 +409,8 @@ class TestSkillManagerOverlayLoading:
         assert few_shot[0]["input"] == "q1"
 
     def test_no_overlay_dir_does_not_crash(self, tmp_path: Path):
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
 
         skill_dir = tmp_path / "skills" / "test-skill"
         skill_dir.mkdir(parents=True)
@@ -425,9 +425,9 @@ class TestSkillManagerOverlayLoading:
         assert manifest.description == "original"
 
     def test_get_few_shot_examples_returns_formatted_strings(self, tmp_path: Path):
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
-        from DEMON.skills.overlay import SkillOverlay, write_overlay
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
+        from OpenDEMON.skills.overlay import SkillOverlay, write_overlay
 
         skill_dir = tmp_path / "skills" / "fs-skill"
         skill_dir.mkdir(parents=True)
@@ -464,13 +464,13 @@ class TestSkillManagerOverlayLoading:
         cfg.learning.skills.overlay_dir when no explicit value is passed."""
         from unittest.mock import patch
 
-        from DEMON.core.config import (
+        from OpenDEMON.core.config import (
             DEMONConfig,
             LearningConfig,
             SkillsLearningConfig,
         )
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
 
         cfg = DEMONConfig()
         cfg.learning = LearningConfig()
@@ -487,10 +487,10 @@ class TestSkillManagerOverlayLoading:
     ) -> None:
         """Plan 2A I2 fix: discover() with no paths still applies overlays
         to skills that were seeded by other means."""
-        from DEMON.core.events import EventBus
-        from DEMON.skills.manager import SkillManager
-        from DEMON.skills.overlay import SkillOverlay, write_overlay
-        from DEMON.skills.types import SkillManifest
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.skills.manager import SkillManager
+        from OpenDEMON.skills.overlay import SkillOverlay, write_overlay
+        from OpenDEMON.skills.types import SkillManifest
 
         overlay_dir = tmp_path / "overlays"
         write_overlay(

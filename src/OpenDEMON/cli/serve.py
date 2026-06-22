@@ -1,4 +1,4 @@
-﻿"""``DEMON serve`` — OpenAI-compatible API server."""
+"""``DEMON serve`` — OpenAI-compatible API server."""
 
 from __future__ import annotations
 
@@ -8,16 +8,16 @@ import sys
 import click
 from rich.console import Console
 
-from DEMON.cli._banner import print_banner
-from DEMON.core.config import load_config
-from DEMON.core.events import EventBus
-from DEMON.core.paths import get_config_dir
-from DEMON.engine import (
+from OpenDEMON.cli._banner import print_banner
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.engine import (
     discover_engines,
     discover_models,
     get_engine,
 )
-from DEMON.intelligence import (
+from OpenDEMON.intelligence import (
     merge_discovered_models,
     register_builtin_models,
 )
@@ -138,7 +138,7 @@ def serve(
         try:
             from pathlib import Path
 
-            from DEMON.telemetry.store import TelemetryStore
+            from OpenDEMON.telemetry.store import TelemetryStore
 
             db_path = Path(config.telemetry.db_path).expanduser()
             db_path.parent.mkdir(parents=True, exist_ok=True)
@@ -164,7 +164,7 @@ def serve(
     engine_name, engine = resolved
 
     # Apply security guardrails
-    from DEMON.security import setup_security
+    from OpenDEMON.security import setup_security
 
     sec = setup_security(config, engine, bus)
     engine = sec.engine
@@ -184,7 +184,7 @@ def serve(
     )
     if _has_cloud and engine_name != "cloud":
         try:
-            from DEMON.engine.cloud import CloudEngine
+            from OpenDEMON.engine.cloud import CloudEngine
 
             cloud_engine = CloudEngine()
             if cloud_engine.health():
@@ -199,11 +199,11 @@ def serve(
 
     # Wrap engine with InstrumentedEngine for telemetry recording
     try:
-        from DEMON.telemetry.instrumented_engine import InstrumentedEngine
+        from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
 
         energy_mon = None
         try:
-            from DEMON.telemetry.energy_monitor import create_energy_monitor
+            from OpenDEMON.telemetry.energy_monitor import create_energy_monitor
 
             energy_mon = create_energy_monitor()
             if energy_mon is not None:
@@ -232,7 +232,7 @@ def serve(
         multi_entries.append(("cloud", cloud_engine))
 
     if len(multi_entries) > 1:
-        from DEMON.engine.multi import MultiEngine
+        from OpenDEMON.engine.multi import MultiEngine
 
         engine = MultiEngine(multi_entries)
         engine_name = "multi"
@@ -275,8 +275,8 @@ def serve(
     resolved_tools: list = []
     if agent_key:
         try:
-            import DEMON.agents  # noqa: F401
-            from DEMON.core.registry import AgentRegistry
+            import OpenDEMON.agents  # noqa: F401
+            from OpenDEMON.core.registry import AgentRegistry
 
             if AgentRegistry.contains(agent_key):
                 agent_cls = AgentRegistry.get(agent_key)
@@ -291,9 +291,9 @@ def serve(
 
                 # Load tools for agents that support them
                 if getattr(agent_cls, "accepts_tools", False):
-                    import DEMON.tools  # noqa: F401  # trigger registration
-                    from DEMON.core.registry import ToolRegistry
-                    from DEMON.tools._stubs import BaseTool
+                    import OpenDEMON.tools  # noqa: F401  # trigger registration
+                    from OpenDEMON.core.registry import ToolRegistry
+                    from OpenDEMON.tools._stubs import BaseTool
 
                     _DEFAULT_TOOLS = {"think", "calculator", "web_search"}
                     configured = config.agent.tools
@@ -325,7 +325,7 @@ def serve(
 
                     # MCP server tools from config.tools.mcp.servers
                     # (#461 — these were silently dropped).
-                    from DEMON.mcp.loader import load_mcp_tools_from_config
+                    from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
                     mcp_tools, mcp_clients = load_mcp_tools_from_config(
                         config.tools.mcp,
@@ -361,7 +361,7 @@ def serve(
     channel_bridge = None
     if config.channel.enabled and config.channel.default_channel:
         try:
-            from DEMON.system import SystemBuilder
+            from OpenDEMON.system import SystemBuilder
 
             # Reuse _resolve_channel logic from SystemBuilder
             sb = SystemBuilder(config)
@@ -378,7 +378,7 @@ def serve(
 
     # Wire channel messages → agent / engine (per-chat session isolation)
     if channel_bridge is not None:
-        from DEMON.system import DEMONSystem
+        from OpenDEMON.system import DEMONSystem
 
         channel_agent = config.channel.default_agent or agent_key or "simple"
 
@@ -389,15 +389,15 @@ def serve(
         _channel_mcp_clients: list = []
         if channel_agent:
             try:
-                import DEMON.agents
-                from DEMON.core.registry import AgentRegistry
+                import OpenDEMON.agents
+                from OpenDEMON.core.registry import AgentRegistry
 
                 if AgentRegistry.contains(channel_agent):
                     _ch_cls = AgentRegistry.get(channel_agent)
                     if getattr(_ch_cls, "accepts_tools", False):
-                        import DEMON.tools
-                        from DEMON.core.registry import ToolRegistry
-                        from DEMON.tools._stubs import BaseTool
+                        import OpenDEMON.tools
+                        from OpenDEMON.core.registry import ToolRegistry
+                        from OpenDEMON.tools._stubs import BaseTool
 
                         _DEFAULT_TOOLS = {"think", "calculator", "web_search"}
                         configured = config.agent.tools
@@ -427,7 +427,7 @@ def serve(
                                 _channel_tools.append(_tcls)
 
                         # MCP tools for the channel agent too (#461).
-                        from DEMON.mcp.loader import (
+                        from OpenDEMON.mcp.loader import (
                             load_mcp_tools_from_config,
                         )
 
@@ -464,7 +464,7 @@ def serve(
     # Set up speech backend
     speech_backend = None
     try:
-        from DEMON.speech._discovery import get_speech_backend
+        from OpenDEMON.speech._discovery import get_speech_backend
 
         speech_backend = get_speech_backend(config)
         if speech_backend:
@@ -473,15 +473,15 @@ def serve(
         logger.debug("Speech backend discovery failed: %s", exc)
 
     # Create app
-    from DEMON.server.app import create_app
+    from OpenDEMON.server.app import create_app
 
     # Set up memory backend for context injection. Built before the scheduler
     # block so the executor's DEMONSystem can reference it (#263).
     memory_backend = None
     if config.agent.context_from_memory:
         try:
-            import DEMON.tools.storage  # noqa: F401
-            from DEMON.core.registry import MemoryRegistry
+            import OpenDEMON.tools.storage  # noqa: F401
+            from OpenDEMON.core.registry import MemoryRegistry
 
             mem_key = config.memory.default_backend
             if MemoryRegistry.contains(mem_key):
@@ -497,7 +497,7 @@ def serve(
     agent_manager = None
     if config.agent_manager.enabled:
         try:
-            from DEMON.agents.manager import AgentManager
+            from OpenDEMON.agents.manager import AgentManager
 
             am_db = config.agent_manager.db_path or str(get_config_dir() / "agents.db")
             # The server owns the scheduler and is the authoritative tick
@@ -511,13 +511,13 @@ def serve(
     agent_scheduler = None
     if agent_manager is not None:
         try:
-            from DEMON.agents.executor import AgentExecutor
-            from DEMON.agents.scheduler import AgentScheduler
+            from OpenDEMON.agents.executor import AgentExecutor
+            from OpenDEMON.agents.scheduler import AgentScheduler
 
             _trace_store = None
             try:
                 if config.traces.enabled:
-                    from DEMON.traces.store import TraceStore
+                    from OpenDEMON.traces.store import TraceStore
 
                     _trace_store = TraceStore(db_path=config.traces.db_path)
             except Exception:
@@ -536,9 +536,9 @@ def serve(
             # only reads engine/model/config/memory_backend/tool_executor/
             # session_store/channel_backend from the system (see
             # AgentExecutor), all of which are wired here.
-            from DEMON.sessions.session import SessionStore
-            from DEMON.system import DEMONSystem
-            from DEMON.tools._stubs import ToolExecutor
+            from OpenDEMON.sessions.session import SessionStore
+            from OpenDEMON.system import DEMONSystem
+            from OpenDEMON.tools._stubs import ToolExecutor
 
             _sched_session_store = None
             if config.sessions.enabled:
@@ -611,12 +611,12 @@ def serve(
         except (FileNotFoundError, ImportError):
             pass
 
-    from DEMON.server.auth_middleware import check_bind_safety
+    from OpenDEMON.server.auth_middleware import check_bind_safety
 
     check_bind_safety(bind_host, api_key=api_key)
 
     # Log credential status at startup
-    from DEMON.core.credentials import TOOL_CREDENTIALS, get_credential_status
+    from OpenDEMON.core.credentials import TOOL_CREDENTIALS, get_credential_status
 
     _cred_parts = []
     for _tool_name in sorted(TOOL_CREDENTIALS):
@@ -638,10 +638,10 @@ def serve(
     # Wrap existing channel in ChannelBridge orchestrator
     if channel_bridge is not None:
         try:
-            from DEMON.server.channel_bridge import (
+            from OpenDEMON.server.channel_bridge import (
                 ChannelBridge,
             )
-            from DEMON.server.session_store import (
+            from OpenDEMON.server.session_store import (
                 SessionStore,
             )
 

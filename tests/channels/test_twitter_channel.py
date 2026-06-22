@@ -1,4 +1,4 @@
-﻿"""Tests for the TwitterChannel adapter."""
+"""Tests for the TwitterChannel adapter."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.channels.twitter_channel import TwitterChannel
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.channels.twitter_channel import TwitterChannel
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 
 
 @pytest.fixture(autouse=True)

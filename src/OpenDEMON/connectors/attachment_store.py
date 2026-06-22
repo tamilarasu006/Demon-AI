@@ -1,4 +1,4 @@
-﻿"""AttachmentStore — content-addressed blob storage for Deep Research attachments.
+"""AttachmentStore — content-addressed blob storage for Deep Research attachments.
 
 Stores binary attachments at ``{base_dir}/{sha256[:2]}/{sha256}`` and tracks
 metadata in a SQLite database at ``{base_dir}/attachments.db``.
@@ -49,12 +49,12 @@ class AttachmentStore:
 
     def __init__(self, base_dir: str = "") -> None:
         if not base_dir:
-            from DEMON.core.config import DEFAULT_CONFIG_DIR
+            from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
             base_dir = str(DEFAULT_CONFIG_DIR / "blobs")
 
         self._base_dir = Path(base_dir)
-        from DEMON.security.file_utils import secure_mkdir
+        from OpenDEMON.security.file_utils import secure_mkdir
 
         secure_mkdir(self._base_dir)
 

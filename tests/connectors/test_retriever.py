@@ -1,4 +1,4 @@
-﻿"""Tests for TwoStageRetriever — BM25 recall + optional semantic reranking."""
+"""Tests for TwoStageRetriever — BM25 recall + optional semantic reranking."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.connectors.retriever import ColBERTReranker, Reranker, TwoStageRetriever
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.tools.storage._stubs import RetrievalResult
+from OpenDEMON.connectors.retriever import ColBERTReranker, Reranker, TwoStageRetriever
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.tools.storage._stubs import RetrievalResult
 
 
 def _has_torch() -> bool:

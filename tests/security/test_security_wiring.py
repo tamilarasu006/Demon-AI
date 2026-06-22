@@ -1,17 +1,17 @@
-﻿"""Verify security wiring reaches agents and ToolExecutor."""
+"""Verify security wiring reaches agents and ToolExecutor."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.agents._stubs import AgentResult, ToolUsingAgent
-from DEMON.core.config import (
+from OpenDEMON.agents._stubs import AgentResult, ToolUsingAgent
+from OpenDEMON.core.config import (
     CapabilitiesConfig,
     DEMONConfig,
     SecurityConfig,
 )
-from DEMON.core.events import EventBus
-from DEMON.security import setup_security
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.security import setup_security
 
 
 class _ConcreteAgent(ToolUsingAgent):

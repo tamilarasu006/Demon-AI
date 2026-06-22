@@ -1,4 +1,4 @@
-﻿"""Verify DEMONAgentBackend.generate_full returns the spec §6.2 extended fields."""
+"""Verify DEMONAgentBackend.generate_full returns the spec §6.2 extended fields."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 class TestDEMONAgentExtendedFields:
     def test_generate_full_includes_framework_and_commit(self) -> None:
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         with patch("DEMON.system.SystemBuilder") as MockSB:
             mock_system = MagicMock()

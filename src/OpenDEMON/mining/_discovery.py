@@ -1,4 +1,4 @@
-﻿# src/DEMON/mining/_discovery.py
+# src/DEMON/mining/_discovery.py
 """Capability detection for mining providers.
 
 Each function answers a single yes/no question and returns ``(ok: bool,
@@ -14,9 +14,9 @@ from typing import Tuple
 
 import httpx
 
-from DEMON.core.config import HardwareInfo
-from DEMON.mining._models import get_pearl_model_spec, pearl_variant_for_base_model
-from DEMON.mining._stubs import MiningCapabilities
+from OpenDEMON.core.config import HardwareInfo
+from OpenDEMON.mining._models import get_pearl_model_spec, pearl_variant_for_base_model
+from OpenDEMON.mining._stubs import MiningCapabilities
 
 # ---------------------------------------------------------------------------
 # Constants for the v1 vllm-pearl provider
@@ -123,7 +123,7 @@ def check_docker_available() -> Tuple[bool, str]:
 
 
 def check_disk_free(path: Path) -> Tuple[bool, str]:
-    from DEMON.mining._constants import MIN_FREE_DISK_GB
+    from OpenDEMON.mining._constants import MIN_FREE_DISK_GB
 
     usage = shutil.disk_usage(path)
     free_gb = usage.free / (1024**3)

@@ -1,4 +1,4 @@
-﻿"""Tests for document ingestion and file type detection."""
+"""Tests for document ingestion and file type detection."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.tools.storage.ingest import (
+from OpenDEMON.tools.storage.ingest import (
     detect_file_type,
     ingest_path,
     read_document,

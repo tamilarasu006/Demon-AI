@@ -1,10 +1,10 @@
-﻿"""Workflow engine — DAG-based multi-agent pipelines."""
+"""Workflow engine — DAG-based multi-agent pipelines."""
 
-from DEMON.workflow.builder import WorkflowBuilder
-from DEMON.workflow.engine import WorkflowEngine
-from DEMON.workflow.graph import WorkflowGraph
-from DEMON.workflow.loader import load_workflow
-from DEMON.workflow.types import (
+from OpenDEMON.workflow.builder import WorkflowBuilder
+from OpenDEMON.workflow.engine import WorkflowEngine
+from OpenDEMON.workflow.graph import WorkflowGraph
+from OpenDEMON.workflow.loader import load_workflow
+from OpenDEMON.workflow.types import (
     WorkflowEdge,
     WorkflowNode,
     WorkflowResult,

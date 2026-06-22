@@ -1,4 +1,4 @@
-﻿"""Task scheduler — cron/interval/once execution with background polling."""
+"""Task scheduler — cron/interval/once execution with background polling."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
-from DEMON.scheduler.store import SchedulerStore
+from OpenDEMON.scheduler.store import SchedulerStore
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""GitHubResolver — generic resolver for any GitHub repo containing skills.
+"""GitHubResolver — generic resolver for any GitHub repo containing skills.
 
 Performs a recursive walk for SKILL.md (or skill.md) files anywhere
 under the cache directory.
@@ -13,7 +13,7 @@ from typing import List
 
 import yaml
 
-from DEMON.skills.sources.base import ResolvedSkill, SourceResolver
+from OpenDEMON.skills.sources.base import ResolvedSkill, SourceResolver
 
 LOGGER = logging.getLogger(__name__)
 

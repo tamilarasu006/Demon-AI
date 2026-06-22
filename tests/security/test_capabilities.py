@@ -1,8 +1,8 @@
-﻿"""Tests for RBAC capabilities system (Phase 14.4)."""
+"""Tests for RBAC capabilities system (Phase 14.4)."""
 
 from __future__ import annotations
 
-from DEMON.security.capabilities import (
+from OpenDEMON.security.capabilities import (
     DEFAULT_TOOL_CAPABILITIES,
     Capability,
     CapabilityPolicy,

@@ -1,12 +1,12 @@
-﻿"""Tests for DEMON.optimize.search_space module."""
+"""Tests for DEMON.optimize.search_space module."""
 
 from __future__ import annotations
 
-from DEMON.learning.optimize.search_space import (
+from OpenDEMON.learning.optimize.search_space import (
     DEFAULT_SEARCH_SPACE,
     build_search_space,
 )
-from DEMON.learning.optimize.types import SearchSpace
+from OpenDEMON.learning.optimize.types import SearchSpace
 
 # ---------------------------------------------------------------------------
 # build_search_space

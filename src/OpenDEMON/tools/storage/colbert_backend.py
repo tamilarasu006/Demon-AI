@@ -1,4 +1,4 @@
-﻿"""ColBERTv2 late interaction memory backend.
+"""ColBERTv2 late interaction memory backend.
 
 Uses ColBERT's token-level embeddings with MaxSim scoring for
 high-quality semantic retrieval.  All data lives in memory — there is
@@ -32,9 +32,9 @@ except ImportError as exc:
         "    pip install colbert-ai\n"
     ) from exc
 
-from DEMON.core.events import EventType, get_event_bus
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.core.events import EventType, get_event_bus
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
 
 
 @MemoryRegistry.register("colbert")

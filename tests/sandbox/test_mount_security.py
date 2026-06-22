@@ -1,4 +1,4 @@
-﻿"""Tests for mount_security module."""
+"""Tests for mount_security module."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import json
 
 import pytest
 
-from DEMON.sandbox.mount_security import (
+from OpenDEMON.sandbox.mount_security import (
     DEFAULT_BLOCKED_PATTERNS,
     AllowedRoot,
     MountAllowlist,

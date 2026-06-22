@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.evals.comparison.make_configs."""
+"""Tests for DEMON.evals.comparison.make_configs."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 import tomllib
 
-from DEMON.evals.comparison.make_configs import (
+from OpenDEMON.evals.comparison.make_configs import (
     BENCHMARKS,  # noqa: F401  (verify export)
     FRAMEWORKS,  # noqa: F401  (verify export)
     MODELS,

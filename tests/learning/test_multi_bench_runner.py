@@ -1,14 +1,14 @@
-﻿"""Tests for MultiBenchTrialRunner and related multi-benchmark features."""
+"""Tests for MultiBenchTrialRunner and related multi-benchmark features."""
 
 from __future__ import annotations
 
 from unittest.mock import patch
 
-from DEMON.learning.optimize.trial_runner import (
+from OpenDEMON.learning.optimize.trial_runner import (
     BenchmarkSpec,
     MultiBenchTrialRunner,
 )
-from DEMON.learning.optimize.types import (
+from OpenDEMON.learning.optimize.types import (
     BenchmarkScore,
     SampleScore,
     TrialConfig,
@@ -226,7 +226,7 @@ class TestMultiBenchRunTrial:
 
 class TestLoadBenchmarkSpecs:
     def test_multi_benchmark_format(self):
-        from DEMON.learning.optimize.config import load_benchmark_specs
+        from OpenDEMON.learning.optimize.config import load_benchmark_specs
 
         data = {
             "optimize": {
@@ -245,7 +245,7 @@ class TestLoadBenchmarkSpecs:
         assert specs[2].weight == 0.2
 
     def test_single_benchmark_fallback(self):
-        from DEMON.learning.optimize.config import load_benchmark_specs
+        from OpenDEMON.learning.optimize.config import load_benchmark_specs
 
         data = {
             "optimize": {
@@ -259,13 +259,13 @@ class TestLoadBenchmarkSpecs:
         assert specs[0].max_samples == 100
 
     def test_empty_returns_empty(self):
-        from DEMON.learning.optimize.config import load_benchmark_specs
+        from OpenDEMON.learning.optimize.config import load_benchmark_specs
 
         specs = load_benchmark_specs({"optimize": {}})
         assert specs == []
 
     def test_no_optimize_section(self):
-        from DEMON.learning.optimize.config import load_benchmark_specs
+        from OpenDEMON.learning.optimize.config import load_benchmark_specs
 
         specs = load_benchmark_specs({})
         assert specs == []
@@ -304,7 +304,7 @@ class TestTrialResultPerBenchmark:
 
 class TestParamToRecipe:
     def test_max_tokens_mapping(self):
-        from DEMON.learning.optimize.types import _PARAM_TO_RECIPE
+        from OpenDEMON.learning.optimize.types import _PARAM_TO_RECIPE
 
         assert "intelligence.max_tokens" in _PARAM_TO_RECIPE
         assert _PARAM_TO_RECIPE["intelligence.max_tokens"] == "max_tokens"

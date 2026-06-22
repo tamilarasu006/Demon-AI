@@ -1,6 +1,6 @@
-﻿"""Allow running as ``python -m DEMON.evals``."""
+"""Allow running as ``python -m OpenDEMON.evals``."""
 
-from DEMON.evals.cli import main
+from OpenDEMON.evals.cli import main
 
 if __name__ == "__main__":
     main()

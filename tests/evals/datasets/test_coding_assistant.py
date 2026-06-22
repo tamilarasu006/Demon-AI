@@ -1,6 +1,6 @@
-﻿"""Tests for the coding_assistant dataset."""
+"""Tests for the coding_assistant dataset."""
 
-from DEMON.evals.datasets.coding_assistant import CodingAssistantDataset
+from OpenDEMON.evals.datasets.coding_assistant import CodingAssistantDataset
 
 
 def test_dataset_loads():

@@ -1,12 +1,12 @@
-﻿"""W&B experiment tracker for the eval framework."""
+"""W&B experiment tracker for the eval framework."""
 
 from __future__ import annotations
 
 import logging
 from typing import Any, Dict, List, Optional
 
-from DEMON.evals.core.tracker import ResultTracker
-from DEMON.evals.core.types import EvalResult, MetricStats, RunConfig, RunSummary
+from OpenDEMON.evals.core.tracker import ResultTracker
+from OpenDEMON.evals.core.types import EvalResult, MetricStats, RunConfig, RunSummary
 
 try:
     import wandb

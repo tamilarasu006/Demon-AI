@@ -1,23 +1,23 @@
-﻿"""Tests for MorningDigestAgent."""
+"""Tests for MorningDigestAgent."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-from DEMON.agents._stubs import AgentResult
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import ToolResult
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import ToolResult
 
 
 def test_morning_digest_registered():
-    from DEMON.agents.morning_digest import MorningDigestAgent
+    from OpenDEMON.agents.morning_digest import MorningDigestAgent
 
     AgentRegistry.register_value("morning_digest", MorningDigestAgent)
     assert AgentRegistry.contains("morning_digest")
 
 
 def test_morning_digest_run(tmp_path):
-    from DEMON.agents.morning_digest import MorningDigestAgent
+    from OpenDEMON.agents.morning_digest import MorningDigestAgent
 
     mock_engine = MagicMock()
     mock_engine.generate.return_value = {
@@ -64,7 +64,7 @@ def test_morning_digest_run(tmp_path):
 
 
 def test_load_persona():
-    from DEMON.agents.morning_digest import _load_persona
+    from OpenDEMON.agents.morning_digest import _load_persona
 
     # Nonexistent persona returns empty string
     result = _load_persona("nonexistent_persona_xyz")

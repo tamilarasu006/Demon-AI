@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON optimize skills CLI command (Plan 2A)."""
+"""Tests for DEMON optimize skills CLI command (Plan 2A)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestOptimizeSkillsCommand:
@@ -28,8 +28,8 @@ class TestOptimizeSkillsCommand:
             assert result.exit_code == 0
 
     def test_optimize_runs_with_mocked_optimizer(self, tmp_path: Path) -> None:
-        from DEMON.core.types import StepType, Trace, TraceStep
-        from DEMON.learning.agents.skill_optimizer import (
+        from OpenDEMON.core.types import StepType, Trace, TraceStep
+        from OpenDEMON.learning.agents.skill_optimizer import (
             SkillOptimizationResult,
         )
 

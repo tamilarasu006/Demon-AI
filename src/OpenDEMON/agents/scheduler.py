@@ -1,4 +1,4 @@
-﻿"""AgentScheduler — cron/interval tick scheduling for managed agents."""
+"""AgentScheduler — cron/interval tick scheduling for managed agents."""
 
 from __future__ import annotations
 
@@ -7,11 +7,11 @@ import threading
 import time
 from typing import TYPE_CHECKING, Any
 
-from DEMON.core.events import EventType
+from OpenDEMON.core.events import EventType
 
 if TYPE_CHECKING:
-    from DEMON.agents.executor import AgentExecutor
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.manager import AgentManager
 
 logger = logging.getLogger(__name__)
 

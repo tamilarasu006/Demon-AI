@@ -1,6 +1,6 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
-from DEMON.security.types import ThreatLevel
+from OpenDEMON.security.types import ThreatLevel
 
 _DEFAULT_ACTIONS = {
     ThreatLevel.CRITICAL: "block",

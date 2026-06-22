@@ -1,8 +1,8 @@
-﻿"""Tests for system_prompt_template expansion in agent creation."""
+"""Tests for system_prompt_template expansion in agent creation."""
 
 from __future__ import annotations
 
-from DEMON.agents.manager import AgentManager
+from OpenDEMON.agents.manager import AgentManager
 
 
 def test_create_from_template_expands_system_prompt(tmp_path):

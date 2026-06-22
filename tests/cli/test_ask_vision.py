@@ -1,4 +1,4 @@
-﻿"""CLI-level regression tests for ``DEMON ask`` vision input.
+"""CLI-level regression tests for ``DEMON ask`` vision input.
 
 The unit tests in ``tests/test_vision.py`` cover the ``Message.images`` ->
 ``messages_to_dicts`` serialization contract in isolation. These tests lock
@@ -17,9 +17,9 @@ from typing import Any
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.config import DEMONConfig
-from DEMON.core.types import Role
+from OpenDEMON.cli import cli
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.types import Role
 
 # Import the module (not the Click command attribute) so we can monkeypatch
 # the names it looks up at call time.

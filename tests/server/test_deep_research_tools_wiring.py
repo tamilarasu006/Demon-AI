@@ -1,4 +1,4 @@
-﻿"""Test that _build_deep_research_tools works correctly."""
+"""Test that _build_deep_research_tools works correctly."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ try:
 except ImportError:
     HAS_FASTAPI = False
 
-from DEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors.store import KnowledgeStore
 
 
 @pytest.mark.skipif(not HAS_FASTAPI, reason="fastapi not installed")
@@ -24,7 +24,7 @@ def test_deep_research_agent_gets_tools(tmp_path: Path) -> None:
     store = KnowledgeStore(str(db_path))
     store.store("test content", source="test", doc_type="note")
 
-    from DEMON.server.agent_manager_routes import _build_deep_research_tools
+    from OpenDEMON.server.agent_manager_routes import _build_deep_research_tools
 
     tools = _build_deep_research_tools(
         engine=MagicMock(),
@@ -44,7 +44,7 @@ def test_deep_research_agent_gets_tools(tmp_path: Path) -> None:
 @pytest.mark.skipif(not HAS_FASTAPI, reason="fastapi not installed")
 def test_deep_research_tools_returns_empty_when_no_db() -> None:
     """When knowledge.db doesn't exist, returns empty list."""
-    from DEMON.server.agent_manager_routes import _build_deep_research_tools
+    from OpenDEMON.server.agent_manager_routes import _build_deep_research_tools
 
     tools = _build_deep_research_tools(
         engine=MagicMock(),

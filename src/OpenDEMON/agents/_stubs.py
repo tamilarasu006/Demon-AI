@@ -1,4 +1,4 @@
-﻿"""ABC for agent implementations.
+"""ABC for agent implementations.
 
 Adapted from IPW's ``BaseAgent`` at ``src/agents/base.py``.
 Provides ``BaseAgent`` with concrete helper methods for event emission,
@@ -13,10 +13,10 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.config import load_config
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Conversation, Message, Role, ToolResult
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Conversation, Message, Role, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
 
 
 @dataclass(slots=True)
@@ -254,7 +254,7 @@ class BaseAgent(ABC):
             if finish_reason != "length":
                 break
             # Append what we have so far and ask the model to continue
-            from DEMON.core.types import Message, Role
+            from OpenDEMON.core.types import Message, Role
 
             messages.append(Message(role=Role.ASSISTANT, content=content))
             messages.append(
@@ -334,7 +334,7 @@ class ToolUsingAgent(BaseAgent):
             max_tokens=max_tokens,
             prompt_builder=prompt_builder,
         )
-        from DEMON.tools._stubs import ToolExecutor
+        from OpenDEMON.tools._stubs import ToolExecutor
 
         self._tools = tools or []
         # Plan 2B I3: store optimized few-shot examples for agents to inject
@@ -362,7 +362,7 @@ class ToolUsingAgent(BaseAgent):
         # Loop guard
         self._loop_guard = None
         try:
-            from DEMON.agents.loop_guard import LoopGuard, LoopGuardConfig
+            from OpenDEMON.agents.loop_guard import LoopGuard, LoopGuardConfig
 
             if loop_guard_config is None:
                 loop_guard_config = LoopGuardConfig()

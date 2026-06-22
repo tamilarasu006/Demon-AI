@@ -1,4 +1,4 @@
-﻿"""Tests for EnergyMonitor ABC, EnergySample, EnergyVendor, and factory."""
+"""Tests for EnergyMonitor ABC, EnergySample, EnergyVendor, and factory."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.telemetry.energy_monitor import (
+from OpenDEMON.telemetry.energy_monitor import (
     EnergyMonitor,
     EnergySample,
     EnergyVendor,

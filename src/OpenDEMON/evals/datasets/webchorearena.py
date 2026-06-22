@@ -1,4 +1,4 @@
-﻿"""WebChoreArena: Realistic tedious web browsing tasks.
+"""WebChoreArena: Realistic tedious web browsing tasks.
 
 Evaluates web agents on 532 tasks across Shopping, Shopping Admin,
 Reddit, GitLab, and Cross-site environments. Tests massive memory,
@@ -21,9 +21,9 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 logger = logging.getLogger(__name__)
 
@@ -154,7 +154,7 @@ class WebChoreArenaDataset(DatasetProvider):
     def create_task_env(self, record: EvalRecord):
         """Return a WebChoreArenaTaskEnv for the given record."""
         try:
-            from DEMON.evals.execution.webchorearena_env import (
+            from OpenDEMON.evals.execution.webchorearena_env import (
                 WebChoreArenaTaskEnv,
             )
 

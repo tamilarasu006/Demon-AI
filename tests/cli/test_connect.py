@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON connect`` CLI command."""
+"""Tests for ``DEMON connect`` CLI command."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 def test_connect_list_no_connectors() -> None:

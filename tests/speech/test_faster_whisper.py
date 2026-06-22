@@ -1,11 +1,11 @@
-﻿"""Tests for Faster-Whisper speech backend."""
+"""Tests for Faster-Whisper speech backend."""
 
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.core.registry import SpeechRegistry
-from DEMON.speech.faster_whisper import FasterWhisperBackend
+from OpenDEMON.core.registry import SpeechRegistry
+from OpenDEMON.speech.faster_whisper import FasterWhisperBackend
 
 
 @pytest.fixture(autouse=True)
@@ -22,7 +22,7 @@ def test_faster_whisper_backend_registers():
 
 def test_faster_whisper_transcribe():
     """Transcribe returns a TranscriptionResult."""
-    from DEMON.speech._stubs import TranscriptionResult
+    from OpenDEMON.speech._stubs import TranscriptionResult
 
     mock_model = MagicMock()
     mock_segment = MagicMock()
@@ -42,7 +42,7 @@ def test_faster_whisper_transcribe():
         "DEMON.speech.faster_whisper.WhisperModel",
         return_value=mock_model,
     ):
-        from DEMON.speech.faster_whisper import FasterWhisperBackend
+        from OpenDEMON.speech.faster_whisper import FasterWhisperBackend
 
         backend = FasterWhisperBackend(model_size="base", device="cpu")
         result = backend.transcribe(b"fake audio bytes")
@@ -113,7 +113,7 @@ def test_faster_whisper_health_captures_load_error():
 def test_faster_whisper_supported_formats():
     """Backend supports standard audio formats."""
     with patch("DEMON.speech.faster_whisper.WhisperModel"):
-        from DEMON.speech.faster_whisper import FasterWhisperBackend
+        from OpenDEMON.speech.faster_whisper import FasterWhisperBackend
 
         backend = FasterWhisperBackend.__new__(FasterWhisperBackend)
         formats = backend.supported_formats()

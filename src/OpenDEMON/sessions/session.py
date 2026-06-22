@@ -1,4 +1,4 @@
-﻿"""Session management — cross-channel persistent sessions.
+"""Session management — cross-channel persistent sessions.
 
 Supports consolidation and decay.
 """
@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from DEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
 
 @dataclass(slots=True)

@@ -1,10 +1,10 @@
-﻿"""Tests for credential persistence module."""
+"""Tests for credential persistence module."""
 
 import os
 
 import pytest
 
-from DEMON.core.credentials import (
+from OpenDEMON.core.credentials import (
     get_credential_status,
     load_credentials,
     save_credential,

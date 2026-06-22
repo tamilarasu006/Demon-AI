@@ -1,4 +1,4 @@
-﻿"""Text-to-speech tool — synthesize text to audio via configurable TTS backend."""
+"""Text-to-speech tool — synthesize text to audio via configurable TTS backend."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry, TTSRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry, TTSRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("text_to_speech")
@@ -54,7 +54,7 @@ class TextToSpeechTool(BaseTool):
 
     def execute(self, **params: Any) -> ToolResult:
         # Ensure TTS backends are registered
-        import DEMON.speech  # noqa: F401
+        import OpenDEMON.speech  # noqa: F401
 
         text = params.get("text", "")
         voice_id = params.get("voice_id", "")

@@ -1,4 +1,4 @@
-﻿"""TeacherAgent: frontier model as a tool-calling meta-engineer.
+"""TeacherAgent: frontier model as a tool-calling meta-engineer.
 
 NOT registered in ``AgentRegistry``. NOT a subclass of ``BaseAgent``.
 This is a standalone tool-calling loop that wraps ``CloudEngine`` with
@@ -23,8 +23,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
-from DEMON.core.types import Message, Role, ToolCall
-from DEMON.learning.spec_search.diagnose.types import (
+from OpenDEMON.core.types import Message, Role, ToolCall
+from OpenDEMON.learning.spec_search.diagnose.types import (
     DiagnosticTool,
     ToolCallRecord,
 )

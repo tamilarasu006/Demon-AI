@@ -1,4 +1,4 @@
-﻿"""Agentic research loop over the hybrid-search tool.
+"""Agentic research loop over the hybrid-search tool.
 
 A small, self-contained planner-executor loop:
 
@@ -23,9 +23,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from DEMON.connectors.hybrid_search import HybridSearch, SearchHit
-from DEMON.core.types import Message, Role, ToolCall
-from DEMON.engine._base import InferenceEngine
+from OpenDEMON.connectors.hybrid_search import HybridSearch, SearchHit
+from OpenDEMON.core.types import Message, Role, ToolCall
+from OpenDEMON.engine._base import InferenceEngine
 
 logger = logging.getLogger(__name__)
 

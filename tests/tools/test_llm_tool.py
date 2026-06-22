@@ -1,10 +1,10 @@
-﻿"""Tests for the LLM tool."""
+"""Tests for the LLM tool."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.tools.llm_tool import LLMTool
+from OpenDEMON.tools.llm_tool import LLMTool
 
 
 def _make_mock_engine(content: str = "response") -> MagicMock:

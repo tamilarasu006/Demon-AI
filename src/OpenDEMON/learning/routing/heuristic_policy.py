@@ -1,9 +1,9 @@
-﻿"""Wire the existing HeuristicRouter into the RouterPolicyRegistry."""
+"""Wire the existing HeuristicRouter into the RouterPolicyRegistry."""
 
 from __future__ import annotations
 
-from DEMON.core.registry import RouterPolicyRegistry
-from DEMON.learning.routing.router import HeuristicRouter
+from OpenDEMON.core.registry import RouterPolicyRegistry
+from OpenDEMON.learning.routing.router import HeuristicRouter
 
 
 def ensure_registered() -> None:

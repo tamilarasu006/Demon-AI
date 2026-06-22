@@ -1,4 +1,4 @@
-﻿"""DeepPlanning: long-horizon planning with constraints.
+"""DeepPlanning: long-horizon planning with constraints.
 
 Evaluates agents on complex shopping tasks with hard constraints
 (product attributes, ratings, stock, shipping).
@@ -19,8 +19,8 @@ import tarfile
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 logger = logging.getLogger(__name__)
 

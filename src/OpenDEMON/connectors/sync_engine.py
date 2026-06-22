@@ -1,4 +1,4 @@
-﻿"""SyncEngine — checkpoint/resume orchestration for connector syncs.
+"""SyncEngine — checkpoint/resume orchestration for connector syncs.
 
 Wraps ``IngestionPipeline`` with a lightweight SQLite state database so that
 long-running syncs can be interrupted and resumed from the last saved cursor.
@@ -21,9 +21,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from DEMON.connectors._stubs import BaseConnector
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.connectors._stubs import BaseConnector
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
 # ---------------------------------------------------------------------------
 # DDL

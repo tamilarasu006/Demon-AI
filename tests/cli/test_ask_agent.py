@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON ask --agent`` CLI integration."""
+"""Tests for ``DEMON ask --agent`` CLI integration."""
 
 from __future__ import annotations
 
@@ -9,10 +9,10 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.cli import cli
-from DEMON.core.types import ToolCall, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.cli import cli
+from OpenDEMON.core.types import ToolCall, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 _ask_mod = importlib.import_module("DEMON.cli.ask")
 
@@ -34,9 +34,9 @@ def _mock_engine(content="Hello from engine"):
 
 def _register_agents():
     """Re-register agents after registry clear."""
-    from DEMON.agents.orchestrator import OrchestratorAgent
-    from DEMON.agents.simple import SimpleAgent
-    from DEMON.core.registry import AgentRegistry
+    from OpenDEMON.agents.orchestrator import OrchestratorAgent
+    from OpenDEMON.agents.simple import SimpleAgent
+    from OpenDEMON.core.registry import AgentRegistry
 
     for name, cls in [
         ("simple", SimpleAgent),
@@ -48,12 +48,12 @@ def _register_agents():
 
 def _register_tools():
     """Re-register tools after registry clear."""
-    from DEMON.core.registry import ToolRegistry
-    from DEMON.tools.calculator import CalculatorTool
-    from DEMON.tools.file_read import FileReadTool
-    from DEMON.tools.llm_tool import LLMTool
-    from DEMON.tools.retrieval import RetrievalTool
-    from DEMON.tools.think import ThinkTool
+    from OpenDEMON.core.registry import ToolRegistry
+    from OpenDEMON.tools.calculator import CalculatorTool
+    from OpenDEMON.tools.file_read import FileReadTool
+    from OpenDEMON.tools.llm_tool import LLMTool
+    from OpenDEMON.tools.retrieval import RetrievalTool
+    from OpenDEMON.tools.think import ThinkTool
 
     for name, cls in [
         ("calculator", CalculatorTool),
@@ -107,8 +107,8 @@ class _EngineSetup:
 
 @pytest.fixture
 def agent_setup():
-    from DEMON.core.config import DEMONConfig
-    from DEMON.core.registry import AgentRegistry, ToolRegistry
+    from OpenDEMON.core.config import DEMONConfig
+    from OpenDEMON.core.registry import AgentRegistry, ToolRegistry
 
     engine = _mock_engine("unused")
     config = DEMONConfig()
@@ -152,7 +152,7 @@ def mock_setup():
         patch.object(_ask_mod, "register_builtin_models"),
         patch.object(_ask_mod, "merge_discovered_models"),
     ):
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.core.config import DEMONConfig
 
         mock_cfg.return_value = DEMONConfig()
         mock_ge.return_value = ("mock", engine)
@@ -240,7 +240,7 @@ class TestAskAgentOption:
     ):
         """When config's ``default_agent`` is blank and --agent is omitted,
         the original direct-to-engine path is preserved."""
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.core.config import DEMONConfig
 
         cfg = DEMONConfig()
         cfg.agent.default_agent = ""
@@ -293,8 +293,8 @@ class TestAskAgentOption:
 
 class TestBuildTools:
     def test_build_calculator(self, mock_setup):
-        from DEMON.cli.ask import _build_tools
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.cli.ask import _build_tools
+        from OpenDEMON.core.config import DEMONConfig
 
         _register_tools()
         config = DEMONConfig()
@@ -303,8 +303,8 @@ class TestBuildTools:
         assert tools[0].tool_id == "calculator"
 
     def test_build_think(self, mock_setup):
-        from DEMON.cli.ask import _build_tools
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.cli.ask import _build_tools
+        from OpenDEMON.core.config import DEMONConfig
 
         _register_tools()
         config = DEMONConfig()
@@ -313,24 +313,24 @@ class TestBuildTools:
         assert tools[0].tool_id == "think"
 
     def test_build_unknown_tool_skipped(self, mock_setup):
-        from DEMON.cli.ask import _build_tools
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.cli.ask import _build_tools
+        from OpenDEMON.core.config import DEMONConfig
 
         config = DEMONConfig()
         tools = _build_tools(["nonexistent"], config, mock_setup, "test-model")
         assert len(tools) == 0
 
     def test_build_empty_names(self, mock_setup):
-        from DEMON.cli.ask import _build_tools
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.cli.ask import _build_tools
+        from OpenDEMON.core.config import DEMONConfig
 
         config = DEMONConfig()
         tools = _build_tools(["", " "], config, mock_setup, "test-model")
         assert len(tools) == 0
 
     def test_build_multiple_tools(self, mock_setup):
-        from DEMON.cli.ask import _build_tools
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.cli.ask import _build_tools
+        from OpenDEMON.core.config import DEMONConfig
 
         _register_tools()
         config = DEMONConfig()
@@ -350,7 +350,7 @@ class TestPersonaFilesReachModel:
         self, runner, monkeypatch, tmp_path
     ):
         """SOUL.md content must appear in the system message sent to the engine."""
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.core.config import DEMONConfig
 
         # Write a SOUL.md with a unique sentinel string we can grep for
         soul = tmp_path / "SOUL.md"
@@ -409,7 +409,7 @@ class TestPersonaFilesReachModel:
     ):
         """OrchestratorAgent's __init__ doesn't accept ``prompt_builder``;
         the wiring must skip it silently rather than crash."""
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.core.config import DEMONConfig
 
         soul = tmp_path / "SOUL.md"
         soul.write_text("ORCH_PERSONA_SENTINEL", encoding="utf-8")

@@ -1,4 +1,4 @@
-﻿"""End-to-end CLI tests for skill install + sync against fake sources."""
+"""End-to-end CLI tests for skill install + sync against fake sources."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 def _build_fake_hermes_cache(cache_root: Path) -> None:
@@ -32,7 +32,7 @@ def _build_fake_hermes_cache(cache_root: Path) -> None:
 class TestCliInstallE2E:
     def test_install_hermes_skill_e2e(self, tmp_path: Path) -> None:
         """DEMON skill install hermes:research-skill installs to target dir."""
-        from DEMON.skills.sources.hermes import HermesResolver
+        from OpenDEMON.skills.sources.hermes import HermesResolver
 
         cache = tmp_path / "hermes-cache"
         target = tmp_path / "target"
@@ -54,7 +54,7 @@ class TestCliInstallE2E:
                 # Patch the SkillImporter constructor used inside the install
                 # command so it writes to our test target instead of
                 # ~/.DEMON/skills/.
-                from DEMON.skills.importer import SkillImporter as _SI
+                from OpenDEMON.skills.importer import SkillImporter as _SI
 
                 original_init = _SI.__init__
 

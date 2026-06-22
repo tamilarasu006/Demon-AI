@@ -1,10 +1,10 @@
-﻿"""ABC for security scanners."""
+"""ABC for security scanners."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from DEMON.security.types import ScanResult
+from OpenDEMON.security.types import ScanResult
 
 
 class BaseScanner(ABC):

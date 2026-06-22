@@ -1,4 +1,4 @@
-﻿"""Tests for the pdf_extract tool."""
+"""Tests for the pdf_extract tool."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import builtins
 import sys
 from unittest.mock import MagicMock
 
-from DEMON.tools.pdf_tool import PDFExtractTool, _parse_pages
+from OpenDEMON.tools.pdf_tool import PDFExtractTool, _parse_pages
 
 
 class TestPDFExtractTool:

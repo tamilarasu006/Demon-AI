@@ -1,40 +1,40 @@
-﻿"""Learning primitive -- router policies, reward functions, learning."""
+"""Learning primitive -- router policies, reward functions, learning."""
 
 from __future__ import annotations
 
-from DEMON.learning._stubs import (
+from OpenDEMON.learning._stubs import (
     QueryAnalyzer,
     RewardFunction,
     RouterPolicy,
     RoutingContext,
 )
-from DEMON.learning.agents.agent_evolver import AgentConfigEvolver
-from DEMON.learning.learning_orchestrator import LearningOrchestrator
-from DEMON.learning.optimize.llm_optimizer import LLMOptimizer
-from DEMON.learning.optimize.optimizer import OptimizationEngine
-from DEMON.learning.optimize.store import OptimizationStore
-from DEMON.learning.routing.complexity import (
+from OpenDEMON.learning.agents.agent_evolver import AgentConfigEvolver
+from OpenDEMON.learning.learning_orchestrator import LearningOrchestrator
+from OpenDEMON.learning.optimize.llm_optimizer import LLMOptimizer
+from OpenDEMON.learning.optimize.optimizer import OptimizationEngine
+from OpenDEMON.learning.optimize.store import OptimizationStore
+from OpenDEMON.learning.routing.complexity import (
     ComplexityQueryAnalyzer,
     score_complexity,
 )
-from DEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
-from DEMON.learning.routing.router import (
+from OpenDEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
+from OpenDEMON.learning.routing.router import (
     HeuristicRouter,
     build_routing_context,
 )
-from DEMON.learning.training.data import TrainingDataMiner
-from DEMON.learning.training.lora import HAS_TORCH, LoRATrainer, LoRATrainingConfig
+from OpenDEMON.learning.training.data import TrainingDataMiner
+from OpenDEMON.learning.training.lora import HAS_TORCH, LoRATrainer, LoRATrainingConfig
 
 
 def ensure_registered() -> None:
     """Ensure all learning policies are registered in RouterPolicyRegistry."""
-    from DEMON.learning.routing.heuristic_policy import (
+    from OpenDEMON.learning.routing.heuristic_policy import (
         ensure_registered as _reg_heuristic,
     )
 
     _reg_heuristic()
 
-    from DEMON.learning.routing.learned_router import (
+    from OpenDEMON.learning.routing.learned_router import (
         ensure_registered as _reg_learned,
     )
 
@@ -42,27 +42,27 @@ def ensure_registered() -> None:
 
     # Intelligence training (optional deps)
     try:
-        import DEMON.learning.intelligence  # noqa: F401
+        import OpenDEMON.learning.intelligence  # noqa: F401
     except ImportError:
         pass
 
     # Orchestrator-specific training (optional deps)
     try:
-        import DEMON.learning.intelligence.orchestrator  # noqa: F401
+        import OpenDEMON.learning.intelligence.orchestrator  # noqa: F401
     except ImportError:
         pass
 
     # Agent optimizers (optional deps)
     try:
-        import DEMON.learning.agents.dspy_optimizer  # noqa: F401
+        import OpenDEMON.learning.agents.dspy_optimizer  # noqa: F401
     except ImportError:
         pass
     try:
-        import DEMON.learning.agents.gepa_optimizer  # noqa: F401
+        import OpenDEMON.learning.agents.gepa_optimizer  # noqa: F401
     except ImportError:
         pass
     try:
-        import DEMON.learning.agents.ace_optimizer  # noqa: F401
+        import OpenDEMON.learning.agents.ace_optimizer  # noqa: F401
     except ImportError:
         pass
 

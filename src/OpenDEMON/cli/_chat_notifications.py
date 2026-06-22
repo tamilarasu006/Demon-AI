@@ -1,8 +1,8 @@
-﻿"""Between-turn completion notifications for background work."""
+"""Between-turn completion notifications for background work."""
 
 from __future__ import annotations
 
-from DEMON.cli._bg_state import BgStatus
+from OpenDEMON.cli._bg_state import BgStatus
 
 
 class NotificationDispatcher:

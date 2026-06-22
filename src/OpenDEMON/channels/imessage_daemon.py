@@ -1,4 +1,4 @@
-﻿"""iMessage daemon — polls chat.db and routes to DeepResearchAgent.
+"""iMessage daemon — polls chat.db and routes to DeepResearchAgent.
 
 Monitors a designated iMessage conversation for new messages, routes
 them to the agent, and sends responses back via AppleScript.
@@ -18,7 +18,7 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 logger = logging.getLogger(__name__)
 

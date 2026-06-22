@@ -1,9 +1,9 @@
-﻿"""Tests for between-turn completion notifications."""
+"""Tests for between-turn completion notifications."""
 
 from __future__ import annotations
 
-from DEMON.cli._bg_state import BgStatus
-from DEMON.cli._chat_notifications import NotificationDispatcher
+from OpenDEMON.cli._bg_state import BgStatus
+from OpenDEMON.cli._chat_notifications import NotificationDispatcher
 
 
 def test_no_notifications_when_unchanged() -> None:

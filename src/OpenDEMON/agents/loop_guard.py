@@ -1,4 +1,4 @@
-﻿"""Agent loop guard — detect and prevent degenerate tool-calling loops."""
+"""Agent loop guard — detect and prevent degenerate tool-calling loops."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from collections import deque
 from dataclasses import dataclass
 from typing import Optional
 
-from DEMON.core.events import EventBus, EventType
+from OpenDEMON.core.events import EventBus, EventType
 
 
 @dataclass(slots=True)
@@ -55,7 +55,7 @@ class LoopGuard:
         self._warned_cycles: set[str] = set()
 
         try:
-            from DEMON._rust_bridge import get_rust_module
+            from OpenDEMON._rust_bridge import get_rust_module
 
             _rust = get_rust_module()
             self._rust_impl = _rust.LoopGuard(
@@ -162,7 +162,7 @@ class LoopGuard:
         compressed = []
         for i, msg in enumerate(messages):
             if i < threshold and self._is_tool(msg):
-                from DEMON.core.types import Message, Role
+                from OpenDEMON.core.types import Message, Role
 
                 compressed.append(
                     Message(

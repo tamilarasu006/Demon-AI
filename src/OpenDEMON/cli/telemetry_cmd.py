@@ -1,4 +1,4 @@
-﻿"""``DEMON telemetry`` — query and manage telemetry data."""
+"""``DEMON telemetry`` — query and manage telemetry data."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from DEMON.core.config import load_config
-from DEMON.telemetry.aggregator import TelemetryAggregator
+from OpenDEMON.core.config import load_config
+from OpenDEMON.telemetry.aggregator import TelemetryAggregator
 
 
 def _get_aggregator() -> TelemetryAggregator:

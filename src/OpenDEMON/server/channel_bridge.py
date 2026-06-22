@@ -1,4 +1,4 @@
-﻿"""ChannelBridge — unified orchestrator for multi-channel messaging."""
+"""ChannelBridge — unified orchestrator for multi-channel messaging."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import logging
 import time
 from typing import Any, Dict, List, Optional
 
-from DEMON.channels._stubs import BaseChannel, ChannelStatus
-from DEMON.core.events import EventBus, EventType
-from DEMON.server.session_store import SessionStore
+from OpenDEMON.channels._stubs import BaseChannel, ChannelStatus
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.server.session_store import SessionStore
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""Savings calculation — compare local inference cost against cloud providers.
+"""Savings calculation — compare local inference cost against cloud providers.
 
 FLOPs and energy use a no-KV-cache model: P * N * (N+1) where P = params,
 N = total tokens. This reflects full recompute without cached attention.
@@ -14,8 +14,8 @@ from typing import Any, Dict, List
 # `DEMON.core.types` so the telemetry layer can read it without
 # crossing the server → telemetry layering. Re-exported here for
 # backward compatibility with existing imports of `from
-# DEMON.server.savings import TOKEN_COUNTING_VERSION`.
-from DEMON.core.types import TOKEN_COUNTING_VERSION  # noqa: E402,F401
+# OpenDEMON.server.savings import TOKEN_COUNTING_VERSION`.
+from OpenDEMON.core.types import TOKEN_COUNTING_VERSION  # noqa: E402,F401
 
 # ---------------------------------------------------------------------------
 # Cloud provider pricing (USD per 1M tokens)

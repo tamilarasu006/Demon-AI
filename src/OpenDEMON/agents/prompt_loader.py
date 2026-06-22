@@ -1,4 +1,4 @@
-﻿"""Load system prompt and few-shot overrides from $DEMON_HOME.
+"""Load system prompt and few-shot overrides from $DEMON_HOME.
 
 LLM-guided spec search (M1) proposes edits that get written to disk by appliers.
 This module lets agents pick those overrides up at runtime:
@@ -18,7 +18,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 logger = logging.getLogger(__name__)
 

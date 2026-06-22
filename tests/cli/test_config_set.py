@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON config set`` command."""
+"""Tests for ``DEMON config set`` command."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestConfigSet:

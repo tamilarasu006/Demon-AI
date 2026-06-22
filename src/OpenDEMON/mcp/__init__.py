@@ -1,9 +1,9 @@
-﻿"""MCP (Model Context Protocol) layer for DEMON."""
+"""MCP (Model Context Protocol) layer for OpenDEMON."""
 
-from DEMON.mcp.client import MCPClient
-from DEMON.mcp.protocol import MCPError, MCPNotification, MCPRequest, MCPResponse
-from DEMON.mcp.server import MCPServer
-from DEMON.mcp.transport import (
+from OpenDEMON.mcp.client import MCPClient
+from OpenDEMON.mcp.protocol import MCPError, MCPNotification, MCPRequest, MCPResponse
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.mcp.transport import (
     InProcessTransport,
     MCPTransport,
     SSETransport,

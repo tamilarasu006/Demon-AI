@@ -1,8 +1,8 @@
-﻿"""Tests for browser_axtree tool."""
+"""Tests for browser_axtree tool."""
 
 from unittest.mock import MagicMock, PropertyMock, patch
 
-from DEMON.tools.browser_axtree import BrowserAXTreeTool
+from OpenDEMON.tools.browser_axtree import BrowserAXTreeTool
 
 
 def _make_mock_page():

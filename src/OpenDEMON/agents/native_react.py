@@ -1,4 +1,4 @@
-﻿"""NativeReActAgent -- Thought-Action-Observation loop agent.
+"""NativeReActAgent -- Thought-Action-Observation loop agent.
 
 Renamed from ``ReActAgent`` to clarify this is DEMON's native
 implementation, not an integration with an external project.
@@ -9,16 +9,16 @@ from __future__ import annotations
 import re
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.agents.prompt_loader import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.agents.prompt_loader import (
     load_few_shot_exemplars,
     load_system_prompt_override,
 )
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall, ToolResult, _message_to_dict
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool, build_tool_descriptions
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall, ToolResult, _message_to_dict
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool, build_tool_descriptions
 
 REACT_SYSTEM_PROMPT = """\
 You are a ReAct agent. For each step, respond with exactly one of:

@@ -1,12 +1,12 @@
-﻿"""Operator manager — lifecycle management for autonomous operators."""
+"""Operator manager — lifecycle management for autonomous operators."""
 from __future__ import annotations
 
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.operators.loader import load_operator
-from DEMON.operators.types import OperatorManifest
+from OpenDEMON.operators.loader import load_operator
+from OpenDEMON.operators.types import OperatorManifest
 
 logger = logging.getLogger(__name__)
 

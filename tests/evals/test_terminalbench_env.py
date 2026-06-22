@@ -1,4 +1,4 @@
-﻿"""Tests for TerminalBenchTaskEnv (mocked terminal_bench dependency).
+"""Tests for TerminalBenchTaskEnv (mocked terminal_bench dependency).
 
 These tests install a fake ``terminal_bench`` module tree into
 ``sys.modules`` so they run without the real package or a Docker daemon
@@ -16,8 +16,8 @@ from typing import Any, Dict, List
 
 import pytest
 
-from DEMON.evals.core.environment import TaskEnvironmentError
-from DEMON.evals.execution.terminalbench_env import TerminalBenchTaskEnv
+from OpenDEMON.evals.core.environment import TaskEnvironmentError
+from OpenDEMON.evals.execution.terminalbench_env import TerminalBenchTaskEnv
 
 # ---------------------------------------------------------------------------
 # Fake terminal_bench seam

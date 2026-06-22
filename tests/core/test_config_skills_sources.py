@@ -1,8 +1,8 @@
-﻿"""Tests for skills.sources config section."""
+"""Tests for skills.sources config section."""
 
 from __future__ import annotations
 
-from DEMON.core.config import SkillsConfig, SkillSourceConfig
+from OpenDEMON.core.config import SkillsConfig, SkillSourceConfig
 
 
 class TestSkillSourceConfig:

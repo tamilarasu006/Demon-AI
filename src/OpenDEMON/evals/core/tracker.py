@@ -1,10 +1,10 @@
-﻿"""ResultTracker ABC for external experiment tracking."""
+"""ResultTracker ABC for external experiment tracking."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from DEMON.evals.core.types import EvalResult, RunConfig, RunSummary
+from OpenDEMON.evals.core.types import EvalResult, RunConfig, RunSummary
 
 
 class ResultTracker(ABC):

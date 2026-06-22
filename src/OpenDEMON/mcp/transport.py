@@ -1,4 +1,4 @@
-﻿"""MCP transport implementations."""
+"""MCP transport implementations."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ import subprocess
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any, List, Optional
 
-from DEMON.mcp.protocol import MCPRequest, MCPResponse
+from OpenDEMON.mcp.protocol import MCPRequest, MCPResponse
 
 if TYPE_CHECKING:
-    from DEMON.mcp.server import MCPServer
+    from OpenDEMON.mcp.server import MCPServer
 
 
 class MCPTransport(ABC):

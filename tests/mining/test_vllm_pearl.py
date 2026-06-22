@@ -1,4 +1,4 @@
-﻿"""End-to-end tests for VllmPearlProvider with mocked Docker + filesystem."""
+"""End-to-end tests for VllmPearlProvider with mocked Docker + filesystem."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import pytest
 
 
 def test_vllm_pearl_detect_supported_on_h100(hopper_hw):
-    from DEMON.mining.vllm_pearl import VllmPearlProvider
+    from OpenDEMON.mining.vllm_pearl import VllmPearlProvider
 
     cap = VllmPearlProvider.detect(
         hopper_hw,
@@ -20,7 +20,7 @@ def test_vllm_pearl_detect_supported_on_h100(hopper_hw):
 
 
 def test_vllm_pearl_detect_unsupported_on_apple(apple_hw):
-    from DEMON.mining.vllm_pearl import VllmPearlProvider
+    from OpenDEMON.mining.vllm_pearl import VllmPearlProvider
 
     cap = VllmPearlProvider.detect(
         apple_hw,
@@ -32,8 +32,8 @@ def test_vllm_pearl_detect_unsupported_on_apple(apple_hw):
 
 @pytest.mark.asyncio
 async def test_vllm_pearl_start_writes_sidecar(tmp_path, monkeypatch):
-    from DEMON.mining._stubs import MiningConfig, SoloTarget
-    from DEMON.mining.vllm_pearl import VllmPearlProvider
+    from OpenDEMON.mining._stubs import MiningConfig, SoloTarget
+    from OpenDEMON.mining.vllm_pearl import VllmPearlProvider
 
     sidecar_path = tmp_path / "mining.json"
     monkeypatch.setattr("DEMON.mining.vllm_pearl.SIDECAR_PATH", sidecar_path)
@@ -84,8 +84,8 @@ async def test_vllm_pearl_start_writes_sidecar(tmp_path, monkeypatch):
 async def test_vllm_pearl_start_pool_target_raises_not_implemented(
     monkeypatch, tmp_path
 ):  # noqa: E501
-    from DEMON.mining._stubs import MiningConfig, PoolTarget
-    from DEMON.mining.vllm_pearl import VllmPearlProvider
+    from OpenDEMON.mining._stubs import MiningConfig, PoolTarget
+    from OpenDEMON.mining.vllm_pearl import VllmPearlProvider
 
     sidecar_path = tmp_path / "mining.json"
     monkeypatch.setattr("DEMON.mining.vllm_pearl.SIDECAR_PATH", sidecar_path)
@@ -104,7 +104,7 @@ async def test_vllm_pearl_start_pool_target_raises_not_implemented(
 
 @pytest.mark.asyncio
 async def test_vllm_pearl_stop_removes_sidecar(tmp_path, monkeypatch, written_sidecar):
-    from DEMON.mining.vllm_pearl import VllmPearlProvider
+    from OpenDEMON.mining.vllm_pearl import VllmPearlProvider
 
     monkeypatch.setattr("DEMON.mining.vllm_pearl.SIDECAR_PATH", written_sidecar)
     fake_client = MagicMock()
@@ -115,7 +115,7 @@ async def test_vllm_pearl_stop_removes_sidecar(tmp_path, monkeypatch, written_si
 
 
 def test_vllm_pearl_stats_reads_gateway(monkeypatch, written_sidecar):
-    from DEMON.mining.vllm_pearl import VllmPearlProvider
+    from OpenDEMON.mining.vllm_pearl import VllmPearlProvider
 
     monkeypatch.setattr("DEMON.mining.vllm_pearl.SIDECAR_PATH", written_sidecar)
     sample = (
@@ -134,7 +134,7 @@ def test_vllm_pearl_stats_reads_gateway(monkeypatch, written_sidecar):
 
 
 def test_vllm_pearl_stats_falls_back_to_vllm_metrics(monkeypatch, written_sidecar):
-    from DEMON.mining.vllm_pearl import VllmPearlProvider
+    from OpenDEMON.mining.vllm_pearl import VllmPearlProvider
 
     monkeypatch.setattr("DEMON.mining.vllm_pearl.SIDECAR_PATH", written_sidecar)
 
@@ -155,8 +155,8 @@ def test_vllm_pearl_stats_falls_back_to_vllm_metrics(monkeypatch, written_sideca
 
 
 def test_ensure_registered_is_idempotent():
-    from DEMON.core.registry import MinerRegistry
-    from DEMON.mining.vllm_pearl import (
+    from OpenDEMON.core.registry import MinerRegistry
+    from OpenDEMON.mining.vllm_pearl import (
         VllmPearlProvider,
         ensure_registered,
     )

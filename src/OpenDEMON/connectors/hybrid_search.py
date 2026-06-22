@@ -1,4 +1,4 @@
-﻿"""Hybrid retrieval over the KnowledgeStore: metadata filter + BM25 + vector cosine.
+"""Hybrid retrieval over the KnowledgeStore: metadata filter + BM25 + vector cosine.
 
 A single ``search`` entrypoint that the agentic research loop calls as a tool.
 Structured WHERE-clause filters (person, time range, sources) narrow the
@@ -26,8 +26,8 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 # numpy imported lazily inside _vector_recall (see embeddings.py) so importing
 # this module never forces numpy at load time (#404, #309).
-from DEMON.connectors.embeddings import OllamaEmbedder, decode_embedding
-from DEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors.embeddings import OllamaEmbedder, decode_embedding
+from OpenDEMON.connectors.store import KnowledgeStore
 
 logger = logging.getLogger(__name__)
 

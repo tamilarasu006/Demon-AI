@@ -1,4 +1,4 @@
-﻿"""Tests for mining/_docker.py — Docker SDK orchestration via mocks."""
+"""Tests for mining/_docker.py — Docker SDK orchestration via mocks."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import pytest
 
 
 def test_ensure_image_already_local():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake = MagicMock()
     fake.images.get.return_value = MagicMock(
@@ -22,7 +22,7 @@ def test_ensure_image_already_local():
 
 
 def test_ensure_image_pulls_if_published():
-    from DEMON.mining._docker import (
+    from OpenDEMON.mining._docker import (
         APIError,
         ImageNotFound,
         NotFound,
@@ -43,8 +43,8 @@ def test_ensure_image_pulls_if_published():
 
 
 def test_ensure_image_falls_back_to_build_for_default_tag():
-    from DEMON.mining._constants import PEARL_IMAGE_TAG
-    from DEMON.mining._docker import (
+    from OpenDEMON.mining._constants import PEARL_IMAGE_TAG
+    from OpenDEMON.mining._docker import (
         APIError,
         ImageNotFound,
         NotFound,
@@ -74,7 +74,7 @@ def test_ensure_image_falls_back_to_build_for_default_tag():
 def test_ensure_image_errors_when_non_default_tag_missing():
     import pytest
 
-    from DEMON.mining._docker import (
+    from OpenDEMON.mining._docker import (
         APIError,
         ImageAcquisitionError,
         ImageNotFound,
@@ -98,7 +98,7 @@ def test_ensure_image_errors_when_non_default_tag_missing():
 
 
 def test_docker_build_raises_nofile_limit(tmp_path):
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     entrypoint = tmp_path / "miner" / "vllm-miner" / "entrypoint.sh"
     entrypoint.parent.mkdir(parents=True)
@@ -115,7 +115,7 @@ def test_docker_build_raises_nofile_limit(tmp_path):
 
 
 def test_patch_vllm_dockerfile_keeps_nvcc_runtime(tmp_path):
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     dockerfile = tmp_path / "miner" / "vllm-miner" / "Dockerfile"
     dockerfile.parent.mkdir(parents=True)
@@ -127,7 +127,7 @@ def test_patch_vllm_dockerfile_keeps_nvcc_runtime(tmp_path):
 
 
 def test_patch_vllm_entrypoint_waits_for_gateway_socket(tmp_path):
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     entrypoint = tmp_path / "miner" / "vllm-miner" / "entrypoint.sh"
     entrypoint.parent.mkdir(parents=True)
@@ -148,8 +148,8 @@ def _env_password(monkeypatch):
 
 
 def test_launcher_start_calls_run_with_expected_kwargs(_env_password):
-    from DEMON.mining._docker import PearlDockerLauncher
-    from DEMON.mining._stubs import MiningConfig, SoloTarget
+    from OpenDEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._stubs import MiningConfig, SoloTarget
 
     fake = MagicMock()
     fake.containers.run.return_value = MagicMock(id="cid-1", status="running")
@@ -193,8 +193,8 @@ def test_launcher_start_calls_run_with_expected_kwargs(_env_password):
 def test_launcher_start_maps_host_gpu_ids_to_container_local_cuda_ids(
     _env_password,
 ) -> None:
-    from DEMON.mining._docker import PearlDockerLauncher
-    from DEMON.mining._stubs import MiningConfig, SoloTarget
+    from OpenDEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._stubs import MiningConfig, SoloTarget
 
     fake = MagicMock()
     fake.containers.run.return_value = MagicMock(id="cid-1", status="running")
@@ -219,8 +219,8 @@ def test_launcher_start_maps_host_gpu_ids_to_container_local_cuda_ids(
 
 
 def test_launcher_start_mounts_local_model_path(_env_password, tmp_path):
-    from DEMON.mining._docker import LOCAL_MODEL_BIND_PATH, PearlDockerLauncher
-    from DEMON.mining._stubs import MiningConfig, SoloTarget
+    from OpenDEMON.mining._docker import LOCAL_MODEL_BIND_PATH, PearlDockerLauncher
+    from OpenDEMON.mining._stubs import MiningConfig, SoloTarget
 
     local_model = tmp_path / "llama31-pearl"
     local_model.mkdir()
@@ -254,7 +254,7 @@ def test_launcher_start_mounts_local_model_path(_env_password, tmp_path):
 
 
 def test_launcher_stop_calls_container_stop_and_remove():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake_client = MagicMock()
     fake_container = MagicMock()
@@ -268,7 +268,7 @@ def test_launcher_stop_calls_container_stop_and_remove():
 
 
 def test_launcher_stop_finds_named_container_without_in_memory_reference():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake_client = MagicMock()
     fake_container = MagicMock()
@@ -282,7 +282,7 @@ def test_launcher_stop_finds_named_container_without_in_memory_reference():
 
 
 def test_launcher_is_running_when_container_running():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake_client = MagicMock()
     fake_container = MagicMock(status="running")
@@ -293,7 +293,7 @@ def test_launcher_is_running_when_container_running():
 
 
 def test_launcher_is_running_finds_named_container():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake_client = MagicMock()
     fake_container = MagicMock(status="running")
@@ -305,7 +305,7 @@ def test_launcher_is_running_finds_named_container():
 
 
 def test_launcher_is_running_false_when_container_exited():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake_client = MagicMock()
     fake_container = MagicMock()
@@ -317,7 +317,7 @@ def test_launcher_is_running_false_when_container_exited():
 
 
 def test_launcher_get_logs_returns_decoded_string():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake_client = MagicMock()
     fake_container = MagicMock()
@@ -328,7 +328,7 @@ def test_launcher_get_logs_returns_decoded_string():
 
 
 def test_launcher_get_logs_redacts_rpc_passwords():
-    from DEMON.mining._docker import PearlDockerLauncher
+    from OpenDEMON.mining._docker import PearlDockerLauncher
 
     fake_client = MagicMock()
     fake_container = MagicMock()
@@ -345,11 +345,11 @@ def test_launcher_get_logs_redacts_rpc_passwords():
 
 
 def test_launcher_start_errors_when_password_env_missing():
-    from DEMON.mining._docker import (
+    from OpenDEMON.mining._docker import (
         ConfigurationError,
         PearlDockerLauncher,
     )
-    from DEMON.mining._stubs import MiningConfig, SoloTarget
+    from OpenDEMON.mining._stubs import MiningConfig, SoloTarget
 
     fake = MagicMock()
     launcher = PearlDockerLauncher(client=fake)

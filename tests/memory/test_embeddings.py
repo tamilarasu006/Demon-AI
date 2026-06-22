@@ -1,4 +1,4 @@
-﻿"""Tests for the embeddings abstraction layer."""
+"""Tests for the embeddings abstraction layer."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import pytest
 
 st = pytest.importorskip("sentence_transformers")
 
-from DEMON.tools.storage.embeddings import (  # noqa: E402
+from OpenDEMON.tools.storage.embeddings import (  # noqa: E402
     Embedder,
     SentenceTransformerEmbedder,
 )

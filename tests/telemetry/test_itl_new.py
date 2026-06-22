@@ -1,10 +1,10 @@
-﻿"""Tests for inter-token latency percentile computation."""
+"""Tests for inter-token latency percentile computation."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.telemetry.itl import compute_itl_stats
+from OpenDEMON.telemetry.itl import compute_itl_stats
 
 
 class TestComputeItlStats:

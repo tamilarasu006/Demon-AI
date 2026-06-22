@@ -1,4 +1,4 @@
-﻿"""Shared OAuth 2.0 helpers for all connectors.
+"""Shared OAuth 2.0 helpers for all connectors.
 
 Provides:
 - ``OAuthProvider`` registry with configs for Google, Strava, Spotify
@@ -16,8 +16,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlencode
 
-from DEMON.core import open_browser
-from DEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core import open_browser
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
 # ---------------------------------------------------------------------------
 # Connector credentials directory
@@ -445,7 +445,7 @@ def run_oauth_flow(
                 self.end_headers()
                 self.wfile.write(
                     b"<html><body><h2>Authorization successful!</h2>"
-                    b"<p>You can close this tab and return to DEMON.</p>"
+                    b"<p>You can close this tab and return to OpenDEMON.</p>"
                     b"</body></html>"
                 )
             elif "error" in params:
@@ -565,7 +565,7 @@ def _wait_for_callback_code(
                     b"<html><body style='font-family:system-ui;text-align:center;"
                     b"padding:60px'>"
                     b"<h2 style='color:#22c55e'>Connected!</h2>"
-                    b"<p>You can close this tab and return to DEMON.</p>"
+                    b"<p>You can close this tab and return to OpenDEMON.</p>"
                     b"</body></html>"
                 )
             elif "error" in params:

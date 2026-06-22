@@ -1,4 +1,4 @@
-﻿"""Shared base for OpenAI-compatible ``/v1/`` engines."""
+"""Shared base for OpenAI-compatible ``/v1/`` engines."""
 
 from __future__ import annotations
 
@@ -9,14 +9,14 @@ from typing import Any, Dict, List
 
 import httpx
 
-from DEMON.core.types import Message
-from DEMON.engine._base import (
+from OpenDEMON.core.types import Message
+from OpenDEMON.engine._base import (
     EngineConnectionError,
     InferenceEngine,
     estimate_prompt_tokens,
     messages_to_dicts,
 )
-from DEMON.engine._stubs import StreamChunk
+from OpenDEMON.engine._stubs import StreamChunk
 
 logger = logging.getLogger(__name__)
 

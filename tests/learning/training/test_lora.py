@@ -1,4 +1,4 @@
-﻿"""Tests for LoRATrainer — LoRA/QLoRA fine-tuning from trace-derived SFT pairs."""
+"""Tests for LoRATrainer — LoRA/QLoRA fine-tuning from trace-derived SFT pairs."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.learning.training.lora import HAS_TORCH, LoRATrainer, LoRATrainingConfig
+from OpenDEMON.learning.training.lora import HAS_TORCH, LoRATrainer, LoRATrainingConfig
 
 # ---------------------------------------------------------------------------
 # Config tests (no torch required)

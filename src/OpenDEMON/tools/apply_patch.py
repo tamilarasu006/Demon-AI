@@ -1,4 +1,4 @@
-﻿"""Apply-patch tool — apply unified diff patches to files."""
+"""Apply-patch tool — apply unified diff patches to files."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, List, Optional
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Hunk / patch parsing helpers
@@ -253,7 +253,7 @@ class ApplyPatchTool(BaseTool):
         path = Path(target)
 
         # Block sensitive files
-        from DEMON.security.file_policy import is_sensitive_file
+        from OpenDEMON.security.file_policy import is_sensitive_file
 
         if is_sensitive_file(path):
             return ToolResult(

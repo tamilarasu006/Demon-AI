@@ -1,4 +1,4 @@
-﻿"""Health check tests for all data source connectors.
+"""Health check tests for all data source connectors.
 
 Verifies that each connector can be instantiated, reports connection
 status correctly, and has the required interface methods.
@@ -124,8 +124,8 @@ def test_knowledge_store_has_data() -> None:
 
     Skips if the DB is missing or has no indexed rows (fresh install / empty store).
     """
-    from DEMON.connectors.store import KnowledgeStore
-    from DEMON.core.config import DEFAULT_CONFIG_DIR
+    from OpenDEMON.connectors.store import KnowledgeStore
+    from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
     db_path = DEFAULT_CONFIG_DIR / "knowledge.db"
     if not db_path.exists():
@@ -152,8 +152,8 @@ def test_knowledge_store_sources_have_chunks() -> None:
 
     Skips if the DB is missing or empty (same as test_knowledge_store_has_data).
     """
-    from DEMON.connectors.store import KnowledgeStore
-    from DEMON.core.config import DEFAULT_CONFIG_DIR
+    from OpenDEMON.connectors.store import KnowledgeStore
+    from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
     db_path = DEFAULT_CONFIG_DIR / "knowledge.db"
     if not db_path.exists():

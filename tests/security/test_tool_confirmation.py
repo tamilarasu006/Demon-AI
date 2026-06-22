@@ -1,11 +1,11 @@
-﻿"""Tests for tool confirmation enforcement in ToolExecutor."""
+"""Tests for tool confirmation enforcement in ToolExecutor."""
 
 from __future__ import annotations
 
 from typing import Any
 
-from DEMON.core.types import ToolCall, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+from OpenDEMON.core.types import ToolCall, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Test tool helpers

@@ -1,4 +1,4 @@
-﻿"""DigestStore — SQLite-backed storage for pre-computed digest artifacts."""
+"""DigestStore — SQLite-backed storage for pre-computed digest artifacts."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 
 @dataclass

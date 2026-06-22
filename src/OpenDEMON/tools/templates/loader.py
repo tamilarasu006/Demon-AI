@@ -1,4 +1,4 @@
-﻿"""Template loader — dynamically construct BaseTool from TOML definitions."""
+"""Template loader — dynamically construct BaseTool from TOML definitions."""
 
 from __future__ import annotations
 
@@ -11,8 +11,8 @@ import subprocess
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 logger = logging.getLogger(__name__)
 

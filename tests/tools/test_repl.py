@@ -1,11 +1,11 @@
-﻿"""Tests for the persistent REPL tool."""
+"""Tests for the persistent REPL tool."""
 
 from __future__ import annotations
 
 import time
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.tools.repl import ReplTool
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.tools.repl import ReplTool
 
 
 class TestReplSpec:

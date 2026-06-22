@@ -1,6 +1,6 @@
-﻿"""Tests for the security_scanner dataset."""
+"""Tests for the security_scanner dataset."""
 
-from DEMON.evals.datasets.security_scanner import SecurityScannerDataset
+from OpenDEMON.evals.datasets.security_scanner import SecurityScannerDataset
 
 
 def test_dataset_loads():

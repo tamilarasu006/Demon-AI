@@ -1,4 +1,4 @@
-﻿"""FastAPI application factory for the DEMON API server."""
+"""FastAPI application factory for the DEMON API server."""
 
 from __future__ import annotations
 
@@ -10,15 +10,15 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from DEMON.server.analytics_routes import router as analytics_router
-from DEMON.server.api_routes import include_all_routes
-from DEMON.server.comparison import comparison_router
-from DEMON.server.connectors_router import create_connectors_router
-from DEMON.server.dashboard import dashboard_router
-from DEMON.server.digest_routes import create_digest_router
-from DEMON.server.research_router import router as research_router
-from DEMON.server.routes import router
-from DEMON.server.upload_router import router as upload_router
+from OpenDEMON.server.analytics_routes import router as analytics_router
+from OpenDEMON.server.api_routes import include_all_routes
+from OpenDEMON.server.comparison import comparison_router
+from OpenDEMON.server.connectors_router import create_connectors_router
+from OpenDEMON.server.dashboard import dashboard_router
+from OpenDEMON.server.digest_routes import create_digest_router
+from OpenDEMON.server.research_router import router as research_router
+from OpenDEMON.server.routes import router
+from OpenDEMON.server.upload_router import router as upload_router
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ def _restore_sendblue_bindings(app: FastAPI) -> None:
                 if not api_key_id or not api_secret_key:
                     continue
 
-                from DEMON.channels.sendblue import SendBlueChannel
+                from OpenDEMON.channels.sendblue import SendBlueChannel
 
                 sb = SendBlueChannel(
                     api_key_id=api_key_id,
@@ -64,20 +64,20 @@ def _restore_sendblue_bindings(app: FastAPI) -> None:
                 if bridge and hasattr(bridge, "_channels"):
                     bridge._channels["sendblue"] = sb
                 else:
-                    from DEMON.server.channel_bridge import ChannelBridge
-                    from DEMON.server.session_store import SessionStore
+                    from OpenDEMON.server.channel_bridge import ChannelBridge
+                    from OpenDEMON.server.session_store import SessionStore
 
                     session_store = SessionStore()
                     engine = getattr(app.state, "engine", None)
                     dr_agent = None
                     if engine:
-                        from DEMON.server.agent_manager_routes import (
+                        from OpenDEMON.server.agent_manager_routes import (
                             _build_deep_research_tools,
                         )
 
                         tools = _build_deep_research_tools(engine=engine, model="")
                         if tools:
-                            from DEMON.agents.deep_research import (
+                            from OpenDEMON.agents.deep_research import (
                                 DeepResearchAgent,
                             )
 
@@ -92,7 +92,7 @@ def _restore_sendblue_bindings(app: FastAPI) -> None:
 
                     bus = getattr(app.state, "bus", None)
                     if bus is None:
-                        from DEMON.core.events import EventBus
+                        from OpenDEMON.core.events import EventBus
 
                         bus = EventBus()
 
@@ -241,8 +241,8 @@ def create_app(
     # the telemetry store is bus-subscribed (see system/builder.py).
     app.state.trace_store = None
     try:
-        from DEMON.core.config import load_config
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.traces.store import TraceStore
 
         cfg = config if config is not None else load_config()
         if cfg.traces.enabled:
@@ -258,12 +258,12 @@ def create_app(
     app.state.analytics_client = None
     app.state.analytics_bridge = None
     try:
-        from DEMON.analytics import (
+        from OpenDEMON.analytics import (
             AnalyticsClient,
             EventBridge,
             is_analytics_enabled,
         )
-        from DEMON.core.config import load_config
+        from OpenDEMON.core.config import load_config
 
         _cfg = config if config is not None else load_config()
         if is_analytics_enabled(_cfg.analytics):
@@ -307,7 +307,7 @@ def create_app(
 
     # Add security headers middleware
     try:
-        from DEMON.server.middleware import create_security_middleware
+        from OpenDEMON.server.middleware import create_security_middleware
 
         middleware_cls = create_security_middleware()
         if middleware_cls is not None:
@@ -318,7 +318,7 @@ def create_app(
     # API key authentication middleware
     if api_key:
         try:
-            from DEMON.server.auth_middleware import AuthMiddleware
+            from OpenDEMON.server.auth_middleware import AuthMiddleware
 
             app.add_middleware(AuthMiddleware, api_key=api_key)
         except Exception as exc:
@@ -327,7 +327,7 @@ def create_app(
     # Mount webhook routes (always — SendBlue may be configured dynamically)
     if webhook_config:
         try:
-            from DEMON.server.webhook_routes import (
+            from OpenDEMON.server.webhook_routes import (
                 create_webhook_router,
             )
 

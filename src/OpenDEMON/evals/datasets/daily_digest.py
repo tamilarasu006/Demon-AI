@@ -1,4 +1,4 @@
-﻿"""daily_digest dataset — 30 realistic workday briefing tasks.
+"""daily_digest dataset — 30 realistic workday briefing tasks.
 
 Each task provides a morning context (calendar, todos, messages, news interests)
 and the agent must produce a prioritized daily digest.
@@ -14,8 +14,8 @@ from __future__ import annotations
 import random
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """You are a personal assistant preparing a daily briefing for {role} at {company}.
 

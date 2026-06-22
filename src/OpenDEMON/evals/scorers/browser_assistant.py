@@ -1,4 +1,4 @@
-﻿"""browser_assistant scorer — exact match, semantic checklist, and source check.
+"""browser_assistant scorer — exact match, semantic checklist, and source check.
 
 Tier 1 (exact match): For exact facts, normalize and match numbers/names/versions.
 Tier 2 (semantic checklist): For semantic facts, binary yes/no via LLM judge.
@@ -15,9 +15,9 @@ import logging
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers._checklist import (
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers._checklist import (
     ChecklistScorer,
     normalize_number_str,
     normalize_str,

@@ -1,4 +1,4 @@
-﻿"""RL environment for orchestrator training.
+"""RL environment for orchestrator training.
 
 Adapted from IPW's ``environment.py``.  Uses DEMON's
 :class:`~DEMON.tools._stubs.ToolExecutor` for real tool dispatch
@@ -11,13 +11,13 @@ from __future__ import annotations
 import time
 from typing import List, Tuple
 
-from DEMON.core.types import ToolCall
-from DEMON.learning.intelligence.orchestrator.types import (
+from OpenDEMON.core.types import ToolCall
+from OpenDEMON.learning.intelligence.orchestrator.types import (
     EpisodeState,
     OrchestratorAction,
     OrchestratorObservation,
 )
-from DEMON.tools._stubs import BaseTool, ToolExecutor
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor
 
 
 class OrchestratorEnvironment:

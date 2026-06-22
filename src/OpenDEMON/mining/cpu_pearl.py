@@ -1,4 +1,4 @@
-﻿"""CPU-based Pearl mining provider (decoupled from inference).
+"""CPU-based Pearl mining provider (decoupled from inference).
 
 See spec ``docs/design/2026-05-05-apple-silicon-pearl-mining-design.md`` §13
 for the full v1 design.
@@ -16,9 +16,9 @@ import time
 import urllib.request
 from pathlib import Path
 
-from DEMON.core.config import HardwareInfo
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import MinerRegistry
+from OpenDEMON.core.config import HardwareInfo
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import MinerRegistry
 
 from . import _install
 from ._constants import (

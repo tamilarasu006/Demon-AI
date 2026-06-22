@@ -1,4 +1,4 @@
-﻿"""coding_assistant dataset — 30 buggy code projects for agent-based debugging.
+"""coding_assistant dataset — 30 buggy code projects for agent-based debugging.
 
 Each task presents a bug report, buggy source code, and a test suite.
 The agent must identify and fix the bug(s) so that all tests pass.
@@ -14,8 +14,8 @@ from __future__ import annotations
 import random
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """You are a coding assistant. A user has reported a bug in their code.
 

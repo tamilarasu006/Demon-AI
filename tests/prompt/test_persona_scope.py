@@ -1,11 +1,11 @@
-﻿"""Tests for #380 per-invocation persona scope (_resolve_persona)."""
+"""Tests for #380 per-invocation persona scope (_resolve_persona)."""
 
 from pathlib import Path
 
 import pytest
 
-from DEMON.core.config import MemoryFilesConfig
-from DEMON.prompt.builder import SystemPromptBuilder
+from OpenDEMON.core.config import MemoryFilesConfig
+from OpenDEMON.prompt.builder import SystemPromptBuilder
 
 
 def test_empty_persona_passes_through_global_defaults():
@@ -40,7 +40,7 @@ def test_none_persona_build_does_not_raise():
     """
     import dataclasses
 
-    from DEMON.core.config import load_config
+    from OpenDEMON.core.config import load_config
 
     cfg = load_config()
     mf = dataclasses.replace(cfg.memory_files, persona_name="none")

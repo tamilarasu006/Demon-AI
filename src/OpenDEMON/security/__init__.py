@@ -1,4 +1,4 @@
-﻿"""Security guardrails — scanners, engine wrapper, audit, SSRF."""
+"""Security guardrails — scanners, engine wrapper, audit, SSRF."""
 
 from __future__ import annotations
 
@@ -6,18 +6,18 @@ import logging
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from DEMON.core.events import EventBus
-from DEMON.security._stubs import BaseScanner
-from DEMON.security.audit import AuditLogger
-from DEMON.security.file_policy import (
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.security._stubs import BaseScanner
+from OpenDEMON.security.audit import AuditLogger
+from OpenDEMON.security.file_policy import (
     DEFAULT_SENSITIVE_PATTERNS,
     filter_sensitive_paths,
     is_sensitive_file,
 )
-from DEMON.security.guardrails import GuardrailsEngine, SecurityBlockError
-from DEMON.security.scanner import PIIScanner, SecretScanner
-from DEMON.security.ssrf import check_ssrf, is_private_ip
-from DEMON.security.types import (
+from OpenDEMON.security.guardrails import GuardrailsEngine, SecurityBlockError
+from OpenDEMON.security.scanner import PIIScanner, SecretScanner
+from OpenDEMON.security.ssrf import check_ssrf, is_private_ip
+from OpenDEMON.security.types import (
     RedactionMode,
     ScanFinding,
     ScanResult,
@@ -75,7 +75,7 @@ def setup_security(
     cap_policy = None
     if config.security.capabilities.enabled:
         try:
-            from DEMON.security.capabilities import CapabilityPolicy
+            from OpenDEMON.security.capabilities import CapabilityPolicy
 
             cap_policy = CapabilityPolicy(
                 policy_path=config.security.capabilities.policy_path or None,

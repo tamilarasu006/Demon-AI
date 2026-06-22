@@ -1,12 +1,12 @@
-﻿"""Tests for compute_pareto_frontier."""
+"""Tests for compute_pareto_frontier."""
 
 from __future__ import annotations
 
 from typing import Any, Dict
 
-from DEMON.evals.core.types import MetricStats, RunSummary
-from DEMON.learning.optimize.optimizer import compute_pareto_frontier
-from DEMON.learning.optimize.types import (
+from OpenDEMON.evals.core.types import MetricStats, RunSummary
+from OpenDEMON.learning.optimize.optimizer import compute_pareto_frontier
+from OpenDEMON.learning.optimize.types import (
     ObjectiveSpec,
     TrialConfig,
     TrialResult,

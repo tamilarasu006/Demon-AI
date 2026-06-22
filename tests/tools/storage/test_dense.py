@@ -1,4 +1,4 @@
-﻿"""Tests for the DenseMemory backend.
+"""Tests for the DenseMemory backend.
 
 These tests exercise retrieval quality on a small fixture corpus, then
 assert on the actual cosine-similarity score distribution the embedding
@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.tools.storage.dense import (
+from OpenDEMON.tools.storage.dense import (
     DenseMemory,
     MdChunk,
     chunk_markdown,

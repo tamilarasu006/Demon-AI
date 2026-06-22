@@ -1,4 +1,4 @@
-﻿"""Knowledge base scorer — answer correctness via normalized match + LLM fallback.
+"""Knowledge base scorer — answer correctness via normalized match + LLM fallback.
 
 Evaluates document-grounded QA by checking if the model answer
 matches the reference answer using exact match with normalization,
@@ -12,8 +12,8 @@ import re
 import string
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

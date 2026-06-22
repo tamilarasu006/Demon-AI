@@ -1,13 +1,13 @@
-﻿"""Tests for the SimpleAgent."""
+"""Tests for the SimpleAgent."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.agents._stubs import AgentContext, AgentResult
-from DEMON.agents.simple import SimpleAgent
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Conversation, Message, Role
+from OpenDEMON.agents._stubs import AgentContext, AgentResult
+from OpenDEMON.agents.simple import SimpleAgent
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Conversation, Message, Role
 
 
 def _make_mock_engine(content: str = "Hello there!") -> MagicMock:

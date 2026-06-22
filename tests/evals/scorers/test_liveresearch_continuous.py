@@ -1,4 +1,4 @@
-﻿"""Tests for continuous-score reporting and judge-response reparsing.
+"""Tests for continuous-score reporting and judge-response reparsing.
 
 Covers the ``mean_continuous_score`` family of fields in summary.json,
 the ``_safe_json_loads`` parser tolerating multi-line ``notes``, and
@@ -13,10 +13,10 @@ from unittest.mock import MagicMock
 import pytest
 from click.testing import CliRunner
 
-from DEMON.evals.cli import main as cli_main
-from DEMON.evals.core.runner import EvalRunner, _extract_continuous_score
-from DEMON.evals.core.types import EvalRecord, RunConfig
-from DEMON.evals.scorers.liveresearch import (
+from OpenDEMON.evals.cli import main as cli_main
+from OpenDEMON.evals.core.runner import EvalRunner, _extract_continuous_score
+from OpenDEMON.evals.core.types import EvalRecord, RunConfig
+from OpenDEMON.evals.scorers.liveresearch import (
     _escape_newlines_inside_strings,
     _parse_judge_response,
     _safe_json_loads,

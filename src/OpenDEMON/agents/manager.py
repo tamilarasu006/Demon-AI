@@ -1,4 +1,4 @@
-﻿"""Persistent agent lifecycle manager.
+"""Persistent agent lifecycle manager.
 
 Composition layer — stores agent state in SQLite, delegates all computation
 to the five existing primitives (Intelligence, Agent, Tools, Engine, Learning).
@@ -14,7 +14,7 @@ import uuid
 from typing import Any, Dict, List, Optional
 from uuid import uuid4
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 logger = logging.getLogger(__name__)
 
@@ -193,7 +193,7 @@ class AgentManager:
         # the executor silently falls back to _AGENT_TICK_DEFAULT_MODEL while
         # the Overview shows a stale/default value. Lazy import avoids any
         # import-order coupling with the executor module.
-        from DEMON.agents.executor import _AGENT_TICK_DEFAULT_MODEL
+        from OpenDEMON.agents.executor import _AGENT_TICK_DEFAULT_MODEL
 
         config = dict(config or {})
         if not config.get("model"):

@@ -1,4 +1,4 @@
-﻿"""Check for newer DEMON releases on PyPI."""
+"""Check for newer DEMON releases on PyPI."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import sys
 import time
 from pathlib import Path
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 logger = logging.getLogger(__name__)
 
@@ -118,7 +118,7 @@ def check_for_updates(command_name: str) -> None:
 def _do_check() -> None:
     import DEMON
 
-    current = DEMON.__version__
+    current = OpenDEMON.__version__
     latest = _get_latest_version(current)
     if latest is None:
         return
@@ -127,7 +127,7 @@ def _do_check() -> None:
 
     try:
         if Version(latest) > Version(current):
-            from DEMON.cli._install_detect import detect_install
+            from OpenDEMON.cli._install_detect import detect_install
 
             cmd = detect_install().upgrade_command
             sys.stderr.write(

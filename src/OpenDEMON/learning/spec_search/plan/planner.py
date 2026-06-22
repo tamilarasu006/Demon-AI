@@ -1,4 +1,4 @@
-﻿"""LearningPlanner: converts a diagnosis into a frozen LearningPlan.
+"""LearningPlanner: converts a diagnosis into a frozen LearningPlan.
 
 Makes a single structured-output teacher call (no tools, no multi-turn)
 to generate typed edits for each failure cluster. Post-processes the
@@ -15,15 +15,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.models import (
     Edit,
     FailureCluster,
     LearningPlan,
 )
-from DEMON.learning.spec_search.plan.prompt_diff import (
+from OpenDEMON.learning.spec_search.plan.prompt_diff import (
     maybe_downgrade_to_replace,
 )
-from DEMON.learning.spec_search.plan.risk_tier import assign_tiers
+from OpenDEMON.learning.spec_search.plan.risk_tier import assign_tiers
 
 logger = logging.getLogger(__name__)
 
@@ -171,7 +171,7 @@ class LearningPlanner:
         )
 
         # Make the teacher call
-        from DEMON.core.types import Message, Role
+        from OpenDEMON.core.types import Message, Role
 
         messages = [
             Message(role=Role.SYSTEM, content=_PLANNER_SYSTEM_PROMPT),

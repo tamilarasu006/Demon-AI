@@ -1,13 +1,13 @@
-﻿"""LLM tool — delegate a sub-query to an inference engine."""
+"""LLM tool — delegate a sub-query to an inference engine."""
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import Message, Role, ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import Message, Role, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("llm")

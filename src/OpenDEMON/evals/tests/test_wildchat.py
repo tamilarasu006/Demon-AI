@@ -1,10 +1,10 @@
-﻿"""Tests for WildChat scorer (verdict parsing and dual comparison)."""
+"""Tests for WildChat scorer (verdict parsing and dual comparison)."""
 
 from __future__ import annotations
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.wildchat_judge import WildChatScorer
-from DEMON.evals.tests.conftest import MockBackend
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.wildchat_judge import WildChatScorer
+from OpenDEMON.evals.tests.conftest import MockBackend
 
 
 class TestVerdictParsing:

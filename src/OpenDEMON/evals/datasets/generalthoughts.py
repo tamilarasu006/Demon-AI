@@ -1,4 +1,4 @@
-﻿"""GeneralThought-430K (filtered) — external reasoning corpus.
+"""GeneralThought-430K (filtered) — external reasoning corpus.
 
 NOT USED FOR EVALUATION. Provides the LLM-guided spec search proposer
 with a large pool of reasoning trajectories to reason over (via
@@ -15,9 +15,9 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 HF_DATASET_ID = "natolambert/GeneralThought-430K-filtered"
 HF_SPLIT = "train"

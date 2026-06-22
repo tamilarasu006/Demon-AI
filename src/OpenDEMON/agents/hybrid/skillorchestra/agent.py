@@ -1,4 +1,4 @@
-﻿"""SkillOrchestraAgent — the DEMON harness entry point.
+"""SkillOrchestraAgent — the DEMON harness entry point.
 
 A faithful port of the SkillOrchestra eval orchestrator (arXiv:2602.19672,
 ``orchestration/eval_frames.py``). The agent runs the multi-round
@@ -32,8 +32,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.core.registry import AgentRegistry
 
 from .._base import LocalCloudAgent
 from ..mini_swe_agent import run_swe_agent_loop

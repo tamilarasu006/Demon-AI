@@ -1,4 +1,4 @@
-﻿"""Mining-specific test fixtures."""
+"""Mining-specific test fixtures."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.config import GpuInfo, HardwareInfo
+from OpenDEMON.core.config import GpuInfo, HardwareInfo
 
 
 @pytest.fixture

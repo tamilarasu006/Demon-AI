@@ -1,14 +1,14 @@
-﻿"""Learning primitive ABCs -- router policies, reward functions, learning policies."""
+"""Learning primitive ABCs -- router policies, reward functions, learning policies."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any, ClassVar, Dict
 
-from DEMON.core.registry import LearningRegistry  # noqa: F401
+from OpenDEMON.core.registry import LearningRegistry  # noqa: F401
 
 # Re-export from canonical location for backward compatibility
-from DEMON.core.types import RoutingContext  # noqa: F401
+from OpenDEMON.core.types import RoutingContext  # noqa: F401
 
 if TYPE_CHECKING:
     pass

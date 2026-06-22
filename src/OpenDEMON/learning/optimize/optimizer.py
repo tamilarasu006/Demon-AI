@@ -1,4 +1,4 @@
-﻿"""OptimizationEngine -- orchestrates the optimize loop.
+"""OptimizationEngine -- orchestrates the optimize loop.
 
 Ties together the LLM optimizer, trial runner, and persistence store
 into a single propose -> evaluate -> analyze -> repeat loop.
@@ -16,10 +16,10 @@ try:
 except ModuleNotFoundError:  # pragma: no cover
     tomli_w = None  # type: ignore[assignment]
 
-from DEMON.learning.optimize.llm_optimizer import LLMOptimizer
-from DEMON.learning.optimize.store import OptimizationStore
-from DEMON.learning.optimize.trial_runner import TrialRunner
-from DEMON.learning.optimize.types import (
+from OpenDEMON.learning.optimize.llm_optimizer import LLMOptimizer
+from OpenDEMON.learning.optimize.store import OptimizationStore
+from OpenDEMON.learning.optimize.trial_runner import TrialRunner
+from OpenDEMON.learning.optimize.types import (
     ObjectiveSpec,
     OptimizationRun,
     SearchSpace,
@@ -165,7 +165,7 @@ class OptimizationEngine:
         """
         run_id = uuid.uuid4().hex[:16]
         # Detect benchmark name(s) from the trial runner
-        from DEMON.learning.optimize.trial_runner import MultiBenchTrialRunner
+        from OpenDEMON.learning.optimize.trial_runner import MultiBenchTrialRunner
 
         benchmark_name = getattr(self.trial_runner, "benchmark", "")
         benchmark_names: List[str] = []
@@ -213,7 +213,7 @@ class OptimizationEngine:
             elif result.per_benchmark:
                 # Multi-benchmark composite: build a synthetic summary
                 # for analysis from per_benchmark data
-                from DEMON.evals.core.types import RunSummary as _RS
+                from OpenDEMON.evals.core.types import RunSummary as _RS
 
                 synth = _RS(
                     benchmark="multi",

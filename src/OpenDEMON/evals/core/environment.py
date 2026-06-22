@@ -1,11 +1,11 @@
-﻿"""Environment provider ABC for benchmarks requiring external environments."""
+"""Environment provider ABC for benchmarks requiring external environments."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Tuple
 
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class TaskEnvironmentError(RuntimeError):

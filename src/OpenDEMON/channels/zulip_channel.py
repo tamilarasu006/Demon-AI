@@ -1,4 +1,4 @@
-﻿"""ZulipChannel — Zulip adapter via zulip Python bindings."""
+"""ZulipChannel — Zulip adapter via zulip Python bindings."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ import logging
 import os
 from typing import Any, Dict, List, Optional
 
-from DEMON.channels._stubs import (
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelHandler,
     ChannelStatus,
 )
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 
 logger = logging.getLogger(__name__)
 

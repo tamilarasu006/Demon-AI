@@ -1,13 +1,13 @@
-﻿"""Tests for speech backend auto-discovery."""
+"""Tests for speech backend auto-discovery."""
 
 from unittest.mock import patch
 
-from DEMON.core.config import DEMONConfig
+from OpenDEMON.core.config import DEMONConfig
 
 
 def test_get_speech_backend_explicit():
     """Explicit backend selection works."""
-    from DEMON.speech._discovery import get_speech_backend
+    from OpenDEMON.speech._discovery import get_speech_backend
 
     config = DEMONConfig()
     config.speech.backend = "faster-whisper"
@@ -30,7 +30,7 @@ def test_get_speech_backend_explicit():
 
 def test_get_speech_backend_returns_none_if_nothing_available():
     """Returns None when no backend can be created."""
-    from DEMON.speech._discovery import get_speech_backend
+    from OpenDEMON.speech._discovery import get_speech_backend
 
     config = DEMONConfig()
     config.speech.backend = "nonexistent"
@@ -41,7 +41,7 @@ def test_get_speech_backend_returns_none_if_nothing_available():
 
 def test_auto_discovery_priority():
     """Auto mode tries backends in priority order."""
-    from DEMON.speech._discovery import DISCOVERY_ORDER
+    from OpenDEMON.speech._discovery import DISCOVERY_ORDER
 
     assert DISCOVERY_ORDER[0] == "faster-whisper"
     assert "openai" in DISCOVERY_ORDER

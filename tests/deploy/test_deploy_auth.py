@@ -1,4 +1,4 @@
-﻿"""Deployment configs must not ship an unauthenticated public server (#221).
+"""Deployment configs must not ship an unauthenticated public server (#221).
 
 Every shipped deployment method must either bind loopback (no network
 exposure) or require an API key, so that following the docs never yields an
@@ -60,7 +60,7 @@ def test_launchd_plist_binds_loopback():
     ],
 )
 def test_check_bind_safety(host, api_key, should_exit):
-    from DEMON.server.auth_middleware import check_bind_safety
+    from OpenDEMON.server.auth_middleware import check_bind_safety
 
     if should_exit:
         with pytest.raises(SystemExit):

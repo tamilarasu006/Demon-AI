@@ -1,4 +1,4 @@
-﻿"""WhatsApp chat export connector.
+"""WhatsApp chat export connector.
 
 Reads WhatsApp chat history from exported .txt files.  WhatsApp allows
 exporting individual chats via *Chat → More → Export Chat* on iOS/Android,
@@ -23,9 +23,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterator, List, Optional
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 logger = logging.getLogger(__name__)
 

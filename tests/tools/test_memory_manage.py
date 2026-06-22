@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
@@ -13,7 +13,7 @@ def memory_file(tmp_path: Path) -> Path:
 
 
 def test_memory_read(memory_file: Path):
-    from DEMON.tools.memory_manage import MemoryManageTool
+    from OpenDEMON.tools.memory_manage import MemoryManageTool
 
     tool = MemoryManageTool(memory_path=memory_file)
     result = tool.execute(action="read")
@@ -21,7 +21,7 @@ def test_memory_read(memory_file: Path):
 
 
 def test_memory_add(memory_file: Path):
-    from DEMON.tools.memory_manage import MemoryManageTool
+    from OpenDEMON.tools.memory_manage import MemoryManageTool
 
     tool = MemoryManageTool(memory_path=memory_file)
     result = tool.execute(action="add", entry="User works at Acme Corp")
@@ -30,7 +30,7 @@ def test_memory_add(memory_file: Path):
 
 
 def test_memory_remove(memory_file: Path):
-    from DEMON.tools.memory_manage import MemoryManageTool
+    from OpenDEMON.tools.memory_manage import MemoryManageTool
 
     tool = MemoryManageTool(memory_path=memory_file)
     tool.execute(action="add", entry="temporary fact")
@@ -40,7 +40,7 @@ def test_memory_remove(memory_file: Path):
 
 
 def test_memory_create_if_missing(tmp_path: Path):
-    from DEMON.tools.memory_manage import MemoryManageTool
+    from OpenDEMON.tools.memory_manage import MemoryManageTool
 
     path = tmp_path / "MEMORY.md"
     tool = MemoryManageTool(memory_path=path)

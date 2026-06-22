@@ -1,11 +1,11 @@
-﻿"""Tests for DEMON.cli._first_run.check_and_route."""
+"""Tests for DEMON.cli._first_run.check_and_route."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from DEMON.cli import _first_run
+from OpenDEMON.cli import _first_run
 
 
 def _ctx_with_invocation(name: str | None) -> MagicMock:
@@ -71,7 +71,7 @@ def test_root_group_invokes_guard_on_bare_DEMON(
 
     monkeypatch.setattr("DEMON.cli._first_run.check_and_route", _recorder)
 
-    from DEMON.cli import cli
+    from OpenDEMON.cli import cli
 
     runner = CliRunner()
     runner.invoke(cli, [], catch_exceptions=False)
@@ -91,7 +91,7 @@ def test_root_group_does_not_invoke_guard_on_subcommand(
 
     monkeypatch.setattr("DEMON.cli._first_run.check_and_route", _recorder)
 
-    from DEMON.cli import cli
+    from OpenDEMON.cli import cli
 
     runner = CliRunner()
     runner.invoke(cli, ["--help"], catch_exceptions=False)

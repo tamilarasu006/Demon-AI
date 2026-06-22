@@ -1,10 +1,10 @@
-﻿"""Tests for heuristic policy registration."""
+"""Tests for heuristic policy registration."""
 
 from __future__ import annotations
 
-from DEMON.core.registry import RouterPolicyRegistry
-from DEMON.learning.routing.heuristic_policy import ensure_registered
-from DEMON.learning.routing.router import HeuristicRouter
+from OpenDEMON.core.registry import RouterPolicyRegistry
+from OpenDEMON.learning.routing.heuristic_policy import ensure_registered
+from OpenDEMON.learning.routing.router import HeuristicRouter
 
 
 class TestHeuristicPolicy:

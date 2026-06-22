@@ -1,4 +1,4 @@
-﻿"""CPU RAPL energy monitor — reads Intel/AMD RAPL counters from sysfs."""
+"""CPU RAPL energy monitor — reads Intel/AMD RAPL counters from sysfs."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
-from DEMON.telemetry.energy_monitor import (
+from OpenDEMON.telemetry.energy_monitor import (
     EnergyMonitor,
     EnergySample,
     EnergyVendor,

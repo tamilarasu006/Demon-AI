@@ -1,4 +1,4 @@
-﻿"""gemma.cpp inference engine backend via pygemma pybind11 bindings."""
+"""gemma.cpp inference engine backend via pygemma pybind11 bindings."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ import os
 from collections.abc import AsyncIterator, Sequence
 from typing import Any, Dict, List
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import InferenceEngine, estimate_prompt_tokens
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import InferenceEngine, estimate_prompt_tokens
 
 logger = logging.getLogger(__name__)
 

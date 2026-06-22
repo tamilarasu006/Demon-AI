@@ -1,4 +1,4 @@
-﻿"""Tests for ContainerRunner and SandboxedAgent."""
+"""Tests for ContainerRunner and SandboxedAgent."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.agents._stubs import AgentResult, BaseAgent
-from DEMON.core.events import EventBus, EventType
-from DEMON.sandbox.runner import (
+from OpenDEMON.agents._stubs import AgentResult, BaseAgent
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.sandbox.runner import (
     _OUTPUT_END,
     _OUTPUT_START,
     ContainerRunner,

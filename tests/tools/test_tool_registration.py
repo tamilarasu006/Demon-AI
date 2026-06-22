@@ -1,11 +1,11 @@
-﻿"""Verify that importing DEMON.tools registers all built-in tools."""
+"""Verify that importing DEMON.tools registers all built-in tools."""
 
 from __future__ import annotations
 
 import importlib
 import sys
 
-from DEMON.core.registry import ToolRegistry
+from OpenDEMON.core.registry import ToolRegistry
 
 # Every tool name that should be registered after importing the package.
 EXPECTED_TOOLS = {
@@ -75,7 +75,7 @@ def _reload_tool_modules() -> None:
     """Reload all DEMON.tools.* submodules to re-trigger @register decorators.
 
     The autouse ``_clean_registries`` fixture clears all registries before each
-    test.  A plain ``import DEMON.tools`` won't re-register because the
+    test.  A plain ``import OpenDEMON.tools`` won't re-register because the
     submodules are already cached in ``sys.modules``.  We must reload the
     individual submodules so their class-level ``@ToolRegistry.register``
     decorators execute again.

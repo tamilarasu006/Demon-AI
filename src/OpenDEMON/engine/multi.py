@@ -1,4 +1,4 @@
-﻿"""Multi-engine wrapper — routes requests to the right backend by model name."""
+"""Multi-engine wrapper — routes requests to the right backend by model name."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import logging
 from collections.abc import AsyncIterator, Sequence
 from typing import Any, Dict, List
 
-from DEMON.core.types import Message
-from DEMON.engine._base import InferenceEngine
-from DEMON.engine._stubs import StreamChunk
+from OpenDEMON.core.types import Message
+from OpenDEMON.engine._base import InferenceEngine
+from OpenDEMON.engine._stubs import StreamChunk
 
 logger = logging.getLogger(__name__)
 

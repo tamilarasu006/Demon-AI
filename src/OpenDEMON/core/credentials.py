@@ -1,4 +1,4 @@
-﻿"""Credential persistence for tools and channels.
+"""Credential persistence for tools and channels.
 
 Stores credentials in ~/.DEMON/credentials.toml with 0o600 permissions.
 Thread-safe writes via lock. Sets os.environ on save for immediate effect.
@@ -10,7 +10,7 @@ import os
 import threading
 from pathlib import Path
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 try:
     import tomllib

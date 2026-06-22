@@ -1,10 +1,10 @@
-﻿"""Tests for tools/storage — canonical location for memory backends."""
+"""Tests for tools/storage — canonical location for memory backends."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
 
 
 class _DummyStorage(MemoryBackend):
@@ -67,20 +67,20 @@ class TestStorageStubs:
 
     def test_backward_compat_import(self) -> None:
         """Memory imports should still work via shim."""
-        from DEMON.tools.storage._stubs import MemoryBackend as MB
-        from DEMON.tools.storage._stubs import RetrievalResult as RR
+        from OpenDEMON.tools.storage._stubs import MemoryBackend as MB
+        from OpenDEMON.tools.storage._stubs import RetrievalResult as RR
 
         assert MB is MemoryBackend
         assert RR is RetrievalResult
 
     def test_canonical_import(self) -> None:
         """Canonical import from tools.storage should work."""
-        from DEMON.tools.storage._stubs import MemoryBackend as MB
+        from OpenDEMON.tools.storage._stubs import MemoryBackend as MB
 
         assert MB is MemoryBackend
 
     def test_sqlite_backward_compat(self) -> None:
         """SQLiteMemory should be importable from the canonical location."""
-        from DEMON.tools.storage.sqlite import SQLiteMemory as S1
+        from OpenDEMON.tools.storage.sqlite import SQLiteMemory as S1
 
         assert S1 is not None

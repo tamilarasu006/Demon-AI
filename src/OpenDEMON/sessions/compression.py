@@ -1,12 +1,12 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 from abc import ABC, abstractmethod
 from dataclasses import replace
 from typing import List
 
-from DEMON.core.registry import CompressionRegistry
-from DEMON.core.types import Message, Role
+from OpenDEMON.core.registry import CompressionRegistry
+from OpenDEMON.core.types import Message, Role
 
 
 class BaseCompressor(ABC):

@@ -1,55 +1,55 @@
-﻿"""Tests for agent error classification."""
+"""Tests for agent error classification."""
 
 from __future__ import annotations
 
 
 class TestErrorClassification:
     def test_retryable_error(self):
-        from DEMON.agents.errors import RetryableError
+        from OpenDEMON.agents.errors import RetryableError
 
         err = RetryableError("rate limit hit")
         assert err.retryable is True
         assert str(err) == "rate limit hit"
 
     def test_fatal_error(self):
-        from DEMON.agents.errors import FatalError
+        from OpenDEMON.agents.errors import FatalError
 
         err = FatalError("invalid API key")
         assert err.retryable is False
 
     def test_escalate_error(self):
-        from DEMON.agents.errors import EscalateError
+        from OpenDEMON.agents.errors import EscalateError
 
         err = EscalateError("agent uncertain about next step")
         assert err.retryable is False
         assert err.needs_human is True
 
     def test_classify_rate_limit(self):
-        from DEMON.agents.errors import classify_error
+        from OpenDEMON.agents.errors import classify_error
 
         result = classify_error(Exception("rate limit exceeded"))
         assert result.retryable is True
 
     def test_classify_timeout(self):
-        from DEMON.agents.errors import classify_error
+        from OpenDEMON.agents.errors import classify_error
 
         result = classify_error(TimeoutError("connection timed out"))
         assert result.retryable is True
 
     def test_classify_permission(self):
-        from DEMON.agents.errors import classify_error
+        from OpenDEMON.agents.errors import classify_error
 
         result = classify_error(PermissionError("access denied"))
         assert result.retryable is False
 
     def test_classify_unknown_defaults_retryable(self):
-        from DEMON.agents.errors import classify_error
+        from OpenDEMON.agents.errors import classify_error
 
         result = classify_error(ValueError("something weird"))
         assert result.retryable is True
 
     def test_retry_delay_exponential(self):
-        from DEMON.agents.errors import retry_delay
+        from OpenDEMON.agents.errors import retry_delay
 
         assert retry_delay(0) == 10
         assert retry_delay(1) == 20

@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON doctor`` CLI command."""
+"""Tests for ``DEMON doctor`` CLI command."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ from unittest.mock import MagicMock, patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.cli.doctor_cmd import (
+from OpenDEMON.cli import cli
+from OpenDEMON.cli.doctor_cmd import (
     CheckResult,
     _check_config_exists,
     _check_default_model,
@@ -105,7 +105,7 @@ class TestCheckConfigMissing:
 class TestCheckEngineProbing:
     def test_check_engine_probing(self) -> None:
         """Engine health check reports reachable/unreachable engines."""
-        from DEMON.cli.doctor_cmd import CheckResult
+        from OpenDEMON.cli.doctor_cmd import CheckResult
 
         mock_engine_healthy = MagicMock()
         mock_engine_healthy.health.return_value = True

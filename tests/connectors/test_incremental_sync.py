@@ -1,4 +1,4 @@
-﻿"""Tests for incremental sync via the `since` parameter in SyncEngine."""
+"""Tests for incremental sync via the `since` parameter in SyncEngine."""
 
 from __future__ import annotations
 
@@ -8,10 +8,10 @@ from typing import Iterator, List, Optional
 
 import pytest
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.connectors.sync_engine import SyncEngine
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors.sync_engine import SyncEngine
 
 # ---------------------------------------------------------------------------
 # TimestampConnector — records the `since` value it receives

@@ -1,4 +1,4 @@
-﻿# ruff: noqa: E501
+# ruff: noqa: E501
 """Proactive Agent — runs on a cron (default 5am local) to autonomously handle
 routine tasks based on learned user behavior.
 
@@ -30,7 +30,7 @@ Scheduling
 The agent self-registers a 5am daily cron task when ``register_cron`` is
 called from your app startup:
 
-    from DEMON.agents.proactive_agent import register_cron
+    from OpenDEMON.agents.proactive_agent import register_cron
     register_cron(scheduler, notification_channel_id="your-channel-id")
 """
 
@@ -41,12 +41,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.core.config import load_config
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall
-from DEMON.tools.approval_store import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall
+from OpenDEMON.tools.approval_store import (
     DECISION_ALWAYS_APPROVE,
     DECISION_ALWAYS_DENY,
     STATUS_APPROVED,
@@ -54,7 +54,7 @@ from DEMON.tools.approval_store import (
     TIER_TRIVIAL,
     ApprovalStore,
 )
-from DEMON.tools.proactive_tools import get_store
+from OpenDEMON.tools.proactive_tools import get_store
 
 _SYSTEM_PROMPT = """You are a proactive personal assistant agent. You have already collected
 data from the user's connected sources (email, messages, calendar). Your job is to:
@@ -210,7 +210,7 @@ def _build_notification_channel(channel_spec: str) -> Optional[Any]:
 
     # iMessage: wrap send_imessage() in a minimal BaseChannel-compatible shim
     if channel_type == "imessage":
-        from DEMON.channels._stubs import (
+        from OpenDEMON.channels._stubs import (
             BaseChannel,
             ChannelStatus,
         )
@@ -230,7 +230,7 @@ def _build_notification_channel(channel_spec: str) -> Optional[Any]:
             def send(
                 self, channel: str, content: str, *, conversation_id: str = ""
             ) -> bool:
-                from DEMON.channels.imessage_daemon import send_imessage
+                from OpenDEMON.channels.imessage_daemon import send_imessage
 
                 return send_imessage(self._handle, content)
 
@@ -247,8 +247,8 @@ def _build_notification_channel(channel_spec: str) -> Optional[Any]:
 
     # All other channel types: look up in ChannelRegistry
     try:
-        import DEMON.channels  # noqa: F401  trigger registration
-        from DEMON.core.registry import ChannelRegistry
+        import OpenDEMON.channels  # noqa: F401  trigger registration
+        from OpenDEMON.core.registry import ChannelRegistry
 
         if ChannelRegistry.contains(channel_type):
             channel_cls = ChannelRegistry.get(channel_type)
@@ -300,9 +300,9 @@ class ProactiveAgent(ToolUsingAgent):
         )
         self._notification_channel = notification_channel
 
-        from DEMON.tools.channel_tools import ChannelSendTool
-        from DEMON.tools.digest_collect import DigestCollectTool
-        from DEMON.tools.proactive_tools import (
+        from OpenDEMON.tools.channel_tools import ChannelSendTool
+        from OpenDEMON.tools.digest_collect import DigestCollectTool
+        from OpenDEMON.tools.proactive_tools import (
             CheckPermissionTool,
             ExecutePendingActionsTool,
             GetPendingActionsTool,
@@ -414,7 +414,7 @@ class ProactiveAgent(ToolUsingAgent):
         # human can diagnose "Nothing to report" without re-running the
         # whole agent.  Best-effort; never fail the run because of logging.
         try:
-            from DEMON.core.config import DEFAULT_CONFIG_DIR
+            from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
             log_dir = DEFAULT_CONFIG_DIR / "logs"
             log_dir.mkdir(parents=True, exist_ok=True)

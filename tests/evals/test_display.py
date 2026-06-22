@@ -1,4 +1,4 @@
-﻿"""Tests for the Rich display helpers in DEMON.evals.core.display."""
+"""Tests for the Rich display helpers in DEMON.evals.core.display."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 from rich.console import Console
 
-from DEMON.evals.core.display import (
+from OpenDEMON.evals.core.display import (
     print_banner,
     print_completion,
     print_metrics_table,
@@ -16,7 +16,7 @@ from DEMON.evals.core.display import (
     print_subject_table,
     print_suite_summary,
 )
-from DEMON.evals.core.types import MetricStats, RunSummary
+from OpenDEMON.evals.core.types import MetricStats, RunSummary
 
 
 def _make_console() -> tuple[Console, StringIO]:

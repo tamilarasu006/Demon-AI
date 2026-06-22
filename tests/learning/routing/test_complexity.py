@@ -1,8 +1,8 @@
-﻿"""Tests for query complexity analyzer."""
+"""Tests for query complexity analyzer."""
 
 from __future__ import annotations
 
-from DEMON.learning.routing.complexity import (
+from OpenDEMON.learning.routing.complexity import (
     ComplexityQueryAnalyzer,
     ComplexityResult,
     adjust_tokens_for_model,

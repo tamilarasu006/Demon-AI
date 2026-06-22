@@ -1,4 +1,4 @@
-﻿"""Apple Music connector -- reads tracks from the local Music.app via AppleScript.
+"""Apple Music connector -- reads tracks from the local Music.app via AppleScript.
 
 Uses ``osascript`` subprocess calls to query Music.app on macOS.  No API keys
 or network access required; everything stays local.
@@ -17,8 +17,8 @@ import sys
 from datetime import datetime
 from typing import Iterator, Optional
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.registry import ConnectorRegistry
 
 logger = logging.getLogger(__name__)
 

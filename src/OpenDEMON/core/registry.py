@@ -1,4 +1,4 @@
-﻿"""Decorator-based registry for runtime discovery of pluggable components.
+"""Decorator-based registry for runtime discovery of pluggable components.
 
 Adapted from IPW's ``src/ipw/core/registry.py``.  Each typed subclass gets its
 own isolated storage so registrations in one registry never leak into another.
@@ -9,9 +9,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, Callable, Dict, Generic, Tuple, Type, TypeVar
 
 if TYPE_CHECKING:
-    from DEMON.agents._stubs import BaseAgent
-    from DEMON.engine._stubs import InferenceEngine
-    from DEMON.tools.storage._stubs import MemoryBackend
+    from OpenDEMON.agents._stubs import BaseAgent
+    from OpenDEMON.engine._stubs import InferenceEngine
+    from OpenDEMON.tools.storage._stubs import MemoryBackend
 
 T = TypeVar("T")
 

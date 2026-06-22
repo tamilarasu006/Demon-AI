@@ -1,10 +1,10 @@
-﻿"""Tests for terminal-bench harness timeout plumbing through TOML configs."""
+"""Tests for terminal-bench harness timeout plumbing through TOML configs."""
 
 from __future__ import annotations
 
 import textwrap
 
-from DEMON.evals.core.config import expand_suite, load_eval_config
+from OpenDEMON.evals.core.config import expand_suite, load_eval_config
 
 
 def _write(tmp_path, body: str):

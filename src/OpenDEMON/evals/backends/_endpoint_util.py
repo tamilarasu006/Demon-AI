@@ -1,4 +1,4 @@
-﻿"""Shared helper for targeting an explicit OpenAI-compatible endpoint.
+"""Shared helper for targeting an explicit OpenAI-compatible endpoint.
 
 Used by the first-party eval backends (DEMON-direct, DEMON-agent) when
 ``--base-url`` is given: the eval must use exactly that endpoint, with no
@@ -23,7 +23,7 @@ def build_endpoint_engine(
     Pre-flight health-checks the endpoint and raises a loud, actionable
     error when it is unreachable — engine discovery is never consulted.
     """
-    from DEMON.engine.openai_compat_engines import (
+    from OpenDEMON.engine.openai_compat_engines import (
         OpenAICompatEngine,
         normalize_openai_base_url,
     )

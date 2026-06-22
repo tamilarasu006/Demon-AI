@@ -1,7 +1,7 @@
-﻿from DEMON.agents._stubs import AgentResult
-from DEMON.agents.executor import AgentExecutor
-from DEMON.agents.manager import AgentManager
-from DEMON.core.events import EventBus, EventType
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.executor import AgentExecutor
+from OpenDEMON.agents.manager import AgentManager
+from OpenDEMON.core.events import EventBus, EventType
 
 
 def test_budget_exceeded_sets_status(tmp_path):

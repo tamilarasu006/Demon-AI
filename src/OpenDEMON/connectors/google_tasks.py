@@ -1,4 +1,4 @@
-﻿"""Google Tasks connector — tasks due today, overdue, and recently completed.
+"""Google Tasks connector — tasks due today, overdue, and recently completed.
 
 Uses OAuth2 tokens via the shared Google OAuth helper module.
 """
@@ -11,11 +11,11 @@ from typing import Any, Dict, Iterator, Optional
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.connectors.google_auth import call_with_refresh
-from DEMON.connectors.oauth import load_tokens, resolve_google_credentials
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.connectors.google_auth import call_with_refresh
+from OpenDEMON.connectors.oauth import load_tokens, resolve_google_credentials
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
 
 _TASKS_API_BASE = "https://tasks.googleapis.com/tasks/v1"
 _DEFAULT_CREDENTIALS_PATH = str(DEFAULT_CONFIG_DIR / "connectors" / "google_tasks.json")

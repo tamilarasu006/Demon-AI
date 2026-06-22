@@ -1,4 +1,4 @@
-﻿"""``DEMON deep-research-setup`` — auto-detect local sources, ingest, and chat.
+"""``DEMON deep-research-setup`` — auto-detect local sources, ingest, and chat.
 
 Walks the user through connecting local data sources (Apple Notes, iMessage,
 Obsidian), ingesting them into a shared KnowledgeStore, and launching an
@@ -16,10 +16,10 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.connectors.sync_engine import SyncEngine
-from DEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors.sync_engine import SyncEngine
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -208,35 +208,35 @@ def _prompt_connect_sources(console: Console) -> List[Dict[str, Any]]:
 def _instantiate_connector(connector_id: str, config: Dict[str, Any]) -> Any:
     """Lazily import and instantiate a connector by ID."""
     if connector_id == "apple_notes":
-        from DEMON.connectors.apple_notes import AppleNotesConnector
+        from OpenDEMON.connectors.apple_notes import AppleNotesConnector
 
         return AppleNotesConnector(db_path=config.get("db_path", ""))
     elif connector_id == "imessage":
-        from DEMON.connectors.imessage import IMessageConnector
+        from OpenDEMON.connectors.imessage import IMessageConnector
 
         return IMessageConnector(db_path=config.get("db_path", ""))
     elif connector_id == "obsidian":
-        from DEMON.connectors.obsidian import ObsidianConnector
+        from OpenDEMON.connectors.obsidian import ObsidianConnector
 
         return ObsidianConnector(vault_path=config.get("vault_path", ""))
     elif connector_id == "gmail_imap":
-        from DEMON.connectors.gmail_imap import GmailIMAPConnector
+        from OpenDEMON.connectors.gmail_imap import GmailIMAPConnector
 
         return GmailIMAPConnector()
     elif connector_id == "outlook":
-        from DEMON.connectors.outlook import OutlookConnector
+        from OpenDEMON.connectors.outlook import OutlookConnector
 
         return OutlookConnector()
     elif connector_id == "slack":
-        from DEMON.connectors.slack_connector import SlackConnector
+        from OpenDEMON.connectors.slack_connector import SlackConnector
 
         return SlackConnector()
     elif connector_id == "notion":
-        from DEMON.connectors.notion import NotionConnector
+        from OpenDEMON.connectors.notion import NotionConnector
 
         return NotionConnector()
     elif connector_id == "granola":
-        from DEMON.connectors.granola import GranolaConnector
+        from OpenDEMON.connectors.granola import GranolaConnector
 
         return GranolaConnector()
     else:
@@ -277,13 +277,13 @@ def ingest_sources(
 
 def _launch_chat(store: KnowledgeStore, console: Console) -> None:
     """Start an interactive Deep Research chat session."""
-    from DEMON.agents.deep_research import DeepResearchAgent
-    from DEMON.connectors.retriever import TwoStageRetriever
-    from DEMON.engine.ollama import OllamaEngine
-    from DEMON.tools.knowledge_search import KnowledgeSearchTool
-    from DEMON.tools.knowledge_sql import KnowledgeSQLTool
-    from DEMON.tools.scan_chunks import ScanChunksTool
-    from DEMON.tools.think import ThinkTool
+    from OpenDEMON.agents.deep_research import DeepResearchAgent
+    from OpenDEMON.connectors.retriever import TwoStageRetriever
+    from OpenDEMON.engine.ollama import OllamaEngine
+    from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
+    from OpenDEMON.tools.knowledge_sql import KnowledgeSQLTool
+    from OpenDEMON.tools.scan_chunks import ScanChunksTool
+    from OpenDEMON.tools.think import ThinkTool
 
     console.print("\n[bold]Setting up Deep Research agent...[/bold]")
 

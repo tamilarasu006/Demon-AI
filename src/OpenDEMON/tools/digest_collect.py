@@ -1,4 +1,4 @@
-﻿# ruff: noqa: E501
+# ruff: noqa: E501
 """Digest collection tool — fetches recent data from configured connectors."""
 
 from __future__ import annotations
@@ -8,10 +8,10 @@ import re
 from datetime import datetime, timedelta
 from typing import Any, Dict, List
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry, ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry, ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Section definitions: ordered list of (section_name, connector_ids)
@@ -472,7 +472,7 @@ class DigestCollectTool(BaseTool):
 
     def execute(self, **params: Any) -> ToolResult:
         # Ensure connectors are registered
-        import DEMON.connectors  # noqa: F401
+        import OpenDEMON.connectors  # noqa: F401
 
         sources: List[str] = params.get("sources", [])
         hours_back: float = params.get("hours_back", 24)

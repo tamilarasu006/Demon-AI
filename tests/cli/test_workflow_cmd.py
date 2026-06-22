@@ -1,10 +1,10 @@
-﻿"""Tests for the ``DEMON workflow`` CLI commands."""
+"""Tests for the ``DEMON workflow`` CLI commands."""
 
 from __future__ import annotations
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestWorkflowCmd:

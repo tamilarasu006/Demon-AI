@@ -1,4 +1,4 @@
-﻿"""Coding task benchmark dataset.
+"""Coding task benchmark dataset.
 
 Standalone function-level coding problems with test cases for evaluating
 code generation accuracy.
@@ -9,8 +9,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """Write a Python function that solves the following problem. Return ONLY the function definition, no explanations.
 

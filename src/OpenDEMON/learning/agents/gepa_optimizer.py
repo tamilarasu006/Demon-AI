@@ -1,4 +1,4 @@
-﻿"""GEPA agent optimizer -- Pareto-efficient evolutionary optimization.
+"""GEPA agent optimizer -- Pareto-efficient evolutionary optimization.
 
 Uses GEPA's adapter pattern to bridge DEMON traces into GEPA's
 evolutionary optimization framework. Outputs TOML config updates
@@ -10,9 +10,9 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List
 
-from DEMON.core.config import GEPAOptimizerConfig
-from DEMON.core.registry import LearningRegistry
-from DEMON.learning._stubs import AgentLearningPolicy
+from OpenDEMON.core.config import GEPAOptimizerConfig
+from OpenDEMON.core.registry import LearningRegistry
+from OpenDEMON.learning._stubs import AgentLearningPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -293,7 +293,7 @@ class GEPAAgentOptimizer:
         """Write updated configs via AgentConfigEvolver."""
         import pathlib
 
-        from DEMON.learning.agents.agent_evolver import AgentConfigEvolver
+        from OpenDEMON.learning.agents.agent_evolver import AgentConfigEvolver
 
         evolver = AgentConfigEvolver.__new__(AgentConfigEvolver)
         evolver._config_dir = pathlib.Path(self.config.config_dir)

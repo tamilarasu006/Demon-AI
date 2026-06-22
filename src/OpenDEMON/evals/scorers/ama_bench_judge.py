@@ -1,4 +1,4 @@
-﻿"""LLM-judge scorer for AMA-Bench agent memory assessment.
+"""LLM-judge scorer for AMA-Bench agent memory assessment.
 
 Follows the evaluation protocol from the AMA-Bench paper (Appendix C.1):
 - Judge receives (question, reference_answer, predicted_answer) triplet
@@ -14,8 +14,8 @@ import string
 from collections import Counter
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

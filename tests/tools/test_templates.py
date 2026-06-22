@@ -1,8 +1,8 @@
-﻿"""Tests for MCP templates (Phase 16.3)."""
+"""Tests for MCP templates (Phase 16.3)."""
 
 from __future__ import annotations
 
-from DEMON.tools.templates.loader import ToolTemplate, discover_templates
+from OpenDEMON.tools.templates.loader import ToolTemplate, discover_templates
 
 
 class TestToolTemplate:

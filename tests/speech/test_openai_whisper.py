@@ -1,12 +1,12 @@
-﻿"""Tests for OpenAI Whisper API speech backend."""
+"""Tests for OpenAI Whisper API speech backend."""
 
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.core.registry import SpeechRegistry
-from DEMON.speech._stubs import TranscriptionResult
-from DEMON.speech.openai_whisper import OpenAIWhisperBackend
+from OpenDEMON.core.registry import SpeechRegistry
+from OpenDEMON.speech._stubs import TranscriptionResult
+from OpenDEMON.speech.openai_whisper import OpenAIWhisperBackend
 
 
 @pytest.fixture(autouse=True)
@@ -29,7 +29,7 @@ def test_openai_whisper_transcribe():
     mock_client.audio.transcriptions.create.return_value = mock_response
 
     with patch("DEMON.speech.openai_whisper.OpenAI", return_value=mock_client):
-        from DEMON.speech.openai_whisper import OpenAIWhisperBackend
+        from OpenDEMON.speech.openai_whisper import OpenAIWhisperBackend
 
         backend = OpenAIWhisperBackend(api_key="test-key")
         result = backend.transcribe(b"fake audio", format="wav")
@@ -41,7 +41,7 @@ def test_openai_whisper_transcribe():
 
 def test_openai_whisper_health():
     with patch("DEMON.speech.openai_whisper.OpenAI"):
-        from DEMON.speech.openai_whisper import OpenAIWhisperBackend
+        from OpenDEMON.speech.openai_whisper import OpenAIWhisperBackend
 
         backend = OpenAIWhisperBackend(api_key="test-key")
         assert backend.health() is True
@@ -49,7 +49,7 @@ def test_openai_whisper_health():
 
 def test_openai_whisper_health_no_key():
     with patch("DEMON.speech.openai_whisper.OpenAI"):
-        from DEMON.speech.openai_whisper import OpenAIWhisperBackend
+        from OpenDEMON.speech.openai_whisper import OpenAIWhisperBackend
 
         backend = OpenAIWhisperBackend.__new__(OpenAIWhisperBackend)
         backend._client = None

@@ -1,4 +1,4 @@
-﻿"""EvalRunner — parallel execution of evaluation samples.
+"""EvalRunner — parallel execution of evaluation samples.
 
 Supports two modes:
 - **Parallel mode** (default): Samples processed concurrently via ThreadPoolExecutor.
@@ -25,12 +25,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
-from DEMON.evals.core.backend import InferenceBackend
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.export import _hardware_info_dict
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.tracker import ResultTracker
-from DEMON.evals.core.types import (
+from OpenDEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.export import _hardware_info_dict
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.tracker import ResultTracker
+from OpenDEMON.evals.core.types import (
     EvalRecord,
     EvalResult,
     MetricStats,
@@ -39,12 +39,12 @@ from DEMON.evals.core.types import (
 )
 
 try:
-    from DEMON.telemetry.efficiency import compute_efficiency
+    from OpenDEMON.telemetry.efficiency import compute_efficiency
 except ImportError:  # pragma: no cover
     compute_efficiency = None  # type: ignore[assignment]
 
 try:
-    from DEMON.telemetry.efficiency import estimate_model_flops_per_token
+    from OpenDEMON.telemetry.efficiency import estimate_model_flops_per_token
 except ImportError:  # pragma: no cover
     estimate_model_flops_per_token = None  # type: ignore[assignment]
 
@@ -127,7 +127,7 @@ class EvalRunner:
         # LifelongAgentBench).  The base DatasetProvider always defines a
         # default iter_episodes() that wraps each record in its own episode,
         # so hasattr() is always True — we must check for a real override.
-        from DEMON.evals.core.dataset import DatasetProvider as _DP
+        from OpenDEMON.evals.core.dataset import DatasetProvider as _DP
 
         try:
             _overrides_episodes = (
@@ -543,7 +543,7 @@ class EvalRunner:
         # overrides create_task_env.  The DatasetProvider base class provides a
         # default implementation that returns None, so hasattr() is always True —
         # we must check for a real override to avoid calling env.reset() on None.
-        from DEMON.evals.core.dataset import DatasetProvider
+        from OpenDEMON.evals.core.dataset import DatasetProvider
 
         has_task_env = (
             type(self._dataset).create_task_env is not DatasetProvider.create_task_env

@@ -1,4 +1,4 @@
-﻿"""DEMONSystem — the fully wired system dataclass."""
+"""DEMONSystem — the fully wired system dataclass."""
 
 from __future__ import annotations
 
@@ -6,45 +6,45 @@ import logging
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
-from DEMON.core.config import DEMONConfig
-from DEMON.core.events import EventBus
-from DEMON.core.types import Message, Role
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.system.bundles import (
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.system.bundles import (
     AgentRuntime,
     Observability,
     Scheduling,
     SecurityContext,
 )
-from DEMON.tools._stubs import BaseTool, ToolExecutor
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor
 
 if TYPE_CHECKING:
-    from DEMON.agents._stubs import BaseAgent
-    from DEMON.agents.executor import AgentExecutor
-    from DEMON.agents.manager import AgentManager
-    from DEMON.agents.scheduler import AgentScheduler
-    from DEMON.channels._stubs import BaseChannel
-    from DEMON.learning._stubs import RouterPolicy
-    from DEMON.learning.learning_orchestrator import LearningOrchestrator
-    from DEMON.mcp.client import MCPClient
-    from DEMON.mcp.server import MCPServer
-    from DEMON.operators.manager import OperatorManager
-    from DEMON.sandbox.runner import ContainerRunner
-    from DEMON.scheduler.scheduler import TaskScheduler
-    from DEMON.scheduler.store import SchedulerStore
-    from DEMON.security.audit import AuditLogger
-    from DEMON.security.boundary import BoundaryGuard
-    from DEMON.security.capabilities import CapabilityPolicy
-    from DEMON.sessions.session import SessionStore
-    from DEMON.skills.manager import SkillManager
-    from DEMON.speech._stubs import SpeechBackend
-    from DEMON.system.orchestrator import QueryOrchestrator
-    from DEMON.telemetry.gpu_monitor import GpuMonitor
-    from DEMON.telemetry.store import TelemetryStore
-    from DEMON.tools.storage._stubs import MemoryBackend
-    from DEMON.traces.collector import TraceCollector
-    from DEMON.traces.store import TraceStore
-    from DEMON.workflow.engine import WorkflowEngine
+    from OpenDEMON.agents._stubs import BaseAgent
+    from OpenDEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.channels._stubs import BaseChannel
+    from OpenDEMON.learning._stubs import RouterPolicy
+    from OpenDEMON.learning.learning_orchestrator import LearningOrchestrator
+    from OpenDEMON.mcp.client import MCPClient
+    from OpenDEMON.mcp.server import MCPServer
+    from OpenDEMON.operators.manager import OperatorManager
+    from OpenDEMON.sandbox.runner import ContainerRunner
+    from OpenDEMON.scheduler.scheduler import TaskScheduler
+    from OpenDEMON.scheduler.store import SchedulerStore
+    from OpenDEMON.security.audit import AuditLogger
+    from OpenDEMON.security.boundary import BoundaryGuard
+    from OpenDEMON.security.capabilities import CapabilityPolicy
+    from OpenDEMON.sessions.session import SessionStore
+    from OpenDEMON.skills.manager import SkillManager
+    from OpenDEMON.speech._stubs import SpeechBackend
+    from OpenDEMON.system.orchestrator import QueryOrchestrator
+    from OpenDEMON.telemetry.gpu_monitor import GpuMonitor
+    from OpenDEMON.telemetry.store import TelemetryStore
+    from OpenDEMON.tools.storage._stubs import MemoryBackend
+    from OpenDEMON.traces.collector import TraceCollector
+    from OpenDEMON.traces.store import TraceStore
+    from OpenDEMON.workflow.engine import WorkflowEngine
 
 logger = logging.getLogger(__name__)
 
@@ -124,7 +124,7 @@ class DEMONSystem:
     def _get_orchestrator(self) -> QueryOrchestrator:
         orch = self.__dict__.get("_orchestrator")
         if orch is None:
-            from DEMON.system.orchestrator import QueryOrchestrator
+            from OpenDEMON.system.orchestrator import QueryOrchestrator
 
             orch = QueryOrchestrator(self)
             self.__dict__["_orchestrator"] = orch
@@ -199,8 +199,8 @@ class DEMONSystem:
             A connected :class:`~DEMON.channels._stubs.BaseChannel`
             instance whose ``on_message`` method accepts a callable.
         """
-        from DEMON.core.types import Message
-        from DEMON.sessions.session import SessionStore
+        from OpenDEMON.core.types import Message
+        from OpenDEMON.sessions.session import SessionStore
 
         if self.session_store is None:
             from pathlib import Path

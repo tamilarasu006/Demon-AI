@@ -1,4 +1,4 @@
-﻿"""--base-url/--api-key forwarding through the eval CLI plumbing.
+"""--base-url/--api-key forwarding through the eval CLI plumbing.
 
 Covers the fix for the eval-CLI endpoint gap: the flags used to be silently
 dropped for DEMON-direct/DEMON-agent and ignored by terminalbench-native
@@ -16,8 +16,8 @@ import click
 import pytest
 from rich.console import Console
 
-from DEMON.evals.cli import _build_backend, _run_terminalbench_native
-from DEMON.evals.core.types import RunConfig
+from OpenDEMON.evals.cli import _build_backend, _run_terminalbench_native
+from OpenDEMON.evals.core.types import RunConfig
 
 
 def _quiet_console() -> Console:
@@ -171,7 +171,7 @@ class TestTerminalBenchNativeApiBase:
 class TestRunSingleSuiteModeGating:
     @patch("DEMON.evals.cli._run_terminalbench_native")
     def test_suite_mode_drops_endpoint_for_terminalbench(self, mock_tb):
-        from DEMON.evals.cli import _run_single
+        from OpenDEMON.evals.cli import _run_single
 
         mock_tb.return_value = SimpleNamespace(accuracy=0.0)
         config = _tb_config(base_url="http://node7:8123/v1", api_key="sk-k")
@@ -181,7 +181,7 @@ class TestRunSingleSuiteModeGating:
 
     @patch("DEMON.evals.cli._run_terminalbench_native")
     def test_cli_mode_forwards_endpoint_for_terminalbench(self, mock_tb):
-        from DEMON.evals.cli import _run_single
+        from OpenDEMON.evals.cli import _run_single
 
         mock_tb.return_value = SimpleNamespace(accuracy=0.0)
         config = _tb_config(base_url="http://node7:8123/v1", api_key="sk-k")

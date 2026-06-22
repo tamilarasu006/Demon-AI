@@ -1,4 +1,4 @@
-﻿"""Tests for energy telemetry wiring — verify CLI, SDK, bench, and
+"""Tests for energy telemetry wiring — verify CLI, SDK, bench, and
 telemetry stats all flow through InstrumentedEngine + EnergyMonitor."""
 
 from __future__ import annotations
@@ -14,13 +14,13 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.config import DEMONConfig
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, Role, TelemetryRecord
-from DEMON.telemetry.aggregator import AggregatedStats, TelemetryAggregator
-from DEMON.telemetry.instrumented_engine import InstrumentedEngine
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.cli import cli
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, Role, TelemetryRecord
+from OpenDEMON.telemetry.aggregator import AggregatedStats, TelemetryAggregator
+from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
+from OpenDEMON.telemetry.store import TelemetryStore
 
 _ask_mod = importlib.import_module("DEMON.cli.ask")
 _bench_mod = importlib.import_module("DEMON.cli.bench_cmd")
@@ -276,8 +276,8 @@ class TestCliAskWiring:
         )
 
         # Register a trivial agent that calls engine.generate
-        from DEMON.agents._stubs import AgentResult
-        from DEMON.core.registry import AgentRegistry
+        from OpenDEMON.agents._stubs import AgentResult
+        from OpenDEMON.core.registry import AgentRegistry
 
         class _TestAgent:
             agent_id = "test-wiring-agent"
@@ -322,7 +322,7 @@ class TestSdkWiring:
 
     def test_engine_wrapped_in_ensure_engine(self):
         """_ensure_engine wraps with InstrumentedEngine."""
-        from DEMON.sdk import DEMON
+        from OpenDEMON.sdk import DEMON
 
         engine = _mock_engine()
         cfg = DEMONConfig()
@@ -337,7 +337,7 @@ class TestSdkWiring:
 
     def test_energy_monitor_stored(self, tmp_path):
         """Energy monitor is created and stored on DEMON instance."""
-        from DEMON.sdk import DEMON
+        from OpenDEMON.sdk import DEMON
 
         engine = _mock_engine()
         cfg = _energy_config(tmp_path, gpu_metrics=True)
@@ -361,7 +361,7 @@ class TestSdkWiring:
 
     def test_no_energy_monitor_when_gpu_metrics_off(self):
         """No energy monitor when gpu_metrics=False."""
-        from DEMON.sdk import DEMON
+        from OpenDEMON.sdk import DEMON
 
         engine = _mock_engine()
         cfg = DEMONConfig()
@@ -378,7 +378,7 @@ class TestSdkWiring:
 
     def test_ask_full_records_energy(self, tmp_path):
         """ask_full records energy via InstrumentedEngine."""
-        from DEMON.sdk import DEMON
+        from OpenDEMON.sdk import DEMON
 
         engine = _mock_engine()
         cfg = _energy_config(tmp_path, gpu_metrics=True)
@@ -409,7 +409,7 @@ class TestSdkWiring:
 
     def test_close_cleans_up_energy_monitor(self):
         """close() releases the energy monitor."""
-        from DEMON.sdk import DEMON
+        from OpenDEMON.sdk import DEMON
 
         engine = _mock_engine()
         cfg = DEMONConfig()
@@ -434,7 +434,7 @@ class TestSdkWiring:
 
     def test_double_close_safe(self):
         """Double close doesn't crash."""
-        from DEMON.sdk import DEMON
+        from OpenDEMON.sdk import DEMON
 
         engine = _mock_engine()
         cfg = DEMONConfig()

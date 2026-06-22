@@ -1,10 +1,10 @@
-﻿"""Tests for the 3 operator recipes: researcher, correspondent, sentinel."""
+"""Tests for the 3 operator recipes: researcher, correspondent, sentinel."""
 
 from pathlib import Path
 
 import pytest
 
-from DEMON.operators.loader import load_operator
+from OpenDEMON.operators.loader import load_operator
 
 _OPERATORS_DIR = (
     Path(__file__).parent.parent.parent

@@ -1,4 +1,4 @@
-﻿"""Auto-discover available speech-to-text backends."""
+"""Auto-discover available speech-to-text backends."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import os
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    from DEMON.core.config import DEMONConfig
-    from DEMON.speech._stubs import SpeechBackend
+    from OpenDEMON.core.config import DEMONConfig
+    from OpenDEMON.speech._stubs import SpeechBackend
 
 # Priority order: local first, then cloud
 DISCOVERY_ORDER = [
@@ -22,7 +22,7 @@ def _create_backend(
     config: "DEMONConfig",
 ) -> Optional["SpeechBackend"]:
     """Try to instantiate a speech backend by registry key."""
-    from DEMON.core.registry import SpeechRegistry
+    from OpenDEMON.core.registry import SpeechRegistry
 
     if not SpeechRegistry.contains(key):
         return None
@@ -59,7 +59,7 @@ def get_speech_backend(config: "DEMONConfig") -> Optional["SpeechBackend"]:
     priority order and returns the first healthy one.
     """
     # Trigger registration of built-in backends
-    import DEMON.speech  # noqa: F401
+    import OpenDEMON.speech  # noqa: F401
 
     backend_key = config.speech.backend
 

@@ -1,4 +1,4 @@
-﻿"""Tests for FTS5 cross-session search on TraceStore."""
+"""Tests for FTS5 cross-session search on TraceStore."""
 
 from __future__ import annotations
 
@@ -7,12 +7,12 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.core.types import Trace
+from OpenDEMON.core.types import Trace
 
 
 @pytest.fixture
 def store():
-    from DEMON.traces.store import TraceStore
+    from OpenDEMON.traces.store import TraceStore
 
     with tempfile.TemporaryDirectory() as tmpdir:
         s = TraceStore(Path(tmpdir) / "traces.db")

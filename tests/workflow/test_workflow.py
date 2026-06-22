@@ -1,14 +1,14 @@
-﻿"""Tests for workflow engine (Phase 15.1)."""
+"""Tests for workflow engine (Phase 15.1)."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.workflow.builder import WorkflowBuilder
-from DEMON.workflow.engine import WorkflowEngine
-from DEMON.workflow.graph import WorkflowGraph
-from DEMON.workflow.types import NodeType, WorkflowEdge, WorkflowNode
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.workflow.builder import WorkflowBuilder
+from OpenDEMON.workflow.engine import WorkflowEngine
+from OpenDEMON.workflow.graph import WorkflowGraph
+from OpenDEMON.workflow.types import NodeType, WorkflowEdge, WorkflowNode
 
 
 class TestWorkflowGraph:

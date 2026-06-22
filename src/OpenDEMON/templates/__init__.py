@@ -1,6 +1,6 @@
-﻿"""Agent template system — pre-configured agent manifests."""
+"""Agent template system — pre-configured agent manifests."""
 
-from DEMON.templates.agent_templates import (
+from OpenDEMON.templates.agent_templates import (
     AgentTemplate,
     discover_templates,
     load_template,

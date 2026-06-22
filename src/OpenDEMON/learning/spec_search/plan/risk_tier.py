@@ -1,4 +1,4 @@
-﻿"""Deterministic risk tier assignment for edits.
+"""Deterministic risk tier assignment for edits.
 
 The teacher cannot pick its own tier. After the teacher emits edits, the
 planner overwrites each edit's ``risk_tier`` from the lookup table below.
@@ -13,7 +13,7 @@ from __future__ import annotations
 import logging
 from typing import Sequence
 
-from DEMON.learning.spec_search.models import Edit, EditOp, EditRiskTier
+from OpenDEMON.learning.spec_search.models import Edit, EditOp, EditRiskTier
 
 logger = logging.getLogger(__name__)
 

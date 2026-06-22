@@ -1,13 +1,13 @@
-﻿"""Tests for OutlookConnector — thin subclass of GmailIMAPConnector."""
+"""Tests for OutlookConnector — thin subclass of GmailIMAPConnector."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from DEMON.connectors.oauth import load_tokens
-from DEMON.connectors.outlook import OutlookConnector
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors.oauth import load_tokens
+from OpenDEMON.connectors.outlook import OutlookConnector
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_outlook_registered() -> None:

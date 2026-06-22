@@ -1,4 +1,4 @@
-﻿"""LocalCloudAgent — shared base for hybrid local+cloud paradigm agents.
+"""LocalCloudAgent — shared base for hybrid local+cloud paradigm agents.
 
 The hybrid paradigms (Minions, Conductor, Archon, Advisors, SkillOrchestra,
 ToolOrchestra) all coordinate at least two models: a small **local** model
@@ -45,17 +45,17 @@ from collections import deque
 from pathlib import Path
 from typing import Any, Deque, Dict, List, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.agents.hybrid._openai_retry import patch_openai_globally
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.agents.hybrid._openai_retry import patch_openai_globally
+from OpenDEMON.agents.hybrid._prices import (
     NO_TEMP_PREFIXES,
     is_gpt5_family,
     supports_temperature,
 )
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents.hybrid._prices import (
     cost as estimate_cost,
 )
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.engine._stubs import InferenceEngine
 
 # Install OpenAI SDK retry + per-org concurrency cap at import time so
 # every paradigm (advisors, conductor, minions, mini_swe_agent's cloud
@@ -114,7 +114,7 @@ def tavily_search_context(
     max_results: int = 5,
 ) -> Dict[str, Any]:
     """Run DEMON WebSearchTool and return accounting-friendly metadata."""
-    from DEMON.tools.web_search import WebSearchTool
+    from OpenDEMON.tools.web_search import WebSearchTool
 
     tool = WebSearchTool(max_results=max_results)
     res = tool.execute(query=query, max_results=max_results)

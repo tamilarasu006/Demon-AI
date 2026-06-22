@@ -1,4 +1,4 @@
-﻿"""OpenAI Whisper API speech-to-text backend (cloud)."""
+"""OpenAI Whisper API speech-to-text backend (cloud)."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import io
 import os
 from typing import List, Optional
 
-from DEMON.core.registry import SpeechRegistry
-from DEMON.speech._stubs import SpeechBackend, TranscriptionResult
+from OpenDEMON.core.registry import SpeechRegistry
+from OpenDEMON.speech._stubs import SpeechBackend, TranscriptionResult
 
 try:
     from openai import OpenAI

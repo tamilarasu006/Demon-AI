@@ -1,4 +1,4 @@
-﻿"""Verify cli._build_backend correctly dispatches hermes/openclaw."""
+"""Verify cli._build_backend correctly dispatches hermes/openclaw."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest.mock import patch
 import click
 import pytest
 
-from DEMON.evals.cli import BACKENDS, _build_backend
+from OpenDEMON.evals.cli import BACKENDS, _build_backend
 
 
 class TestBuildBackendDispatch:
@@ -50,7 +50,7 @@ class TestBuildBackendDispatch:
             )
 
     def test_hermes_returns_hermes_backend(self) -> None:
-        from DEMON.evals.comparison.third_party import (
+        from OpenDEMON.evals.comparison.third_party import (
             ThirdPartyConfig,
             ThirdPartyEntry,
         )
@@ -72,7 +72,7 @@ class TestBuildBackendDispatch:
             ),
             patch("DEMON.evals.backends.external.hermes_agent.verify_commit_pin"),
         ):
-            from DEMON.evals.backends.external import HermesBackend
+            from OpenDEMON.evals.backends.external import HermesBackend
 
             backend = _build_backend(
                 backend_name="hermes",

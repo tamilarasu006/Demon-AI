@@ -1,4 +1,4 @@
-﻿"""Tests for batch-level energy accounting."""
+"""Tests for batch-level energy accounting."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from typing import Generator
 
 import pytest
 
-from DEMON.telemetry.batch import BatchMetrics, EnergyBatch
+from OpenDEMON.telemetry.batch import BatchMetrics, EnergyBatch
 
 # ---------------------------------------------------------------------------
 # BatchMetrics defaults

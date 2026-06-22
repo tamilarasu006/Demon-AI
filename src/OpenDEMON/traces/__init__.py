@@ -1,4 +1,4 @@
-﻿"""Trace system — full interaction-level recording and analysis.
+"""Trace system — full interaction-level recording and analysis.
 
 The trace system captures the complete sequence of steps an agent takes to
 handle a query.  Unlike telemetry (which records per-inference metrics), traces
@@ -8,8 +8,8 @@ retrieved, which tools were called, and the final response.
 Traces are the primary input to the learning system.
 """
 
-from DEMON.traces.analyzer import TraceAnalyzer
-from DEMON.traces.collector import TraceCollector
-from DEMON.traces.store import TraceStore
+from OpenDEMON.traces.analyzer import TraceAnalyzer
+from OpenDEMON.traces.collector import TraceCollector
+from OpenDEMON.traces.store import TraceStore
 
 __all__ = ["TraceAnalyzer", "TraceCollector", "TraceStore"]

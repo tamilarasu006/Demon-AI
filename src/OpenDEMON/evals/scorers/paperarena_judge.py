@@ -1,12 +1,12 @@
-﻿"""Scorer for PaperArena: MC exact match + LLM judge for CA/OA."""
+"""Scorer for PaperArena: MC exact match + LLM judge for CA/OA."""
 
 from __future__ import annotations
 
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 _JUDGE_PROMPT = """You are evaluating a scientific question answer.
 

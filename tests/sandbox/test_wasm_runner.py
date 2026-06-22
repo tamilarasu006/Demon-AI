@@ -1,10 +1,10 @@
-﻿"""Tests for WASM sandbox (Phase 16.4)."""
+"""Tests for WASM sandbox (Phase 16.4)."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.sandbox.wasm_runner import WasmResult, WasmRunner, create_sandbox_runner
+from OpenDEMON.sandbox.wasm_runner import WasmResult, WasmRunner, create_sandbox_runner
 
 
 class TestWasmRunner:

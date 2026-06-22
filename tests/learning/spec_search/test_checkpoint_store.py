@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.learning.spec_search.checkpoint.store module."""
+"""Tests for DEMON.learning.spec_search.checkpoint.store module."""
 
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ class TestCheckpointStoreInit:
     """Tests for CheckpointStore.init()."""
 
     def test_creates_repo_with_baseline_commit(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
         )
 
@@ -51,7 +51,7 @@ class TestCheckpointStoreInit:
         assert "baseline" in log
 
     def test_init_idempotent(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
         )
 
@@ -67,10 +67,10 @@ class TestCheckpointStoreInit:
         self,
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
         )
-        from DEMON.learning.spec_search.storage import paths
+        from OpenDEMON.learning.spec_search.storage import paths
 
         source_root = paths._find_source_root()
         assert source_root is not None
@@ -85,7 +85,7 @@ class TestStageCommitDiscard:
     """Tests for begin_stage / commit_stage / discard_stage."""
 
     def test_commit_stage_creates_commit_with_trailers(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
         )
 
@@ -115,7 +115,7 @@ class TestStageCommitDiscard:
         assert "Risk-Tier: review" in body
 
     def test_discard_stage_restores_working_tree(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
         )
 
@@ -137,7 +137,7 @@ class TestStageCommitDiscard:
         assert store.current_sha() == handle.pre_stage_sha
 
     def test_begin_stage_refuses_dirty_working_tree(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
             DirtyWorkingTreeError,
         )
@@ -161,7 +161,7 @@ class TestRevertSession:
     def test_revert_creates_new_commits_and_does_not_rewrite(
         self, tmp_path: Path
     ) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
         )
 
@@ -206,7 +206,7 @@ class TestRevertSession:
         assert (root / "tools" / "descriptions.toml").read_text() == "[web_search]\n"
 
     def test_revert_session_with_no_commits_returns_empty(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.checkpoint.store import (
+        from OpenDEMON.learning.spec_search.checkpoint.store import (
             CheckpointStore,
         )
 

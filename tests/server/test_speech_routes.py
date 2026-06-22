@@ -1,4 +1,4 @@
-﻿"""Tests for speech API endpoints."""
+"""Tests for speech API endpoints."""
 
 from unittest.mock import MagicMock
 
@@ -8,7 +8,7 @@ fastapi = pytest.importorskip("fastapi")
 
 from fastapi.testclient import TestClient  # noqa: E402
 
-from DEMON.speech._stubs import TranscriptionResult  # noqa: E402
+from OpenDEMON.speech._stubs import TranscriptionResult  # noqa: E402
 
 
 @pytest.fixture
@@ -30,7 +30,7 @@ def mock_speech_backend():
 def app_with_speech(mock_speech_backend):
     from fastapi import FastAPI
 
-    from DEMON.server.api_routes import speech_router
+    from OpenDEMON.server.api_routes import speech_router
 
     app = FastAPI()
     app.state.speech_backend = mock_speech_backend
@@ -99,7 +99,7 @@ def test_health_no_backend():
     from fastapi import FastAPI
     from fastapi.testclient import TestClient
 
-    from DEMON.server.api_routes import speech_router
+    from OpenDEMON.server.api_routes import speech_router
 
     app = FastAPI()
     app.state.speech_backend = None

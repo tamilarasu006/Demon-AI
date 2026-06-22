@@ -1,6 +1,6 @@
-﻿"""Tests for suggest_action helper."""
+"""Tests for suggest_action helper."""
 
-from DEMON.agents.errors import FatalError, RetryableError, suggest_action
+from OpenDEMON.agents.errors import FatalError, RetryableError, suggest_action
 
 
 def test_suggest_action_rate_limit():

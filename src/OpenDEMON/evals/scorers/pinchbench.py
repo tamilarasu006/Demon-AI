@@ -1,4 +1,4 @@
-﻿"""PinchBench grading helpers and scorer.
+"""PinchBench grading helpers and scorer.
 
 Provides transcript translation (DEMON events → PinchBench format),
 automated grading (exec of embedded Python), LLM judge grading, and
@@ -15,9 +15,9 @@ import logging
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.event_recorder import EventType
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.event_recorder import EventType
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

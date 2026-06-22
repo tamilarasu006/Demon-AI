@@ -1,4 +1,4 @@
-﻿"""Tests for LogHub dataset provider."""
+"""Tests for LogHub dataset provider."""
 
 import csv
 from pathlib import Path
@@ -6,9 +6,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.datasets.loghub import LogHubDataset
-from DEMON.evals.scorers.loghub_scorer import LogHubScorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.datasets.loghub import LogHubDataset
+from OpenDEMON.evals.scorers.loghub_scorer import LogHubScorer
 
 
 class TestLogHubDataset:
@@ -147,20 +147,20 @@ class TestLogHubScorer:
 
 class TestLogHubCLI:
     def test_in_benchmarks_dict(self) -> None:
-        from DEMON.evals.cli import BENCHMARKS
+        from OpenDEMON.evals.cli import BENCHMARKS
 
         assert "loghub" in BENCHMARKS
         assert BENCHMARKS["loghub"]["category"] == "agentic"
 
     def test_build_dataset(self) -> None:
-        from DEMON.evals.cli import _build_dataset
+        from OpenDEMON.evals.cli import _build_dataset
 
         ds = _build_dataset("loghub")
         assert ds is not None
         assert ds.dataset_id == "loghub"
 
     def test_build_scorer(self) -> None:
-        from DEMON.evals.cli import _build_scorer
+        from OpenDEMON.evals.cli import _build_scorer
 
         s = _build_scorer("loghub", _mock_backend(), "test-model")
         assert s is not None

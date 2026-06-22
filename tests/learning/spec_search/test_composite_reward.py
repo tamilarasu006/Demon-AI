@@ -1,10 +1,10 @@
-﻿"""Tests for the paper Eq. 1 composite reward."""
+"""Tests for the paper Eq. 1 composite reward."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.learning.spec_search.composite_reward import (
+from OpenDEMON.learning.spec_search.composite_reward import (
     RewardWeights,
     TrainingSample,
     score_batch,

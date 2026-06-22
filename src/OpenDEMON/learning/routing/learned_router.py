@@ -1,4 +1,4 @@
-﻿"""Learned router policy — trace-driven query_class -> model mapping.
+"""Learned router policy — trace-driven query_class -> model mapping.
 
 Merges the runtime ``select_model()`` logic from ``TraceDrivenPolicy``
 with the batch ``update()`` logic from ``SFTRouterPolicy`` into a single
@@ -10,10 +10,10 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.registry import RouterPolicyRegistry
-from DEMON.core.types import RoutingContext
-from DEMON.learning._stubs import RouterPolicy
-from DEMON.learning.routing._utils import classify_query
+from OpenDEMON.core.registry import RouterPolicyRegistry
+from OpenDEMON.core.types import RoutingContext
+from OpenDEMON.learning._stubs import RouterPolicy
+from OpenDEMON.learning.routing._utils import classify_query
 
 logger = logging.getLogger(__name__)
 

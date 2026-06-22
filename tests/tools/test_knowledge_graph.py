@@ -1,8 +1,8 @@
-﻿"""Tests for knowledge graph storage backend (Phase 15.3)."""
+"""Tests for knowledge graph storage backend (Phase 15.3)."""
 
 from __future__ import annotations
 
-from DEMON.tools.storage.knowledge_graph import (
+from OpenDEMON.tools.storage.knowledge_graph import (
     Entity,
     KnowledgeGraphMemory,
     Relation,

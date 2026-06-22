@@ -1,11 +1,11 @@
-﻿"""Tests for DigestStore and DigestArtifact."""
+"""Tests for DigestStore and DigestArtifact."""
 
 from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
 
-from DEMON.agents.digest_store import DigestArtifact, DigestStore
+from OpenDEMON.agents.digest_store import DigestArtifact, DigestStore
 
 
 def test_store_and_retrieve(tmp_path):

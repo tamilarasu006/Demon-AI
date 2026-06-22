@@ -1,4 +1,4 @@
-﻿"""Verify error-path EvalResult propagates framework_name from backend.
+"""Verify error-path EvalResult propagates framework_name from backend.
 
 Regression test for the bug where _process_one()'s exception fallback
 constructed EvalResult without ``framework=``, causing the dataclass
@@ -12,10 +12,10 @@ from __future__ import annotations
 import json
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.runner import EvalRunner
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord, RunConfig
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.runner import EvalRunner
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord, RunConfig
 
 
 class _FailingBackend:

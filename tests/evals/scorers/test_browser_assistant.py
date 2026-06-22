@@ -1,7 +1,7 @@
-﻿"""Tests for the browser_assistant scorer."""
+"""Tests for the browser_assistant scorer."""
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.browser_assistant import (
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.browser_assistant import (
     BrowserAssistantScorer,
 )
 

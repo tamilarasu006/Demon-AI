@@ -1,4 +1,4 @@
-﻿"""Tests for AppleMusicConnector -- local Music.app via AppleScript.
+"""Tests for AppleMusicConnector -- local Music.app via AppleScript.
 
 All tests mock ``subprocess.run`` so no actual Music.app interaction is needed.
 """
@@ -12,8 +12,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Sample AppleScript output
@@ -34,7 +34,7 @@ _SAMPLE_OUTPUT = (
 @pytest.fixture()
 def connector():
     """Return a fresh AppleMusicConnector."""
-    from DEMON.connectors.apple_music import AppleMusicConnector
+    from OpenDEMON.connectors.apple_music import AppleMusicConnector
 
     return AppleMusicConnector()
 
@@ -46,7 +46,7 @@ def connector():
 
 def test_apple_music_registered():
     """AppleMusicConnector is discoverable via ConnectorRegistry."""
-    from DEMON.connectors.apple_music import AppleMusicConnector
+    from OpenDEMON.connectors.apple_music import AppleMusicConnector
 
     ConnectorRegistry.register_value("apple_music", AppleMusicConnector)
     assert ConnectorRegistry.contains("apple_music")

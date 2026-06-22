@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON init --host`` option."""
+"""Tests for ``DEMON init --host`` option."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.config import generate_default_toml, generate_minimal_toml
+from OpenDEMON.cli import cli
+from OpenDEMON.core.config import generate_default_toml, generate_minimal_toml
 
 _NO_DL = "--no-download"
 
@@ -91,7 +91,7 @@ class TestInitHost:
 
 class TestGenerateTomlHost:
     def test_minimal_toml_with_host(self) -> None:
-        from DEMON.core.config import HardwareInfo
+        from OpenDEMON.core.config import HardwareInfo
 
         hw = HardwareInfo()
         toml_str = generate_minimal_toml(
@@ -101,14 +101,14 @@ class TestGenerateTomlHost:
         assert "[engine.ollama]" in toml_str
 
     def test_minimal_toml_without_host_has_comment(self) -> None:
-        from DEMON.core.config import HardwareInfo
+        from OpenDEMON.core.config import HardwareInfo
 
         hw = HardwareInfo()
         toml_str = generate_minimal_toml(hw, engine="ollama")
         assert "# host" in toml_str
 
     def test_default_toml_with_host(self) -> None:
-        from DEMON.core.config import HardwareInfo
+        from OpenDEMON.core.config import HardwareInfo
 
         hw = HardwareInfo()
         toml_str = generate_default_toml(

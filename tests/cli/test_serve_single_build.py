@@ -1,4 +1,4 @@
-﻿"""Regression tests for #263 — ``DEMON serve`` must build the system once.
+"""Regression tests for #263 — ``DEMON serve`` must build the system once.
 
 serve.py used to construct all heavy components inline and then call
 ``SystemBuilder(config).build()`` a second time inside the scheduler block,
@@ -22,7 +22,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 pytest.importorskip("fastapi")
 pytest.importorskip("uvicorn")
@@ -52,10 +52,10 @@ def _repopulate_registries() -> None:
     import importlib
     import sys
 
-    import DEMON.agents  # noqa: F401
-    import DEMON.tools  # noqa: F401
-    import DEMON.tools.storage  # noqa: F401
-    from DEMON.core.registry import (
+    import OpenDEMON.agents  # noqa: F401
+    import OpenDEMON.tools  # noqa: F401
+    import OpenDEMON.tools.storage  # noqa: F401
+    from OpenDEMON.core.registry import (
         AgentRegistry,
         MemoryRegistry,
         ToolRegistry,
@@ -100,7 +100,7 @@ def _run_serve(tmp_path, monkeypatch, *, build_spy, set_system_spy):
     Returns the CliRunner result. The server is never actually started
     (``uvicorn.run`` is a no-op) and no real engine is contacted.
     """
-    from DEMON.core.config import DEMONConfig
+    from OpenDEMON.core.config import DEMONConfig
 
     _repopulate_registries()
 

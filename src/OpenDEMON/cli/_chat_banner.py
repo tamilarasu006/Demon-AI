@@ -1,8 +1,8 @@
-﻿"""Chat startup banner — renders BgStatus as a one-line status string."""
+"""Chat startup banner — renders BgStatus as a one-line status string."""
 
 from __future__ import annotations
 
-from DEMON.cli._bg_state import BgStatus
+from OpenDEMON.cli._bg_state import BgStatus
 
 
 def render_startup_banner(status: BgStatus) -> str:

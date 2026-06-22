@@ -1,8 +1,8 @@
-﻿"""Tests for the RLM REPL environment."""
+"""Tests for the RLM REPL environment."""
 
 from __future__ import annotations
 
-from DEMON.agents.rlm_repl import RLMRepl
+from OpenDEMON.agents.rlm_repl import RLMRepl
 
 
 class TestRLMReplBasics:

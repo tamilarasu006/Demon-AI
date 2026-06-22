@@ -1,4 +1,4 @@
-﻿"""Tests for structured output / JSON mode across engines."""
+"""Tests for structured output / JSON mode across engines."""
 
 from __future__ import annotations
 
@@ -10,11 +10,11 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._stubs import ResponseFormat
-from DEMON.engine.cloud import CloudEngine
-from DEMON.engine.ollama import OllamaEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._stubs import ResponseFormat
+from OpenDEMON.engine.cloud import CloudEngine
+from OpenDEMON.engine.ollama import OllamaEngine
 
 # ---------------------------------------------------------------------------
 # ResponseFormat dataclass

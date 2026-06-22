@@ -1,15 +1,15 @@
-﻿"""Cross-product parametrized tests: engine x scenario."""
+"""Cross-product parametrized tests: engine x scenario."""
 
 from __future__ import annotations
 
 import httpx
 import pytest
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.ollama import OllamaEngine
-from DEMON.engine.openai_compat_engines import (
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.ollama import OllamaEngine
+from OpenDEMON.engine.openai_compat_engines import (
     AppleFmEngine,
     ExoEngine,
     LemonadeEngine,

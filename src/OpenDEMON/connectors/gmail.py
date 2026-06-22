@@ -1,4 +1,4 @@
-﻿"""Gmail connector — bulk email sync via the Gmail REST API.
+"""Gmail connector — bulk email sync via the Gmail REST API.
 
 Uses OAuth 2.0 tokens stored locally (see :mod:`DEMON.connectors.oauth`).
 All network calls are isolated in module-level functions (``_gmail_api_*``)
@@ -17,14 +17,14 @@ from typing import Any, Dict, Iterator, List, Optional, Tuple
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.connectors.google_auth import (
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.connectors.google_auth import (
     GoogleAuthError,
 )
-from DEMON.connectors.google_auth import (
+from OpenDEMON.connectors.google_auth import (
     call_with_refresh as _call_with_refresh,
 )
-from DEMON.connectors.oauth import (
+from OpenDEMON.connectors.oauth import (
     GOOGLE_ALL_SCOPES,
     build_google_auth_url,
     delete_tokens,
@@ -33,9 +33,9 @@ from DEMON.connectors.oauth import (
     resolve_google_credentials,
     save_tokens,
 )
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 logger = logging.getLogger(__name__)
 

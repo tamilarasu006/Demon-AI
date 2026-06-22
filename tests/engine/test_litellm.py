@@ -1,13 +1,13 @@
-﻿"""Tests for the LiteLLM engine backend."""
+"""Tests for the LiteLLM engine backend."""
 
 from __future__ import annotations
 
 from types import SimpleNamespace
 from unittest import mock
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine.litellm import LiteLLMEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine.litellm import LiteLLMEngine
 
 
 class TestLiteLLMEngineHealth:

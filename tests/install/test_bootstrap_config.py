@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.cli._bootstrap.write_initial_config."""
+"""Tests for DEMON.cli._bootstrap.write_initial_config."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ if sys.version_info >= (3, 11):
 else:
     import tomli as tomllib
 
-from DEMON.cli import _bootstrap
-from DEMON.core.config import GpuInfo, HardwareInfo
+from OpenDEMON.cli import _bootstrap
+from OpenDEMON.core.config import GpuInfo, HardwareInfo
 
 
 def test_writes_minimal_local_config(tmp_DEMON_home: Path) -> None:
@@ -95,7 +95,7 @@ def test_handles_special_chars_in_model_name(tmp_DEMON_home: Path) -> None:
 
 def test_DEMON_config_has_install_provenance_fields() -> None:
     """Top-level provenance fields should be addressable as attributes."""
-    from DEMON.core.config import DEMONConfig
+    from OpenDEMON.core.config import DEMONConfig
 
     cfg = DEMONConfig()
     assert hasattr(cfg, "installed_at")
@@ -108,7 +108,7 @@ def test_load_config_parses_provenance_from_toml(
     tmp_DEMON_home: Path,
 ) -> None:
     """If config.toml has installed_at/installer_version at top level, load them."""
-    from DEMON.core.config import load_config
+    from OpenDEMON.core.config import load_config
 
     cfg_path = tmp_DEMON_home / "config.toml"
     cfg_path.write_text(

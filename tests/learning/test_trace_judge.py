@@ -1,11 +1,11 @@
-﻿"""Tests for DEMON.optimize.feedback.judge module."""
+"""Tests for DEMON.optimize.feedback.judge module."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.learning.optimize.feedback.judge import TraceJudge, _parse_score
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.learning.optimize.feedback.judge import TraceJudge, _parse_score
 
 # ---------------------------------------------------------------------------
 # _parse_score unit tests

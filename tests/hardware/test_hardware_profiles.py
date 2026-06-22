@@ -1,4 +1,4 @@
-﻿"""Tests for hardware detection, GPU vendor identification,
+"""Tests for hardware detection, GPU vendor identification,
 and engine recommendation."""
 
 from __future__ import annotations
@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     GpuInfo,
     _detect_amd_gpu,
     _detect_apple_gpu,

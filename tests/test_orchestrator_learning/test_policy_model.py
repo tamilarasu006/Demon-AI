@@ -1,13 +1,13 @@
-﻿"""Tests for orchestrator policy model."""
+"""Tests for orchestrator policy model."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.learning.intelligence.orchestrator.policy_model import (
+from OpenDEMON.learning.intelligence.orchestrator.policy_model import (
     OrchestratorPolicyModel,
 )
-from DEMON.learning.intelligence.orchestrator.types import (
+from OpenDEMON.learning.intelligence.orchestrator.types import (
     EpisodeState,
     OrchestratorAction,
     OrchestratorObservation,

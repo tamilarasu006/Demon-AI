@@ -1,4 +1,4 @@
-﻿"""Tests for the MatrixChannel adapter."""
+"""Tests for the MatrixChannel adapter."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.channels.matrix_channel import MatrixChannel
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.channels.matrix_channel import MatrixChannel
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 from tests.channels.channel_test_helpers import make_common_channel_tests
 
 

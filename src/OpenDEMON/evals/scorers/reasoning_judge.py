@@ -1,4 +1,4 @@
-﻿"""Reasoning judge scorer -- LLM-as-judge for math and reasoning tasks.
+"""Reasoning judge scorer -- LLM-as-judge for math and reasoning tasks.
 
 Attempts normalized exact match first, then falls back to an LLM judge
 for semantic comparison.  Adapted from IPW's reasoning evaluation handlers.
@@ -11,8 +11,8 @@ import re
 import string
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

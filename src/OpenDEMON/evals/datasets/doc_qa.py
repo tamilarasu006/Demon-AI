@@ -1,4 +1,4 @@
-﻿"""doc_qa dataset — 30 document-grounded QA tasks.
+"""doc_qa dataset — 30 document-grounded QA tasks.
 
 Each task provides 3-6 real-world documentation excerpts and a question.
 The agent must answer using only the provided documents and cite sources.
@@ -14,8 +14,8 @@ from __future__ import annotations
 import random
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """Answer the following question using ONLY the provided documents. Cite which document(s) support each claim (e.g., [Doc 1], [Doc 3]).
 

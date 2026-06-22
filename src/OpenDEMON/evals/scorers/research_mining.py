@@ -1,4 +1,4 @@
-﻿"""Research mining scorer — LLM judge for research synthesis quality.
+"""Research mining scorer — LLM judge for research synthesis quality.
 
 Evaluates accuracy, depth, source quality, and synthesis of
 AI-generated research responses.
@@ -10,8 +10,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

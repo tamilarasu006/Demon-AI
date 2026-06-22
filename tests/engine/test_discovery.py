@@ -1,13 +1,13 @@
-﻿"""Tests for engine discovery."""
+"""Tests for engine discovery."""
 
 from __future__ import annotations
 
 from unittest import mock
 
-from DEMON.core.config import DEMONConfig
-from DEMON.core.registry import EngineRegistry
-from DEMON.engine._base import InferenceEngine
-from DEMON.engine._discovery import (
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.engine._base import InferenceEngine
+from OpenDEMON.engine._discovery import (
     discover_engines,
     discover_models,
     get_engine,
@@ -218,7 +218,7 @@ class TestGetEngine:
         local engine down) returns None — surfacing a "start your local engine"
         failure instead.
         """
-        from DEMON.engine.cloud import CloudEngine
+        from OpenDEMON.engine.cloud import CloudEngine
 
         _reg("ollama", "ollama")
         EngineRegistry.register_value("cloud", CloudEngine)
@@ -277,7 +277,7 @@ class TestMiningSidecarEngineHandoff:
         """When a mining sidecar exists with vllm_endpoint, discovery
         registers a ``vllm-pearl-mining`` engine in the EngineRegistry.
         """
-        from DEMON.mining import _constants as mining_const
+        from OpenDEMON.mining import _constants as mining_const
 
         monkeypatch.setattr(mining_const, "SIDECAR_PATH", written_sidecar)
 
@@ -294,7 +294,7 @@ class TestMiningSidecarEngineHandoff:
         self, tmp_path, monkeypatch
     ) -> None:
         """No mining sidecar → no ``vllm-pearl-mining`` engine registered."""
-        from DEMON.mining import _constants as mining_const
+        from OpenDEMON.mining import _constants as mining_const
 
         missing = tmp_path / "no-such-mining.json"
         monkeypatch.setattr(mining_const, "SIDECAR_PATH", missing)
@@ -329,7 +329,7 @@ class TestMiningSidecarEngineHandoff:
                 }
             )
         )
-        from DEMON.mining import _constants as mining_const
+        from OpenDEMON.mining import _constants as mining_const
 
         monkeypatch.setattr(mining_const, "SIDECAR_PATH", sidecar)
 

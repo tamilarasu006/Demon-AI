@@ -1,4 +1,4 @@
-﻿"""Cross-product tests: agent x engine x model."""
+"""Cross-product tests: agent x engine x model."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents._stubs import AgentResult
-from DEMON.agents.native_openhands import NativeOpenHandsAgent
-from DEMON.agents.native_react import NativeReActAgent
-from DEMON.agents.orchestrator import OrchestratorAgent
-from DEMON.agents.simple import SimpleAgent
-from DEMON.core.events import EventBus, EventType
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.native_openhands import NativeOpenHandsAgent
+from OpenDEMON.agents.native_react import NativeReActAgent
+from OpenDEMON.agents.orchestrator import OrchestratorAgent
+from OpenDEMON.agents.simple import SimpleAgent
+from OpenDEMON.core.events import EventBus, EventType
 
 # ---------------------------------------------------------------------------
 # Helpers

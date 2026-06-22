@@ -1,10 +1,10 @@
-﻿"""Tests for eval pricing module."""
+"""Tests for eval pricing module."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.evals.core.pricing import PRICING, compute_turn_cost, estimate_cost
+from OpenDEMON.evals.core.pricing import PRICING, compute_turn_cost, estimate_cost
 
 
 class TestPricing:

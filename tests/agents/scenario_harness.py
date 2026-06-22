@@ -1,14 +1,14 @@
-﻿"""Shared harness dataclasses for agent lifecycle scenario tests."""
+"""Shared harness dataclasses for agent lifecycle scenario tests."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
 
-from DEMON.agents.executor import AgentExecutor
-from DEMON.agents.manager import AgentManager
-from DEMON.agents.scheduler import AgentScheduler
-from DEMON.core.events import EventBus
+from OpenDEMON.agents.executor import AgentExecutor
+from OpenDEMON.agents.manager import AgentManager
+from OpenDEMON.agents.scheduler import AgentScheduler
+from OpenDEMON.core.events import EventBus
 from tests.agents.fake_engine import FakeEngine
 
 

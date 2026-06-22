@@ -1,4 +1,4 @@
-﻿"""Tests for the personal benchmark system."""
+"""Tests for the personal benchmark system."""
 
 from __future__ import annotations
 
@@ -8,16 +8,16 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.types import Trace
-from DEMON.evals.core.types import EvalRecord
-from DEMON.learning.optimize.personal.dataset import PersonalBenchmarkDataset
-from DEMON.learning.optimize.personal.scorer import PersonalBenchmarkScorer
-from DEMON.learning.optimize.personal.synthesizer import (
+from OpenDEMON.core.types import Trace
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.learning.optimize.personal.dataset import PersonalBenchmarkDataset
+from OpenDEMON.learning.optimize.personal.scorer import PersonalBenchmarkScorer
+from OpenDEMON.learning.optimize.personal.synthesizer import (
     PersonalBenchmark,
     PersonalBenchmarkSample,
     PersonalBenchmarkSynthesizer,
 )
-from DEMON.traces.store import TraceStore
+from OpenDEMON.traces.store import TraceStore
 
 # ---------------------------------------------------------------------------
 # Helpers

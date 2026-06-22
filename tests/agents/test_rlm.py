@@ -1,15 +1,15 @@
-﻿"""Tests for the RLM agent."""
+"""Tests for the RLM agent."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.rlm import RLMAgent
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.rlm import RLMAgent
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Helpers

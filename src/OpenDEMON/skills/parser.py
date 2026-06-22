@@ -1,4 +1,4 @@
-﻿"""SkillParser — strict spec validation + tolerant field mapping.
+"""SkillParser — strict spec validation + tolerant field mapping.
 
 The parser is the single chokepoint for converting raw frontmatter dicts
 into normalized SkillManifest instances.  It runs two passes:
@@ -17,7 +17,7 @@ import logging
 import re
 from typing import Any, Dict
 
-from DEMON.skills.types import SkillManifest
+from OpenDEMON.skills.types import SkillManifest
 
 LOGGER = logging.getLogger(__name__)
 

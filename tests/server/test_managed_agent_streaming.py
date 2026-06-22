@@ -1,4 +1,4 @@
-﻿"""Managed-agent streaming parity tests (#382, #386, #395).
+"""Managed-agent streaming parity tests (#382, #386, #395).
 
 These exercise the pure helpers extracted from ``_stream_managed_agent`` so the
 streaming path's history replay, sampler forwarding, and tool dependency
@@ -13,8 +13,8 @@ import pytest
 
 pytest.importorskip("fastapi")  # agent_manager_routes imports FastAPI at module load
 
-from DEMON.core.types import Role  # noqa: E402
-from DEMON.server.agent_manager_routes import (  # noqa: E402
+from OpenDEMON.core.types import Role  # noqa: E402
+from OpenDEMON.server.agent_manager_routes import (  # noqa: E402
     _build_managed_system_prompt,
     _instantiate_managed_tool,
     _replay_history_messages,
@@ -182,7 +182,7 @@ class TestBuildManagedSystemPrompt:
     """
 
     def _config_with_soul(self, tmp_path):
-        from DEMON.core.config import (
+        from OpenDEMON.core.config import (
             MemoryFilesConfig,
             SystemPromptConfig,
         )
@@ -207,7 +207,7 @@ class TestBuildManagedSystemPrompt:
         assert "You are a helpful assistant." in result
 
     def test_agent_template_is_preserved(self, tmp_path):
-        from DEMON.core.config import MemoryFilesConfig, SystemPromptConfig
+        from OpenDEMON.core.config import MemoryFilesConfig, SystemPromptConfig
 
         # No persona files configured (all default paths).
         app_config = SimpleNamespace(
@@ -226,8 +226,8 @@ class TestBuildManagedSystemPrompt:
         constructed SystemPromptBuilder produces (same path the CLI uses),
         so streaming chat and `DEMON ask` assemble the prompt identically.
         """
-        from DEMON.core.config import MemoryFilesConfig, SystemPromptConfig
-        from DEMON.prompt.builder import SystemPromptBuilder
+        from OpenDEMON.core.config import MemoryFilesConfig, SystemPromptConfig
+        from OpenDEMON.prompt.builder import SystemPromptBuilder
 
         app_config = SimpleNamespace(
             memory_files=MemoryFilesConfig(),

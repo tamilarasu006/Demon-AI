@@ -1,4 +1,4 @@
-﻿"""Shared test fixtures for the evaluation framework."""
+"""Shared test fixtures for the evaluation framework."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from typing import Any, Dict, Optional, Tuple
 
 import pytest
 
-from DEMON.evals.core.backend import InferenceBackend
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 # ---------------------------------------------------------------------------
 # Mock backend

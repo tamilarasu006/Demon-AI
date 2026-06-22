@@ -1,4 +1,4 @@
-﻿"""General-purpose GRPO trainer -- Group Relative Policy Optimization.
+"""General-purpose GRPO trainer -- Group Relative Policy Optimization.
 
 Fine-tunes any local model by sampling N responses per prompt,
 computing group-relative advantages, and applying a clipped policy
@@ -10,9 +10,9 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List, Protocol, runtime_checkable
 
-from DEMON.core.config import GRPOConfig
-from DEMON.core.registry import LearningRegistry
-from DEMON.learning._stubs import IntelligenceLearningPolicy
+from OpenDEMON.core.config import GRPOConfig
+from OpenDEMON.core.registry import LearningRegistry
+from OpenDEMON.learning._stubs import IntelligenceLearningPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -138,7 +138,7 @@ class GRPOTrainer:
 
     def _mine_prompts(self, trace_store: Any) -> List[str]:
         """Extract unique prompts from the trace store."""
-        from DEMON.learning.training.data import TrainingDataMiner
+        from OpenDEMON.learning.training.data import TrainingDataMiner
 
         miner = TrainingDataMiner(trace_store, min_quality=0.5)
         agent_filter = self.config.agent_filter or None
@@ -363,7 +363,7 @@ class _GRPOLearningPolicy(IntelligenceLearningPolicy):
         pass
 
     def update(self, trace_store: Any, **kwargs: object) -> Dict[str, Any]:
-        from DEMON.core.config import GRPOConfig
+        from OpenDEMON.core.config import GRPOConfig
 
         config = GRPOConfig()
         trainer = GRPOTrainer(config)

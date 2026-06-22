@@ -1,10 +1,10 @@
-﻿"""Tests for MFU/MBU efficiency calculator."""
+"""Tests for MFU/MBU efficiency calculator."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.telemetry.efficiency import (
+from OpenDEMON.telemetry.efficiency import (
     EfficiencyMetrics,
     compute_efficiency,
     estimate_model_bytes_per_token,

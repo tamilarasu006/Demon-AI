@@ -1,4 +1,4 @@
-﻿"""Apple Silicon energy monitor — via zeus-ml[apple] or CPU-time estimation."""
+"""Apple Silicon energy monitor — via zeus-ml[apple] or CPU-time estimation."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import time
 from contextlib import contextmanager
 from typing import Generator
 
-from DEMON.telemetry.energy_monitor import (
+from OpenDEMON.telemetry.energy_monitor import (
     EnergyMonitor,
     EnergySample,
     EnergyVendor,

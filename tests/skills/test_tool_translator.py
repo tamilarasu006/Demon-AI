@@ -1,8 +1,8 @@
-﻿"""Tests for ToolTranslator — translate external tool names to DEMON."""
+"""Tests for ToolTranslator — translate external tool names to DEMON."""
 
 from __future__ import annotations
 
-from DEMON.skills.tool_translator import TOOL_TRANSLATION, ToolTranslator
+from OpenDEMON.skills.tool_translator import TOOL_TRANSLATION, ToolTranslator
 
 
 class TestTranslationTable:

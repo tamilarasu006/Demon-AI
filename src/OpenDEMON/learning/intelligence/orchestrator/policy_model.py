@@ -1,4 +1,4 @@
-﻿"""Policy model wrapper for orchestrator training.
+"""Policy model wrapper for orchestrator training.
 
 Adapted from IPW's ``policy.py``.  Wraps a HuggingFace causal LM
 (e.g. Qwen3-1.7B) to predict structured actions in the orchestrator
@@ -12,7 +12,7 @@ import logging
 import re
 from typing import Any, List, Optional
 
-from DEMON.learning.intelligence.orchestrator.types import (
+from OpenDEMON.learning.intelligence.orchestrator.types import (
     EpisodeState,
     OrchestratorAction,
     PolicyOutput,

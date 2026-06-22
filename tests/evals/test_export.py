@@ -1,17 +1,17 @@
-﻿"""Tests for eval export utilities."""
+"""Tests for eval export utilities."""
 
 from __future__ import annotations
 
 import json
 
-from DEMON.evals.core.export import (
+from OpenDEMON.evals.core.export import (
     _compute_efficiency,
     _compute_normalized,
     export_artifacts_manifest,
     export_jsonl,
     export_summary_json,
 )
-from DEMON.evals.core.trace import QueryTrace, TurnTrace
+from OpenDEMON.evals.core.trace import QueryTrace, TurnTrace
 
 
 def _make_traces(n=3):

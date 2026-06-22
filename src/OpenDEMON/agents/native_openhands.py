@@ -1,4 +1,4 @@
-﻿"""NativeOpenHandsAgent -- code-execution-centric agent.
+"""NativeOpenHandsAgent -- code-execution-centric agent.
 
 Renamed from ``OpenHandsAgent`` to clarify this is DEMON's native
 CodeAct-style implementation.  The ``OpenHandsAgent`` name is now used
@@ -11,16 +11,16 @@ import json as _json
 import re
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.agents.prompt_loader import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.agents.prompt_loader import (
     load_few_shot_exemplars,
     load_system_prompt_override,
 )
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall, ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool, build_tool_descriptions
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool, build_tool_descriptions
 
 OPENHANDS_SYSTEM_PROMPT = (  # noqa: E501
     "You are an AI assistant with access to tools. "
@@ -100,7 +100,7 @@ class NativeOpenHandsAgent(ToolUsingAgent):
             return text, False
         url = url_match.group(0).rstrip(".,;)")
         try:
-            from DEMON.tools.web_search import WebSearchTool
+            from OpenDEMON.tools.web_search import WebSearchTool
 
             content = WebSearchTool._fetch_url(url, max_chars=4000)
             header = f"\n\n--- Content from {url} ---\n"

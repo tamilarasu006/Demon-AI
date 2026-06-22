@@ -1,4 +1,4 @@
-﻿"""Scorer for WorkArena++ enterprise workflow tasks.
+"""Scorer for WorkArena++ enterprise workflow tasks.
 
 Uses the native ``task.validate()`` reward from BrowserGym, which checks
 the actual state of the ServiceNow instance via Playwright.  No LLM
@@ -13,8 +13,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class WorkArenaScorer(Scorer):

@@ -1,14 +1,14 @@
-﻿"""SkillManageTool — create, list, load, or delete agent-authored skills."""
+"""SkillManageTool — create, list, load, or delete agent-authored skills."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, List
 
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("skill_manage")

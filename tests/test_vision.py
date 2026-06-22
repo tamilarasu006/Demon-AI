@@ -1,4 +1,4 @@
-﻿"""Tests for vision input support: ``Message.images`` -> Ollama payload.
+"""Tests for vision input support: ``Message.images`` -> Ollama payload.
 
 These cover the data-flow contract that makes vision work end to end:
 a ``Message`` can carry base64 images, the engine serializer forwards them
@@ -11,9 +11,9 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-import DEMON.engine.ollama as ollama_mod
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import messages_to_dicts
+import OpenDEMON.engine.ollama as ollama_mod
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import messages_to_dicts
 
 
 def test_message_defaults_to_no_images() -> None:
@@ -54,7 +54,7 @@ def test_default_num_ctx_default_and_override(monkeypatch) -> None:
 
 def test_guardrails_preserves_images_when_sanitizing() -> None:
     """A flagged message gets rewritten; its image must survive the rewrite."""
-    from DEMON.security.guardrails import GuardrailsEngine
+    from OpenDEMON.security.guardrails import GuardrailsEngine
 
     class _RecordingEngine:
         """Captures the messages the guardrail forwards to the real engine."""

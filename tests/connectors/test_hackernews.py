@@ -1,4 +1,4 @@
-﻿"""Tests for HackerNewsConnector — HN Firebase API."""
+"""Tests for HackerNewsConnector — HN Firebase API."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_hackernews_registered():
     """HackerNewsConnector is discoverable via ConnectorRegistry."""
-    from DEMON.connectors.hackernews import HackerNewsConnector
+    from OpenDEMON.connectors.hackernews import HackerNewsConnector
 
     ConnectorRegistry.register_value("hackernews", HackerNewsConnector)
     assert ConnectorRegistry.contains("hackernews")
@@ -74,7 +74,7 @@ _STORY_ITEMS = {
 
 @pytest.fixture()
 def connector():
-    from DEMON.connectors.hackernews import HackerNewsConnector
+    from OpenDEMON.connectors.hackernews import HackerNewsConnector
 
     return HackerNewsConnector()
 

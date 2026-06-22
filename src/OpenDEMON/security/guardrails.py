@@ -1,16 +1,16 @@
-﻿"""GuardrailsEngine — security-aware inference engine wrapper."""
+"""GuardrailsEngine — security-aware inference engine wrapper."""
 
 from __future__ import annotations
 
 from collections.abc import AsyncIterator
 from typing import Any, Dict, List, Optional, Sequence
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message
-from DEMON.engine._stubs import InferenceEngine, StreamChunk
-from DEMON.security._stubs import BaseScanner
-from DEMON.security.scanner import PIIScanner, SecretScanner
-from DEMON.security.types import RedactionMode, ScanResult
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message
+from OpenDEMON.engine._stubs import InferenceEngine, StreamChunk
+from OpenDEMON.security._stubs import BaseScanner
+from OpenDEMON.security.scanner import PIIScanner, SecretScanner
+from OpenDEMON.security.types import RedactionMode, ScanResult
 
 
 class SecurityBlockError(Exception):

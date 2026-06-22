@@ -1,4 +1,4 @@
-﻿"""``DEMON memory`` — memory management subcommands."""
+"""``DEMON memory`` — memory management subcommands."""
 
 from __future__ import annotations
 
@@ -10,10 +10,10 @@ from rich.console import Console
 from rich.progress import track
 from rich.table import Table
 
-from DEMON.core.config import load_config
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage.chunking import ChunkConfig
-from DEMON.tools.storage.ingest import ingest_path
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage.chunking import ChunkConfig
+from OpenDEMON.tools.storage.ingest import ingest_path
 
 
 def _get_backend(backend_key: str | None = None):
@@ -22,7 +22,7 @@ def _get_backend(backend_key: str | None = None):
     key = backend_key or config.memory.default_backend
 
     # Ensure backends are registered
-    import DEMON.tools.storage  # noqa: F401
+    import OpenDEMON.tools.storage  # noqa: F401
 
     if not MemoryRegistry.contains(key):
         raise click.ClickException(

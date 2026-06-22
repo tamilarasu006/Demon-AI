@@ -1,4 +1,4 @@
-﻿"""TerminalBench V2.1 dataset provider.
+"""TerminalBench V2.1 dataset provider.
 
 Loads tasks from the terminal-bench-2.1 repo layout (ekellbuch/terminal-bench-2,
 branch terminal-bench-2.1). Each task lives in a top-level directory containing:
@@ -22,8 +22,8 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 
@@ -210,7 +210,7 @@ class TerminalBenchV21Dataset(DatasetProvider):
         ``docker_shell_exec`` can target the running container.
         """
         try:
-            from DEMON.evals.execution.terminalbench_v2_1_env import (
+            from OpenDEMON.evals.execution.terminalbench_v2_1_env import (
                 TerminalBenchV21TaskEnv,
             )
         except ImportError:

@@ -1,4 +1,4 @@
-﻿"""Multi-session loop for LLM-guided spec search (paper Algorithm 1).
+"""Multi-session loop for LLM-guided spec search (paper Algorithm 1).
 
 The single-session ``SpecSearchOrchestrator.run(trigger)`` does one
 diagnose / plan / execute / record pass. Algorithm 1 in the paper
@@ -17,11 +17,11 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.models import (
     LearningSession,
     SessionStatus,
 )
-from DEMON.learning.spec_search.triggers import OnDemandTrigger
+from OpenDEMON.learning.spec_search.triggers import OnDemandTrigger
 
 logger = logging.getLogger(__name__)
 

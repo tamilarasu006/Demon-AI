@@ -1,4 +1,4 @@
-﻿"""External anonymous usage analytics.
+"""External anonymous usage analytics.
 
 Sends anonymized events to PostHog so the DEMON team can measure
 setup success, retention, feature usage, and churn — without ever
@@ -11,15 +11,15 @@ energy metrics in a SQLite DB and never leaves the machine.
 Disable: set ``[analytics] enabled = false`` in ``~/.DEMON/config.toml``.
 """
 
-from DEMON.analytics.aggregator import SessionAggregator
-from DEMON.analytics.bridge import EventBridge
-from DEMON.analytics.client import AnalyticsClient
-from DEMON.analytics.identity import (
+from OpenDEMON.analytics.aggregator import SessionAggregator
+from OpenDEMON.analytics.bridge import EventBridge
+from OpenDEMON.analytics.client import AnalyticsClient
+from OpenDEMON.analytics.identity import (
     get_or_create_anon_id,
     is_analytics_enabled,
     reset_anon_id,
 )
-from DEMON.analytics.redaction import hash_id, redact
+from OpenDEMON.analytics.redaction import hash_id, redact
 
 __all__ = [
     "AnalyticsClient",

@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON init`` next-steps guidance."""
+"""Tests for ``DEMON init`` next-steps guidance."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.cli.init_cmd import _next_steps_text
+from OpenDEMON.cli import cli
+from OpenDEMON.cli.init_cmd import _next_steps_text
 
 _NO_DL = "--no-download"
 
@@ -229,7 +229,7 @@ class TestInitPrivacyHook:
             mock.patch("DEMON.cli.init_cmd.DEFAULT_CONFIG_PATH", config_path),
             mock.patch("DEMON.cli.init_cmd.PrivacyScanner") as MockScanner,
         ):
-            from DEMON.cli.scan_cmd import ScanResult
+            from OpenDEMON.cli.scan_cmd import ScanResult
 
             instance = MockScanner.return_value
             instance.run_quick.return_value = [

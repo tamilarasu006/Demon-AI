@@ -1,4 +1,4 @@
-﻿"""Calculator tool — safe math evaluation via ``ast`` module."""
+"""Calculator tool — safe math evaluation via ``ast`` module."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ import math
 import operator
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # Allowed binary operators
 _BINOPS = {
@@ -92,7 +92,7 @@ def _safe_eval_node(node: ast.AST) -> Any:
 def safe_eval(expression: str) -> float:
     """Evaluate a math expression safely — Rust backend with Python fallback."""
     try:
-        from DEMON._rust_bridge import get_rust_module
+        from OpenDEMON._rust_bridge import get_rust_module
 
         _rust = get_rust_module()
         return float(_rust.CalculatorTool().execute(expression))

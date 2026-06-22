@@ -1,4 +1,4 @@
-﻿"""Bridge between the internal event bus and the analytics client.
+"""Bridge between the internal event bus and the analytics client.
 
 The internal bus (:mod:`DEMON.core.events`) carries dozens of
 event types — most are too granular or too internal to ship as
@@ -23,13 +23,13 @@ import threading
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from DEMON.analytics.aggregator import SessionAggregator
-from DEMON.analytics.redaction import hash_id
-from DEMON.core.events import Event, EventType
+from OpenDEMON.analytics.aggregator import SessionAggregator
+from OpenDEMON.analytics.redaction import hash_id
+from OpenDEMON.core.events import Event, EventType
 
 if TYPE_CHECKING:
-    from DEMON.analytics.client import AnalyticsClient
-    from DEMON.core.events import EventBus
+    from OpenDEMON.analytics.client import AnalyticsClient
+    from OpenDEMON.core.events import EventBus
 
 logger = logging.getLogger(__name__)
 
@@ -160,7 +160,7 @@ class EventBridge:
             if first:
                 # tool_name property must be in the analytics allowlist;
                 # if the raw name isn't recognised, we send "custom_tool".
-                from DEMON.analytics.events import KNOWN_TOOL_NAMES
+                from OpenDEMON.analytics.events import KNOWN_TOOL_NAMES
 
                 shipped_name = (
                     tool_name_raw

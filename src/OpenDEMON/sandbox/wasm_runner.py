@@ -1,4 +1,4 @@
-﻿"""WASM sandbox — lightweight isolation via Wasmtime."""
+"""WASM sandbox — lightweight isolation via Wasmtime."""
 
 from __future__ import annotations
 
@@ -146,7 +146,7 @@ def create_sandbox_runner(config: Any = None) -> Any:
 
     # Fall back to Docker ContainerRunner
     try:
-        from DEMON.sandbox.runner import ContainerRunner
+        from OpenDEMON.sandbox.runner import ContainerRunner
 
         return ContainerRunner(
             image=getattr(config, "image", "DEMON-sandbox:latest"),

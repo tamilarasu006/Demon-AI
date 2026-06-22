@@ -1,12 +1,12 @@
-﻿"""Tests for the SQLite/FTS5 memory backend."""
+"""Tests for the SQLite/FTS5 memory backend."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage.sqlite import SQLiteMemory
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
 
 def _make_backend(tmp_path: Path) -> SQLiteMemory:
@@ -133,7 +133,7 @@ def test_event_bus_integration_store(tmp_path: Path):
     bus = EventBus(record_history=True)
     backend = _make_backend(tmp_path)
     # Monkey-patch the global bus for this test
-    import DEMON.tools.storage.sqlite as mod
+    import OpenDEMON.tools.storage.sqlite as mod
 
     original = mod.get_event_bus
     mod.get_event_bus = lambda: bus
@@ -151,7 +151,7 @@ def test_event_bus_integration_retrieve(tmp_path: Path):
     bus = EventBus(record_history=True)
     backend = _make_backend(tmp_path)
     backend.store("searchable content for events")
-    import DEMON.tools.storage.sqlite as mod
+    import OpenDEMON.tools.storage.sqlite as mod
 
     original = mod.get_event_bus
     mod.get_event_bus = lambda: bus

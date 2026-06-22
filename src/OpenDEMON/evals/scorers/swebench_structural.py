@@ -1,4 +1,4 @@
-﻿"""SWE-bench scorer — structural patch validation.
+"""SWE-bench scorer — structural patch validation.
 
 Full SWE-bench evaluation requires running tests inside the repository
 environment.  This scorer performs lightweight structural checks on the
@@ -11,8 +11,8 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 _DIFF_MARKERS = [
     r"^---\s",

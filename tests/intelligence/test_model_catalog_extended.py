@@ -1,12 +1,12 @@
-﻿"""Tests for the extended model catalog -- all new ModelSpec entries."""
+"""Tests for the extended model catalog -- all new ModelSpec entries."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.registry import ModelRegistry
-from DEMON.core.types import ModelSpec
-from DEMON.intelligence.model_catalog import (
+from OpenDEMON.core.registry import ModelRegistry
+from OpenDEMON.core.types import ModelSpec
+from OpenDEMON.intelligence.model_catalog import (
     BUILTIN_MODELS,
     merge_discovered_models,
     register_builtin_models,

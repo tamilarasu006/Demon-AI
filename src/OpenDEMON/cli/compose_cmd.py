@@ -1,4 +1,4 @@
-﻿"""``DEMON compose`` — unified composition CLI for discrete agents and operators."""
+"""``DEMON compose`` — unified composition CLI for discrete agents and operators."""
 
 from __future__ import annotations
 
@@ -42,7 +42,7 @@ def compose_list(kind: Optional[str]) -> None:
     """List all discovered compositions (recipes and operators)."""
     console = Console(stderr=True)
     try:
-        from DEMON.recipes.loader import discover_recipes
+        from OpenDEMON.recipes.loader import discover_recipes
 
         recipes = discover_recipes(kind=kind)
         if not recipes:
@@ -90,7 +90,7 @@ def compose_show(name: str) -> None:
     """Show detailed configuration of a composition."""
     console = Console(stderr=True)
     try:
-        from DEMON.recipes.loader import resolve_recipe
+        from OpenDEMON.recipes.loader import resolve_recipe
 
         recipe = resolve_recipe(name)
         if recipe is None:
@@ -165,7 +165,7 @@ def compose_run(name: str, query: tuple[str, ...], output_json: bool) -> None:
     query_text = " ".join(query)
 
     try:
-        from DEMON.recipes.loader import resolve_recipe
+        from OpenDEMON.recipes.loader import resolve_recipe
 
         recipe = resolve_recipe(name)
         if recipe is None:
@@ -179,7 +179,7 @@ def compose_run(name: str, query: tuple[str, ...], output_json: bool) -> None:
             f"{recipe.model or 'default'})...[/dim]"
         )
 
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.system import SystemBuilder
 
         builder = SystemBuilder()
         if "engine_key" in kwargs:
@@ -287,7 +287,7 @@ def compose_bench(
     console = Console(stderr=True)
 
     try:
-        from DEMON.recipes.loader import resolve_recipe
+        from OpenDEMON.recipes.loader import resolve_recipe
 
         recipe = resolve_recipe(name)
         if recipe is None:
@@ -301,7 +301,7 @@ def compose_bench(
             judge_model=judge_model,
         )
 
-        from DEMON.evals.core.config import expand_suite
+        from OpenDEMON.evals.core.config import expand_suite
 
         run_configs = expand_suite(suite)
 
@@ -314,7 +314,7 @@ def compose_bench(
         )
 
         try:
-            from DEMON.evals.cli import _run_single
+            from OpenDEMON.evals.cli import _run_single
         except ImportError:
             console.print("[red]Eval CLI module not available.[/red]")
             sys.exit(1)
@@ -362,7 +362,7 @@ def compose_deploy(name: str) -> None:
     console = Console(stderr=True)
 
     try:
-        from DEMON.recipes.loader import resolve_recipe
+        from OpenDEMON.recipes.loader import resolve_recipe
 
         recipe = resolve_recipe(name)
         if recipe is None:
@@ -378,8 +378,8 @@ def compose_deploy(name: str) -> None:
 
         manifest = recipe.to_operator_manifest()
 
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.system import SystemBuilder
 
         system = SystemBuilder().scheduler(True).sessions(True).build()
         manager = OperatorManager(system)
@@ -410,16 +410,16 @@ def compose_stop(name: str) -> None:
     console = Console(stderr=True)
 
     try:
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.system import SystemBuilder
 
         system = SystemBuilder().scheduler(True).sessions(True).build()
         manager = OperatorManager(system)
         system.operator_manager = manager
 
         # Discover all known operators so the manager knows about them
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.recipes.loader import _PROJECT_OPERATORS_DIR
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.recipes.loader import _PROJECT_OPERATORS_DIR
 
         for d in [DEFAULT_CONFIG_DIR / "operators", _PROJECT_OPERATORS_DIR]:
             if d.is_dir():
@@ -443,15 +443,15 @@ def compose_status() -> None:
     console = Console(stderr=True)
 
     try:
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.system import SystemBuilder
 
         system = SystemBuilder().scheduler(True).sessions(True).build()
         manager = OperatorManager(system)
         system.operator_manager = manager
 
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.recipes.loader import _PROJECT_OPERATORS_DIR
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.recipes.loader import _PROJECT_OPERATORS_DIR
 
         for d in [DEFAULT_CONFIG_DIR / "operators", _PROJECT_OPERATORS_DIR]:
             if d.is_dir():

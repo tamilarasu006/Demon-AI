@@ -1,4 +1,4 @@
-﻿"""SWE-bench dataset (princeton-nlp/SWE-bench_Verified).
+"""SWE-bench dataset (princeton-nlp/SWE-bench_Verified).
 
 Agentic coding benchmark — patches for real-world GitHub issues.
 """
@@ -9,8 +9,8 @@ import json
 import random
 from typing import Any, Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _HF_PATHS = {
     "verified": "princeton-nlp/SWE-bench_Verified",

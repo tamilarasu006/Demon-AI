@@ -1,4 +1,4 @@
-﻿"""NVIDIA energy monitor — hardware counters (Volta+) with polling fallback."""
+"""NVIDIA energy monitor — hardware counters (Volta+) with polling fallback."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import time
 from contextlib import contextmanager
 from typing import Generator, List, Optional, Tuple
 
-from DEMON.telemetry.energy_monitor import (
+from OpenDEMON.telemetry.energy_monitor import (
     EnergyMonitor,
     EnergySample,
     EnergyVendor,

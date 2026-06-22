@@ -1,4 +1,4 @@
-﻿"""PostHog client wrapper.
+"""PostHog client wrapper.
 
 A thin adapter over the official ``posthog`` SDK that:
   - Initialises lazily and only if analytics is enabled.
@@ -17,13 +17,13 @@ import logging
 import threading
 from typing import Any
 
-from DEMON.analytics.events import validate_event
-from DEMON.analytics.identity import (
+from OpenDEMON.analytics.events import validate_event
+from OpenDEMON.analytics.identity import (
     get_or_create_anon_id,
     is_analytics_enabled,
 )
-from DEMON.analytics.redaction import redact
-from DEMON.core.config import AnalyticsConfig
+from OpenDEMON.analytics.redaction import redact
+from OpenDEMON.core.config import AnalyticsConfig
 
 logger = logging.getLogger(__name__)
 

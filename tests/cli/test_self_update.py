@@ -1,4 +1,4 @@
-﻿"""Smoke tests for `DEMON self-update`.
+"""Smoke tests for `DEMON self-update`.
 
 Focus on the surface that's easy to corrupt (output formatting, exit
 codes, --check short-circuit). We don't actually run pip/uv from a
@@ -11,8 +11,8 @@ from unittest.mock import MagicMock, patch
 
 from click.testing import CliRunner
 
-from DEMON.cli._install_detect import InstallInfo
-from DEMON.cli.self_update_cmd import self_update
+from OpenDEMON.cli._install_detect import InstallInfo
+from OpenDEMON.cli.self_update_cmd import self_update
 
 
 def _mock_info(kind: str = "pypi") -> InstallInfo:

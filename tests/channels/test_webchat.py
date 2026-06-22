@@ -1,13 +1,13 @@
-﻿"""Tests for the WebChatChannel adapter."""
+"""Tests for the WebChatChannel adapter."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.channels.webchat import WebChatChannel
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.channels.webchat import WebChatChannel
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 from tests.channels.channel_test_helpers import make_common_channel_tests
 
 

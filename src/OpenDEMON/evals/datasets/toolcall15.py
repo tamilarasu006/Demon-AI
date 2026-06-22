@@ -1,4 +1,4 @@
-﻿"""ToolCall-15 dataset provider — lightweight tool calling benchmark.
+"""ToolCall-15 dataset provider — lightweight tool calling benchmark.
 
 Provides 15 scenarios across 5 categories (3 per category) that test
 whether a model can call the right tool with the right arguments.
@@ -13,9 +13,9 @@ import logging
 import random
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

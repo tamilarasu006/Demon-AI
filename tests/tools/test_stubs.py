@@ -1,10 +1,10 @@
-﻿"""Tests for tools/_stubs.py — ToolSpec, BaseTool, ToolExecutor."""
+"""Tests for tools/_stubs.py — ToolSpec, BaseTool, ToolExecutor."""
 
 from __future__ import annotations
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import ToolCall, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import ToolCall, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -196,3 +196,4 @@ class TestToolExecutor:
         executor = ToolExecutor([])
         assert executor.available_tools() == []
         assert executor.get_openai_tools() == []
+ () == []

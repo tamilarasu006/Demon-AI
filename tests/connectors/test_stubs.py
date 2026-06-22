@@ -1,17 +1,17 @@
-﻿"""Tests for connector base types and registry."""
+"""Tests for connector base types and registry."""
 
 from __future__ import annotations
 
 from datetime import datetime
 from typing import Iterator, Optional
 
-from DEMON.connectors._stubs import (
+from OpenDEMON.connectors._stubs import (
     Attachment,
     BaseConnector,
     Document,
     SyncStatus,
 )
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 class FakeConnector(BaseConnector):

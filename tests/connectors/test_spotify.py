@@ -1,4 +1,4 @@
-﻿"""Tests for SpotifyConnector — Spotify Web API."""
+"""Tests for SpotifyConnector — Spotify Web API."""
 
 from __future__ import annotations
 
@@ -7,11 +7,11 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_spotify_registered():
-    from DEMON.connectors.spotify import SpotifyConnector
+    from OpenDEMON.connectors.spotify import SpotifyConnector
 
     ConnectorRegistry.register_value("spotify", SpotifyConnector)
     assert ConnectorRegistry.contains("spotify")
@@ -51,7 +51,7 @@ _RECENTLY_PLAYED_RESPONSE = {
 
 @pytest.fixture()
 def connector(tmp_path):
-    from DEMON.connectors.spotify import SpotifyConnector
+    from OpenDEMON.connectors.spotify import SpotifyConnector
 
     token_path = tmp_path / "spotify.json"
     token_path.write_text('{"access_token": "fake-token"}', encoding="utf-8")

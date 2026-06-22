@@ -1,4 +1,4 @@
-﻿"""IPW mixed dataset provider.
+"""IPW mixed dataset provider.
 
 Loads evaluation data from a local directory containing HuggingFace Arrow
 datasets or JSONL files.  Does *not* download from HuggingFace — the data
@@ -13,8 +13,8 @@ import random
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

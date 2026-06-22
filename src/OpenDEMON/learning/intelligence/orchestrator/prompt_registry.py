@@ -1,4 +1,4 @@
-﻿"""Prompt registry for orchestrator structured mode.
+"""Prompt registry for orchestrator structured mode.
 
 Adapted from IPW's ``prompt_registry.py``.  Provides the canonical system
 prompt template and tool descriptions used by the structured-mode
@@ -10,7 +10,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, List, Optional
 
 if TYPE_CHECKING:
-    from DEMON.tools._stubs import BaseTool
+    from OpenDEMON.tools._stubs import BaseTool
 
 PROMPT_VERSION = "1.0"
 
@@ -237,7 +237,7 @@ def build_system_prompt(
     """
     # When BaseTool instances are provided, generate descriptions from spec
     if tools is not None:
-        from DEMON.tools._stubs import build_tool_descriptions
+        from OpenDEMON.tools._stubs import build_tool_descriptions
 
         desc_text = build_tool_descriptions(tools, include_cost=True)
 

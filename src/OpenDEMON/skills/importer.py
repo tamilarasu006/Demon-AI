@@ -1,4 +1,4 @@
-﻿"""SkillImporter — install ResolvedSkill instances into ~/.DEMON/skills/.
+"""SkillImporter — install ResolvedSkill instances into ~/.DEMON/skills/.
 
 Steps performed by ``import_skill``:
 
@@ -23,10 +23,10 @@ from typing import List
 
 import yaml
 
-from DEMON.core.paths import get_config_dir
-from DEMON.skills.parser import SkillParser
-from DEMON.skills.sources.base import ResolvedSkill
-from DEMON.skills.tool_translator import ToolTranslator
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.skills.parser import SkillParser
+from OpenDEMON.skills.sources.base import ResolvedSkill
+from OpenDEMON.skills.tool_translator import ToolTranslator
 
 # Subdirectories of a skill that are always copied (never gated by --with-scripts)
 COPIED_SUBDIRS = ("references", "assets", "templates")

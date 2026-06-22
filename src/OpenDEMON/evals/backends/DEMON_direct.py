@@ -1,12 +1,12 @@
-﻿"""DEMON Direct backend — engine-level inference for local and cloud models."""
+"""DEMON Direct backend — engine-level inference for local and cloud models."""
 
 from __future__ import annotations
 
 import time
 from typing import Any, Dict, Optional
 
-from DEMON.evals.backends._commit_util import DEMON_commit
-from DEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.backends._commit_util import DEMON_commit
+from OpenDEMON.evals.core.backend import InferenceBackend
 
 
 class DEMONDirectBackend(InferenceBackend):
@@ -27,7 +27,7 @@ class DEMONDirectBackend(InferenceBackend):
         base_url: Optional[str] = None,
         api_key: Optional[str] = None,
     ) -> None:
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.system import SystemBuilder
 
         self._telemetry = telemetry
         self._gpu_metrics = gpu_metrics
@@ -37,7 +37,7 @@ class DEMONDirectBackend(InferenceBackend):
             # Explicit endpoint targeting (--base-url): pin the eval to
             # exactly this OpenAI-compatible endpoint. Fails fast if it is
             # unreachable; never falls back to a discovered engine.
-            from DEMON.evals.backends._endpoint_util import (
+            from OpenDEMON.evals.backends._endpoint_util import (
                 build_endpoint_engine,
             )
 
@@ -54,7 +54,7 @@ class DEMONDirectBackend(InferenceBackend):
     @property
     def framework_commit_value(self) -> str:
         """DEMON repo HEAD commit (for telemetry tagging)."""
-        from DEMON.evals.backends._commit_util import DEMON_commit
+        from OpenDEMON.evals.backends._commit_util import DEMON_commit
 
         return DEMON_commit()
 
@@ -85,7 +85,7 @@ class DEMONDirectBackend(InferenceBackend):
         temperature: float = 0.0,
         max_tokens: int = 2048,
     ) -> Dict[str, Any]:
-        from DEMON.core.types import Message, Role
+        from OpenDEMON.core.types import Message, Role
 
         messages = []
         if system:

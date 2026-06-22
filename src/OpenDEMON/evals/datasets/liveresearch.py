@@ -1,4 +1,4 @@
-﻿"""DeepResearchBench dataset provider — deep research benchmark.
+"""DeepResearchBench dataset provider — deep research benchmark.
 
 Clones the deep_research_bench repo at runtime and parses query + criteria
 JSONL files into EvalRecords for use with AgenticRunner.
@@ -17,10 +17,10 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

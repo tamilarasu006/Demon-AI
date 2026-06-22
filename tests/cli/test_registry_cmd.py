@@ -1,11 +1,11 @@
-﻿"""Tests for the ``DEMON registry`` CLI commands."""
+"""Tests for the ``DEMON registry`` CLI commands."""
 
 from __future__ import annotations
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.registry import (
+from OpenDEMON.cli import cli
+from OpenDEMON.core.registry import (
     ToolRegistry,
 )
 
@@ -48,7 +48,7 @@ class TestRegistryCmd:
     def test_registry_show_tool_registry(self) -> None:
         """Test that showing the tool registry displays entries."""
         # Trigger tool registration
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
 
         result = CliRunner().invoke(cli, ["registry", "show", "tool"])
         assert result.exit_code == 0
@@ -58,7 +58,7 @@ class TestRegistryCmd:
     def test_registry_show_tool_registry_verbose(self) -> None:
         """Test that showing the tool registry with verbose flag shows details."""
         # Trigger tool registration
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
 
         result = CliRunner().invoke(cli, ["registry", "show", "tool", "-v"])
         assert result.exit_code == 0
@@ -73,7 +73,7 @@ class TestRegistryCmd:
     def test_registry_show_accepts_aliases(self) -> None:
         """Test that registry show accepts various aliases."""
         # Trigger tool registration
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
 
         # Test with 'tools' alias
         result = CliRunner().invoke(cli, ["registry", "show", "tools"])

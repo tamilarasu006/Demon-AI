@@ -1,4 +1,4 @@
-﻿"""Tests for GCalendarConnector — OAuth-authenticated Google Calendar sync connector.
+"""Tests for GCalendarConnector — OAuth-authenticated Google Calendar sync connector.
 
 All Calendar API calls are mocked; no network access is required.
 """
@@ -12,8 +12,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Helpers — fake API payloads
@@ -59,7 +59,7 @@ def connector(tmp_path: Path):
     """GCalendarConnector pointing at a tmp credentials path (no file yet)."""
     from unittest.mock import patch
 
-    from DEMON.connectors.gcalendar import GCalendarConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.gcalendar import GCalendarConnector  # noqa: PLC0415
 
     creds_path = str(tmp_path / "gcalendar.json")
     with patch(
@@ -173,7 +173,7 @@ def test_mcp_tools(connector) -> None:
 
 def test_registry() -> None:
     """GCalendarConnector can be registered and retrieved via ConnectorRegistry."""
-    from DEMON.connectors.gcalendar import GCalendarConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.gcalendar import GCalendarConnector  # noqa: PLC0415
 
     # The registry is cleared before each test by the autouse conftest fixture,
     # so we imperatively re-register here (same pattern as test_gmail.py).

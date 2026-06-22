@@ -1,4 +1,4 @@
-﻿"""Tests for channel registration in the ChannelRegistry."""
+"""Tests for channel registration in the ChannelRegistry."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ from typing import List
 
 import pytest
 
-from DEMON.channels._stubs import BaseChannel, ChannelHandler, ChannelStatus
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import BaseChannel, ChannelHandler, ChannelStatus
+from OpenDEMON.core.registry import ChannelRegistry
 
 
 class TestChannelRegistry:

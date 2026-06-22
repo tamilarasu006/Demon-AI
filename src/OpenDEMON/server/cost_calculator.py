@@ -1,11 +1,11 @@
-﻿"""Cost calculator -- estimate monthly cloud API costs for common use cases."""
+"""Cost calculator -- estimate monthly cloud API costs for common use cases."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Dict, List
 
-from DEMON.server.savings import CLOUD_PRICING
+from OpenDEMON.server.savings import CLOUD_PRICING
 
 
 @dataclass(slots=True)

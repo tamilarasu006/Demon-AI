@@ -1,8 +1,8 @@
-﻿"""Tests for TelemetrySession and ring buffer."""
+"""Tests for TelemetrySession and ring buffer."""
 
 from __future__ import annotations
 
-from DEMON.telemetry.session import (
+from OpenDEMON.telemetry.session import (
     TelemetrySample,
     TelemetrySession,
     _PythonRingBuffer,

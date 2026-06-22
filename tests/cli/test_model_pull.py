@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON model pull`` multi-engine support."""
+"""Tests for ``DEMON model pull`` multi-engine support."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest import mock
 from click.testing import CliRunner
 from rich.console import Console
 
-from DEMON.cli.model import ollama_pull
+from OpenDEMON.cli.model import ollama_pull
 
 
 class TestOllamaPull:
@@ -47,7 +47,7 @@ class TestPullCliMultiEngine:
     """Test the pull CLI command dispatches to correct engine."""
 
     def test_pull_llamacpp_uses_huggingface_cli(self) -> None:
-        from DEMON.cli import cli
+        from OpenDEMON.cli import cli
 
         runner = CliRunner()
         with (
@@ -69,7 +69,7 @@ class TestPullCliMultiEngine:
         assert "qwen3.5-9b-q4_k_m.gguf" in call_args
 
     def test_pull_mlx_uses_huggingface_cli(self) -> None:
-        from DEMON.cli import cli
+        from OpenDEMON.cli import cli
 
         runner = CliRunner()
         with (
@@ -91,7 +91,7 @@ class TestPullCliMultiEngine:
         assert "mlx-community/Qwen3.5-9B-MLX-4bit" in call_args
 
     def test_pull_llamacpp_huggingface_cli_not_found(self) -> None:
-        from DEMON.cli import cli
+        from OpenDEMON.cli import cli
 
         runner = CliRunner()
         with (

@@ -1,4 +1,4 @@
-﻿"""Export functions for agentic run traces and profiling records."""
+"""Export functions for agentic run traces and profiling records."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from typing import Any, Optional, Sequence
 
-from DEMON.evals.core.trace import QueryTrace
+from OpenDEMON.evals.core.trace import QueryTrace
 
 
 def _agg_stats(values: Sequence[Optional[float]]) -> dict[str, Optional[float]]:
@@ -188,7 +188,7 @@ def export_hf_dataset(traces: list[QueryTrace], path: Path) -> Path:
 def _hardware_info_dict() -> dict[str, Any]:
     """Detect hardware and return a JSON-serializable dict."""
     try:
-        from DEMON.core.config import detect_hardware
+        from OpenDEMON.core.config import detect_hardware
 
         hw = detect_hardware()
         info: dict[str, Any] = {

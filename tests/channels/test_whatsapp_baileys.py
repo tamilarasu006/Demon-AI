@@ -1,4 +1,4 @@
-﻿"""Tests for the WhatsAppBaileysChannel adapter."""
+"""Tests for the WhatsAppBaileysChannel adapter."""
 
 from __future__ import annotations
 
@@ -9,10 +9,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.channels._stubs import ChannelMessage, ChannelStatus
-from DEMON.channels.whatsapp_baileys import WhatsAppBaileysChannel
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelMessage, ChannelStatus
+from OpenDEMON.channels.whatsapp_baileys import WhatsAppBaileysChannel
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 
 
 @pytest.fixture(autouse=True)

@@ -1,13 +1,13 @@
-﻿"""MCP tools for knowledge graph operations."""
+"""MCP tools for knowledge graph operations."""
 
 from __future__ import annotations
 
 import json
 from typing import Any, Optional
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("kg_add_entity")
@@ -62,7 +62,7 @@ class KGAddEntityTool(BaseTool):
                 content="No knowledge graph backend available.",
                 success=False,
             )
-        from DEMON.tools.storage.knowledge_graph import Entity
+        from OpenDEMON.tools.storage.knowledge_graph import Entity
 
         entity = Entity(
             entity_id=params["entity_id"],
@@ -129,7 +129,7 @@ class KGAddRelationTool(BaseTool):
                 content="No knowledge graph backend available.",
                 success=False,
             )
-        from DEMON.tools.storage.knowledge_graph import Relation
+        from OpenDEMON.tools.storage.knowledge_graph import Relation
 
         relation = Relation(
             source_id=params["source_id"],

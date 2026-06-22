@@ -1,4 +1,4 @@
-﻿"""SQLite-backed storage for optimization runs and trials."""
+"""SQLite-backed storage for optimization runs and trials."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from DEMON.learning.optimize.types import (
+from OpenDEMON.learning.optimize.types import (
     BenchmarkScore,
     OptimizationRun,
     SampleScore,
@@ -316,7 +316,7 @@ class OptimizationStore:
     @staticmethod
     def _json_to_search_space(raw: str) -> SearchSpace:
         """Deserialize a SearchSpace from JSON."""
-        from DEMON.learning.optimize.types import SearchDimension
+        from OpenDEMON.learning.optimize.types import SearchDimension
 
         data = json.loads(raw)
         dims = []

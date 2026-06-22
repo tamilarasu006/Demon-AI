@@ -1,12 +1,12 @@
-﻿"""Tests for agent-pillar appliers."""
+"""Tests for agent-pillar appliers."""
 
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-from DEMON.learning.spec_search.execute.base import ApplyContext
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.execute.base import ApplyContext
+from OpenDEMON.learning.spec_search.models import (
     Edit,
     EditOp,
     EditPillar,
@@ -35,7 +35,7 @@ class TestReplaceSystemPromptApplier:
     """Tests for ReplaceSystemPromptApplier."""
 
     def test_validate_ok(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.agent import (
+        from OpenDEMON.learning.spec_search.execute.appliers.agent import (
             ReplaceSystemPromptApplier,
         )
 
@@ -54,7 +54,7 @@ class TestReplaceSystemPromptApplier:
         assert applier.validate(edit, ctx).ok
 
     def test_apply_overwrites_prompt(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.agent import (
+        from OpenDEMON.learning.spec_search.execute.appliers.agent import (
             ReplaceSystemPromptApplier,
         )
 
@@ -79,7 +79,7 @@ class TestPatchSystemPromptApplier:
     """Tests for PatchSystemPromptApplier."""
 
     def test_apply_applies_diff(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.agent import (
+        from OpenDEMON.learning.spec_search.execute.appliers.agent import (
             PatchSystemPromptApplier,
         )
 
@@ -108,7 +108,7 @@ class TestPatchSystemPromptApplier:
         assert "math tools" in content
 
     def test_validate_fails_for_bad_diff(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.agent import (
+        from OpenDEMON.learning.spec_search.execute.appliers.agent import (
             PatchSystemPromptApplier,
         )
 
@@ -132,7 +132,7 @@ class TestSetAgentClassApplier:
     """Tests for SetAgentClassApplier."""
 
     def test_apply_updates_config(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.agent import (
+        from OpenDEMON.learning.spec_search.execute.appliers.agent import (
             SetAgentClassApplier,
         )
 
@@ -157,7 +157,7 @@ class TestSetAgentParamApplier:
     """Tests for SetAgentParamApplier."""
 
     def test_apply_updates_param(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.agent import (
+        from OpenDEMON.learning.spec_search.execute.appliers.agent import (
             SetAgentParamApplier,
         )
 
@@ -182,7 +182,7 @@ class TestEditFewShotExemplarsApplier:
     """Tests for EditFewShotExemplarsApplier."""
 
     def test_apply_writes_exemplars(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.agent import (
+        from OpenDEMON.learning.spec_search.execute.appliers.agent import (
             EditFewShotExemplarsApplier,
         )
 

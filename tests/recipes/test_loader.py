@@ -1,4 +1,4 @@
-﻿"""Tests for recipe system — loader, discovery, and resolution."""
+"""Tests for recipe system — loader, discovery, and resolution."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.recipes.loader import (
+from OpenDEMON.recipes.loader import (
     Recipe,
     discover_recipes,
     load_recipe,

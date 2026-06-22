@@ -1,23 +1,23 @@
-﻿"""Tests for the digest_collect tool."""
+"""Tests for the digest_collect tool."""
 
 from __future__ import annotations
 
 from datetime import datetime
 from unittest.mock import MagicMock, patch
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry, ToolRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry, ToolRegistry
 
 
 def test_digest_collect_registered():
-    from DEMON.tools.digest_collect import DigestCollectTool
+    from OpenDEMON.tools.digest_collect import DigestCollectTool
 
     ToolRegistry.register_value("digest_collect", DigestCollectTool)
     assert ToolRegistry.contains("digest_collect")
 
 
 def test_digest_collect_executes():
-    from DEMON.tools.digest_collect import DigestCollectTool
+    from OpenDEMON.tools.digest_collect import DigestCollectTool
 
     tool = DigestCollectTool()
 
@@ -49,7 +49,7 @@ def test_digest_collect_executes():
 
 
 def test_digest_collect_missing_connector():
-    from DEMON.tools.digest_collect import DigestCollectTool
+    from OpenDEMON.tools.digest_collect import DigestCollectTool
 
     tool = DigestCollectTool()
 

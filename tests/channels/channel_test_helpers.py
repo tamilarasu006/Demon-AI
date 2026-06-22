@@ -1,4 +1,4 @@
-﻿"""Shared parametrized tests for channel implementations.
+"""Shared parametrized tests for channel implementations.
 
 Every channel must pass these baseline tests. Import and call
 ``make_common_channel_tests`` to generate a test class.
@@ -8,8 +8,8 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.core.registry import ChannelRegistry
 
 
 def make_common_channel_tests(

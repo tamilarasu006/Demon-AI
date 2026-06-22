@@ -1,10 +1,10 @@
-﻿"""Tests for the built-in model catalog."""
+"""Tests for the built-in model catalog."""
 
 from __future__ import annotations
 
-from DEMON.core.registry import ModelRegistry
-from DEMON.core.types import ModelSpec
-from DEMON.intelligence.model_catalog import (
+from OpenDEMON.core.registry import ModelRegistry
+from OpenDEMON.core.types import ModelSpec
+from OpenDEMON.intelligence.model_catalog import (
     BUILTIN_MODELS,
     merge_discovered_models,
     register_builtin_models,

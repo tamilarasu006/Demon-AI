@@ -1,4 +1,4 @@
-﻿"""Skill loader — load and verify skill manifests from TOML files."""
+"""Skill loader — load and verify skill manifests from TOML files."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from typing import Optional
 
 import yaml
 
-from DEMON.skills.types import SkillManifest, SkillStep
+from OpenDEMON.skills.types import SkillManifest, SkillStep
 
 try:
     import tomllib
@@ -108,7 +108,7 @@ def load_skill(
     # Verify signature if requested
     if verify_signature and public_key and manifest.signature:
         try:
-            from DEMON.security.signing import verify_b64
+            from OpenDEMON.security.signing import verify_b64
 
             valid = verify_b64(
                 manifest.manifest_bytes(),
@@ -126,7 +126,7 @@ def load_skill(
     # Scan for prompt injection if requested
     if scan_for_injection:
         try:
-            from DEMON.security.scanner import SecretScanner
+            from OpenDEMON.security.scanner import SecretScanner
 
             scanner = SecretScanner()
             for step in manifest.steps:
@@ -150,7 +150,7 @@ def load_skill_markdown(path: str | Path) -> SkillManifest:
     body, then runs them through :class:`SkillParser` for strict validation
     and tolerant field mapping.
     """
-    from DEMON.skills.parser import SkillParseError, SkillParser
+    from OpenDEMON.skills.parser import SkillParseError, SkillParser
 
     path = Path(path)
     raw = path.read_text(encoding="utf-8")

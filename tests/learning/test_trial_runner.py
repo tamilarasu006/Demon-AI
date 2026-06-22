@@ -1,12 +1,12 @@
-﻿"""Tests for DEMON.optimize.trial_runner module."""
+"""Tests for DEMON.optimize.trial_runner module."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-from DEMON.evals.core.types import RunConfig, RunSummary
-from DEMON.learning.optimize.trial_runner import TrialRunner
-from DEMON.learning.optimize.types import TrialConfig, TrialResult
+from OpenDEMON.evals.core.types import RunConfig, RunSummary
+from OpenDEMON.learning.optimize.trial_runner import TrialRunner
+from OpenDEMON.learning.optimize.types import TrialConfig, TrialResult
 
 
 class TestTrialRunnerInit:
@@ -380,7 +380,7 @@ class TestRunTrial:
         mock_build_judge,
         mock_build_scorer,
     ) -> None:
-        from DEMON.evals.core.types import EvalResult
+        from OpenDEMON.evals.core.types import EvalResult
 
         summary = self._make_summary()
         mock_runner_instance = MagicMock()

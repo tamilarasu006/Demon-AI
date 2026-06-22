@@ -1,4 +1,4 @@
-﻿"""Tests for the channel abstraction stubs."""
+"""Tests for the channel abstraction stubs."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from typing import Optional
 
 import pytest
 
-from DEMON.channels._stubs import (
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelMessage,
     ChannelStatus,

@@ -1,16 +1,16 @@
-﻿"""Tests for channel MCP tools — ChannelSendTool, ChannelListTool, ChannelStatusTool."""
+"""Tests for channel MCP tools — ChannelSendTool, ChannelListTool, ChannelStatusTool."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.channels._stubs import (
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelHandler,
     ChannelStatus,
 )
-from DEMON.mcp.server import MCPServer
-from DEMON.tools.channel_tools import (
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.tools.channel_tools import (
     ChannelListTool,
     ChannelSendTool,
     ChannelStatusTool,
@@ -198,7 +198,7 @@ class TestChannelToolsMCPDiscovery:
     def test_auto_discover_finds_channel_tools(self):
         """MCPServer auto-discovery finds channel tools."""
         server = MCPServer()
-        from DEMON.mcp.protocol import MCPRequest
+        from OpenDEMON.mcp.protocol import MCPRequest
 
         req = MCPRequest(method="tools/list", id=1)
         resp = server.handle(req)
@@ -210,7 +210,7 @@ class TestChannelToolsMCPDiscovery:
     def test_channel_tool_annotations(self):
         """Channel tools have correct MCP annotations."""
         server = MCPServer()
-        from DEMON.mcp.protocol import MCPRequest
+        from OpenDEMON.mcp.protocol import MCPRequest
 
         req = MCPRequest(method="tools/list", id=1)
         resp = server.handle(req)

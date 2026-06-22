@@ -1,4 +1,4 @@
-﻿"""Knowledge base benchmark dataset.
+"""Knowledge base benchmark dataset.
 
 Document-grounded retrieval questions for evaluating retrieval accuracy
 and answer correctness from a knowledge corpus.
@@ -9,8 +9,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """You are a knowledge base assistant. Answer the following question using only the information provided in the document excerpts below. If the answer cannot be determined from the documents, say "Cannot be determined from the provided documents."
 

@@ -1,4 +1,4 @@
-﻿"""Inter-agent lifecycle tools — spawn, send, list, and kill agents.
+"""Inter-agent lifecycle tools — spawn, send, list, and kill agents.
 
 These MCP tools allow an orchestrating agent (or the system) to manage
 child agent lifecycles at runtime.  Spawned agent metadata is tracked in
@@ -14,9 +14,9 @@ import time
 import uuid
 from typing import Any, Dict
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 logger = logging.getLogger(__name__)
 
@@ -181,7 +181,7 @@ class AgentSendTool(BaseTool):
 
         # Publish event if event bus is available
         try:
-            from DEMON.core.events import EventType, get_event_bus
+            from OpenDEMON.core.events import EventType, get_event_bus
 
             bus = get_event_bus()
             bus.publish(

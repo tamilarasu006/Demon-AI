@@ -1,4 +1,4 @@
-﻿"""Tests for DropboxConnector — OAuth-authenticated Dropbox sync connector.
+"""Tests for DropboxConnector — OAuth-authenticated Dropbox sync connector.
 
 All Dropbox API calls are mocked; no network access is required.
 """
@@ -12,8 +12,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Helpers — fake API payloads
@@ -51,7 +51,7 @@ _DOWNLOAD_RESPONSE = "# My Notes\n\nSome content here."
 @pytest.fixture()
 def connector(tmp_path: Path):
     """DropboxConnector pointing at a tmp credentials path (no file yet)."""
-    from DEMON.connectors.dropbox import DropboxConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.dropbox import DropboxConnector  # noqa: PLC0415
 
     creds_path = str(tmp_path / "dropbox.json")
     return DropboxConnector(credentials_path=creds_path)
@@ -161,7 +161,7 @@ def test_mcp_tools(connector) -> None:
 
 def test_registry() -> None:
     """DropboxConnector can be registered and retrieved via ConnectorRegistry."""
-    from DEMON.connectors.dropbox import DropboxConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.dropbox import DropboxConnector  # noqa: PLC0415
 
     ConnectorRegistry.register_value("dropbox", DropboxConnector)
     assert ConnectorRegistry.contains("dropbox")

@@ -1,4 +1,4 @@
-﻿"""Faster-Whisper speech-to-text backend (local, CTranslate2-based)."""
+"""Faster-Whisper speech-to-text backend (local, CTranslate2-based)."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import logging
 import tempfile
 from typing import List, Optional
 
-from DEMON.core.registry import SpeechRegistry
-from DEMON.speech._stubs import Segment, SpeechBackend, TranscriptionResult
+from OpenDEMON.core.registry import SpeechRegistry
+from OpenDEMON.speech._stubs import Segment, SpeechBackend, TranscriptionResult
 
 try:
     from faster_whisper import WhisperModel

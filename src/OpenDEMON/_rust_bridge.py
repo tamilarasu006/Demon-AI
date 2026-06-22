@@ -1,4 +1,4 @@
-﻿"""Single point of contact between Python and the Rust ``DEMON_rust`` module.
+"""Single point of contact between Python and the Rust ``DEMON_rust`` module.
 
 Every Python module that wants to delegate to Rust should import helpers from
 here rather than importing ``DEMON_rust`` directly.  The Rust backend is
@@ -56,7 +56,7 @@ RUST_AVAILABLE: bool = _detect_rust()
 
 def scan_result_from_json(json_str: str) -> object:
     """Convert a Rust scanner JSON string to a Python ``ScanResult``."""
-    from DEMON.security.types import (
+    from OpenDEMON.security.types import (
         ScanFinding,
         ScanResult,
         ThreatLevel,
@@ -82,10 +82,10 @@ def scan_result_from_json(json_str: str) -> object:
 
 def injection_result_from_json(json_str: str) -> object:
     """Convert Rust ``InjectionScanner.scan()`` JSON to dataclass."""
-    from DEMON.security.injection_scanner import (
+    from OpenDEMON.security.injection_scanner import (
         InjectionScanResult,
     )
-    from DEMON.security.types import ScanFinding, ThreatLevel
+    from OpenDEMON.security.types import ScanFinding, ThreatLevel
 
     data = json.loads(json_str)
     findings: List[ScanFinding] = []
@@ -118,7 +118,7 @@ def injection_result_from_json(json_str: str) -> object:
 
 def retrieval_results_from_json(json_str: str) -> list:
     """Convert Rust memory ``retrieve()`` JSON to a list of results."""
-    from DEMON.tools.storage._stubs import RetrievalResult
+    from OpenDEMON.tools.storage._stubs import RetrievalResult
 
     items = json.loads(json_str)
     results: List[RetrievalResult] = []

@@ -1,10 +1,10 @@
-﻿"""Tests for the learning policy ABC taxonomy."""
+"""Tests for the learning policy ABC taxonomy."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.learning._stubs import (
+from OpenDEMON.learning._stubs import (
     AgentLearningPolicy,
     IntelligenceLearningPolicy,
     LearningPolicy,

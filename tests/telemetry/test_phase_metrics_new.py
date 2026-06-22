@@ -1,11 +1,11 @@
-﻿"""Tests for phase metrics computation."""
+"""Tests for phase metrics computation."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.telemetry.phase_metrics import compute_phase_metrics, split_at_ttft
-from DEMON.telemetry.session import TelemetrySample, TelemetrySession
+from OpenDEMON.telemetry.phase_metrics import compute_phase_metrics, split_at_ttft
+from OpenDEMON.telemetry.session import TelemetrySample, TelemetrySession
 
 
 class TestComputePhaseMetrics:

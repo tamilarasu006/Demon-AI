@@ -1,4 +1,4 @@
-﻿"""Tests for context injection integration in ``DEMON ask``."""
+"""Tests for context injection integration in ``DEMON ask``."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import importlib
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 def test_ask_no_context_flag():
@@ -35,9 +35,9 @@ def test_get_memory_backend_returns_backend_even_when_empty(
     which is the kind of ambiguity that leads to silent grounding
     failures downstream.
     """
-    from DEMON.core.config import DEMONConfig, MemoryConfig
-    from DEMON.core.registry import MemoryRegistry
-    from DEMON.tools.storage.sqlite import SQLiteMemory
+    from OpenDEMON.core.config import DEMONConfig, MemoryConfig
+    from OpenDEMON.core.registry import MemoryRegistry
+    from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
     if not MemoryRegistry.contains("sqlite"):
         MemoryRegistry.register_value("sqlite", SQLiteMemory)
@@ -61,9 +61,9 @@ def test_get_memory_backend_returns_backend_with_docs(
     monkeypatch,
 ):
     """_get_memory_backend returns a backend when docs exist."""
-    from DEMON.core.config import DEMONConfig, MemoryConfig
-    from DEMON.core.registry import MemoryRegistry
-    from DEMON.tools.storage.sqlite import SQLiteMemory
+    from OpenDEMON.core.config import DEMONConfig, MemoryConfig
+    from OpenDEMON.core.registry import MemoryRegistry
+    from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
     if not MemoryRegistry.contains("sqlite"):
         MemoryRegistry.register_value("sqlite", SQLiteMemory)

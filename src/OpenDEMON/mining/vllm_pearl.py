@@ -1,4 +1,4 @@
-﻿# src/DEMON/mining/vllm_pearl.py
+# src/DEMON/mining/vllm_pearl.py
 """The v1 vllm-pearl mining provider.
 
 See spec ``docs/design/2026-05-05-vllm-pearl-mining-integration-design.md``.
@@ -11,9 +11,9 @@ from typing import Any, Optional
 
 import httpx
 
-from DEMON.core.config import HardwareInfo
-from DEMON.core.registry import MinerRegistry
-from DEMON.mining._constants import (
+from OpenDEMON.core.config import HardwareInfo
+from OpenDEMON.core.registry import MinerRegistry
+from OpenDEMON.mining._constants import (
     DEFAULT_GATEWAY_METRICS_PORT,
     DEFAULT_GATEWAY_RPC_PORT,
     DEFAULT_PEARL_MODEL,
@@ -21,10 +21,10 @@ from DEMON.mining._constants import (
     PEARL_IMAGE_TAG,
     SIDECAR_PATH,
 )
-from DEMON.mining._discovery import detect_for_engine_model
-from DEMON.mining._docker import PearlDockerLauncher
-from DEMON.mining._metrics import parse_gateway_metrics, parse_vllm_metrics
-from DEMON.mining._stubs import (
+from OpenDEMON.mining._discovery import detect_for_engine_model
+from OpenDEMON.mining._docker import PearlDockerLauncher
+from OpenDEMON.mining._metrics import parse_gateway_metrics, parse_vllm_metrics
+from OpenDEMON.mining._stubs import (
     MiningCapabilities,
     MiningConfig,
     MiningProvider,

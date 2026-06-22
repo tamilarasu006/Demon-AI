@@ -1,11 +1,11 @@
-﻿"""Tests for SKILL.md and directory-based skill loading."""
+"""Tests for SKILL.md and directory-based skill loading."""
 
 from __future__ import annotations
 
 import textwrap
 from pathlib import Path
 
-from DEMON.skills.loader import load_skill_directory, load_skill_markdown
+from OpenDEMON.skills.loader import load_skill_directory, load_skill_markdown
 
 
 class TestLoadSkillMarkdown:
@@ -135,7 +135,7 @@ class TestLoadSkillDirectory:
 class TestParserDelegation:
     def test_load_skill_markdown_uses_parser_for_validation(self, tmp_path: Path):
         """SKILL.md loading goes through SkillParser, gaining strict validation."""
-        from DEMON.skills.loader import load_skill_markdown
+        from OpenDEMON.skills.loader import load_skill_markdown
 
         md = tmp_path / "SKILL.md"
         md.write_text("---\nname: my-skill\ndescription: x\n---\nBody")
@@ -146,7 +146,7 @@ class TestParserDelegation:
 
     def test_load_skill_markdown_handles_legacy_top_level_fields(self, tmp_path: Path):
         """Legacy SKILL.md with top-level tags/version/etc. still works."""
-        from DEMON.skills.loader import load_skill_markdown
+        from OpenDEMON.skills.loader import load_skill_markdown
 
         md = tmp_path / "SKILL.md"
         md.write_text(
@@ -169,7 +169,7 @@ class TestLoadSkillDirectorySourcePromotion:
     def test_dot_source_file_promoted_to_metadata(self, tmp_path: Path):
         """A .source file in the skill directory promotes its source field
         into manifest.metadata.DEMON.source."""
-        from DEMON.skills.loader import load_skill_directory
+        from OpenDEMON.skills.loader import load_skill_directory
 
         skill_dir = tmp_path / "imported-skill"
         skill_dir.mkdir()
@@ -191,7 +191,7 @@ class TestLoadSkillDirectorySourcePromotion:
 
     def test_no_dot_source_file_no_metadata(self, tmp_path: Path):
         """When no .source file is present, metadata.DEMON.source is unset."""
-        from DEMON.skills.loader import load_skill_directory
+        from OpenDEMON.skills.loader import load_skill_directory
 
         skill_dir = tmp_path / "user-skill"
         skill_dir.mkdir()
@@ -204,7 +204,7 @@ class TestLoadSkillDirectorySourcePromotion:
 
     def test_malformed_dot_source_does_not_crash(self, tmp_path: Path):
         """A malformed .source file is ignored, not crashed on."""
-        from DEMON.skills.loader import load_skill_directory
+        from OpenDEMON.skills.loader import load_skill_directory
 
         skill_dir = tmp_path / "bad"
         skill_dir.mkdir()

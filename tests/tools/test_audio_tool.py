@@ -1,4 +1,4 @@
-﻿"""Tests for the audio_transcribe tool."""
+"""Tests for the audio_transcribe tool."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import builtins
 import sys
 from unittest.mock import MagicMock
 
-from DEMON.tools.audio_tool import AudioTranscribeTool
+from OpenDEMON.tools.audio_tool import AudioTranscribeTool
 
 
 class TestAudioTranscribeTool:

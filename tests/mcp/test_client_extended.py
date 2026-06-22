@@ -1,4 +1,4 @@
-﻿"""Extended tests for MCPClient — initialize params, notify, context manager."""
+"""Extended tests for MCPClient — initialize params, notify, context manager."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.mcp.client import MCPClient
-from DEMON.mcp.protocol import MCPRequest, MCPResponse
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.mcp.client import MCPClient
+from OpenDEMON.mcp.protocol import MCPRequest, MCPResponse
+from OpenDEMON.tools._stubs import ToolSpec
 
 
 @pytest.fixture

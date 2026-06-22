@@ -1,4 +1,4 @@
-﻿"""Tests for bundled skill TOML files."""
+"""Tests for bundled skill TOML files."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.skills.loader import load_skill
+from OpenDEMON.skills.loader import load_skill
 
 # Resolve the skills/builtin/ directory relative to the project root.
 BUILTIN_DIR = (

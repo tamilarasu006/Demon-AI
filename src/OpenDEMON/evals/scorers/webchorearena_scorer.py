@@ -1,4 +1,4 @@
-﻿"""Scorer for WebChoreArena web chore tasks.
+"""Scorer for WebChoreArena web chore tasks.
 
 Uses the environment-validated scoring pattern (same as WorkArenaScorer):
 the ``WebChoreArenaTaskEnv`` runs the original WebArena evaluation harness
@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class WebChoreArenaScorer(Scorer):

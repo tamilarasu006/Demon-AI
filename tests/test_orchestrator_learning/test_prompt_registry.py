@@ -1,8 +1,8 @@
-﻿"""Tests for orchestrator prompt registry."""
+"""Tests for orchestrator prompt registry."""
 
 from __future__ import annotations
 
-from DEMON.learning.intelligence.orchestrator.prompt_registry import (
+from OpenDEMON.learning.intelligence.orchestrator.prompt_registry import (
     TOOL_DESCRIPTIONS,
     build_system_prompt,
 )

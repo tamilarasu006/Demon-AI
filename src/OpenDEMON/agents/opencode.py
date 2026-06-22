@@ -1,4 +1,4 @@
-﻿"""OpenCodeAgent -- wraps the `opencode` coding agent via its headless HTTP server.
+"""OpenCodeAgent -- wraps the `opencode` coding agent via its headless HTTP server.
 
 Spawns ``opencode serve`` (https://opencode.ai) and drives a session over its
 HTTP API, configured to use DEMON's local engine through an
@@ -22,11 +22,11 @@ import time
 from pathlib import Path
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import ToolResult
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
 
 logger = logging.getLogger(__name__)
 

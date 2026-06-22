@@ -1,6 +1,6 @@
-﻿"""Tests for the doc_qa dataset."""
+"""Tests for the doc_qa dataset."""
 
-from DEMON.evals.datasets.doc_qa import DocQADataset
+from OpenDEMON.evals.datasets.doc_qa import DocQADataset
 
 
 def test_dataset_loads():

@@ -1,4 +1,4 @@
-﻿"""Tests for StreamChunk dataclass and stream_full() engine method."""
+"""Tests for StreamChunk dataclass and stream_full() engine method."""
 
 from __future__ import annotations
 
@@ -9,8 +9,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.types import Message, Role
-from DEMON.engine._stubs import InferenceEngine, StreamChunk
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._stubs import InferenceEngine, StreamChunk
 
 # ---------------------------------------------------------------------------
 # StreamChunk dataclass tests
@@ -147,7 +147,7 @@ class TestOpenAICompatStreamFull:
 
     @pytest.mark.asyncio
     async def test_parses_sse_with_content_and_finish(self):
-        from DEMON.engine._openai_compat import _OpenAICompatibleEngine
+        from OpenDEMON.engine._openai_compat import _OpenAICompatibleEngine
 
         # Build mock SSE lines
         sse_lines = []
@@ -198,7 +198,7 @@ class TestOpenAICompatStreamFull:
 
     @pytest.mark.asyncio
     async def test_parses_tool_call_fragments(self):
-        from DEMON.engine._openai_compat import _OpenAICompatibleEngine
+        from OpenDEMON.engine._openai_compat import _OpenAICompatibleEngine
 
         # Simulate streamed tool_call fragments
         _tc1 = (

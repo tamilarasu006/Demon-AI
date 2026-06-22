@@ -1,4 +1,4 @@
-﻿"""EnergyMonitor ABC — multi-vendor energy measurement with hardware counters."""
+"""EnergyMonitor ABC — multi-vendor energy measurement with hardware counters."""
 
 from __future__ import annotations
 
@@ -118,7 +118,7 @@ def create_energy_monitor(
     default_order: list[type[EnergyMonitor]] = []
 
     try:
-        from DEMON.telemetry.energy_nvidia import NvidiaEnergyMonitor
+        from OpenDEMON.telemetry.energy_nvidia import NvidiaEnergyMonitor
 
         vendor_map["nvidia"] = NvidiaEnergyMonitor
         default_order.append(NvidiaEnergyMonitor)
@@ -126,7 +126,7 @@ def create_energy_monitor(
         logger.debug("Failed to load NVIDIA energy monitor: %s", exc)
 
     try:
-        from DEMON.telemetry.energy_amd import AmdEnergyMonitor
+        from OpenDEMON.telemetry.energy_amd import AmdEnergyMonitor
 
         vendor_map["amd"] = AmdEnergyMonitor
         default_order.append(AmdEnergyMonitor)
@@ -134,7 +134,7 @@ def create_energy_monitor(
         logger.debug("Failed to load AMD energy monitor: %s", exc)
 
     try:
-        from DEMON.telemetry.energy_apple import AppleEnergyMonitor
+        from OpenDEMON.telemetry.energy_apple import AppleEnergyMonitor
 
         vendor_map["apple"] = AppleEnergyMonitor
         default_order.append(AppleEnergyMonitor)
@@ -142,7 +142,7 @@ def create_energy_monitor(
         logger.debug("Failed to load Apple energy monitor: %s", exc)
 
     try:
-        from DEMON.telemetry.energy_rapl import RaplEnergyMonitor
+        from OpenDEMON.telemetry.energy_rapl import RaplEnergyMonitor
 
         vendor_map["cpu_rapl"] = RaplEnergyMonitor
         default_order.append(RaplEnergyMonitor)

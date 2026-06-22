@@ -1,4 +1,4 @@
-﻿"""IPW mixed scorer -- LLM-as-judge for mixed-source evaluation datasets.
+"""IPW mixed scorer -- LLM-as-judge for mixed-source evaluation datasets.
 
 Since IPW records can originate from different source datasets, this scorer
 uses a general semantic comparison approach via an LLM judge (similar to
@@ -11,8 +11,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

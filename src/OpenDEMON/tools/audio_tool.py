@@ -1,4 +1,4 @@
-﻿"""Audio transcription tool — transcribe audio via OpenAI Whisper."""
+"""Audio transcription tool — transcribe audio via OpenAI Whisper."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import os
 from pathlib import Path
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 _SUPPORTED_FORMATS = {".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"}
 _MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024  # 25 MB

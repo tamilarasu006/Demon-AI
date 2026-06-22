@@ -1,4 +1,4 @@
-﻿"""Tests for the ChannelBridge orchestrator."""
+"""Tests for the ChannelBridge orchestrator."""
 
 from __future__ import annotations
 
@@ -11,14 +11,14 @@ import pytest
 
 pytest.importorskip("fastapi", reason="DEMON[server] not installed")
 
-from DEMON.channels._stubs import (
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelHandler,
     ChannelStatus,
 )
-from DEMON.core.events import EventBus
-from DEMON.server.channel_bridge import ChannelBridge
-from DEMON.server.session_store import SessionStore
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.server.channel_bridge import ChannelBridge
+from OpenDEMON.server.session_store import SessionStore
 
 
 class FakeChannel(BaseChannel):

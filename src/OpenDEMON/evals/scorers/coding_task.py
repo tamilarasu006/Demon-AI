@@ -1,4 +1,4 @@
-﻿"""Coding task scorer — test pass rate + structural validation.
+"""Coding task scorer — test pass rate + structural validation.
 
 Extracts the function/class from model output and runs test cases
 to determine correctness.
@@ -10,8 +10,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

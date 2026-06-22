@@ -1,4 +1,4 @@
-﻿"""Apple Notes connector — reads directly from the macOS Notes SQLite database.
+"""Apple Notes connector — reads directly from the macOS Notes SQLite database.
 
 No API calls, no OAuth.  The connector opens
 ``~/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite``
@@ -30,9 +30,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterator, List, Optional
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 # ---------------------------------------------------------------------------
 # Constants

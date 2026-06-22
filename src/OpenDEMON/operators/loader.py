@@ -1,10 +1,10 @@
-﻿"""Operator loader — load operator manifests from TOML files."""
+"""Operator loader — load operator manifests from TOML files."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.operators.types import OperatorManifest
+from OpenDEMON.operators.types import OperatorManifest
 
 try:
     import tomllib

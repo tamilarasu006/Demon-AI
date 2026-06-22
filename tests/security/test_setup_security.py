@@ -1,4 +1,4 @@
-﻿"""Tests for setup_security() helper."""
+"""Tests for setup_security() helper."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.config import CapabilitiesConfig, DEMONConfig, SecurityConfig
-from DEMON.core.events import EventBus
-from DEMON.security import SecurityContext, setup_security
+from OpenDEMON.core.config import CapabilitiesConfig, DEMONConfig, SecurityConfig
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.security import SecurityContext, setup_security
 
 
 def _make_mock_engine() -> MagicMock:
@@ -44,7 +44,7 @@ def _has_rust() -> bool:
 class TestSetupSecurityEnabled:
     @pytest.mark.skipif(not _has_rust(), reason="Rust extension not compiled")
     def test_returns_wrapped_engine(self) -> None:
-        from DEMON.security.guardrails import GuardrailsEngine
+        from OpenDEMON.security.guardrails import GuardrailsEngine
 
         engine = _make_mock_engine()
         bus = EventBus()

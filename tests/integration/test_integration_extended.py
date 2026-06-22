@@ -1,4 +1,4 @@
-﻿"""Extended integration tests for new components (Phase 6+)."""
+"""Extended integration tests for new components (Phase 6+)."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents._stubs import AgentContext, AgentResult
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import AgentRegistry, ToolRegistry
-from DEMON.core.types import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import AgentRegistry, ToolRegistry
+from OpenDEMON.core.types import (
     Conversation,
     Message,
     Role,
@@ -22,10 +22,10 @@ from DEMON.core.types import (
 
 def _register_all():
     """Ensure agents and tools are registered."""
-    from DEMON.agents.native_openhands import NativeOpenHandsAgent
-    from DEMON.agents.native_react import NativeReActAgent
-    from DEMON.tools.calculator import CalculatorTool
-    from DEMON.tools.think import ThinkTool
+    from OpenDEMON.agents.native_openhands import NativeOpenHandsAgent
+    from OpenDEMON.agents.native_react import NativeReActAgent
+    from OpenDEMON.tools.calculator import CalculatorTool
+    from OpenDEMON.tools.think import ThinkTool
 
     for key, cls in [
         ("native_react", NativeReActAgent),
@@ -78,8 +78,8 @@ class TestReActPipeline:
 
     def test_react_with_calculator_e2e(self):
         _register_all()
-        from DEMON.agents.native_react import NativeReActAgent
-        from DEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.agents.native_react import NativeReActAgent
+        from OpenDEMON.tools.calculator import CalculatorTool
 
         responses = [
             _simple_response(
@@ -107,8 +107,8 @@ class TestReActPipeline:
 
     def test_react_with_think_tool(self):
         _register_all()
-        from DEMON.agents.native_react import NativeReActAgent
-        from DEMON.tools.think import ThinkTool
+        from OpenDEMON.agents.native_react import NativeReActAgent
+        from OpenDEMON.tools.think import ThinkTool
 
         responses = [
             _simple_response(
@@ -133,7 +133,7 @@ class TestReActPipeline:
     def test_react_direct_answer(self):
         """ReAct returns immediately when no tool use is needed."""
         _register_all()
-        from DEMON.agents.native_react import NativeReActAgent
+        from OpenDEMON.agents.native_react import NativeReActAgent
 
         engine = _make_engine(
             _simple_response("Thought: This is simple.\nFinal Answer: Hello!")
@@ -150,7 +150,7 @@ class TestReActPipeline:
         not by agents directly.
         """
         _register_all()
-        from DEMON.agents.native_react import NativeReActAgent
+        from OpenDEMON.agents.native_react import NativeReActAgent
 
         engine = _make_engine(_simple_response("Thought: done.\nFinal Answer: ok"))
         bus = EventBus(record_history=True)
@@ -176,8 +176,8 @@ class TestOpenHandsPipeline:
 
     def test_openhands_code_execution_e2e(self):
         _register_all()
-        from DEMON.agents.native_openhands import NativeOpenHandsAgent
-        from DEMON.tools.code_interpreter import (
+        from OpenDEMON.agents.native_openhands import NativeOpenHandsAgent
+        from OpenDEMON.tools.code_interpreter import (
             CodeInterpreterTool,
         )
 
@@ -208,7 +208,7 @@ class TestOpenHandsPipeline:
     def test_openhands_direct_answer(self):
         """OpenHands returns directly when no code is needed."""
         _register_all()
-        from DEMON.agents.native_openhands import NativeOpenHandsAgent
+        from OpenDEMON.agents.native_openhands import NativeOpenHandsAgent
 
         engine = _make_engine(_simple_response("Hello! How can I help?"))
         agent = NativeOpenHandsAgent(engine, "test-model")
@@ -219,7 +219,7 @@ class TestOpenHandsPipeline:
     def test_openhands_event_chain(self):
         """Verify event chain through OpenHands run."""
         _register_all()
-        from DEMON.agents.native_openhands import NativeOpenHandsAgent
+        from OpenDEMON.agents.native_openhands import NativeOpenHandsAgent
 
         engine = _make_engine(_simple_response("Direct answer."))
         bus = EventBus(record_history=True)
@@ -244,11 +244,11 @@ class TestMCPIntegration:
     """MCP server + client with real tools."""
 
     def test_mcp_server_with_all_tools(self):
-        from DEMON.mcp.client import MCPClient
-        from DEMON.mcp.server import MCPServer
-        from DEMON.mcp.transport import InProcessTransport
-        from DEMON.tools.calculator import CalculatorTool
-        from DEMON.tools.think import ThinkTool
+        from OpenDEMON.mcp.client import MCPClient
+        from OpenDEMON.mcp.server import MCPServer
+        from OpenDEMON.mcp.transport import InProcessTransport
+        from OpenDEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.tools.think import ThinkTool
 
         tools = [CalculatorTool(), ThinkTool()]
         server = MCPServer(tools)
@@ -283,11 +283,11 @@ class TestMCPIntegration:
         client.close()
 
     def test_mcp_unknown_tool_error(self):
-        from DEMON.mcp.client import MCPClient
-        from DEMON.mcp.protocol import MCPError
-        from DEMON.mcp.server import MCPServer
-        from DEMON.mcp.transport import InProcessTransport
-        from DEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.mcp.client import MCPClient
+        from OpenDEMON.mcp.protocol import MCPError
+        from OpenDEMON.mcp.server import MCPServer
+        from OpenDEMON.mcp.transport import InProcessTransport
+        from OpenDEMON.tools.calculator import CalculatorTool
 
         server = MCPServer([CalculatorTool()])
         client = MCPClient(InProcessTransport(server))
@@ -300,10 +300,10 @@ class TestMCPIntegration:
 
     def test_mcp_roundtrip_lifecycle(self):
         """Full lifecycle: init -> list -> call -> result."""
-        from DEMON.mcp.client import MCPClient
-        from DEMON.mcp.server import MCPServer
-        from DEMON.mcp.transport import InProcessTransport
-        from DEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.mcp.client import MCPClient
+        from OpenDEMON.mcp.server import MCPServer
+        from OpenDEMON.mcp.transport import InProcessTransport
+        from OpenDEMON.tools.calculator import CalculatorTool
 
         server = MCPServer([CalculatorTool()])
         client = MCPClient(InProcessTransport(server))
@@ -339,7 +339,7 @@ class TestCrossEngineConsistency:
     def test_same_query_same_format(self):
         """All engines return the same result dict shape."""
         _register_all()
-        from DEMON.agents.native_react import NativeReActAgent
+        from OpenDEMON.agents.native_react import NativeReActAgent
 
         for engine_name in ["vllm", "ollama", "mock"]:
             engine = _make_engine(
@@ -357,8 +357,8 @@ class TestCrossEngineConsistency:
     def test_tool_calls_across_engines(self):
         """Tool calling works regardless of engine mock."""
         _register_all()
-        from DEMON.agents.native_react import NativeReActAgent
-        from DEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.agents.native_react import NativeReActAgent
+        from OpenDEMON.tools.calculator import CalculatorTool
 
         for engine_name in ["vllm", "ollama"]:
             responses = [
@@ -392,7 +392,7 @@ class TestMemoryPipeline:
     """Index and retrieve across available backends."""
 
     def test_sqlite_index_and_retrieve(self, tmp_path):
-        from DEMON.tools.storage.sqlite import SQLiteMemory
+        from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
         backend = SQLiteMemory(db_path=str(tmp_path / "mem.db"))
         backend.store(
@@ -409,7 +409,7 @@ class TestMemoryPipeline:
 
     def test_bm25_index_and_retrieve(self, tmp_path):
         try:
-            from DEMON.tools.storage.bm25 import BM25Memory
+            from OpenDEMON.tools.storage.bm25 import BM25Memory
         except ImportError:
             pytest.skip("rank_bm25 not installed")
 
@@ -430,7 +430,7 @@ class TestModelCatalogIntegration:
 
     def test_all_models_routable(self):
         """Every model in catalog has required fields."""
-        from DEMON.intelligence.model_catalog import (
+        from OpenDEMON.intelligence.model_catalog import (
             BUILTIN_MODELS,
         )
 
@@ -442,7 +442,7 @@ class TestModelCatalogIntegration:
 
     def test_local_models_have_engine_compat(self):
         """Every local model has at least one engine."""
-        from DEMON.intelligence.model_catalog import (
+        from OpenDEMON.intelligence.model_catalog import (
             BUILTIN_MODELS,
         )
 
@@ -452,7 +452,7 @@ class TestModelCatalogIntegration:
 
     def test_cloud_models_require_api_key(self):
         """All cloud models require an API key."""
-        from DEMON.intelligence.model_catalog import (
+        from OpenDEMON.intelligence.model_catalog import (
             BUILTIN_MODELS,
         )
 
@@ -528,7 +528,7 @@ class TestAgentRoutingMatrix:
     def test_context_passing(self):
         """Agents accept and use AgentContext."""
         _register_all()
-        from DEMON.agents.native_react import NativeReActAgent
+        from OpenDEMON.agents.native_react import NativeReActAgent
 
         engine = _make_engine(
             _simple_response(

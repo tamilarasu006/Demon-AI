@@ -1,4 +1,4 @@
-﻿"""Tests for the research_loop agent — focused on loop invariants.
+"""Tests for the research_loop agent — focused on loop invariants.
 
 The fixtures use a minimal mock engine so these tests are fast and don't
 require a running Ollama daemon.
@@ -12,7 +12,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents.research_loop import (
+from OpenDEMON.agents.research_loop import (
     SEARCH_TOOL_SPEC,
     SYSTEM_PROMPT,
     ResearchAgent,
@@ -21,7 +21,7 @@ from DEMON.agents.research_loop import (
     renumber_citations,
     shape_results_for_model,
 )
-from DEMON.connectors.hybrid_search import SearchHit
+from OpenDEMON.connectors.hybrid_search import SearchHit
 
 
 class _MockEngine:

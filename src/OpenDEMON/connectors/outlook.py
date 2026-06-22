@@ -1,4 +1,4 @@
-﻿"""Outlook / Microsoft 365 connector — reads email via IMAP with app password.
+"""Outlook / Microsoft 365 connector — reads email via IMAP with app password.
 
 Thin subclass of GmailIMAPConnector that defaults to the Outlook IMAP host
 and relabels documents with source='outlook'.
@@ -12,10 +12,10 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Iterator, Optional
 
-from DEMON.connectors._stubs import Document
-from DEMON.connectors.gmail_imap import GmailIMAPConnector
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.connectors.gmail_imap import GmailIMAPConnector
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
 
 _DEFAULT_CREDENTIALS_PATH = str(DEFAULT_CONFIG_DIR / "connectors" / "outlook.json")
 

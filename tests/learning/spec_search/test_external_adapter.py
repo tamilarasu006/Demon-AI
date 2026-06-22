@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.learning.spec_search.external_adapter."""
+"""Tests for DEMON.learning.spec_search.external_adapter."""
 
 from __future__ import annotations
 
@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.learning.spec_search.external_adapter import (
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.learning.spec_search.external_adapter import (
     write_external_records_as_traces,
 )
-from DEMON.traces.store import TraceStore
+from OpenDEMON.traces.store import TraceStore
 
 
 def _fake_records(n: int) -> list[EvalRecord]:

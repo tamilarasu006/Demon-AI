@@ -1,4 +1,4 @@
-﻿"""Tests for the Learning Dashboard API endpoints."""
+"""Tests for the Learning Dashboard API endpoints."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ starlette = pytest.importorskip("starlette")
 from fastapi import FastAPI  # noqa: E402
 from starlette.testclient import TestClient  # noqa: E402
 
-from DEMON.server.api_routes import learning_router  # noqa: E402
+from OpenDEMON.server.api_routes import learning_router  # noqa: E402
 
 
 def _make_app() -> FastAPI:

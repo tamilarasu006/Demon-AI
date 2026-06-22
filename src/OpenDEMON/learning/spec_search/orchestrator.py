@@ -1,4 +1,4 @@
-﻿"""SpecSearchOrchestrator: top-level driver for a learning session.
+"""SpecSearchOrchestrator: top-level driver for a learning session.
 
 Wires diagnose (M2) → plan (M3) → execute (M4) → gate (M5) into a
 single ``run(trigger)`` method. All dependencies are injected.
@@ -14,12 +14,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-from DEMON.learning.spec_search.diagnose.runner import DiagnosisRunner
-from DEMON.learning.spec_search.execute.base import ApplyContext
-from DEMON.learning.spec_search.execute.loop import _build_registry
-from DEMON.learning.spec_search.gate.benchmark_gate import BenchmarkGate
-from DEMON.learning.spec_search.gate.cold_start import check_readiness
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.diagnose.runner import DiagnosisRunner
+from OpenDEMON.learning.spec_search.execute.base import ApplyContext
+from OpenDEMON.learning.spec_search.execute.loop import _build_registry
+from OpenDEMON.learning.spec_search.gate.benchmark_gate import BenchmarkGate
+from OpenDEMON.learning.spec_search.gate.cold_start import check_readiness
+from OpenDEMON.learning.spec_search.models import (
     AutonomyMode,
     BenchmarkSnapshot,
     EditOutcome,
@@ -27,8 +27,8 @@ from DEMON.learning.spec_search.models import (
     LearningSession,
     SessionStatus,
 )
-from DEMON.learning.spec_search.pending_queue import PendingQueue
-from DEMON.learning.spec_search.plan.planner import LearningPlanner
+from OpenDEMON.learning.spec_search.pending_queue import PendingQueue
+from OpenDEMON.learning.spec_search.plan.planner import LearningPlanner
 
 logger = logging.getLogger(__name__)
 

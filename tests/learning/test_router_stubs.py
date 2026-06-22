@@ -1,12 +1,12 @@
-﻿"""Tests for RouterPolicy and QueryAnalyzer ABCs (canonical location)."""
+"""Tests for RouterPolicy and QueryAnalyzer ABCs (canonical location)."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.types import RoutingContext
-from DEMON.learning._stubs import QueryAnalyzer, RouterPolicy
-from DEMON.learning.routing.router import DefaultQueryAnalyzer
+from OpenDEMON.core.types import RoutingContext
+from OpenDEMON.learning._stubs import QueryAnalyzer, RouterPolicy
+from OpenDEMON.learning.routing.router import DefaultQueryAnalyzer
 
 
 class _DummyRouter(RouterPolicy):

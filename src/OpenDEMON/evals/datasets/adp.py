@@ -1,4 +1,4 @@
-﻿"""Agent Data Collection (neulab) — external agent-trajectory corpus.
+"""Agent Data Collection (neulab) — external agent-trajectory corpus.
 
 NOT USED FOR EVALUATION. Surfaces multi-turn agent trajectories to the
 LLM-guided spec search proposer via
@@ -25,9 +25,9 @@ import ast
 import random
 from typing import Iterable, List, MutableMapping, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 HF_DATASET_ID = "neulab/agent-data-collection"
 # Use 'std' split — the normalised, model-agnostic format present in every config.

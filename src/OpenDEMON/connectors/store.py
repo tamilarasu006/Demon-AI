@@ -1,4 +1,4 @@
-﻿"""KnowledgeStore — source-aware SQLite/FTS5 memory backend for Deep Research.
+"""KnowledgeStore — source-aware SQLite/FTS5 memory backend for Deep Research.
 
 Extends ``MemoryBackend`` with per-document provenance columns so that the
 IngestionPipeline and the ``knowledge_search`` tool can filter results by
@@ -17,9 +17,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from DEMON.core.events import EventType, get_event_bus
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.core.events import EventType, get_event_bus
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
 
 # ---------------------------------------------------------------------------
 # DDL
@@ -157,14 +157,14 @@ class KnowledgeStore(MemoryBackend):
 
     def __init__(self, db_path: Union[str, Path] = "") -> None:
         if not db_path:
-            from DEMON.core.config import DEFAULT_CONFIG_DIR
+            from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
             db_path = DEFAULT_CONFIG_DIR / "knowledge.db"
 
         self._db_path = str(db_path)
         # Ensure the parent directory exists (skip for :memory:)
         if self._db_path != ":memory:":
-            from DEMON.security.file_utils import secure_create
+            from OpenDEMON.security.file_utils import secure_create
 
             secure_create(Path(self._db_path))
 

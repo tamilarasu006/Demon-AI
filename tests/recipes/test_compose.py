@@ -1,4 +1,4 @@
-﻿"""Tests for the unified compose system — enhanced Recipe, bridges, and discovery."""
+"""Tests for the unified compose system — enhanced Recipe, bridges, and discovery."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.recipes.loader import (
+from OpenDEMON.recipes.loader import (
     Recipe,
     discover_recipes,
     load_recipe,

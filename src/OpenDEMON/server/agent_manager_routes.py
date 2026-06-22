@@ -1,4 +1,4 @@
-﻿"""FastAPI routes for the Agent Manager."""
+"""FastAPI routes for the Agent Manager."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import logging
 import re as _re
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.agents.manager import AgentManager
+from OpenDEMON.agents.manager import AgentManager
 
 try:
     from fastapi import APIRouter, HTTPException, Request
@@ -79,8 +79,8 @@ def _resolve_memory_backend(config: Any) -> Any:
     if config is None or not getattr(config.agent, "context_from_memory", False):
         return None
     try:
-        import DEMON.tools.storage  # noqa: F401
-        from DEMON.core.registry import MemoryRegistry
+        import OpenDEMON.tools.storage  # noqa: F401
+        from OpenDEMON.core.registry import MemoryRegistry
 
         key = config.memory.default_backend
         if MemoryRegistry.contains(key):
@@ -120,11 +120,11 @@ def _make_lightweight_system(
     could interfere with in-flight requests).
     """
     try:
-        from DEMON.engine._discovery import get_engine
+        from OpenDEMON.engine._discovery import get_engine
 
         cfg = config
         if cfg is None:
-            from DEMON.core.config import load_config
+            from OpenDEMON.core.config import load_config
 
             cfg = load_config()
 
@@ -135,7 +135,7 @@ def _make_lightweight_system(
         if resolved is not None:
             plain_engine = resolved[1]
         else:
-            from DEMON.engine.ollama import OllamaEngine
+            from OpenDEMON.engine.ollama import OllamaEngine
 
             host = cfg.engine.ollama.host if cfg else ""
             plain_engine = OllamaEngine(host=host) if host else OllamaEngine()
@@ -143,8 +143,8 @@ def _make_lightweight_system(
         # Wrap with InstrumentedEngine so agent ticks are recorded
         # in telemetry (FLOPs, energy, cost savings).
         try:
-            from DEMON.core.events import get_event_bus
-            from DEMON.telemetry.instrumented_engine import (
+            from OpenDEMON.core.events import get_event_bus
+            from OpenDEMON.telemetry.instrumented_engine import (
                 InstrumentedEngine,
             )
 
@@ -203,20 +203,20 @@ def _ensure_registries_populated() -> None:
     import importlib
     import sys
 
-    from DEMON.core.registry import ChannelRegistry, ToolRegistry
+    from OpenDEMON.core.registry import ChannelRegistry, ToolRegistry
 
     # First, try a normal import (works if modules haven't been imported yet)
     try:
-        import DEMON.channels  # noqa: F401
+        import OpenDEMON.channels  # noqa: F401
     except Exception:
         pass
 
     try:
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
     except Exception:
         pass
 
-    # Also try to import browser tools (not included in DEMON.tools.__init__)
+    # Also try to import browser tools (not included in OpenDEMON.tools.__init__)
     for _browser_mod in ("DEMON.tools.browser", "DEMON.tools.browser_axtree"):
         try:
             importlib.import_module(_browser_mod)
@@ -264,8 +264,8 @@ def build_tools_list() -> List[Dict[str, Any]]:
     """Build unified tools list from ToolRegistry + ChannelRegistry."""
     import os
 
-    from DEMON.core.credentials import TOOL_CREDENTIALS
-    from DEMON.core.registry import ChannelRegistry, ToolRegistry
+    from OpenDEMON.core.credentials import TOOL_CREDENTIALS
+    from OpenDEMON.core.registry import ChannelRegistry, ToolRegistry
 
     _ensure_registries_populated()
 
@@ -368,7 +368,7 @@ def _resolve_tool_specs(
     if not tool_config:
         return []
 
-    from DEMON.core.registry import ChannelRegistry, ToolRegistry
+    from OpenDEMON.core.registry import ChannelRegistry, ToolRegistry
 
     _ensure_registries_populated()
 
@@ -460,7 +460,7 @@ def _build_managed_system_prompt(system_prompt: str, app_config: Any) -> str:
     neither persona nor template yields an empty string, preserving the
     prior no-SYSTEM-message behavior.
     """
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template=system_prompt or "",
@@ -492,7 +492,7 @@ def _replay_history_messages(
     regressing to fabricated tool output on later turns. Without this, only
     the assistant's text is replayed and the tool-use signal is lost (#382).
     """
-    from DEMON.core.types import Message, Role, ToolCall
+    from OpenDEMON.core.types import Message, Role, ToolCall
 
     messages: List[Any] = []
     for m in reversed(history):
@@ -551,7 +551,7 @@ def _instantiate_managed_tool(
     instead of silently failing with "No backend configured" (#395).
     """
     try:
-        from DEMON.cli.ask import (
+        from OpenDEMON.cli.ask import (
             _CHANNEL_TOOLS,
             _MEMORY_TOOLS,
             _get_memory_backend,
@@ -600,19 +600,19 @@ def _build_deep_research_tools(
     from pathlib import Path
 
     if not knowledge_db_path:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
         knowledge_db_path = str(DEFAULT_CONFIG_DIR / "knowledge.db")
 
     if not Path(knowledge_db_path).exists():
         return []
 
-    from DEMON.connectors.retriever import TwoStageRetriever
-    from DEMON.connectors.store import KnowledgeStore
-    from DEMON.tools.knowledge_search import KnowledgeSearchTool
-    from DEMON.tools.knowledge_sql import KnowledgeSQLTool
-    from DEMON.tools.scan_chunks import ScanChunksTool
-    from DEMON.tools.think import ThinkTool
+    from OpenDEMON.connectors.retriever import TwoStageRetriever
+    from OpenDEMON.connectors.store import KnowledgeStore
+    from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
+    from OpenDEMON.tools.knowledge_sql import KnowledgeSQLTool
+    from OpenDEMON.tools.scan_chunks import ScanChunksTool
+    from OpenDEMON.tools.think import ThinkTool
 
     store = KnowledgeStore(knowledge_db_path)
     retriever = TwoStageRetriever(store)
@@ -664,7 +664,7 @@ def _get_mcp_tools(app_state: Any) -> Tuple[List[Dict[str, Any]], Dict[str, Any]
 
     import json as _json
 
-    from DEMON.core.config import load_config
+    from OpenDEMON.core.config import load_config
 
     openai_tools: List[Dict[str, Any]] = []
     adapters_by_name: Dict[str, Any] = {}
@@ -678,9 +678,9 @@ def _get_mcp_tools(app_state: Any) -> Tuple[List[Dict[str, Any]], Dict[str, Any]
     if not app_config.tools.mcp.enabled or not app_config.tools.mcp.servers:
         return openai_tools, adapters_by_name
 
-    from DEMON.mcp.client import MCPClient
-    from DEMON.mcp.transport import StdioTransport, StreamableHTTPTransport
-    from DEMON.tools.mcp_adapter import MCPToolProvider
+    from OpenDEMON.mcp.client import MCPClient
+    from OpenDEMON.mcp.transport import StdioTransport, StreamableHTTPTransport
+    from OpenDEMON.tools.mcp_adapter import MCPToolProvider
 
     # Keep clients alive so transports persist for tool calls at runtime
     mcp_clients: list = getattr(app_state, "_mcp_clients", [])
@@ -823,7 +823,7 @@ async def _stream_managed_agent(
     import json
     import uuid
 
-    from DEMON.core.types import Message, Role
+    from OpenDEMON.core.types import Message, Role
 
     agent_id = agent_record["id"]
     config = agent_record.get("config", {})
@@ -849,7 +849,7 @@ async def _stream_managed_agent(
     # persona files (parity with the CLI/ask path) — see #431.
     app_config = getattr(app_state, "config", None)
     if app_config is None:
-        from DEMON.core.config import load_config
+        from OpenDEMON.core.config import load_config
 
         app_config = load_config()
 
@@ -897,7 +897,7 @@ async def _stream_managed_agent(
                 import threading
                 import time as _dr_time
 
-                from DEMON.agents.deep_research import DeepResearchAgent
+                from OpenDEMON.agents.deep_research import DeepResearchAgent
 
                 progress_q: queue.Queue = queue.Queue()
 
@@ -1324,7 +1324,7 @@ async def _stream_managed_agent(
                 ]
 
                 # Add assistant message with tool_calls to conversation
-                from DEMON.core.types import ToolCall as MsgToolCall
+                from OpenDEMON.core.types import ToolCall as MsgToolCall
 
                 assistant_msg = Message(
                     role=Role.ASSISTANT,
@@ -1379,11 +1379,11 @@ async def _stream_managed_agent(
                             tool_result_content = result.content
                         else:
                             # Try to use ToolExecutor if tools are configured
-                            from DEMON.core.registry import ToolRegistry
-                            from DEMON.tools._stubs import (
+                            from OpenDEMON.core.registry import ToolRegistry
+                            from OpenDEMON.tools._stubs import (
                                 ToolCall as StubToolCall,
                             )
-                            from DEMON.tools._stubs import (
+                            from OpenDEMON.tools._stubs import (
                                 ToolExecutor,
                             )
 
@@ -1630,8 +1630,8 @@ def create_agent_manager_router(
 
         def _run_tick():
             try:
-                from DEMON.agents.executor import AgentExecutor
-                from DEMON.core.events import get_event_bus
+                from OpenDEMON.agents.executor import AgentExecutor
+                from OpenDEMON.core.events import get_event_bus
 
                 _ts = getattr(request.app.state, "trace_store", None)
                 executor = AgentExecutor(
@@ -1742,7 +1742,7 @@ def create_agent_manager_router(
             identifier = (req.config or {}).get("identifier", "")
             if identifier:
                 try:
-                    from DEMON.channels.imessage_daemon import (
+                    from OpenDEMON.channels.imessage_daemon import (
                         is_running,
                         run_daemon,
                     )
@@ -1752,13 +1752,13 @@ def create_agent_manager_router(
 
                         engine = getattr(request.app.state, "engine", None)
                         if engine:
-                            from DEMON.server.agent_manager_routes import (
+                            from OpenDEMON.server.agent_manager_routes import (
                                 _build_deep_research_tools,
                             )
 
                             tools = _build_deep_research_tools(engine=engine, model="")
                             if tools:
-                                from DEMON.agents.deep_research import (
+                                from OpenDEMON.agents.deep_research import (
                                     DeepResearchAgent,
                                 )
 
@@ -1794,7 +1794,7 @@ def create_agent_manager_router(
             from_number = config.get("from_number", "")
             if api_key_id and api_secret_key:
                 try:
-                    from DEMON.channels.sendblue import (
+                    from OpenDEMON.channels.sendblue import (
                         SendBlueChannel,
                     )
 
@@ -1813,10 +1813,10 @@ def create_agent_manager_router(
                         bridge._channels["sendblue"] = sb_channel
                     else:
                         # Create a new ChannelBridge with DeepResearch
-                        from DEMON.server.channel_bridge import (
+                        from OpenDEMON.server.channel_bridge import (
                             ChannelBridge,
                         )
-                        from DEMON.server.session_store import (
+                        from OpenDEMON.server.session_store import (
                             SessionStore,
                         )
 
@@ -1824,13 +1824,13 @@ def create_agent_manager_router(
                         engine = getattr(request.app.state, "engine", None)
                         dr_agent = None
                         if engine:
-                            from DEMON.server.agent_manager_routes import (
+                            from OpenDEMON.server.agent_manager_routes import (
                                 _build_deep_research_tools as _bdr,
                             )
 
                             tools = _bdr(engine=engine, model="")
                             if tools:
-                                from DEMON.agents.deep_research import (
+                                from OpenDEMON.agents.deep_research import (
                                     DeepResearchAgent,
                                 )
 
@@ -1848,7 +1848,7 @@ def create_agent_manager_router(
                                 )
                         bus = getattr(request.app.state, "bus", None)
                         if bus is None:
-                            from DEMON.core.events import EventBus
+                            from OpenDEMON.core.events import EventBus
 
                             bus = EventBus()
                         bridge = ChannelBridge(
@@ -1874,10 +1874,10 @@ def create_agent_manager_router(
             app_token = config.get("app_token", "")
             if bot_token and app_token:
                 try:
-                    from DEMON.channels.slack_daemon import (
+                    from OpenDEMON.channels.slack_daemon import (
                         start_slack_daemon,
                     )
-                    from DEMON.channels.slack_daemon import (
+                    from OpenDEMON.channels.slack_daemon import (
                         stop_daemon as stop_slack,
                     )
 
@@ -1925,13 +1925,13 @@ def create_agent_manager_router(
             if binding:
                 ch_type = binding.get("channel_type")
                 if ch_type == "imessage":
-                    from DEMON.channels.imessage_daemon import (
+                    from OpenDEMON.channels.imessage_daemon import (
                         stop_daemon,
                     )
 
                     stop_daemon()
                 elif ch_type == "slack":
-                    from DEMON.channels.slack_daemon import (
+                    from OpenDEMON.channels.slack_daemon import (
                         stop_daemon as stop_slack_daemon,
                     )
 
@@ -1973,8 +1973,8 @@ def create_agent_manager_router(
             import threading
             import time as _time
 
-            from DEMON.agents.executor import AgentExecutor
-            from DEMON.core.events import get_event_bus
+            from OpenDEMON.agents.executor import AgentExecutor
+            from OpenDEMON.core.events import get_event_bus
 
             _srv_engine = getattr(request.app.state, "engine", None)
             _srv_model = getattr(request.app.state, "model", "")
@@ -2081,7 +2081,7 @@ def create_agent_manager_router(
     def trigger_learning(agent_id: str):
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
-        from DEMON.core.events import EventType, get_event_bus
+        from OpenDEMON.core.events import EventType, get_event_bus
 
         bus = get_event_bus()
         bus.publish(EventType.AGENT_LEARNING_STARTED, {"agent_id": agent_id})
@@ -2094,9 +2094,9 @@ def create_agent_manager_router(
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
         try:
-            from DEMON.core.config import load_config
-            from DEMON.core.paths import get_config_dir
-            from DEMON.traces.store import TraceStore
+            from OpenDEMON.core.config import load_config
+            from OpenDEMON.core.paths import get_config_dir
+            from OpenDEMON.traces.store import TraceStore
 
             config = load_config()
             store = TraceStore(
@@ -2122,9 +2122,9 @@ def create_agent_manager_router(
     @agents_router.get("/{agent_id}/traces/{trace_id}")
     def get_trace(agent_id: str, trace_id: str):
         try:
-            from DEMON.core.config import load_config
-            from DEMON.core.paths import get_config_dir
-            from DEMON.traces.store import TraceStore
+            from OpenDEMON.core.config import load_config
+            from OpenDEMON.core.paths import get_config_dir
+            from OpenDEMON.traces.store import TraceStore
 
             config = load_config()
             store = TraceStore(
@@ -2229,7 +2229,7 @@ def create_agent_manager_router(
 
     @tools_router.post("/{tool_name}/credentials")
     async def save_tool_credentials(tool_name: str, request: Request):
-        from DEMON.core.credentials import save_credential
+        from OpenDEMON.core.credentials import save_credential
 
         body = await request.json()
         saved = []
@@ -2240,7 +2240,7 @@ def create_agent_manager_router(
 
     @tools_router.get("/{tool_name}/credentials/status")
     def credential_status(tool_name: str):
-        from DEMON.core.credentials import get_credential_status
+        from OpenDEMON.core.credentials import get_credential_status
 
         return get_credential_status(tool_name)
 

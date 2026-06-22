@@ -1,4 +1,4 @@
-﻿"""security_scanner scorer — vulnerability detection evaluation.
+"""security_scanner scorer — vulnerability detection evaluation.
 
 Tier 1: Pattern-match model output against vulnerability manifest.
 Tier 2: Binary checklist for severity correctness and fix quality.
@@ -15,9 +15,9 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers._checklist import ChecklistScorer, normalize_str
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers._checklist import ChecklistScorer, normalize_str
 
 LOGGER = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""browser_assistant dataset — 30 web research tasks.
+"""browser_assistant dataset — 30 web research tasks.
 
 Each task provides a research question with verifiable facts tagged as
 `exact` (string/number match) or `semantic` (LLM judge needed).
@@ -14,8 +14,8 @@ from __future__ import annotations
 import random
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """You are a web research assistant. Answer the following question accurately and cite your sources.
 

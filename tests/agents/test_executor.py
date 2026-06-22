@@ -1,4 +1,4 @@
-﻿"""Tests for AgentExecutor single-tick execution."""
+"""Tests for AgentExecutor single-tick execution."""
 
 from __future__ import annotations
 
@@ -8,14 +8,14 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.agents._stubs import AgentResult
-from DEMON.agents.errors import FatalError, RetryableError
-from DEMON.core.events import EventBus, EventType
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.errors import FatalError, RetryableError
+from OpenDEMON.core.events import EventBus, EventType
 
 
 @pytest.fixture
 def manager():
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     with tempfile.TemporaryDirectory() as tmpdir:
         mgr = AgentManager(db_path=str(Path(tmpdir) / "agents.db"))
@@ -30,7 +30,7 @@ def event_bus():
 
 @pytest.fixture
 def executor(manager, event_bus):
-    from DEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.executor import AgentExecutor
 
     mock_system = MagicMock()
     ex = AgentExecutor(manager=manager, event_bus=event_bus)
@@ -142,8 +142,8 @@ class TestExecutorBasic:
 
 def test_finalize_tick_reads_agent_result_metadata(tmp_path):
     """_finalize_tick() accumulates cost/tokens from AgentResult.metadata."""
-    from DEMON.agents.executor import AgentExecutor
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.manager import AgentManager
 
     mgr = AgentManager(str(tmp_path / "test.db"))
     bus = EventBus()

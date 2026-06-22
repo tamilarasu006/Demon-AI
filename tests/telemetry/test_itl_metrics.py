@@ -1,4 +1,4 @@
-﻿"""Tests for Tier 3 — per-token timestamps, ITL percentiles, streaming telemetry."""
+"""Tests for Tier 3 — per-token timestamps, ITL percentiles, streaming telemetry."""
 
 from __future__ import annotations
 
@@ -9,15 +9,15 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, Role, TelemetryRecord
-from DEMON.telemetry.aggregator import TelemetryAggregator
-from DEMON.telemetry.instrumented_engine import (
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, Role, TelemetryRecord
+from OpenDEMON.telemetry.aggregator import TelemetryAggregator
+from OpenDEMON.telemetry.instrumented_engine import (
     InstrumentedEngine,
     _compute_itl_stats,
     _percentile,
 )
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.telemetry.store import TelemetryStore
 
 # ---------------------------------------------------------------------------
 # Helpers

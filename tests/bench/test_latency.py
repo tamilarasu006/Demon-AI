@@ -1,4 +1,4 @@
-﻿"""Tests for the latency benchmark."""
+"""Tests for the latency benchmark."""
 
 from __future__ import annotations
 
@@ -6,14 +6,14 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.bench.latency import LatencyBenchmark
-from DEMON.core.registry import BenchmarkRegistry
+from OpenDEMON.bench.latency import LatencyBenchmark
+from OpenDEMON.core.registry import BenchmarkRegistry
 
 
 @pytest.fixture(autouse=True)
 def _register_latency():
     """Re-register latency benchmark after registry clear."""
-    from DEMON.bench.latency import ensure_registered
+    from OpenDEMON.bench.latency import ensure_registered
 
     ensure_registered()
 
@@ -80,7 +80,7 @@ class TestLatencyBenchmark:
         assert result.metrics == {}
 
     def test_ensure_registered(self):
-        from DEMON.bench.latency import ensure_registered
+        from OpenDEMON.bench.latency import ensure_registered
 
         ensure_registered()  # should not raise
         assert BenchmarkRegistry.contains("latency")

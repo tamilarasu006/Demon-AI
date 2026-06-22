@@ -1,4 +1,4 @@
-﻿"""Tests for the Cloud engine backend."""
+"""Tests for the Cloud engine backend."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ from unittest import mock
 
 import pytest
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.cloud import (
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.cloud import (
     CloudEngine,
     _is_codex_model,
     _is_deepseek_model,

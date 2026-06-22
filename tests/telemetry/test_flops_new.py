@@ -1,10 +1,10 @@
-﻿"""Tests for FLOPs estimation and MFU computation."""
+"""Tests for FLOPs estimation and MFU computation."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.telemetry.flops import (
+from OpenDEMON.telemetry.flops import (
     GPU_PEAK_TFLOPS_BF16,
     MODEL_PARAMS_B,
     compute_mfu,

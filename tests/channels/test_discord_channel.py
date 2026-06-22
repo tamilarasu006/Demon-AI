@@ -1,4 +1,4 @@
-﻿"""Tests for the DiscordChannel adapter."""
+"""Tests for the DiscordChannel adapter."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.channels.discord_channel import DiscordChannel
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.channels.discord_channel import DiscordChannel
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 from tests.channels.channel_test_helpers import make_common_channel_tests
 
 
@@ -140,10 +140,10 @@ class TestWireChannelEndToEnd:
     """
 
     def test_reply_hits_real_channel_id_and_message_reference(self, tmp_path):
-        from DEMON.channels._stubs import ChannelMessage
-        from DEMON.core.config import DEMONConfig
-        from DEMON.core.events import EventBus
-        from DEMON.system import DEMONSystem
+        from OpenDEMON.channels._stubs import ChannelMessage
+        from OpenDEMON.core.config import DEMONConfig
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.system import DEMONSystem
 
         config = DEMONConfig()
         config.sessions.db_path = str(tmp_path / "sessions.db")

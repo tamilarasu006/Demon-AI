@@ -1,4 +1,4 @@
-﻿"""KnowledgeSearchTool — filtered BM25 retrieval with source attribution.
+"""KnowledgeSearchTool — filtered BM25 retrieval with source attribution.
 
 Wraps ``KnowledgeStore`` so agents can search ingested documents by text query
 and optional provenance filters (source, doc_type, author, date range).
@@ -9,13 +9,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Optional
 
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 if TYPE_CHECKING:
-    from DEMON.connectors.retriever import TwoStageRetriever
+    from OpenDEMON.connectors.retriever import TwoStageRetriever
 
 
 @ToolRegistry.register("knowledge_search")

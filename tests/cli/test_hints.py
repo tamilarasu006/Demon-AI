@@ -1,8 +1,8 @@
-﻿"""Tests for CLI error hint functions."""
+"""Tests for CLI error hint functions."""
 
 from __future__ import annotations
 
-from DEMON.cli.hints import (
+from OpenDEMON.cli.hints import (
     hint_no_config,
     hint_no_engine,
     hint_no_model,

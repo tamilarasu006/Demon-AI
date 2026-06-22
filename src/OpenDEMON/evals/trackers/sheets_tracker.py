@@ -1,4 +1,4 @@
-﻿"""Google Sheets experiment tracker for the eval framework."""
+"""Google Sheets experiment tracker for the eval framework."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import logging
 import time
 from typing import Any, List, Optional
 
-from DEMON.evals.core.tracker import ResultTracker
-from DEMON.evals.core.types import EvalResult, MetricStats, RunConfig, RunSummary
+from OpenDEMON.evals.core.tracker import ResultTracker
+from OpenDEMON.evals.core.types import EvalResult, MetricStats, RunConfig, RunSummary
 
 try:
     import gspread

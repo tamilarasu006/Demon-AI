@@ -1,4 +1,4 @@
-﻿"""Oura Ring connector — sleep, readiness, and activity via REST API v2.
+"""Oura Ring connector — sleep, readiness, and activity via REST API v2.
 
 Uses a Personal Access Token (PAT) stored in the connector config dir.
 All API calls are in module-level functions for easy mocking in tests.
@@ -13,9 +13,9 @@ from typing import Any, Dict, Iterator, Optional
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
 
 _OURA_API_BASE = "https://api.ouraring.com/v2/usercollection"
 _DEFAULT_TOKEN_PATH = str(DEFAULT_CONFIG_DIR / "connectors" / "oura.json")

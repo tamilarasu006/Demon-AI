@@ -1,14 +1,14 @@
-﻿"""BM25 memory backend — classic term-frequency retrieval."""
+"""BM25 memory backend — classic term-frequency retrieval."""
 
 from __future__ import annotations
 
 import json
 from typing import Any, Dict, List, Optional
 
-from DEMON._rust_bridge import get_rust_module
-from DEMON.core.events import EventType, get_event_bus
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON._rust_bridge import get_rust_module
+from OpenDEMON.core.events import EventType, get_event_bus
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
 
 _rust = get_rust_module()
 
@@ -66,7 +66,7 @@ class BM25Memory(MemoryBackend):
         """Search for *query* and return the top-k results — always via Rust backend."""
         if not query.strip():
             return []
-        from DEMON._rust_bridge import retrieval_results_from_json
+        from OpenDEMON._rust_bridge import retrieval_results_from_json
 
         results = retrieval_results_from_json(
             self._rust_impl.retrieve(query, top_k),

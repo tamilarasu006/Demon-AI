@@ -1,4 +1,4 @@
-﻿"""Hacker News connector — top stories from the HN Firebase API.
+"""Hacker News connector — top stories from the HN Firebase API.
 
 No authentication required. All API calls are in module-level functions
 for easy mocking in tests.
@@ -11,8 +11,8 @@ from typing import Any, Dict, Iterator, List, Optional
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.registry import ConnectorRegistry
 
 _HN_API_BASE = "https://hacker-news.firebaseio.com/v0"
 

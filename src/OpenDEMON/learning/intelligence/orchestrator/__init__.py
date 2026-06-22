@@ -1,4 +1,4 @@
-﻿"""Orchestrator training infrastructure — SFT and GRPO pipelines.
+"""Orchestrator training infrastructure — SFT and GRPO pipelines.
 
 Provides structured-mode training for the OrchestratorAgent with:
 
@@ -14,33 +14,33 @@ Importing this module triggers registration of ``orchestrator_sft`` and
 ``orchestrator_grpo`` in :class:`~DEMON.core.registry.LearningRegistry`.
 """
 
-from DEMON.learning.intelligence.orchestrator.environment import (
+from OpenDEMON.learning.intelligence.orchestrator.environment import (
     OrchestratorEnvironment,
 )
-from DEMON.learning.intelligence.orchestrator.grpo_trainer import (
+from OpenDEMON.learning.intelligence.orchestrator.grpo_trainer import (
     OrchestratorGRPOConfig,
     OrchestratorGRPOTrainer,
 )
-from DEMON.learning.intelligence.orchestrator.policy_model import (
+from OpenDEMON.learning.intelligence.orchestrator.policy_model import (
     OrchestratorPolicyModel,
 )
-from DEMON.learning.intelligence.orchestrator.prompt_registry import (
+from OpenDEMON.learning.intelligence.orchestrator.prompt_registry import (
     TOOL_DESCRIPTIONS,
     build_system_prompt,
 )
-from DEMON.learning.intelligence.orchestrator.reward import (
+from OpenDEMON.learning.intelligence.orchestrator.reward import (
     AdaptiveRewardWeights,
     MultiObjectiveReward,
     Normalizers,
     RewardWeights,
 )
-from DEMON.learning.intelligence.orchestrator.sft_trainer import (
+from OpenDEMON.learning.intelligence.orchestrator.sft_trainer import (
     OrchestratorSFTConfig,
     OrchestratorSFTDataset,
     OrchestratorSFTTrainer,
     _select_torch_device,
 )
-from DEMON.learning.intelligence.orchestrator.types import (
+from OpenDEMON.learning.intelligence.orchestrator.types import (
     Episode,
     EpisodeState,
     EpisodeStep,

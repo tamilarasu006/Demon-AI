@@ -1,4 +1,4 @@
-﻿"""TraceAnalyzer — read-only query layer over stored traces.
+"""TraceAnalyzer — read-only query layer over stored traces.
 
 Provides aggregated statistics that the learning system uses to update
 routing policies, tool selection strategies, and memory configuration.
@@ -10,8 +10,8 @@ import statistics as stats_mod
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.traces.store import TraceStore
 
 
 @dataclass(slots=True)

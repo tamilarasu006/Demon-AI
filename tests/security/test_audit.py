@@ -1,13 +1,13 @@
-﻿"""Tests for AuditLogger."""
+"""Tests for AuditLogger."""
 
 from __future__ import annotations
 
 import time
 from pathlib import Path
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.security.audit import AuditLogger
-from DEMON.security.types import (
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.security.audit import AuditLogger
+from OpenDEMON.security.types import (
     ScanFinding,
     SecurityEvent,
     SecurityEventType,

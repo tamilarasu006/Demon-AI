@@ -1,8 +1,8 @@
-﻿"""Tests for PinchBench dataset provider."""
+"""Tests for PinchBench dataset provider."""
 
 import textwrap
 
-from DEMON.evals.datasets.pinchbench import _parse_task_markdown
+from OpenDEMON.evals.datasets.pinchbench import _parse_task_markdown
 
 
 def test_parse_task_markdown_basic():

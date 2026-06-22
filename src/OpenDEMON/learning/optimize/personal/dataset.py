@@ -1,12 +1,12 @@
-﻿"""DatasetProvider adapter for personal benchmarks."""
+"""DatasetProvider adapter for personal benchmarks."""
 
 from __future__ import annotations
 
 from typing import Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
-from DEMON.learning.optimize.personal.synthesizer import PersonalBenchmark
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.learning.optimize.personal.synthesizer import PersonalBenchmark
 
 
 class PersonalBenchmarkDataset(DatasetProvider):

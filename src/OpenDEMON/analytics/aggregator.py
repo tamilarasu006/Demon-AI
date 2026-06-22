@@ -1,4 +1,4 @@
-﻿"""Per-session aggregator — turns many internal events into one analytics event.
+"""Per-session aggregator — turns many internal events into one analytics event.
 
 Without this, a single chat (50 inferences, 10 tool calls) would
 produce ~60 PostHog events. With it, the same chat produces one
@@ -19,7 +19,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from DEMON.analytics.client import AnalyticsClient
+    from OpenDEMON.analytics.client import AnalyticsClient
 
 logger = logging.getLogger(__name__)
 

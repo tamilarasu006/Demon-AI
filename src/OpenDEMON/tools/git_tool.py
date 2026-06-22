@@ -1,4 +1,4 @@
-﻿"""Git tools — version control operations via subprocess."""
+"""Git tools — version control operations via subprocess."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ import shutil
 import subprocess
 from typing import Any
 
-from DEMON._rust_bridge import get_rust_module
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON._rust_bridge import get_rust_module
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 logger = logging.getLogger(__name__)
 

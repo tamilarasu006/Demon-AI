@@ -1,4 +1,4 @@
-﻿"""WorkflowEngine — executes a WorkflowGraph against a DEMONSystem."""
+"""WorkflowEngine — executes a WorkflowGraph against a DEMONSystem."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import concurrent.futures
 import time
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.workflow.graph import WorkflowGraph
-from DEMON.workflow.types import (
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.workflow.graph import WorkflowGraph
+from OpenDEMON.workflow.types import (
     NodeType,
     WorkflowNode,
     WorkflowResult,
@@ -246,7 +246,7 @@ class WorkflowEngine:
         tool_name = node.config.get("tool_name", "")
         tool_args = node.config.get("tool_args", "{}")
         if system and system.tool_executor:
-            from DEMON.core.types import ToolCall
+            from OpenDEMON.core.types import ToolCall
 
             tc = ToolCall(id=f"wf_{node.id}", name=tool_name, arguments=tool_args)
             tr = system.tool_executor.execute(tc)

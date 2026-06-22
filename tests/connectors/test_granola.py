@@ -1,4 +1,4 @@
-﻿"""Tests for GranolaConnector — Granola meeting notes sync connector.
+"""Tests for GranolaConnector — Granola meeting notes sync connector.
 
 All Granola API calls are mocked; no network access is required.
 """
@@ -13,8 +13,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Fake API payloads
@@ -97,7 +97,7 @@ _NOTE_2 = {
 @pytest.fixture()
 def connector(tmp_path: Path):
     """GranolaConnector pointing at a tmp credentials path (no file yet)."""
-    from DEMON.connectors.granola import GranolaConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.granola import GranolaConnector  # noqa: PLC0415
 
     creds_path = str(tmp_path / "granola.json")
     return GranolaConnector(credentials_path=creds_path)
@@ -120,7 +120,7 @@ def test_not_connected_without_key(connector) -> None:
 
 def test_connected_with_key() -> None:
     """is_connected() returns True when an api_key is passed directly."""
-    from DEMON.connectors.granola import GranolaConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.granola import GranolaConnector  # noqa: PLC0415
 
     conn = GranolaConnector(api_key="grl_fake_key")
     assert conn.is_connected() is True
@@ -209,7 +209,7 @@ def test_sync_yields_documents(
 
 def test_format_note_content() -> None:
     """_format_note_content combines summary and transcript into correct markdown."""
-    from DEMON.connectors.granola import _format_note_content  # noqa: PLC0415
+    from OpenDEMON.connectors.granola import _format_note_content  # noqa: PLC0415
 
     result = _format_note_content(_NOTE_1)
 
@@ -261,7 +261,7 @@ def test_mcp_tools(connector) -> None:
 
 def test_registry() -> None:
     """GranolaConnector can be registered and retrieved via ConnectorRegistry."""
-    from DEMON.connectors.granola import GranolaConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.granola import GranolaConnector  # noqa: PLC0415
 
     ConnectorRegistry.register_value("granola", GranolaConnector)
     assert ConnectorRegistry.contains("granola")
@@ -322,9 +322,9 @@ def test_end_to_end_ingest_and_search(
     namespaced thread_id, channel, participants, and that the research-loop
     URL builder reconstructs the Granola web deep-link from the doc_id.
     """
-    from DEMON.connectors.hybrid_search import HybridSearch  # noqa: PLC0415
-    from DEMON.connectors.pipeline import IngestionPipeline  # noqa: PLC0415
-    from DEMON.connectors.store import KnowledgeStore  # noqa: PLC0415
+    from OpenDEMON.connectors.hybrid_search import HybridSearch  # noqa: PLC0415
+    from OpenDEMON.connectors.pipeline import IngestionPipeline  # noqa: PLC0415
+    from OpenDEMON.connectors.store import KnowledgeStore  # noqa: PLC0415
 
     creds_path = Path(connector._credentials_path)
     creds_path.parent.mkdir(parents=True, exist_ok=True)
@@ -362,7 +362,7 @@ def test_end_to_end_ingest_and_search(
     # different from the API note_id.
     assert target.url == _NOTE_1_WEB_URL
 
-    from DEMON.agents.research_loop import (  # noqa: PLC0415
+    from OpenDEMON.agents.research_loop import (  # noqa: PLC0415
         _hit_url,
         build_sources_for_client,
     )
@@ -401,7 +401,7 @@ class _FakeResponse:
 
 def test_validate_key_empty_raises() -> None:
     """An empty key is rejected without any network call."""
-    from DEMON.connectors.granola import (  # noqa: PLC0415
+    from OpenDEMON.connectors.granola import (  # noqa: PLC0415
         GranolaKeyError,
         _granola_api_validate_key,
     )
@@ -413,7 +413,7 @@ def test_validate_key_empty_raises() -> None:
 @pytest.mark.parametrize("status", [401, 403])
 def test_validate_key_rejects_unauthorized(status: int) -> None:
     """A 401/403 from GET /v1/notes raises GranolaKeyError with guidance."""
-    from DEMON.connectors.granola import (  # noqa: PLC0415
+    from OpenDEMON.connectors.granola import (  # noqa: PLC0415
         GranolaKeyError,
         _granola_api_validate_key,
     )
@@ -445,7 +445,7 @@ def test_handle_callback_persists_after_validation(mock_validate, connector) -> 
 
 def test_handle_callback_invalid_key_does_not_overwrite_existing(connector) -> None:
     """A bad key must not clobber an existing, working credential on disk."""
-    from DEMON.connectors.granola import GranolaKeyError  # noqa: PLC0415
+    from OpenDEMON.connectors.granola import GranolaKeyError  # noqa: PLC0415
 
     creds_path = Path(connector._credentials_path)
     creds_path.write_text(json.dumps({"token": "grl_real_existing_key"}))

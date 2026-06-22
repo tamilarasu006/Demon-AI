@@ -1,25 +1,25 @@
-﻿"""Skill system — reusable multi-tool compositions."""
+"""Skill system — reusable multi-tool compositions."""
 
-from DEMON.skills.dependency import (
+from OpenDEMON.skills.dependency import (
     DependencyCycleError,
     DepthExceededError,
     build_dependency_graph,
     compute_capability_union,
     validate_dependencies,
 )
-from DEMON.skills.executor import SkillExecutor, SkillResult
-from DEMON.skills.importer import ImportResult, SkillImporter
-from DEMON.skills.loader import (
+from OpenDEMON.skills.executor import SkillExecutor, SkillResult
+from OpenDEMON.skills.importer import ImportResult, SkillImporter
+from OpenDEMON.skills.loader import (
     discover_skills,
     load_skill,
     load_skill_directory,
     load_skill_markdown,
 )
-from DEMON.skills.manager import SkillManager
-from DEMON.skills.parser import SkillParseError, SkillParser
-from DEMON.skills.tool_adapter import SkillTool
-from DEMON.skills.tool_translator import TOOL_TRANSLATION, ToolTranslator
-from DEMON.skills.types import SkillManifest, SkillStep
+from OpenDEMON.skills.manager import SkillManager
+from OpenDEMON.skills.parser import SkillParseError, SkillParser
+from OpenDEMON.skills.tool_adapter import SkillTool
+from OpenDEMON.skills.tool_translator import TOOL_TRANSLATION, ToolTranslator
+from OpenDEMON.skills.types import SkillManifest, SkillStep
 
 __all__ = [
     "DependencyCycleError",

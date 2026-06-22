@@ -1,4 +1,4 @@
-﻿"""Tests for benchmark stubs — BenchmarkResult, BaseBenchmark, BenchmarkSuite."""
+"""Tests for benchmark stubs — BenchmarkResult, BaseBenchmark, BenchmarkSuite."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import json
 
 import pytest
 
-from DEMON.bench._stubs import BaseBenchmark, BenchmarkResult, BenchmarkSuite
+from OpenDEMON.bench._stubs import BaseBenchmark, BenchmarkResult, BenchmarkSuite
 
 
 class TestBenchmarkResult:

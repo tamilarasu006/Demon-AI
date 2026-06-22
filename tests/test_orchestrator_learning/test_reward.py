@@ -1,16 +1,16 @@
-﻿"""Tests for orchestrator multi-objective reward."""
+"""Tests for orchestrator multi-objective reward."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.learning.intelligence.orchestrator.reward import (
+from OpenDEMON.learning.intelligence.orchestrator.reward import (
     AdaptiveRewardWeights,
     MultiObjectiveReward,
     Normalizers,
     RewardWeights,
 )
-from DEMON.learning.intelligence.orchestrator.types import (
+from OpenDEMON.learning.intelligence.orchestrator.types import (
     Episode,
 )
 

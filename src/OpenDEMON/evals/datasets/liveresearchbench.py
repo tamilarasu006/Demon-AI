@@ -1,4 +1,4 @@
-﻿"""LiveResearchBench dataset provider — Salesforce's checklist-based benchmark.
+"""LiveResearchBench dataset provider — Salesforce's checklist-based benchmark.
 
 Loads Salesforce/LiveResearchBench from HuggingFace. Each task has a research
 question and a set of checklist items used for fine-grained, coverage-based
@@ -20,9 +20,9 @@ import logging
 import random
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

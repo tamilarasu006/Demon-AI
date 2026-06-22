@@ -1,59 +1,59 @@
-﻿"""Command-line interface for DEMON (Click-based)."""
+"""Command-line interface for DEMON (Click-based)."""
 
 from __future__ import annotations
 
 import click
 
-import DEMON
-from DEMON.cli._bootstrap import bootstrap_cmd
-from DEMON.cli.add_cmd import add
-from DEMON.cli.agent_cmd import agent
-from DEMON.cli.ask import ask
-from DEMON.cli.bench_cmd import bench
-from DEMON.cli.channel_cmd import channel
-from DEMON.cli.channels_cmd import channels
-from DEMON.cli.chat_cmd import chat
-from DEMON.cli.compose_cmd import compose
-from DEMON.cli.config_cmd import config
-from DEMON.cli.connect_cmd import connect
-from DEMON.cli.daemon_cmd import restart, start, status, stop
-from DEMON.cli.digest_cmd import digest
-from DEMON.cli.doctor_cmd import doctor
-from DEMON.cli.eval_cmd import eval_group
-from DEMON.cli.feedback_cmd import feedback_group
-from DEMON.cli.gateway_cmd import gateway
-from DEMON.cli.host_cmd import host
-from DEMON.cli.init_cmd import init
-from DEMON.cli.memory_cmd import memory
-from DEMON.cli.mine_cmd import mine
-from DEMON.cli.model import model
-from DEMON.cli.operators_cmd import operators
-from DEMON.cli.optimize_cmd import optimize_group
-from DEMON.cli.pearl_cmd import pearl
-from DEMON.cli.quickstart_cmd import quickstart
-from DEMON.cli.registry_cmd import registry
-from DEMON.cli.scan_cmd import scan
-from DEMON.cli.scheduler_cmd import scheduler
-from DEMON.cli.self_update_cmd import self_update
-from DEMON.cli.serve import serve
-from DEMON.cli.skill_cmd import skill
-from DEMON.cli.telemetry_cmd import telemetry
-from DEMON.cli.tool_cmd import tool
-from DEMON.cli.vault_cmd import vault
-from DEMON.cli.workflow_cmd import workflow
+import OpenDEMON
+from OpenDEMON.cli._bootstrap import bootstrap_cmd
+from OpenDEMON.cli.add_cmd import add
+from OpenDEMON.cli.agent_cmd import agent
+from OpenDEMON.cli.ask import ask
+from OpenDEMON.cli.bench_cmd import bench
+from OpenDEMON.cli.channel_cmd import channel
+from OpenDEMON.cli.channels_cmd import channels
+from OpenDEMON.cli.chat_cmd import chat
+from OpenDEMON.cli.compose_cmd import compose
+from OpenDEMON.cli.config_cmd import config
+from OpenDEMON.cli.connect_cmd import connect
+from OpenDEMON.cli.daemon_cmd import restart, start, status, stop
+from OpenDEMON.cli.digest_cmd import digest
+from OpenDEMON.cli.doctor_cmd import doctor
+from OpenDEMON.cli.eval_cmd import eval_group
+from OpenDEMON.cli.feedback_cmd import feedback_group
+from OpenDEMON.cli.gateway_cmd import gateway
+from OpenDEMON.cli.host_cmd import host
+from OpenDEMON.cli.init_cmd import init
+from OpenDEMON.cli.memory_cmd import memory
+from OpenDEMON.cli.mine_cmd import mine
+from OpenDEMON.cli.model import model
+from OpenDEMON.cli.operators_cmd import operators
+from OpenDEMON.cli.optimize_cmd import optimize_group
+from OpenDEMON.cli.pearl_cmd import pearl
+from OpenDEMON.cli.quickstart_cmd import quickstart
+from OpenDEMON.cli.registry_cmd import registry
+from OpenDEMON.cli.scan_cmd import scan
+from OpenDEMON.cli.scheduler_cmd import scheduler
+from OpenDEMON.cli.self_update_cmd import self_update
+from OpenDEMON.cli.serve import serve
+from OpenDEMON.cli.skill_cmd import skill
+from OpenDEMON.cli.telemetry_cmd import telemetry
+from OpenDEMON.cli.tool_cmd import tool
+from OpenDEMON.cli.vault_cmd import vault
+from OpenDEMON.cli.workflow_cmd import workflow
 
 
 @click.group(
     help="DEMON — modular AI assistant backend",
     invoke_without_command=True,
 )
-@click.version_option(version=DEMON.__version__, prog_name="DEMON")
+@click.version_option(version=OpenDEMON.__version__, prog_name="DEMON")
 @click.option("--verbose", is_flag=True, default=False, help="Enable debug logging")
 @click.option("--quiet", is_flag=True, default=False, help="Suppress non-error output")
 @click.pass_context
 def cli(ctx: click.Context, verbose: bool, quiet: bool) -> None:
     """Top-level CLI group."""
-    from DEMON.cli.log_config import setup_logging
+    from OpenDEMON.cli.log_config import setup_logging
 
     ctx.ensure_object(dict)
     ctx.obj["verbose"] = verbose
@@ -70,7 +70,7 @@ def cli(ctx: click.Context, verbose: bool, quiet: bool) -> None:
     if not quiet and ctx.invoked_subcommand and not research_mode_active:
         import threading
 
-        from DEMON.cli._version_check import check_for_updates
+        from OpenDEMON.cli._version_check import check_for_updates
 
         # Run the PyPI version poll off the hot path: on a cache miss it does
         # a blocking urlopen (up to 3s) that otherwise delays every command,
@@ -86,7 +86,7 @@ def cli(ctx: click.Context, verbose: bool, quiet: bool) -> None:
 
     # First-run guard — routes bare `DEMON` to chat or init.
     if ctx.invoked_subcommand is None:
-        from DEMON.cli._first_run import check_and_route
+        from OpenDEMON.cli._first_run import check_and_route
 
         check_and_route(ctx)
 
@@ -134,7 +134,7 @@ cli.add_command(digest, "digest")
 # `DEMON serve`. Invoking `DEMON deep-research-setup` without the deps still
 # errors clearly on demand.
 try:
-    from DEMON.cli.deep_research_setup_cmd import deep_research_setup
+    from OpenDEMON.cli.deep_research_setup_cmd import deep_research_setup
 
     cli.add_command(deep_research_setup, "deep-research-setup")
     cli.add_command(deep_research_setup, "research")
@@ -147,14 +147,14 @@ cli.add_command(bootstrap_cmd, "_bootstrap")
 
 # Gateway CLI commands (lazy import to avoid pulling starlette)
 try:
-    from DEMON.cli.auth_cmd import auth
+    from OpenDEMON.cli.auth_cmd import auth
 
     cli.add_command(auth, "auth")
 except ImportError:
     pass
 
 try:
-    from DEMON.cli.tunnel_cmd import tunnel
+    from OpenDEMON.cli.tunnel_cmd import tunnel
 
     cli.add_command(tunnel, "tunnel")
 except ImportError:

@@ -1,4 +1,4 @@
-﻿"""Knowledge graph storage backend — entity-relation store with pattern queries."""
+"""Knowledge graph storage backend — entity-relation store with pattern queries."""
 
 from __future__ import annotations
 
@@ -9,8 +9,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import MemoryRegistry
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import MemoryRegistry
 
 
 @dataclass(slots=True)

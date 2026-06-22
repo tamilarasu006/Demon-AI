@@ -1,19 +1,19 @@
-﻿"""MCP Server — wraps DEMON tools as MCP-discoverable tools."""
+"""MCP Server — wraps DEMON tools as MCP-discoverable tools."""
 
 from __future__ import annotations
 
 import logging
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.types import ToolCall
-from DEMON.mcp.protocol import (
+from OpenDEMON.core.types import ToolCall
+from OpenDEMON.mcp.protocol import (
     INTERNAL_ERROR,
     INVALID_PARAMS,
     METHOD_NOT_FOUND,
     MCPRequest,
     MCPResponse,
 )
-from DEMON.tools._stubs import BaseTool, ToolExecutor
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor
 
 logger = logging.getLogger(__name__)
 
@@ -69,37 +69,37 @@ class MCPServer:
 
         # Built-in API tools
         try:
-            from DEMON.tools.calculator import CalculatorTool
+            from OpenDEMON.tools.calculator import CalculatorTool
 
             _tool_classes.append(CalculatorTool)
         except ImportError:
             pass
         try:
-            from DEMON.tools.think import ThinkTool
+            from OpenDEMON.tools.think import ThinkTool
 
             _tool_classes.append(ThinkTool)
         except ImportError:
             pass
         try:
-            from DEMON.tools.file_read import FileReadTool
+            from OpenDEMON.tools.file_read import FileReadTool
 
             _tool_classes.append(FileReadTool)
         except ImportError:
             pass
         try:
-            from DEMON.tools.web_search import WebSearchTool
+            from OpenDEMON.tools.web_search import WebSearchTool
 
             _tool_classes.append(WebSearchTool)
         except ImportError:
             pass
         try:
-            from DEMON.tools.code_interpreter import CodeInterpreterTool
+            from OpenDEMON.tools.code_interpreter import CodeInterpreterTool
 
             _tool_classes.append(CodeInterpreterTool)
         except ImportError:
             pass
         try:
-            from DEMON.tools.repl import ReplTool
+            from OpenDEMON.tools.repl import ReplTool
 
             _tool_classes.append(ReplTool)
         except ImportError:
@@ -107,7 +107,7 @@ class MCPServer:
 
         # Storage MCP tools
         try:
-            from DEMON.tools.storage_tools import (
+            from OpenDEMON.tools.storage_tools import (
                 MemoryIndexTool,
                 MemoryRetrieveTool,
                 MemorySearchTool,
@@ -127,7 +127,7 @@ class MCPServer:
 
         # Channel MCP tools
         try:
-            from DEMON.tools.channel_tools import (
+            from OpenDEMON.tools.channel_tools import (
                 ChannelListTool,
                 ChannelSendTool,
                 ChannelStatusTool,
@@ -145,7 +145,7 @@ class MCPServer:
 
         # LM tool (needs engine/model — instantiate with None)
         try:
-            from DEMON.tools.llm_tool import LLMTool
+            from OpenDEMON.tools.llm_tool import LLMTool
 
             _tool_classes.append(LLMTool)
         except ImportError:
@@ -153,7 +153,7 @@ class MCPServer:
 
         # Retrieval tool (needs backend — instantiate with None)
         try:
-            from DEMON.tools.retrieval import RetrievalTool
+            from OpenDEMON.tools.retrieval import RetrievalTool
 
             _tool_classes.append(RetrievalTool)
         except ImportError:
@@ -167,7 +167,7 @@ class MCPServer:
 
         # Also check ToolRegistry for any user-registered tools
         try:
-            from DEMON.core.registry import ToolRegistry
+            from OpenDEMON.core.registry import ToolRegistry
 
             known_names = {t.spec.name for t in tools}
             for key in ToolRegistry.keys():

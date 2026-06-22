@@ -1,10 +1,10 @@
-﻿"""Tests for Trace and TraceStep types."""
+"""Tests for Trace and TraceStep types."""
 
 from __future__ import annotations
 
 import time
 
-from DEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.core.types import StepType, Trace, TraceStep
 
 
 class TestTraceStep:

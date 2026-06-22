@@ -1,8 +1,8 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from typing import Any, List
 
-from DEMON.core.types import Message
+from OpenDEMON.core.types import Message
 
 
 class SessionExpiryHook:

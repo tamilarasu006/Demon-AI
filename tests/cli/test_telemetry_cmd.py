@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON telemetry`` CLI commands."""
+"""Tests for the ``DEMON telemetry`` CLI commands."""
 
 from __future__ import annotations
 
@@ -9,9 +9,9 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.types import TelemetryRecord
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.cli import cli
+from OpenDEMON.core.types import TelemetryRecord
+from OpenDEMON.telemetry.store import TelemetryStore
 
 
 def _populate_db(db_path: Path, n: int = 3) -> None:

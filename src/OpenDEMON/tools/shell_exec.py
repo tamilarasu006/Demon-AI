@@ -1,4 +1,4 @@
-﻿"""Shell execution tool — run shell commands with security constraints."""
+"""Shell execution tool — run shell commands with security constraints."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ import subprocess
 from pathlib import Path
 from typing import Any, List
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # Maximum output size per stream (100 KB)
 _MAX_OUTPUT_BYTES = 102_400
@@ -124,7 +124,7 @@ class ShellExecTool(BaseTool):
                 env[key] = val
 
         try:
-            from DEMON._rust_bridge import get_rust_module
+            from OpenDEMON._rust_bridge import get_rust_module
 
             _rust = get_rust_module()
             output = _rust.ShellExecTool().execute(command, working_dir)

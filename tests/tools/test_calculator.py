@@ -1,4 +1,4 @@
-﻿"""Tests for the calculator tool."""
+"""Tests for the calculator tool."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import math
 
 import pytest
 
-from DEMON.tools.calculator import CalculatorTool, safe_eval
+from OpenDEMON.tools.calculator import CalculatorTool, safe_eval
 
 
 class TestSafeEval:

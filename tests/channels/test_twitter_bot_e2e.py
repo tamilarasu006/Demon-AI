@@ -1,4 +1,4 @@
-﻿"""End-to-end tests for the Twitter bot mention handler.
+"""End-to-end tests for the Twitter bot mention handler.
 
 Tests cover:
 - Tweet classification (_classify_mention)
@@ -23,9 +23,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.channels._stubs import ChannelMessage
-from DEMON.channels.twitter_channel import TwitterChannel
-from DEMON.tools.http_request import HttpRequestTool
+from OpenDEMON.channels._stubs import ChannelMessage
+from OpenDEMON.channels.twitter_channel import TwitterChannel
+from OpenDEMON.tools.http_request import HttpRequestTool
 
 # Add examples dir to path so we can import the bot module
 _EXAMPLES_DIR = os.path.join(

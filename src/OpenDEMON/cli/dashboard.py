@@ -1,4 +1,4 @@
-﻿"""TUI dashboard — terminal-based system monitoring via textual."""
+"""TUI dashboard — terminal-based system monitoring via textual."""
 
 from __future__ import annotations
 
@@ -108,7 +108,7 @@ class DashboardApp:
 
                 # Try to connect to event bus
                 try:
-                    from DEMON.core.events import get_event_bus
+                    from OpenDEMON.core.events import get_event_bus
 
                     bus = get_event_bus()
 
@@ -120,7 +120,7 @@ class DashboardApp:
                         except Exception as exc:
                             logger.debug("Event serialization failed: %s", exc)
 
-                    from DEMON.core.events import EventType
+                    from OpenDEMON.core.events import EventType
 
                     for et in EventType:
                         bus.subscribe(et, _on_event)
@@ -134,7 +134,7 @@ class DashboardApp:
                 status = self.query_one("#status-panel", Static)
                 lines = ["System Status", "─────────────"]
                 try:
-                    from DEMON.core.config import load_config
+                    from OpenDEMON.core.config import load_config
 
                     config = load_config()
                     lines.append(f"Engine: {config.engine.default}")

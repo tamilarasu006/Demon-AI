@@ -1,12 +1,12 @@
-﻿"""MCP tool adapter — wraps external MCP server tools as native BaseTool instances."""
+"""MCP tool adapter — wraps external MCP server tools as native BaseTool instances."""
 
 from __future__ import annotations
 
 from typing import Any, List
 
-from DEMON.core.types import ToolResult
-from DEMON.mcp.client import MCPClient
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.mcp.client import MCPClient
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 class MCPToolAdapter(BaseTool):

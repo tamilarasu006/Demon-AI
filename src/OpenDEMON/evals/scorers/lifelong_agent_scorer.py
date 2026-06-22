@@ -1,4 +1,4 @@
-﻿"""Scorer for LifelongAgentBench.
+"""Scorer for LifelongAgentBench.
 
 Reproduces the original evaluation methodology from:
   https://github.com/caixd-220529/LifelongAgentBench
@@ -39,8 +39,8 @@ import sqlite3
 import subprocess
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 logger = logging.getLogger(__name__)
 

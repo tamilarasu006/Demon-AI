@@ -1,4 +1,4 @@
-﻿"""Tests for OuraConnector — Oura Ring REST API v2."""
+"""Tests for OuraConnector — Oura Ring REST API v2."""
 
 from __future__ import annotations
 
@@ -7,13 +7,13 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_oura_registered():
     """OuraConnector is discoverable via ConnectorRegistry."""
-    from DEMON.connectors.oura import OuraConnector
+    from OpenDEMON.connectors.oura import OuraConnector
 
     ConnectorRegistry.register_value("oura", OuraConnector)
     assert ConnectorRegistry.contains("oura")
@@ -60,7 +60,7 @@ _ACTIVITY_RESPONSE = {
 @pytest.fixture()
 def connector(tmp_path):
     """OuraConnector with fake token file."""
-    from DEMON.connectors.oura import OuraConnector
+    from OpenDEMON.connectors.oura import OuraConnector
 
     token_path = tmp_path / "oura.json"
     token_path.write_text('{"token": "fake-pat"}', encoding="utf-8")

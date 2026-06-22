@@ -1,8 +1,8 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.core.config import MemoryFilesConfig, SystemPromptConfig
+from OpenDEMON.core.config import MemoryFilesConfig, SystemPromptConfig
 
 
 def test_base_agent_uses_builder(tmp_path: Path):
@@ -11,7 +11,7 @@ def test_base_agent_uses_builder(tmp_path: Path):
     memory = tmp_path / "MEMORY.md"
     memory.write_text("- User likes Python")
 
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are a helpful assistant.",

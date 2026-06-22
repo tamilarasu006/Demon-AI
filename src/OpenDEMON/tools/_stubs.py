@@ -1,4 +1,4 @@
-﻿"""ABC for tool implementations and the ToolExecutor dispatch engine.
+"""ABC for tool implementations and the ToolExecutor dispatch engine.
 
 Follows the same registry pattern as ``engine/_stubs.py`` and ``memory/_stubs.py``.
 Each tool is registered via ``@ToolRegistry.register("name")`` and implements
@@ -14,8 +14,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import ToolCall, ToolResult
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import ToolCall, ToolResult
 
 # ---------------------------------------------------------------------------
 # ToolSpec — metadata describing a tool's interface
@@ -64,7 +64,7 @@ class BaseTool(ABC):
 
     def to_openai_function(self) -> Dict[str, Any]:
         """Convert to OpenAI function-calling format."""
-        from DEMON.tools.description_loader import (
+        from OpenDEMON.tools.description_loader import (
             get_tool_description_override,
         )
 
@@ -181,7 +181,7 @@ class ToolExecutor:
         taint_set = params.get("_taint") if isinstance(params, dict) else None
         if taint_set is not None:
             try:
-                from DEMON.security.taint import TaintSet, check_taint
+                from OpenDEMON.security.taint import TaintSet, check_taint
 
                 if isinstance(taint_set, TaintSet):
                     violation = check_taint(tool_call.name, taint_set)
@@ -270,7 +270,7 @@ class ToolExecutor:
         # Auto-detect taints in results
         if result.success:
             try:
-                from DEMON.security.taint import auto_detect_taint
+                from OpenDEMON.security.taint import auto_detect_taint
 
                 detected = auto_detect_taint(result.content)
                 if detected and detected.labels:
@@ -369,7 +369,7 @@ def build_tool_descriptions(
     if not tools:
         return "No tools available."
 
-    from DEMON.tools.description_loader import (
+    from OpenDEMON.tools.description_loader import (
         get_tool_description_override,
     )
 

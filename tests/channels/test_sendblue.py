@@ -1,4 +1,4 @@
-﻿"""Tests for SendBlue iMessage/SMS channel.
+"""Tests for SendBlue iMessage/SMS channel.
 
 Covers: init, env-var fallback, connect, send (mocked httpx), webhook
 handler, event emission, and registry registration.
@@ -11,10 +11,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.channels.sendblue import SendBlueChannel
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.channels.sendblue import SendBlueChannel
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 from tests.channels.channel_test_helpers import make_common_channel_tests
 
 

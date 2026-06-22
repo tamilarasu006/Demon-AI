@@ -1,13 +1,13 @@
-﻿"""MCP tools for scheduler operations — schedule, list, pause, resume, cancel."""
+"""MCP tools for scheduler operations — schedule, list, pause, resume, cancel."""
 
 from __future__ import annotations
 
 import json
 from typing import Any, Optional
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("schedule_task")

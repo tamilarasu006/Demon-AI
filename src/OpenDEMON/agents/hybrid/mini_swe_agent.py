@@ -1,4 +1,4 @@
-﻿"""MiniSWEAgent — vendored, ~330-line port of mini-SWE-agent v2.
+"""MiniSWEAgent — vendored, ~330-line port of mini-SWE-agent v2.
 
 Single-LLM agent loop with a ``bash`` tool, run inside a per-task git
 clone. The model iterates: read files, grep, run tests, edit, retry —
@@ -45,21 +45,21 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import (
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import (
     LocalCloudAgent,
     _bump_cloud_calls,
     _bump_local_calls,
     _record_event,
 )
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents.hybrid._prices import (
     cost as estimate_cost,
 )
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents.hybrid._prices import (
     is_gpt5_family,
     supports_temperature,
 )
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.core.registry import AgentRegistry
 
 # Gemini's FunctionDeclaration.parameters expects a Schema-shaped dict (or
 # Schema object) with capitalized type strings ("OBJECT", "STRING"). The

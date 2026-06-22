@@ -1,4 +1,4 @@
-﻿"""Parametrized contract tests — verify every channel implements BaseChannel correctly.
+"""Parametrized contract tests — verify every channel implements BaseChannel correctly.
 
 These tests run without any credentials and verify that all channel adapters
 handle graceful degradation (no crashes on missing auth, idempotent disconnect,
@@ -11,9 +11,9 @@ import importlib
 
 import pytest
 
-import DEMON.channels  # noqa: F401 — trigger registration
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.core.registry import ChannelRegistry
+import OpenDEMON.channels  # noqa: F401 — trigger registration
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.core.registry import ChannelRegistry
 
 # Collect channel classes at import time (before registry gets cleared).
 # We store the actual class objects, not registry keys, so they survive

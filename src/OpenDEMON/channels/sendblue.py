@@ -1,4 +1,4 @@
-﻿"""SendBlue channel — iMessage/SMS API adapter.
+"""SendBlue channel — iMessage/SMS API adapter.
 
 Sends and receives iMessages (blue bubbles!) and SMS via the SendBlue API.
 The agent gets a dedicated phone number; users text that number to interact.
@@ -12,14 +12,14 @@ import logging
 import os
 from typing import Any, Dict, List, Optional
 
-from DEMON.channels._stubs import (
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelHandler,
     ChannelMessage,
     ChannelStatus,
 )
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import ChannelRegistry
 
 logger = logging.getLogger(__name__)
 

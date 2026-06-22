@@ -1,4 +1,4 @@
-﻿"""File sensitivity policy — block access to secrets, credentials, and keys."""
+"""File sensitivity policy — block access to secrets, credentials, and keys."""
 
 from __future__ import annotations
 
@@ -35,7 +35,7 @@ def is_sensitive_file(path: Union[str, Path]) -> bool:
     Uses the Rust implementation when available, falls back to Python.
     """
     try:
-        from DEMON._rust_bridge import get_rust_module
+        from OpenDEMON._rust_bridge import get_rust_module
 
         _rust = get_rust_module()
         return _rust.is_sensitive_file(str(path))

@@ -1,8 +1,8 @@
-﻿"""Tests for the file_read tool."""
+"""Tests for the file_read tool."""
 
 from __future__ import annotations
 
-from DEMON.tools.file_read import FileReadTool
+from OpenDEMON.tools.file_read import FileReadTool
 
 
 class TestFileReadTool:

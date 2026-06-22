@@ -1,13 +1,13 @@
-﻿"""Tests for SkillImporter — installs ResolvedSkill instances on disk."""
+"""Tests for SkillImporter — installs ResolvedSkill instances on disk."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.skills.importer import SkillImporter
-from DEMON.skills.parser import SkillParser
-from DEMON.skills.sources.base import ResolvedSkill
-from DEMON.skills.tool_translator import ToolTranslator
+from OpenDEMON.skills.importer import SkillImporter
+from OpenDEMON.skills.parser import SkillParser
+from OpenDEMON.skills.sources.base import ResolvedSkill
+from OpenDEMON.skills.tool_translator import ToolTranslator
 
 
 def _make_resolved(tmp_path: Path, body: str = "Body") -> ResolvedSkill:

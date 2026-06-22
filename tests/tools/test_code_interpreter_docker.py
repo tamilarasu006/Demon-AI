@@ -1,4 +1,4 @@
-﻿"""Tests for the Docker-sandboxed code interpreter tool."""
+"""Tests for the Docker-sandboxed code interpreter tool."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ def _make_docker_mock():
 
 class TestDockerCodeInterpreterTool:
     def test_spec(self):
-        from DEMON.tools.code_interpreter_docker import (
+        from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
         )
 
@@ -27,7 +27,7 @@ class TestDockerCodeInterpreterTool:
         assert spec.category == "code"
 
     def test_empty_code(self):
-        from DEMON.tools.code_interpreter_docker import (
+        from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
         )
 
@@ -37,7 +37,7 @@ class TestDockerCodeInterpreterTool:
         assert "No code" in result.content
 
     def test_successful_execution(self):
-        from DEMON.tools.code_interpreter_docker import (
+        from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
         )
 
@@ -60,7 +60,7 @@ class TestDockerCodeInterpreterTool:
         mock_container.remove.assert_called_once_with(force=True)
 
     def test_execution_error(self):
-        from DEMON.tools.code_interpreter_docker import (
+        from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
         )
 
@@ -82,7 +82,7 @@ class TestDockerCodeInterpreterTool:
         assert "NameError" in result.content
 
     def test_container_resource_limits(self):
-        from DEMON.tools.code_interpreter_docker import (
+        from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
         )
 
@@ -111,7 +111,7 @@ class TestDockerCodeInterpreterTool:
         assert call_kwargs[1]["read_only"] is True
 
     def test_output_truncation(self):
-        from DEMON.tools.code_interpreter_docker import (
+        from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
         )
 
@@ -131,7 +131,7 @@ class TestDockerCodeInterpreterTool:
         assert "truncated" in result.content
 
     def test_container_cleanup_on_error(self):
-        from DEMON.tools.code_interpreter_docker import (
+        from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
         )
 
@@ -147,3 +147,4 @@ class TestDockerCodeInterpreterTool:
 
         assert not result.success
         mock_container.remove.assert_called_once_with(force=True)
+ ed_once_with(force=True)

@@ -1,4 +1,4 @@
-﻿"""Tests for GitHubNotificationsConnector — GitHub REST API."""
+"""Tests for GitHubNotificationsConnector — GitHub REST API."""
 
 from __future__ import annotations
 
@@ -7,13 +7,13 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_github_notifications_registered():
     """GitHubNotificationsConnector is discoverable via ConnectorRegistry."""
-    from DEMON.connectors.github_notifications import (
+    from OpenDEMON.connectors.github_notifications import (
         GitHubNotificationsConnector,
     )
 
@@ -55,7 +55,7 @@ _NOTIFICATIONS_RESPONSE = [
 @pytest.fixture()
 def connector(tmp_path):
     """GitHubNotificationsConnector with fake token file."""
-    from DEMON.connectors.github_notifications import (
+    from OpenDEMON.connectors.github_notifications import (
         GitHubNotificationsConnector,
     )
 
@@ -69,7 +69,7 @@ def test_is_connected(connector):
 
 
 def test_is_connected_no_file(tmp_path):
-    from DEMON.connectors.github_notifications import (
+    from OpenDEMON.connectors.github_notifications import (
         GitHubNotificationsConnector,
     )
 

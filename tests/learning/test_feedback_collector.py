@@ -1,12 +1,12 @@
-﻿"""Tests for DEMON.optimize.feedback.collector module."""
+"""Tests for DEMON.optimize.feedback.collector module."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.core.types import Trace
-from DEMON.learning.optimize.feedback.collector import FeedbackCollector
-from DEMON.learning.optimize.feedback.judge import TraceJudge
+from OpenDEMON.core.types import Trace
+from OpenDEMON.learning.optimize.feedback.collector import FeedbackCollector
+from OpenDEMON.learning.optimize.feedback.judge import TraceJudge
 
 
 def _make_trace(trace_id: str = "trace-001") -> Trace:

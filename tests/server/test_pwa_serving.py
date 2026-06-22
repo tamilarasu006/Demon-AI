@@ -1,4 +1,4 @@
-﻿"""Tests for PWA static file serving in the SPA catch-all endpoint."""
+"""Tests for PWA static file serving in the SPA catch-all endpoint."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import pytest
 fastapi = pytest.importorskip("fastapi")
 from fastapi.testclient import TestClient  # noqa: E402
 
-from DEMON.server.app import create_app  # noqa: E402
+from OpenDEMON.server.app import create_app  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Helpers

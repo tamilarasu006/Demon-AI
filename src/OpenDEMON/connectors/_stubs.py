@@ -1,4 +1,4 @@
-﻿"""Base types for data source connectors."""
+"""Base types for data source connectors."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Dict, Iterator, List, Optional
 
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.tools._stubs import ToolSpec
 
 
 @dataclass(slots=True)

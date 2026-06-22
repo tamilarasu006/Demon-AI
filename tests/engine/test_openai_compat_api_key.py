@@ -1,4 +1,4 @@
-﻿"""API-key (Authorization header) support in the OpenAI-compat engine base."""
+"""API-key (Authorization header) support in the OpenAI-compat engine base."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.types import Message, Role
-from DEMON.engine.openai_compat_engines import (
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine.openai_compat_engines import (
     OpenAICompatEngine,
     VLLMEngine,
     normalize_openai_base_url,

@@ -1,11 +1,11 @@
-﻿"""Retrieval quality tests with a fixed corpus across backends."""
+"""Retrieval quality tests with a fixed corpus across backends."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage.sqlite import SQLiteMemory
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
 # ---------------------------------------------------------------------------
 # Shared corpus

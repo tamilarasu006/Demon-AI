@@ -1,11 +1,11 @@
-﻿"""Phase metrics computation -- prefill/decode energy separation."""
+"""Phase metrics computation -- prefill/decode energy separation."""
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from DEMON.telemetry.session import TelemetrySession
+    from OpenDEMON.telemetry.session import TelemetrySession
 
 
 def compute_phase_metrics(

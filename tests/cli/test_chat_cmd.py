@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON chat`` interactive REPL command."""
+"""Tests for ``DEMON chat`` interactive REPL command."""
 
 from __future__ import annotations
 
@@ -7,17 +7,17 @@ from unittest.mock import MagicMock, patch
 
 from click.testing import CliRunner
 
-from DEMON.agents._stubs import (
+from OpenDEMON.agents._stubs import (
     AgentContext,
     AgentResult,
     BaseAgent,
     ToolUsingAgent,
 )
-from DEMON.cli.chat_cmd import _read_input, chat
-from DEMON.core.config import DEMONConfig
-from DEMON.core.registry import AgentRegistry, ToolRegistry
-from DEMON.core.types import ToolCall, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.cli.chat_cmd import _read_input, chat
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.registry import AgentRegistry, ToolRegistry
+from OpenDEMON.core.types import ToolCall, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 class _SimpleChatAgent(BaseAgent):

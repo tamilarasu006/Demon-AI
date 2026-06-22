@@ -1,4 +1,4 @@
-﻿"""Tests for subprocess sandbox — secure process execution."""
+"""Tests for subprocess sandbox — secure process execution."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import os
 import shlex
 import tempfile
 
-from DEMON.core import get_python_executable
-from DEMON.security.subprocess_sandbox import (
+from OpenDEMON.core import get_python_executable
+from OpenDEMON.security.subprocess_sandbox import (
     build_safe_env,
     kill_process_tree,
     run_sandboxed,

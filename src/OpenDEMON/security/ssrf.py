@@ -1,4 +1,4 @@
-﻿"""SSRF protection — block requests to private IPs and cloud metadata endpoints."""
+"""SSRF protection — block requests to private IPs and cloud metadata endpoints."""
 
 from __future__ import annotations
 
@@ -77,7 +77,7 @@ def check_ssrf(url: str) -> Optional[str]:
     guard is security-critical, so it must never be silently skipped — or
     crash with ``ImportError`` — merely because Rust was not built.
     """
-    from DEMON._rust_bridge import RUST_AVAILABLE, get_rust_module
+    from OpenDEMON._rust_bridge import RUST_AVAILABLE, get_rust_module
 
     if RUST_AVAILABLE:
         return get_rust_module().check_ssrf(url)

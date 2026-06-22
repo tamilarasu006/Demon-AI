@@ -1,10 +1,10 @@
-﻿"""Tests for agent constructor config-based default resolution."""
+"""Tests for agent constructor config-based default resolution."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-from DEMON.agents._stubs import AgentResult, BaseAgent, ToolUsingAgent
+from OpenDEMON.agents._stubs import AgentResult, BaseAgent, ToolUsingAgent
 
 
 class _TestAgent(BaseAgent):

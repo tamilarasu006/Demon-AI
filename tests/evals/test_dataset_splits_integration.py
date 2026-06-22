@@ -1,4 +1,4 @@
-﻿"""Integration test: each provider's split kwarg produces disjoint train/test slices.
+"""Integration test: each provider's split kwarg produces disjoint train/test slices.
 
 Marked ``hub``: every provider here downloads a real corpus from the
 HuggingFace Hub, so the module is excluded from the default CI lane (which
@@ -80,7 +80,7 @@ def test_train_and_test_are_disjoint_per_provider(mod_name, cls_name):
 @pytest.mark.slow
 def test_toolcall15_split_is_nonempty():
     """Regression: toolcall15 must not silently return 0 records for split=train."""
-    from DEMON.evals.datasets.toolcall15 import ToolCall15Dataset
+    from OpenDEMON.evals.datasets.toolcall15 import ToolCall15Dataset
 
     ds = ToolCall15Dataset()
     ds.load(split="train", seed=42)

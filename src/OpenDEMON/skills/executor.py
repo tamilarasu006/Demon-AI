@@ -1,4 +1,4 @@
-﻿"""SkillExecutor — runs skill steps sequentially through ToolExecutor."""
+"""SkillExecutor — runs skill steps sequentially through ToolExecutor."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import ToolCall, ToolResult
-from DEMON.skills.types import SkillManifest
-from DEMON.tools._stubs import ToolExecutor
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import ToolCall, ToolResult
+from OpenDEMON.skills.types import SkillManifest
+from OpenDEMON.tools._stubs import ToolExecutor
 
 
 @dataclass(slots=True)

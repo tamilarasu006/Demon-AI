@@ -1,8 +1,8 @@
-﻿"""CPU mining-loop subprocess entry point.
+"""CPU mining-loop subprocess entry point.
 
 Run with::
 
-    python -m DEMON.mining._miner_loop_main \
+    python -m OpenDEMON.mining._miner_loop_main \
         --gateway-host 127.0.0.1 --gateway-port 8337 \
         --m 256 --n 128 --k 1024 --rank 32
 

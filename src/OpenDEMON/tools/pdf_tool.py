@@ -1,13 +1,13 @@
-﻿"""PDF text extraction tool — extract text from PDF files via pdfplumber."""
+"""PDF text extraction tool — extract text from PDF files via pdfplumber."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, List
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 _DEFAULT_MAX_CHARS = 50_000
 
@@ -105,7 +105,7 @@ class PDFExtractTool(BaseTool):
             )
 
         # Check sensitive file policy
-        from DEMON.security.file_policy import is_sensitive_file
+        from OpenDEMON.security.file_policy import is_sensitive_file
 
         if is_sensitive_file(path):
             return ToolResult(

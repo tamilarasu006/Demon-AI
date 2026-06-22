@@ -1,4 +1,4 @@
-﻿"""Load tool description overrides from $DEMON_HOME/tools/descriptions.toml.
+"""Load tool description overrides from $DEMON_HOME/tools/descriptions.toml.
 
 LLM-guided spec search (M1) proposes tool description edits that get written to disk by
 ``EditToolDescriptionApplier``.  This module loads those overrides so agents
@@ -18,7 +18,7 @@ from __future__ import annotations
 import logging
 from typing import Dict, Optional
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 logger = logging.getLogger(__name__)
 

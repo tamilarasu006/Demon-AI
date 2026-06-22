@@ -1,4 +1,4 @@
-﻿"""Live integration tests for the spec-search subsystem.
+"""Live integration tests for the spec-search subsystem.
 
 These tests use REAL API calls (CloudEngine with Anthropic) and real
 TraceStore data. They are gated on the ``cloud`` marker — skip them
@@ -30,14 +30,14 @@ def anthropic_key():
 
 @pytest.fixture
 def cloud_engine(anthropic_key):
-    from DEMON.engine.cloud import CloudEngine
+    from OpenDEMON.engine.cloud import CloudEngine
 
     return CloudEngine()
 
 
 @pytest.fixture
 def real_trace_store():
-    from DEMON.traces.store import TraceStore
+    from OpenDEMON.traces.store import TraceStore
 
     db_path = Path.home() / ".DEMON" / "traces.db"
     if not db_path.exists():
@@ -52,7 +52,7 @@ class TestCloudEngineDirectCall:
     """Verify CloudEngine works with real API."""
 
     def test_generate_produces_content(self, cloud_engine) -> None:
-        from DEMON.core.types import Message, Role
+        from OpenDEMON.core.types import Message, Role
 
         result = cloud_engine.generate(
             messages=[
@@ -73,7 +73,7 @@ class TestTeacherAgentLive:
     """Test TeacherAgent with a real CloudEngine."""
 
     def test_teacher_agent_single_turn(self, cloud_engine) -> None:
-        from DEMON.learning.spec_search.diagnose.teacher_agent import (
+        from OpenDEMON.learning.spec_search.diagnose.teacher_agent import (
             TeacherAgent,
         )
 
@@ -101,7 +101,7 @@ class TestDiagnosisRunnerLive:
     def test_diagnosis_produces_output(
         self, cloud_engine, real_trace_store, tmp_path
     ) -> None:
-        from DEMON.learning.spec_search.diagnose.runner import (
+        from OpenDEMON.learning.spec_search.diagnose.runner import (
             DiagnosisRunner,
         )
 
@@ -157,7 +157,7 @@ class TestColdStartLive:
         """With 373 traces but 0 feedback, the orchestrator should handle
         this gracefully — either by running (traces > 20) or by giving
         a clear message about what's missing."""
-        from DEMON.learning.spec_search.gate.cold_start import (
+        from OpenDEMON.learning.spec_search.gate.cold_start import (
             check_benchmark_ready,
             check_readiness,
         )

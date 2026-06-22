@@ -1,4 +1,4 @@
-﻿"""Tests for intent-based agent routing in DEMONSystem."""
+"""Tests for intent-based agent routing in DEMONSystem."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ class TestDetectAgentIntent:
     @pytest.fixture()
     def system(self):
         """Create a minimal DEMONSystem instance for testing _detect_agent_intent."""
-        from DEMON.system import DEMONSystem
+        from OpenDEMON.system import DEMONSystem
 
         mock_engine = MagicMock()
         mock_engine.engine_name = "mock"

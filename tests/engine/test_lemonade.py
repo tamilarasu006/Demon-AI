@@ -1,4 +1,4 @@
-﻿"""Tests for the Lemonade engine backend.
+"""Tests for the Lemonade engine backend.
 
 Validates that the ``/v1`` prefix is used correctly for models listing
 and chat completions.
@@ -10,10 +10,10 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.openai_compat_engines import LemonadeEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.openai_compat_engines import LemonadeEngine
 
 
 @pytest.fixture()

@@ -1,4 +1,4 @@
-﻿"""LiveResearchBench scorer — checklist-based LLM-as-judge scoring.
+"""LiveResearchBench scorer — checklist-based LLM-as-judge scoring.
 
 For each task, LiveResearchBench provides a list of checklist items that a
 good response must cover. The scorer asks an LLM judge to evaluate each
@@ -15,8 +15,8 @@ import logging
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

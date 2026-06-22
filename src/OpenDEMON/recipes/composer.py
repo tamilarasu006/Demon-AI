@@ -1,4 +1,4 @@
-﻿"""Composer bridges — convert a Recipe into EvalSuiteConfig or OperatorManifest.
+"""Composer bridges — convert a Recipe into EvalSuiteConfig or OperatorManifest.
 
 These are pure-function transformations that let the unified Recipe format
 drive both the eval framework and the operator system without those systems
@@ -10,9 +10,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List, Optional
 
 if TYPE_CHECKING:
-    from DEMON.evals.core.types import EvalSuiteConfig
-    from DEMON.operators.types import OperatorManifest
-    from DEMON.recipes.loader import Recipe
+    from OpenDEMON.evals.core.types import EvalSuiteConfig
+    from OpenDEMON.operators.types import OperatorManifest
+    from OpenDEMON.recipes.loader import Recipe
 
 
 def recipe_to_eval_suite(
@@ -37,7 +37,7 @@ def recipe_to_eval_suite(
     Raises:
         ValueError: If no model or benchmarks can be resolved.
     """
-    from DEMON.evals.core.types import (
+    from OpenDEMON.evals.core.types import (
         BenchmarkConfig,
         DefaultsConfig,
         EvalSuiteConfig,
@@ -113,7 +113,7 @@ def recipe_to_operator(recipe: Recipe) -> OperatorManifest:
     Raises:
         ValueError: If schedule information is missing.
     """
-    from DEMON.operators.types import OperatorManifest
+    from OpenDEMON.operators.types import OperatorManifest
 
     if not recipe.schedule_type:
         raise ValueError(

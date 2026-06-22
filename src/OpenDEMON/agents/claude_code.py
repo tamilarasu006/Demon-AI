@@ -1,4 +1,4 @@
-﻿"""ClaudeCodeAgent -- wraps the Claude Agent SDK via Node.js subprocess bridge.
+"""ClaudeCodeAgent -- wraps the Claude Agent SDK via Node.js subprocess bridge.
 
 Spawns a Node.js runner process that calls the ``@anthropic-ai/claude-code``
 SDK, communicating via JSON over stdin/stdout with sentinel-delimited output.
@@ -17,12 +17,12 @@ import subprocess
 from pathlib import Path
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.core.events import EventBus
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import ToolResult
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""Notion connector — syncs pages via the Notion REST API.
+"""Notion connector — syncs pages via the Notion REST API.
 
 Uses a Notion internal integration token stored locally.  All network calls
 are isolated in module-level functions (``_notion_api_*``) to make them
@@ -15,11 +15,11 @@ from typing import Any, Dict, Iterator, List, Optional
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.connectors.oauth import delete_tokens, load_tokens, save_tokens
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.connectors.oauth import delete_tokens, load_tokens, save_tokens
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 # ---------------------------------------------------------------------------
 # Constants

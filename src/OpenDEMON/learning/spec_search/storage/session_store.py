@@ -1,4 +1,4 @@
-﻿"""SQLite-backed storage for spec-search LearningSession records.
+"""SQLite-backed storage for spec-search LearningSession records.
 
 Mirrors the style of ``DEMON.learning.optimize.store.OptimizationStore``:
 
@@ -21,7 +21,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional, Union
 
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.models import (
     AutonomyMode,
     BenchmarkSnapshot,
     EditOutcome,

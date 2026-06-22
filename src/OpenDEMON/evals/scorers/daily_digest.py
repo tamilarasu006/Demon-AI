@@ -1,4 +1,4 @@
-﻿"""daily_digest scorer — phrase match, ordering, and checklist evaluation.
+"""daily_digest scorer — phrase match, ordering, and checklist evaluation.
 
 Tier 1 (phrase match): Check each must-mention item against model output.
 Tier 1 (ordering): Check that top-priority items appear in first half of response.
@@ -12,9 +12,9 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers._checklist import ChecklistScorer, normalize_str
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers._checklist import ChecklistScorer, normalize_str
 
 LOGGER = logging.getLogger(__name__)
 

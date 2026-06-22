@@ -1,4 +1,4 @@
-﻿"""Smoke test: every shipped preset config must load cleanly.
+"""Smoke test: every shipped preset config must load cleanly.
 
 Presets are installed via `DEMON init --preset <name>`, which copies
 `configs/DEMON/examples/<name>.toml` to `~/.DEMON/config.toml`.
@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.core.config import DEMONConfig, load_config
+from OpenDEMON.core.config import DEMONConfig, load_config
 
 PRESETS_DIR = (
     Path(__file__).resolve().parents[2]

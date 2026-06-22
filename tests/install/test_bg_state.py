@@ -1,10 +1,10 @@
-﻿"""Tests for DEMON.cli._bg_state."""
+"""Tests for DEMON.cli._bg_state."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.cli import _bg_state
+from OpenDEMON.cli import _bg_state
 
 
 def test_get_status_empty(tmp_DEMON_home: Path) -> None:

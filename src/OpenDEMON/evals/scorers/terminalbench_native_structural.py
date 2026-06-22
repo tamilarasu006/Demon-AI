@@ -1,4 +1,4 @@
-﻿"""TerminalBench Native scorer — test-result-based evaluation.
+"""TerminalBench Native scorer — test-result-based evaluation.
 
 Reads ``is_resolved`` and ``test_results`` from the record's metadata
 (populated by the native terminal-bench harness) and returns a
@@ -9,8 +9,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class TerminalBenchNativeScorer(Scorer):

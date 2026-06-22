@@ -1,4 +1,4 @@
-﻿"""CLI commands for skill management."""
+"""CLI commands for skill management."""
 
 from __future__ import annotations
 
@@ -9,17 +9,17 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from DEMON.core.config import load_config
-from DEMON.core.events import EventBus
-from DEMON.core.paths import get_config_dir
-from DEMON.skills.manager import SkillManager
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.skills.manager import SkillManager
 
 
 def _get_trace_store():
     """Return a TraceStore instance from the user config (or None)."""
     try:
-        from DEMON.core.config import load_config
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.traces.store import TraceStore
 
         cfg = load_config()
         return TraceStore(cfg.traces.db_path)
@@ -160,11 +160,11 @@ def _parse_source_query(query: str) -> tuple[str, str]:
 def _get_resolver(source: str, url: str = ""):
     """Return a resolver instance for the given source name."""
     if source == "hermes":
-        from DEMON.skills.sources.hermes import HermesResolver
+        from OpenDEMON.skills.sources.hermes import HermesResolver
 
         return HermesResolver()
     if source == "openclaw":
-        from DEMON.skills.sources.openclaw import OpenClawResolver
+        from OpenDEMON.skills.sources.openclaw import OpenClawResolver
 
         return OpenClawResolver()
     if source == "github":
@@ -172,7 +172,7 @@ def _get_resolver(source: str, url: str = ""):
             raise click.BadParameter("github source requires --url")
         from pathlib import Path as _Path
 
-        from DEMON.skills.sources.github import GitHubResolver
+        from OpenDEMON.skills.sources.github import GitHubResolver
 
         cache = _Path(
             str(get_config_dir() / "skill-cache" / "github")
@@ -228,9 +228,9 @@ def install(query: str, with_scripts: bool, force: bool, url: str):
         console.print(f"[red]No skill named '{name}' found in source '{source}'[/red]")
         raise SystemExit(1)
 
-    from DEMON.skills.importer import SkillImporter
-    from DEMON.skills.parser import SkillParser
-    from DEMON.skills.tool_translator import ToolTranslator
+    from OpenDEMON.skills.importer import SkillImporter
+    from OpenDEMON.skills.parser import SkillParser
+    from OpenDEMON.skills.tool_translator import ToolTranslator
 
     importer = SkillImporter(parser=SkillParser(), tool_translator=ToolTranslator())
     result = importer.import_skill(matches[0], with_scripts=with_scripts, force=force)
@@ -305,9 +305,9 @@ def sync(
         )
         return
 
-    from DEMON.skills.importer import SkillImporter
-    from DEMON.skills.parser import SkillParser
-    from DEMON.skills.tool_translator import ToolTranslator
+    from OpenDEMON.skills.importer import SkillImporter
+    from OpenDEMON.skills.parser import SkillParser
+    from OpenDEMON.skills.tool_translator import ToolTranslator
 
     importer = SkillImporter(parser=SkillParser(), tool_translator=ToolTranslator())
 
@@ -603,7 +603,7 @@ def discover(min_frequency: int, min_outcome: float, dry_run: bool) -> None:
 def show_overlay(skill_name: str) -> None:
     """Show the optimization overlay for a skill, if one exists."""
     console = Console()
-    from DEMON.skills.overlay import SkillOverlayLoader
+    from OpenDEMON.skills.overlay import SkillOverlayLoader
 
     loader = SkillOverlayLoader(_get_overlay_dir())
     overlay = loader.load(skill_name)

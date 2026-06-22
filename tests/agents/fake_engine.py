@@ -1,10 +1,10 @@
-﻿"""Scripted inference engine for deterministic agent testing."""
+"""Scripted inference engine for deterministic agent testing."""
 
 from __future__ import annotations
 
 from typing import Any, AsyncIterator, Dict, List
 
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.engine._stubs import InferenceEngine
 
 
 class FakeEngine(InferenceEngine):

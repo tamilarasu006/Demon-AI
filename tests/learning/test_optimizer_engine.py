@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.optimize.optimizer module."""
+"""Tests for DEMON.optimize.optimizer module."""
 
 from __future__ import annotations
 
@@ -9,10 +9,10 @@ try:
 except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore[no-redef]
 
-from DEMON.evals.core.types import RunSummary
-from DEMON.learning.optimize.optimizer import OptimizationEngine
-from DEMON.learning.optimize.store import OptimizationStore
-from DEMON.learning.optimize.types import (
+from OpenDEMON.evals.core.types import RunSummary
+from OpenDEMON.learning.optimize.optimizer import OptimizationEngine
+from OpenDEMON.learning.optimize.store import OptimizationStore
+from OpenDEMON.learning.optimize.types import (
     OptimizationRun,
     SearchDimension,
     SearchSpace,
@@ -619,7 +619,7 @@ class TestLoadOptimizeConfig:
     """Tests for load_optimize_config."""
 
     def test_loads_toml_file(self, tmp_path) -> None:
-        from DEMON.learning.optimize.config import load_optimize_config
+        from OpenDEMON.learning.optimize.config import load_optimize_config
 
         toml_content = b"""
 [optimize]
@@ -644,7 +644,7 @@ engine = "ollama"
         assert config["optimize"]["fixed"]["engine"] == "ollama"
 
     def test_file_not_found(self, tmp_path) -> None:
-        from DEMON.learning.optimize.config import load_optimize_config
+        from OpenDEMON.learning.optimize.config import load_optimize_config
 
         try:
             load_optimize_config(tmp_path / "nonexistent.toml")
@@ -653,7 +653,7 @@ engine = "ollama"
             pass
 
     def test_loads_string_path(self, tmp_path) -> None:
-        from DEMON.learning.optimize.config import load_optimize_config
+        from OpenDEMON.learning.optimize.config import load_optimize_config
 
         path = tmp_path / "test.toml"
         path.write_bytes(b"[optimize]\nmax_trials = 5\n")

@@ -1,4 +1,4 @@
-﻿"""Tests for energy aggregation in TraceAnalyzer."""
+"""Tests for energy aggregation in TraceAnalyzer."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.traces.analyzer import StepTypeStats, TraceAnalyzer
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.traces.analyzer import StepTypeStats, TraceAnalyzer
+from OpenDEMON.traces.store import TraceStore
 
 
 def _make_trace(steps: list[TraceStep]) -> Trace:

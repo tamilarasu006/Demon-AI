@@ -1,4 +1,4 @@
-﻿"""PinchBench dataset provider — real-world agent task benchmark.
+"""PinchBench dataset provider — real-world agent task benchmark.
 
 Clones the pinchbench/skill repo at runtime and parses task markdown files
 into EvalRecords for use with AgenticRunner.
@@ -18,10 +18,10 @@ from typing import Any, Dict, Iterable, List, Optional
 
 import yaml
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 
@@ -208,7 +208,7 @@ class PinchBenchDataset(DatasetProvider):
         self._judge_model = judge_model
 
     def create_task_env(self, record: EvalRecord):
-        from DEMON.evals.execution.pinchbench_env import PinchBenchTaskEnv
+        from OpenDEMON.evals.execution.pinchbench_env import PinchBenchTaskEnv
 
         return PinchBenchTaskEnv(
             record,

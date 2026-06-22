@@ -1,4 +1,4 @@
-﻿"""``DEMON registry`` — registry inspection commands."""
+"""``DEMON registry`` — registry inspection commands."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from rich.table import Table
 
 def _load_registry_map() -> tuple[dict[str, object], dict[str, object]]:
     """Import all registries and return (by_name, aliases) lookup dicts."""
-    from DEMON.core.registry import (
+    from OpenDEMON.core.registry import (
         AgentRegistry,
         BenchmarkRegistry,
         ChannelRegistry,

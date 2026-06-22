@@ -1,11 +1,11 @@
-﻿"""Tests for the chat startup banner."""
+"""Tests for the chat startup banner."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.cli import _bg_state
-from DEMON.cli._chat_banner import render_startup_banner
+from OpenDEMON.cli import _bg_state
+from OpenDEMON.cli._chat_banner import render_startup_banner
 
 
 def test_banner_empty_when_all_ready(tmp_DEMON_home: Path) -> None:

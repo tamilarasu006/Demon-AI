@@ -1,4 +1,4 @@
-﻿"""HLE scorer -- LLM-as-judge for Humanity's Last Exam.
+"""HLE scorer -- LLM-as-judge for Humanity's Last Exam.
 
 Uses the same exact-match-then-LLM-fallback pattern as the reasoning
 judge but with an HLE-specific grading template.  Adapted from IPW's
@@ -11,9 +11,9 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.reasoning_judge import reasoning_exact_match
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.reasoning_judge import reasoning_exact_match
 
 LOGGER = logging.getLogger(__name__)
 

@@ -1,11 +1,11 @@
-﻿# tests/evals/core/test_config_split_parsing.py
+# tests/evals/core/test_config_split_parsing.py
 """Regression: the `split` key under [[benchmarks]] is parsed and plumbed."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.evals.core.config import load_eval_config
+from OpenDEMON.evals.core.config import load_eval_config
 
 
 def _write_config(tmp_path: Path, split_value: str | None) -> Path:
@@ -63,7 +63,7 @@ def test_split_plumbs_to_agent_eval_config(tmp_path: Path):
     p = _write_config(tmp_path, "test")
     cfg = load_eval_config(p)
     # Pull out one expanded RunConfig (model x benchmark product)
-    from DEMON.evals.core.config import expand_suite
+    from OpenDEMON.evals.core.config import expand_suite
 
     run_cfgs = list(expand_suite(cfg))
     assert len(run_cfgs) >= 1

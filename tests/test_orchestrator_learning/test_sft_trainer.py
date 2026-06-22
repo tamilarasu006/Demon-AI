@@ -1,4 +1,4 @@
-﻿"""Tests for orchestrator SFT trainer."""
+"""Tests for orchestrator SFT trainer."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.learning.intelligence.orchestrator.sft_trainer import (
+from OpenDEMON.learning.intelligence.orchestrator.sft_trainer import (
     OrchestratorSFTConfig,
     OrchestratorSFTDataset,
 )
@@ -178,7 +178,7 @@ class TestSFTLabelMasking:
 class TestSFTRegistration:
     def test_registered_in_learning_registry(self):
         # Import to trigger registration
-        import DEMON.learning.intelligence.orchestrator.sft_trainer  # noqa: F401
-        from DEMON.core.registry import LearningRegistry
+        import OpenDEMON.learning.intelligence.orchestrator.sft_trainer  # noqa: F401
+        from OpenDEMON.core.registry import LearningRegistry
 
         assert LearningRegistry.contains("orchestrator_sft")

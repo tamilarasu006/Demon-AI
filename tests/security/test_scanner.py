@@ -1,9 +1,9 @@
-﻿"""Tests for SecretScanner and PIIScanner."""
+"""Tests for SecretScanner and PIIScanner."""
 
 from __future__ import annotations
 
-from DEMON.security.scanner import PIIScanner, SecretScanner
-from DEMON.security.types import ThreatLevel
+from OpenDEMON.security.scanner import PIIScanner, SecretScanner
+from OpenDEMON.security.types import ThreatLevel
 
 # ---------------------------------------------------------------------------
 # SecretScanner tests

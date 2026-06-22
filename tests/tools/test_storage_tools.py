@@ -1,4 +1,4 @@
-﻿"""Tests for storage MCP tools — MemoryStoreTool, MemoryRetrieveTool, etc."""
+"""Tests for storage MCP tools — MemoryStoreTool, MemoryRetrieveTool, etc."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ import tempfile
 
 import pytest
 
-from DEMON.mcp.server import MCPServer
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
-from DEMON.tools.storage_tools import (
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.tools.storage_tools import (
     MemoryIndexTool,
     MemoryRetrieveTool,
     MemorySearchTool,
@@ -200,7 +200,7 @@ class TestMemoryIndexTool:
 class TestStorageToolsRegistration:
     def test_storage_tools_importable(self):
         """All storage tools are importable and instantiable."""
-        from DEMON.tools.storage_tools import (
+        from OpenDEMON.tools.storage_tools import (
             MemoryIndexTool,
             MemoryRetrieveTool,
             MemorySearchTool,
@@ -216,7 +216,7 @@ class TestStorageToolsRegistration:
     def test_auto_discover_finds_storage_tools(self):
         """MCPServer auto-discovery finds storage tools."""
         server = MCPServer()
-        from DEMON.mcp.protocol import MCPRequest
+        from OpenDEMON.mcp.protocol import MCPRequest
 
         req = MCPRequest(method="tools/list", id=1)
         resp = server.handle(req)

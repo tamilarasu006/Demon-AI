@@ -1,4 +1,4 @@
-﻿"""Tests for GDriveConnector — OAuth-authenticated Google Drive sync connector.
+"""Tests for GDriveConnector — OAuth-authenticated Google Drive sync connector.
 
 All Drive API calls are mocked; no network access is required.
 """
@@ -12,8 +12,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Helpers — fake API payloads
@@ -52,7 +52,7 @@ _EXPORT_RESPONSE = "# Q3 Roadmap\n\nThis is the roadmap content."
 @pytest.fixture()
 def connector(tmp_path: Path):
     """GDriveConnector pointing at a tmp credentials path (no file yet)."""
-    from DEMON.connectors.gdrive import GDriveConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.gdrive import GDriveConnector  # noqa: PLC0415
 
     creds_path = str(tmp_path / "gdrive.json")
     # Prevent fallback to shared google.json on machines with real credentials
@@ -172,7 +172,7 @@ def test_mcp_tools(connector) -> None:
 
 def test_registry() -> None:
     """GDriveConnector can be registered and retrieved via ConnectorRegistry."""
-    from DEMON.connectors.gdrive import GDriveConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.gdrive import GDriveConnector  # noqa: PLC0415
 
     # The registry is cleared before each test by the autouse conftest fixture,
     # so we imperatively re-register here (same pattern as test_gmail.py).

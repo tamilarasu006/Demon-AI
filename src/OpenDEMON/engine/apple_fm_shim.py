@@ -1,4 +1,4 @@
-﻿"""Apple Foundation Models shim.
+"""Apple Foundation Models shim.
 
 Thin FastAPI server exposing Apple Intelligence's on-device foundation
 model as an OpenAI-compatible API. Only runs on macOS 26+ with Apple
@@ -11,7 +11,7 @@ shim returns 0 for all token counts. Throughput and energy benchmarks
 will reflect this limitation.
 
 Usage:
-    uvicorn DEMON.engine.apple_fm_shim:app \
+    uvicorn OpenDEMON.engine.apple_fm_shim:app \
         --host 127.0.0.1 --port 8079
 """
 

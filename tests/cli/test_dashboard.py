@@ -1,10 +1,10 @@
-﻿"""Tests for TUI dashboard (Phase 16.5)."""
+"""Tests for TUI dashboard (Phase 16.5)."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.cli.dashboard import DashboardApp
+from OpenDEMON.cli.dashboard import DashboardApp
 
 
 class TestDashboard:

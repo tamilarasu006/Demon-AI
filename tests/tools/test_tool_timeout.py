@@ -1,12 +1,12 @@
-﻿"""Tests for tool execution timeout (Phase 14.1)."""
+"""Tests for tool execution timeout (Phase 14.1)."""
 
 from __future__ import annotations
 
 import time
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import ToolCall, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import ToolCall, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
 
 class SlowTool(BaseTool):

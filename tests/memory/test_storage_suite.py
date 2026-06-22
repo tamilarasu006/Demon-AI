@@ -1,11 +1,11 @@
-﻿"""Parametrized storage tests across all memory backends."""
+"""Parametrized storage tests across all memory backends."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage.sqlite import SQLiteMemory
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
 # ---------------------------------------------------------------------------
 # Backend factory helpers

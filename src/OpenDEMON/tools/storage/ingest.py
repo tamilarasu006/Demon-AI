@@ -1,4 +1,4 @@
-﻿"""Document ingestion — file reading, type detection, directory walking."""
+"""Document ingestion — file reading, type detection, directory walking."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Tuple
 
-from DEMON.tools.storage.chunking import Chunk, ChunkConfig, chunk_text
+from OpenDEMON.tools.storage.chunking import Chunk, ChunkConfig, chunk_text
 
 # Directories to skip when walking a tree
 _SKIP_DIRS = frozenset(
@@ -197,7 +197,7 @@ def ingest_path(
             continue
 
         # Skip sensitive files (secrets, credentials, keys)
-        from DEMON.security.file_policy import is_sensitive_file
+        from OpenDEMON.security.file_policy import is_sensitive_file
 
         if is_sensitive_file(child):
             continue

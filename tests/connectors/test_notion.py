@@ -1,4 +1,4 @@
-﻿"""Tests for NotionConnector — Notion API sync connector.
+"""Tests for NotionConnector — Notion API sync connector.
 
 All Notion API calls are mocked; no network access is required.
 """
@@ -12,8 +12,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Fake API payloads
@@ -52,7 +52,7 @@ _BLOCKS_RESPONSE = [
 @pytest.fixture()
 def connector(tmp_path: Path):
     """NotionConnector pointing at a tmp credentials path (no file yet)."""
-    from DEMON.connectors.notion import NotionConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.notion import NotionConnector  # noqa: PLC0415
 
     creds_path = str(tmp_path / "notion.json")
     return NotionConnector(credentials_path=creds_path)
@@ -75,7 +75,7 @@ def test_not_connected_without_token(connector) -> None:
 
 def test_connected_with_token() -> None:
     """is_connected() returns True when a token is passed directly."""
-    from DEMON.connectors.notion import NotionConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.notion import NotionConnector  # noqa: PLC0415
 
     conn = NotionConnector(token="ntn_fake")
     assert conn.is_connected() is True
@@ -143,7 +143,7 @@ def test_sync_yields_documents(
 
 def test_render_blocks_to_markdown() -> None:
     """_render_blocks_to_markdown converts each block type to the correct markdown."""
-    from DEMON.connectors.notion import _render_blocks_to_markdown  # noqa: PLC0415
+    from OpenDEMON.connectors.notion import _render_blocks_to_markdown  # noqa: PLC0415
 
     blocks = [
         {
@@ -243,7 +243,7 @@ def test_mcp_tools(connector) -> None:
 
 def test_registry() -> None:
     """NotionConnector can be registered and retrieved via ConnectorRegistry."""
-    from DEMON.connectors.notion import NotionConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.notion import NotionConnector  # noqa: PLC0415
 
     ConnectorRegistry.register_value("notion", NotionConnector)
     assert ConnectorRegistry.contains("notion")

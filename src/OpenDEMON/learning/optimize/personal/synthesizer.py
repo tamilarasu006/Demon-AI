@@ -1,4 +1,4 @@
-﻿"""Synthesize personal benchmarks from interaction traces."""
+"""Synthesize personal benchmarks from interaction traces."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any, Dict, List
 
-from DEMON.traces.store import TraceStore
+from OpenDEMON.traces.store import TraceStore
 
 
 @dataclass(slots=True)

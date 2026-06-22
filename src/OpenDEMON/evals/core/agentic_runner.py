@@ -1,4 +1,4 @@
-﻿"""AgenticRunner — multi-turn agent execution with energy telemetry correlation.
+"""AgenticRunner — multi-turn agent execution with energy telemetry correlation.
 
 Orchestrates agentic workloads where a single query may involve multiple
 LLM turns and tool calls, capturing per-turn traces with energy attribution.
@@ -20,9 +20,9 @@ from contextlib import nullcontext
 from pathlib import Path
 from typing import Any, Callable, Optional
 
-from DEMON.evals.core.environment import TaskEnvironmentError
-from DEMON.evals.core.event_recorder import AgentEvent, EventRecorder, EventType
-from DEMON.evals.core.trace import QueryTrace, TurnTrace
+from OpenDEMON.evals.core.environment import TaskEnvironmentError
+from OpenDEMON.evals.core.event_recorder import AgentEvent, EventRecorder, EventType
+from OpenDEMON.evals.core.trace import QueryTrace, TurnTrace
 
 LOGGER = logging.getLogger(__name__)
 
@@ -551,7 +551,7 @@ class AgenticRunner:
             if turn.cost_usd is None and (
                 turn.input_tokens > 0 or turn.output_tokens > 0
             ):
-                from DEMON.evals.core.pricing import compute_turn_cost
+                from OpenDEMON.evals.core.pricing import compute_turn_cost
 
                 turn.cost_usd = compute_turn_cost(
                     model, turn.input_tokens, turn.output_tokens

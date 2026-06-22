@@ -1,7 +1,7 @@
-﻿"""Tests for the security_scanner scorer."""
+"""Tests for the security_scanner scorer."""
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.security_scanner import SecurityScannerScorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.security_scanner import SecurityScannerScorer
 
 
 def _make_record(vulnerabilities, safe_patterns=None):

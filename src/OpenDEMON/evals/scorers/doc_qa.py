@@ -1,4 +1,4 @@
-﻿"""doc_qa scorer — fact match, citation check, and checklist evaluation.
+"""doc_qa scorer — fact match, citation check, and checklist evaluation.
 
 Tier 1 (fact match): Check if model answer contains each required fact.
 Tier 1 (citation check): Verify document citations match expected sources.
@@ -13,9 +13,9 @@ import logging
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers._checklist import ChecklistScorer, normalize_str
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers._checklist import ChecklistScorer, normalize_str
 
 LOGGER = logging.getLogger(__name__)
 

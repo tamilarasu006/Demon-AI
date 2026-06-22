@@ -1,4 +1,4 @@
-﻿"""coding_assistant scorer — test-based evaluation of bug fixes.
+"""coding_assistant scorer — test-based evaluation of bug fixes.
 
 Extracts fixed code from model output, runs the test suite, and computes:
 - fix_rate: fraction of originally-failing tests now passing
@@ -11,8 +11,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

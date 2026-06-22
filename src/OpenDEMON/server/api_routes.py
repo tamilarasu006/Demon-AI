@@ -1,4 +1,4 @@
-﻿"""Extended API routes for agents, workflows, memory, traces, etc."""
+"""Extended API routes for agents, workflows, memory, traces, etc."""
 
 from __future__ import annotations
 
@@ -67,8 +67,8 @@ async def list_agents(request: Request):
     """List available agent types and running agents."""
     registered = []
     try:
-        import DEMON.agents  # noqa: F401 — side-effect registration
-        from DEMON.core.registry import AgentRegistry
+        import OpenDEMON.agents  # noqa: F401 — side-effect registration
+        from OpenDEMON.core.registry import AgentRegistry
 
         for key in sorted(AgentRegistry.keys()):
             cls = AgentRegistry.get(key)
@@ -84,7 +84,7 @@ async def list_agents(request: Request):
 
     running = []
     try:
-        from DEMON.tools.agent_tools import _SPAWNED_AGENTS
+        from OpenDEMON.tools.agent_tools import _SPAWNED_AGENTS
 
         running = [{"id": k, **v} for k, v in _SPAWNED_AGENTS.items()]
     except ImportError:
@@ -97,7 +97,7 @@ async def list_agents(request: Request):
 async def create_agent(req: AgentCreateRequest, request: Request):
     """Spawn a new agent."""
     try:
-        from DEMON.tools.agent_tools import AgentSpawnTool
+        from OpenDEMON.tools.agent_tools import AgentSpawnTool
 
         tool = AgentSpawnTool()
         params = {"agent_type": req.agent_type}
@@ -121,7 +121,7 @@ async def create_agent(req: AgentCreateRequest, request: Request):
 async def kill_agent(agent_id: str, request: Request):
     """Kill a running agent."""
     try:
-        from DEMON.tools.agent_tools import AgentKillTool
+        from OpenDEMON.tools.agent_tools import AgentKillTool
 
         tool = AgentKillTool()
         result = tool.execute(agent_id=agent_id)
@@ -136,7 +136,7 @@ async def kill_agent(agent_id: str, request: Request):
 async def message_agent(agent_id: str, req: AgentMessageRequest, request: Request):
     """Send a message to a running agent."""
     try:
-        from DEMON.tools.agent_tools import AgentSendTool
+        from OpenDEMON.tools.agent_tools import AgentSendTool
 
         tool = AgentSendTool()
         result = tool.execute(agent_id=agent_id, message=req.message)
@@ -163,10 +163,10 @@ def _get_memory_backend(request: Request):
     """
     backend = getattr(request.app.state, "memory_backend", None)
     if backend is None:
-        from DEMON.tools.storage._stubs import MemoryBackendUnavailable
+        from OpenDEMON.tools.storage._stubs import MemoryBackendUnavailable
 
         try:
-            from DEMON.tools.storage.sqlite import SQLiteMemory
+            from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
             backend = SQLiteMemory()
         except MemoryBackendUnavailable as exc:
@@ -244,17 +244,17 @@ async def memory_config(request: Request):
     try:
         config = getattr(request.app.state, "config", None)
         if config is None:
-            from DEMON.core.config import load_config
+            from OpenDEMON.core.config import load_config
 
             config = load_config()
         backend = getattr(request.app.state, "memory_backend", None)
         available = True
         detail: Optional[str] = None
         if backend is None:
-            from DEMON.tools.storage._stubs import MemoryBackendUnavailable
+            from OpenDEMON.tools.storage._stubs import MemoryBackendUnavailable
 
             try:
-                from DEMON.tools.storage.sqlite import SQLiteMemory
+                from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
                 backend = SQLiteMemory()
             except MemoryBackendUnavailable as exc:
@@ -288,8 +288,8 @@ async def memory_index(req: MemoryIndexRequest, request: Request):
         import os
         from pathlib import Path
 
-        from DEMON.security.file_policy import is_sensitive_file
-        from DEMON.tools.storage.ingest import ingest_path
+        from OpenDEMON.security.file_policy import is_sensitive_file
+        from OpenDEMON.tools.storage.ingest import ingest_path
 
         target = Path(req.path).expanduser().resolve()
         if not target.exists():
@@ -416,8 +416,8 @@ async def telemetry_stats(request: Request):
     try:
         from dataclasses import asdict
 
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.telemetry.aggregator import TelemetryAggregator
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.telemetry.aggregator import TelemetryAggregator
 
         db_path = DEFAULT_CONFIG_DIR / "telemetry.db"
         if not db_path.exists():
@@ -442,8 +442,8 @@ async def telemetry_stats(request: Request):
 async def telemetry_energy(request: Request):
     """Get energy monitoring data."""
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.telemetry.aggregator import TelemetryAggregator
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.telemetry.aggregator import TelemetryAggregator
 
         db_path = DEFAULT_CONFIG_DIR / "telemetry.db"
         if not db_path.exists():
@@ -488,7 +488,7 @@ skills_router = APIRouter(prefix="/v1/skills", tags=["skills"])
 async def list_skills(request: Request):
     """List installed skills."""
     try:
-        from DEMON.core.registry import SkillRegistry
+        from OpenDEMON.core.registry import SkillRegistry
 
         skills = []
         for key in sorted(SkillRegistry.keys()):
@@ -526,7 +526,7 @@ sessions_router = APIRouter(prefix="/v1/sessions", tags=["sessions"])
 async def list_sessions(request: Request, limit: int = 20):
     """List active sessions."""
     try:
-        from DEMON.sessions.store import SessionStore
+        from OpenDEMON.sessions.store import SessionStore
 
         store = SessionStore()
         sessions = store.recent(limit=limit)
@@ -540,7 +540,7 @@ async def list_sessions(request: Request, limit: int = 20):
 async def get_session(session_id: str, request: Request):
     """Get a specific session."""
     try:
-        from DEMON.sessions.store import SessionStore
+        from OpenDEMON.sessions.store import SessionStore
 
         store = SessionStore()
         session = store.get(session_id)
@@ -592,8 +592,8 @@ metrics_router = APIRouter(tags=["metrics"])
 async def prometheus_metrics(request: Request):
     """Prometheus-compatible metrics endpoint."""
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.telemetry.aggregator import TelemetryAggregator
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.telemetry.aggregator import TelemetryAggregator
 
         db_path = DEFAULT_CONFIG_DIR / "telemetry.db"
         if not db_path.exists():
@@ -642,7 +642,7 @@ def _record_ws_trace(
     """Record a trace for a completed WebSocket chat (best-effort)."""
     if trace_store is None or not result:
         return
-    from DEMON.traces.collector import record_response_trace
+    from OpenDEMON.traces.collector import record_response_trace
 
     record_response_trace(
         trace_store,
@@ -668,7 +668,7 @@ async def websocket_chat_stream(websocket: WebSocket):
         {"type": "done",  "content": "..."}   -- final assembled response
         {"type": "error", "detail": "..."}    -- on failure
     """
-    from DEMON.server.auth_middleware import websocket_authorized
+    from OpenDEMON.server.auth_middleware import websocket_authorized
 
     expected_key = getattr(websocket.app.state, "api_key", "")
     if not websocket_authorized(websocket, expected_key):
@@ -814,7 +814,7 @@ async def learning_stats(request: Request):
 
     # Skill discovery
     try:
-        from DEMON.learning.agents.skill_discovery import SkillDiscovery
+        from OpenDEMON.learning.agents.skill_discovery import SkillDiscovery
 
         discovery = SkillDiscovery()
         result["skill_discovery"] = {
@@ -835,7 +835,7 @@ async def learning_policy(request: Request):
 
     # Load config and extract learning section
     try:
-        from DEMON.core.config import load_config
+        from OpenDEMON.core.config import load_config
 
         config = load_config()
         lc = config.learning
@@ -945,8 +945,8 @@ feedback_router = APIRouter(prefix="/v1/feedback", tags=["feedback"])
 async def submit_feedback(req: FeedbackScoreRequest, request: Request):
     """Submit feedback for a trace."""
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.traces.store import TraceStore
 
         db_path = DEFAULT_CONFIG_DIR / "traces.db"
         if not db_path.exists():
@@ -982,8 +982,8 @@ optimize_router = APIRouter(prefix="/v1/optimize", tags=["optimize"])
 async def list_optimize_runs(request: Request):
     """List optimization runs."""
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.learning.optimize.store import OptimizationStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.learning.optimize.store import OptimizationStore
 
         db_path = DEFAULT_CONFIG_DIR / "optimize.db"
         if not db_path.exists():
@@ -1002,8 +1002,8 @@ async def list_optimize_runs(request: Request):
 async def get_optimize_run(run_id: str, request: Request):
     """Get optimization run details."""
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.learning.optimize.store import OptimizationStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.learning.optimize.store import OptimizationStore
 
         db_path = DEFAULT_CONFIG_DIR / "optimize.db"
         if not db_path.exists():
@@ -1036,7 +1036,7 @@ async def start_optimize_run(req: OptimizeRunRequest, request: Request):
 
 def include_all_routes(app) -> None:
     """Include all extended API routers in a FastAPI app."""
-    from DEMON.server.approval_routes import (
+    from OpenDEMON.server.approval_routes import (
         router as approval_router,  # noqa: PLC0415
     )
 
@@ -1058,7 +1058,7 @@ def include_all_routes(app) -> None:
     # Agent Manager routes (if available)
     try:
         if hasattr(app.state, "agent_manager") and app.state.agent_manager:
-            from DEMON.server.agent_manager_routes import (  # noqa: PLC0415
+            from OpenDEMON.server.agent_manager_routes import (  # noqa: PLC0415
                 create_agent_manager_router,
             )
 
@@ -1079,8 +1079,8 @@ def include_all_routes(app) -> None:
 
     # WebSocket bridge for real-time agent events
     try:
-        from DEMON.core.events import get_event_bus
-        from DEMON.server.ws_bridge import create_ws_router
+        from OpenDEMON.core.events import get_event_bus
+        from OpenDEMON.server.ws_bridge import create_ws_router
 
         ws_router = create_ws_router(get_event_bus())
         app.include_router(ws_router)

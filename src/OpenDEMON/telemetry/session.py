@@ -1,4 +1,4 @@
-﻿"""Background-sampling telemetry session.
+"""Background-sampling telemetry session.
 
 Uses Rust ring buffer — Rust backend is mandatory.
 """
@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any, Deque, List, Optional
 
 if TYPE_CHECKING:
-    from DEMON.telemetry.energy_monitor import EnergyMonitor
+    from OpenDEMON.telemetry.energy_monitor import EnergyMonitor
 
 logger = logging.getLogger(__name__)
 

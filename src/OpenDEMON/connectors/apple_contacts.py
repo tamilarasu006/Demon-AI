@@ -1,4 +1,4 @@
-﻿"""Apple Contacts connector — reads directly from the macOS Contacts SQLite database.
+"""Apple Contacts connector — reads directly from the macOS Contacts SQLite database.
 
 No API calls, no OAuth.  The connector opens
 ``~/Library/Application Support/AddressBook/AddressBook-v22.abcddb``
@@ -20,9 +20,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterator, List, Optional
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 # ---------------------------------------------------------------------------
 # Constants

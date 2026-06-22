@@ -1,4 +1,4 @@
-﻿"""Adapt external agent-dataset records into TraceStore rows.
+"""Adapt external agent-dataset records into TraceStore rows.
 
 LLM-guided spec search reads student traces from a SQLite TraceStore via
 its search/get tools. This adapter reuses that pipeline for external
@@ -15,9 +15,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from DEMON.core.types import Trace
-from DEMON.evals.core.types import EvalRecord
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import Trace
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.traces.store import TraceStore
 
 
 def write_external_records_as_traces(

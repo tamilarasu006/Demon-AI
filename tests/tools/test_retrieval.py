@@ -1,11 +1,11 @@
-﻿"""Tests for the retrieval tool."""
+"""Tests for the retrieval tool."""
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from DEMON.tools.retrieval import RetrievalTool
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.tools.retrieval import RetrievalTool
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
 
 
 class _FakeBackend(MemoryBackend):

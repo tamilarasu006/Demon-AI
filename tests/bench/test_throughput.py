@@ -1,4 +1,4 @@
-﻿"""Tests for the throughput benchmark."""
+"""Tests for the throughput benchmark."""
 
 from __future__ import annotations
 
@@ -6,14 +6,14 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.bench.throughput import ThroughputBenchmark
-from DEMON.core.registry import BenchmarkRegistry
+from OpenDEMON.bench.throughput import ThroughputBenchmark
+from OpenDEMON.core.registry import BenchmarkRegistry
 
 
 @pytest.fixture(autouse=True)
 def _register_throughput():
     """Re-register throughput benchmark after registry clear."""
-    from DEMON.bench.throughput import ensure_registered
+    from OpenDEMON.bench.throughput import ensure_registered
 
     ensure_registered()
 

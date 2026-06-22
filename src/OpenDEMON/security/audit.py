@@ -1,4 +1,4 @@
-﻿"""Audit logger — persist security events to SQLite with Merkle hash chain."""
+"""Audit logger — persist security events to SQLite with Merkle hash chain."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ import sqlite3
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
 
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.events import Event, EventBus, EventType
-from DEMON.security.types import (
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.events import Event, EventBus, EventType
+from OpenDEMON.security.types import (
     ScanFinding,
     SecurityEvent,
     SecurityEventType,
@@ -36,7 +36,7 @@ class AuditLogger:
         bus: Optional[EventBus] = None,
     ) -> None:
         self._db_path = Path(db_path)
-        from DEMON.security.file_utils import secure_create
+        from OpenDEMON.security.file_utils import secure_create
 
         secure_create(self._db_path)
         self._conn = sqlite3.connect(str(self._db_path), check_same_thread=False)

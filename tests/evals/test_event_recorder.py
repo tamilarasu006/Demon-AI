@@ -1,10 +1,10 @@
-﻿"""Tests for EventRecorder thread safety and functionality."""
+"""Tests for EventRecorder thread safety and functionality."""
 
 from __future__ import annotations
 
 import threading
 
-from DEMON.evals.core.event_recorder import AgentEvent, EventRecorder, EventType
+from OpenDEMON.evals.core.event_recorder import AgentEvent, EventRecorder, EventType
 
 
 class TestEventType:

@@ -1,4 +1,4 @@
-﻿"""AdvisorsAgent — inference-only port of advisor-models (Asawa et al., 2026).
+"""AdvisorsAgent — inference-only port of advisor-models (Asawa et al., 2026).
 
 Paper: arXiv:2510.02453. A small open-source advisor model writes feedback
 that *steers* a black-box cloud executor. The paper trains the advisor with
@@ -27,8 +27,8 @@ import json
 import urllib.request
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import (
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import (
     GEMINI_SEARCH_COST_PER_CALL,
     OPENAI_WEB_SEARCH_COST_PER_CALL,
     WEB_SEARCH_COST_PER_CALL,
@@ -37,10 +37,10 @@ from DEMON.agents.hybrid._base import (
     tavily_search_context,
     web_search_cfg,
 )
-from DEMON.agents.hybrid.mini_swe_agent import (
+from OpenDEMON.agents.hybrid.mini_swe_agent import (
     run_swe_agent_loop,
 )
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.core.registry import AgentRegistry
 
 # Prompts paraphrased from advisor-models/{math,template}/config.py.
 

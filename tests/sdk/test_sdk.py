@@ -1,4 +1,4 @@
-﻿"""Tests for the Python SDK — DEMON class and MemoryHandle."""
+"""Tests for the Python SDK — DEMON class and MemoryHandle."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 import DEMON
-from DEMON.core.config import DEMONConfig
-from DEMON.sdk import DEMON, MemoryHandle
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.sdk import DEMON, MemoryHandle
 
 
 def _make_engine(content="Hello from SDK"):
@@ -73,8 +73,8 @@ class TestDEMONAsk:
             j.close()
 
     def test_ask_with_agent(self):
-        from DEMON.agents._stubs import AgentResult
-        from DEMON.core.registry import AgentRegistry
+        from OpenDEMON.agents._stubs import AgentResult
+        from OpenDEMON.core.registry import AgentRegistry
 
         engine = _make_engine()
 
@@ -124,7 +124,7 @@ class TestDEMONModels:
             j.close()
 
     def test_list_engines(self):
-        from DEMON.core.registry import EngineRegistry
+        from OpenDEMON.core.registry import EngineRegistry
 
         EngineRegistry.register_value("test-eng", object)
         j = DEMON(config=DEMONConfig())

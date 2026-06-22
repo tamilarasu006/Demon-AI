@@ -1,4 +1,4 @@
-﻿# src/DEMON/mining/__init__.py
+# src/DEMON/mining/__init__.py
 """Pearl mining subsystem.
 
 See spec ``docs/design/2026-05-05-vllm-pearl-mining-integration-design.md``.
@@ -10,7 +10,7 @@ Provider modules are soft-imported below — each one fails gracefully if the
 from __future__ import annotations
 
 # Re-export the public ABCs and dataclasses for ergonomic imports.
-from DEMON.mining._stubs import (
+from OpenDEMON.mining._stubs import (
     MiningCapabilities,
     MiningConfig,
     MiningProvider,
@@ -28,21 +28,21 @@ from DEMON.mining._stubs import (
 # ``tests/conftest.py`` must call ``ensure_registered()`` explicitly in a
 # fixture or test body — see ``tests/bench/test_energy.py`` for the pattern.
 try:
-    from DEMON.mining import vllm_pearl  # noqa: F401
+    from OpenDEMON.mining import vllm_pearl  # noqa: F401
 
     vllm_pearl.ensure_registered()
 except ImportError:
     pass
 
 try:
-    from DEMON.mining import cpu_pearl  # noqa: F401
+    from OpenDEMON.mining import cpu_pearl  # noqa: F401
 
     cpu_pearl.ensure_registered()
 except ImportError:
     pass
 
 try:
-    from DEMON.mining import apple_mps_pearl  # noqa: F401
+    from OpenDEMON.mining import apple_mps_pearl  # noqa: F401
 
     apple_mps_pearl.ensure_registered()
 except ImportError:

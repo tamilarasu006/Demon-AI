@@ -1,4 +1,4 @@
-﻿"""General-purpose SFT trainer -- fine-tune any local LM on trace-derived pairs.
+"""General-purpose SFT trainer -- fine-tune any local LM on trace-derived pairs.
 
 Delegates to :class:`LoRATrainer` from ``training/lora.py`` when ``use_lora=True``.
 Supports ``train(trace_store)`` for end-to-end pipeline and ``train_on_pairs()``
@@ -10,9 +10,9 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List
 
-from DEMON.core.config import SFTConfig
-from DEMON.core.registry import LearningRegistry
-from DEMON.learning._stubs import IntelligenceLearningPolicy
+from OpenDEMON.core.config import SFTConfig
+from OpenDEMON.core.registry import LearningRegistry
+from OpenDEMON.learning._stubs import IntelligenceLearningPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -77,7 +77,7 @@ class SFTTrainer:
 
     def _mine_pairs(self, trace_store: Any) -> List[Dict[str, Any]]:
         """Extract SFT pairs from the trace store using TrainingDataMiner."""
-        from DEMON.learning.training.data import TrainingDataMiner
+        from OpenDEMON.learning.training.data import TrainingDataMiner
 
         miner = TrainingDataMiner(trace_store, min_quality=0.7)
         agent_filter = self.config.agent_filter or None
@@ -86,7 +86,7 @@ class SFTTrainer:
     def _train_lora(self, pairs: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Train using LoRA via the existing LoRATrainer."""
         try:
-            from DEMON.learning.training.lora import (
+            from OpenDEMON.learning.training.lora import (
                 HAS_TORCH,
                 LoRATrainer,
                 LoRATrainingConfig,
@@ -137,7 +137,7 @@ class _SFTLearningPolicy(IntelligenceLearningPolicy):
         pass
 
     def update(self, trace_store: Any, **kwargs: object) -> Dict[str, Any]:
-        from DEMON.core.config import SFTConfig
+        from OpenDEMON.core.config import SFTConfig
 
         config = SFTConfig()
         trainer = SFTTrainer(config)

@@ -1,17 +1,17 @@
-﻿"""A2A server — exposes agents via /.well-known/agent.json and /a2a/tasks."""
+"""A2A server — exposes agents via /.well-known/agent.json and /a2a/tasks."""
 
 from __future__ import annotations
 
 import secrets
 from typing import Any, Callable, Dict, List, Optional
 
-from DEMON.a2a.protocol import (
+from OpenDEMON.a2a.protocol import (
     A2AResponse,
     A2ATask,
     AgentCard,
     TaskState,
 )
-from DEMON.core.events import EventBus, EventType
+from OpenDEMON.core.events import EventBus, EventType
 
 
 class A2AServer:

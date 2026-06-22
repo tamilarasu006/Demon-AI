@@ -1,4 +1,4 @@
-﻿"""``DEMON scheduler`` -- task scheduling commands."""
+"""``DEMON scheduler`` -- task scheduling commands."""
 
 from __future__ import annotations
 
@@ -13,8 +13,8 @@ from rich.table import Table
 
 def _get_store() -> "SchedulerStore":  # noqa: F821
     """Build a SchedulerStore from user config."""
-    from DEMON.core.config import DEFAULT_CONFIG_DIR, load_config
-    from DEMON.scheduler.store import SchedulerStore
+    from OpenDEMON.core.config import DEFAULT_CONFIG_DIR, load_config
+    from OpenDEMON.scheduler.store import SchedulerStore
 
     config = load_config()
     db_path = getattr(getattr(config, "scheduler", None), "db_path", None) or str(
@@ -25,7 +25,7 @@ def _get_store() -> "SchedulerStore":  # noqa: F821
 
 def _get_scheduler(store: "SchedulerStore") -> "TaskScheduler":  # noqa: F821
     """Build a TaskScheduler from a store."""
-    from DEMON.scheduler.scheduler import TaskScheduler
+    from OpenDEMON.scheduler.scheduler import TaskScheduler
 
     return TaskScheduler(store)
 
@@ -259,8 +259,8 @@ def scheduler_run_task(agent_name: str, dry_run: bool) -> None:
 
         console.print(f"Running task [cyan]{match.id}[/cyan] (agent: {match.agent})…")
 
-        from DEMON.core.config import load_config
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.system import SystemBuilder
 
         system = SystemBuilder(load_config()).build()
         result = system.ask(match.prompt, agent=match.agent)
@@ -307,7 +307,7 @@ def scheduler_start(poll_interval: int) -> None:
     console = Console()
     store = _get_store()
 
-    from DEMON.scheduler.scheduler import TaskScheduler
+    from OpenDEMON.scheduler.scheduler import TaskScheduler
 
     sched = TaskScheduler(store, poll_interval=poll_interval)
     sched.start()

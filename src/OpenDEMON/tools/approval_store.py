@@ -1,4 +1,4 @@
-﻿"""ApprovalStore — SQLite-backed store for proactive agent action approvals.
+"""ApprovalStore — SQLite-backed store for proactive agent action approvals.
 
 Two tables:
 - ``pending_actions``: actions proposed by the proactive agent awaiting user decision
@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 # ---------------------------------------------------------------------------
 # Decision constants

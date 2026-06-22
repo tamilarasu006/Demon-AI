@@ -1,4 +1,4 @@
-﻿"""MonitorOperativeAgent -- long-horizon agent with configurable strategies.
+"""MonitorOperativeAgent -- long-horizon agent with configurable strategies.
 
 Extends ToolUsingAgent (not OperativeAgent) with four configurable strategy
 axes for long-horizon benchmark evaluation:
@@ -19,16 +19,16 @@ import logging
 import re
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.agents.prompt_loader import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.agents.prompt_loader import (
     load_few_shot_exemplars,
     load_system_prompt_override,
 )
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall, ToolResult, _message_to_dict
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall, ToolResult, _message_to_dict
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool
 
 logger = logging.getLogger(__name__)
 
@@ -505,7 +505,7 @@ class MonitorOperativeAgent(ToolUsingAgent):
         """Build a text description of available tools for the system prompt."""
         if not self._tools:
             return ""
-        from DEMON.tools._stubs import build_tool_descriptions
+        from OpenDEMON.tools._stubs import build_tool_descriptions
 
         return build_tool_descriptions(self._tools)
 

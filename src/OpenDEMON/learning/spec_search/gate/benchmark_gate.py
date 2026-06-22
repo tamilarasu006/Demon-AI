@@ -1,4 +1,4 @@
-﻿"""BenchmarkGate: accept or reject edits based on benchmark performance.
+"""BenchmarkGate: accept or reject edits based on benchmark performance.
 
 Runs the personal benchmark via a provided scorer callable, compares
 before/after snapshots, and decides accept/reject based on thresholds.
@@ -12,8 +12,8 @@ import logging
 from dataclasses import dataclass
 from typing import Callable
 
-from DEMON.learning.spec_search.gate.regression import regression_check
-from DEMON.learning.spec_search.models import BenchmarkSnapshot
+from OpenDEMON.learning.spec_search.gate.regression import regression_check
+from OpenDEMON.learning.spec_search.models import BenchmarkSnapshot
 
 logger = logging.getLogger(__name__)
 

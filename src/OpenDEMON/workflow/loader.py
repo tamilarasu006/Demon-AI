@@ -1,12 +1,12 @@
-﻿"""Workflow loader — load workflows from TOML files."""
+"""Workflow loader — load workflows from TOML files."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, Dict
 
-from DEMON.workflow.graph import WorkflowGraph
-from DEMON.workflow.types import NodeType, WorkflowEdge, WorkflowNode
+from OpenDEMON.workflow.graph import WorkflowGraph
+from OpenDEMON.workflow.types import NodeType, WorkflowEdge, WorkflowNode
 
 try:
     import tomllib

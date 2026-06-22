@@ -1,4 +1,4 @@
-﻿"""``DEMON bench`` — run inference benchmarks."""
+"""``DEMON bench`` — run inference benchmarks."""
 
 from __future__ import annotations
 
@@ -15,11 +15,11 @@ from rich.panel import Panel
 from rich.rule import Rule
 from rich.table import Table
 
-from DEMON.core.config import load_config
+from OpenDEMON.core.config import load_config
 
 if TYPE_CHECKING:
-    from DEMON.bench._stubs import BenchmarkResult
-from DEMON.engine import get_engine
+    from OpenDEMON.bench._stubs import BenchmarkResult
+from OpenDEMON.engine import get_engine
 
 logger = logging.getLogger(__name__)
 
@@ -209,9 +209,9 @@ def run(
     config = load_config()
 
     # Import and register benchmarks
-    from DEMON.bench import ensure_registered
-    from DEMON.bench._stubs import BenchmarkSuite
-    from DEMON.core.registry import BenchmarkRegistry
+    from OpenDEMON.bench import ensure_registered
+    from OpenDEMON.bench._stubs import BenchmarkSuite
+    from OpenDEMON.core.registry import BenchmarkRegistry
 
     ensure_registered()
 
@@ -256,7 +256,7 @@ def run(
     energy_monitor = None
     if config.telemetry.gpu_metrics or needs_energy:
         try:
-            from DEMON.telemetry.energy_monitor import create_energy_monitor
+            from OpenDEMON.telemetry.energy_monitor import create_energy_monitor
 
             energy_monitor = create_energy_monitor(
                 prefer_vendor=config.telemetry.energy_vendor or None,
@@ -294,7 +294,7 @@ def run(
                     cwd=setup_script.parent.parent,
                     check=True,
                 )
-                from DEMON.telemetry.energy_monitor import create_energy_monitor
+                from OpenDEMON.telemetry.energy_monitor import create_energy_monitor
 
                 energy_monitor = create_energy_monitor(
                     prefer_vendor=config.telemetry.energy_vendor or None,
@@ -426,7 +426,7 @@ def skills(
     from rich.console import Console
     from rich.table import Table
 
-    from DEMON.evals.skill_benchmark import (
+    from OpenDEMON.evals.skill_benchmark import (
         SkillBenchmarkConfig,
         SkillBenchmarkRunner,
     )

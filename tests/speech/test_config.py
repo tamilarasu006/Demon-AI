@@ -1,6 +1,6 @@
-﻿"""Tests for speech configuration."""
+"""Tests for speech configuration."""
 
-from DEMON.core.config import DEMONConfig, SpeechConfig
+from OpenDEMON.core.config import DEMONConfig, SpeechConfig
 
 
 def test_speech_config_defaults():
@@ -21,6 +21,7 @@ def test_DEMON_config_has_speech():
 
 def test_DEMON_system_has_speech_backend():
     """DEMONSystem has a speech_backend attribute."""
-    from DEMON.system import DEMONSystem
+    from OpenDEMON.system import DEMONSystem
 
     assert "speech_backend" in DEMONSystem.__dataclass_fields__
+ ds__

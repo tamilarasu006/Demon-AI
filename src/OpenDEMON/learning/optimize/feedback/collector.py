@@ -1,12 +1,12 @@
-﻿"""FeedbackCollector -- aggregates feedback from multiple sources."""
+"""FeedbackCollector -- aggregates feedback from multiple sources."""
 
 from __future__ import annotations
 
 import time
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.types import Trace
-from DEMON.learning.optimize.feedback.judge import TraceJudge
+from OpenDEMON.core.types import Trace
+from OpenDEMON.learning.optimize.feedback.judge import TraceJudge
 
 
 class FeedbackCollector:

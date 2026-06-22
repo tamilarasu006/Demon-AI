@@ -1,12 +1,12 @@
-﻿"""Tests for structured error_detail in executor traces."""
+"""Tests for structured error_detail in executor traces."""
 
-from DEMON.agents.errors import EscalateError, FatalError, RetryableError
-from DEMON.agents.executor import AgentExecutor
-from DEMON.core.events import EventBus
+from OpenDEMON.agents.errors import EscalateError, FatalError, RetryableError
+from OpenDEMON.agents.executor import AgentExecutor
+from OpenDEMON.core.events import EventBus
 
 
 def test_build_error_detail_fatal(tmp_path):
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     mgr = AgentManager(db_path=str(tmp_path / "agents.db"))
     exe = AgentExecutor(manager=mgr, event_bus=EventBus())
@@ -18,7 +18,7 @@ def test_build_error_detail_fatal(tmp_path):
 
 
 def test_build_error_detail_retryable(tmp_path):
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     mgr = AgentManager(db_path=str(tmp_path / "agents.db"))
     exe = AgentExecutor(manager=mgr, event_bus=EventBus())
@@ -29,7 +29,7 @@ def test_build_error_detail_retryable(tmp_path):
 
 
 def test_build_error_detail_escalate(tmp_path):
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     mgr = AgentManager(db_path=str(tmp_path / "agents.db"))
     exe = AgentExecutor(manager=mgr, event_bus=EventBus())

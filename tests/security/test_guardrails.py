@@ -1,4 +1,4 @@
-﻿"""Tests for GuardrailsEngine."""
+"""Tests for GuardrailsEngine."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, Role
-from DEMON.security.guardrails import GuardrailsEngine, SecurityBlockError
-from DEMON.security.types import RedactionMode
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.security.guardrails import GuardrailsEngine, SecurityBlockError
+from OpenDEMON.security.types import RedactionMode
 
 
 def _make_mock_engine(response_content: str = "Hello!") -> MagicMock:

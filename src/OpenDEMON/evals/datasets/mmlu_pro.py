@@ -1,4 +1,4 @@
-﻿"""MMLU-Pro dataset provider (TIGER-Lab/MMLU-Pro).
+"""MMLU-Pro dataset provider (TIGER-Lab/MMLU-Pro).
 
 Adapted from IPW's mmlu_pro.py dataset loader.
 """
@@ -8,8 +8,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 def _format_options(options: Iterable[str]) -> str:

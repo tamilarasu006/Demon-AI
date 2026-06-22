@@ -1,4 +1,4 @@
-﻿"""Per-edit execution loop for the spec-search execute phase.
+"""Per-edit execution loop for the spec-search execute phase.
 
 Iterates over a plan's edits, handles tier routing, validates, and applies.
 Does NOT include the benchmark gate — that's wired in M5.
@@ -11,30 +11,30 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
-from DEMON.learning.spec_search.execute.appliers.agent import (
+from OpenDEMON.learning.spec_search.execute.appliers.agent import (
     EditFewShotExemplarsApplier,
     PatchSystemPromptApplier,
     ReplaceSystemPromptApplier,
     SetAgentClassApplier,
     SetAgentParamApplier,
 )
-from DEMON.learning.spec_search.execute.appliers.intelligence import (
+from OpenDEMON.learning.spec_search.execute.appliers.intelligence import (
     SetModelForQueryClassApplier,
     SetModelParamApplier,
 )
-from DEMON.learning.spec_search.execute.appliers.lora_stub import (
+from OpenDEMON.learning.spec_search.execute.appliers.lora_stub import (
     LoraStubApplier,
 )
-from DEMON.learning.spec_search.execute.appliers.tools import (
+from OpenDEMON.learning.spec_search.execute.appliers.tools import (
     AddToolToAgentApplier,
     EditToolDescriptionApplier,
     RemoveToolFromAgentApplier,
 )
-from DEMON.learning.spec_search.execute.base import (
+from OpenDEMON.learning.spec_search.execute.base import (
     ApplyContext,
     EditApplierRegistry,
 )
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.models import (
     AutonomyMode,
     Edit,
     EditOutcome,

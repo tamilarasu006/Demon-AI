@@ -1,17 +1,17 @@
-﻿"""Intelligence-pillar appliers: model routing and parameters.
+"""Intelligence-pillar appliers: model routing and parameters.
 
 See spec §4.1 op semantics for SET_MODEL_FOR_QUERY_CLASS and SET_MODEL_PARAM.
 """
 
 from __future__ import annotations
 
-from DEMON.learning.spec_search.execute.base import (
+from OpenDEMON.learning.spec_search.execute.base import (
     ApplyContext,
     ApplyResult,
     EditApplier,
     ValidationResult,
 )
-from DEMON.learning.spec_search.models import Edit, EditOp
+from OpenDEMON.learning.spec_search.models import Edit, EditOp
 
 
 class SetModelForQueryClassApplier(EditApplier):

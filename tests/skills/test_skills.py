@@ -1,12 +1,12 @@
-﻿"""Tests for skill system (Phase 15.2)."""
+"""Tests for skill system (Phase 15.2)."""
 
 from __future__ import annotations
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import ToolResult
-from DEMON.skills.executor import SkillExecutor
-from DEMON.skills.types import SkillManifest, SkillStep
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.skills.executor import SkillExecutor
+from OpenDEMON.skills.types import SkillManifest, SkillStep
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
 
 class EchoTool(BaseTool):
@@ -220,7 +220,7 @@ class TestSkillExecutorSubSkills:
         )
 
         def resolve_skill(name, context):
-            from DEMON.skills.executor import SkillResult
+            from OpenDEMON.skills.executor import SkillResult
 
             if name == "upper_skill":
                 return executor.run(child_manifest, initial_context=context)
@@ -253,7 +253,7 @@ class TestSkillExecutorSubSkills:
         executor = SkillExecutor(tool_executor)
 
         def resolve_skill(name, context):
-            from DEMON.skills.executor import SkillResult
+            from OpenDEMON.skills.executor import SkillResult
 
             return SkillResult(skill_name=name, success=False)
 
@@ -273,7 +273,7 @@ class TestSkillExecutorSubSkills:
 
 class TestSkillTool:
     def test_skill_as_tool(self):
-        from DEMON.skills.tool_adapter import SkillTool
+        from OpenDEMON.skills.tool_adapter import SkillTool
 
         tools = [EchoTool()]
         tool_executor = ToolExecutor(tools)

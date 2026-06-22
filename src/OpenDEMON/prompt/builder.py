@@ -1,11 +1,11 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Literal, Optional, Tuple
 
-from DEMON.core.config import MemoryFilesConfig, SystemPromptConfig
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.config import MemoryFilesConfig, SystemPromptConfig
+from OpenDEMON.core.paths import get_config_dir
 
 PromptCacheSegment = Literal["frozen_prefix", "dynamic_suffix"]
 

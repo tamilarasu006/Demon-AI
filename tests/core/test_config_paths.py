@@ -1,4 +1,4 @@
-﻿"""Tests for the env-aware DEMON home-directory resolver (issue #462).
+"""Tests for the env-aware DEMON home-directory resolver (issue #462).
 
 Covers the single-root consolidation: ``$DEMON_HOME`` >
 ``$XDG_DATA_HOME/DEMON`` > ``~/.DEMON``, backward compatibility
@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.core import paths
+from OpenDEMON.core import paths
 
 
 def _clear_env(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -132,7 +132,7 @@ class TestLegacyConstantsHonorEnv:
     """
 
     def test_constant_matches_resolver_at_import(self) -> None:
-        from DEMON.core import config
+        from OpenDEMON.core import config
 
         # The constant is the import-time resolution of the same function.
         assert config.DEFAULT_CONFIG_DIR == paths.get_config_dir()
@@ -143,7 +143,7 @@ class TestLegacyConstantsHonorEnv:
     ) -> None:
         # Install/CLI tests monkeypatch this attribute directly; it must be a
         # real module attribute (not __getattr__-only) for setattr/undo to work.
-        from DEMON.core import config
+        from OpenDEMON.core import config
 
         monkeypatch.setattr(config, "DEFAULT_CONFIG_DIR", tmp_path / "patched")
         assert config.DEFAULT_CONFIG_DIR == tmp_path / "patched"
@@ -154,7 +154,7 @@ class TestLegacyConstantsHonorEnv:
         # Config dataclass field defaults must resolve under the override at
         # instantiation time, not freeze ~/.DEMON at import.
         _clear_env(monkeypatch)
-        from DEMON.core.config import SessionConfig, StorageConfig
+        from OpenDEMON.core.config import SessionConfig, StorageConfig
 
         monkeypatch.setenv("DEMON_HOME", str(tmp_path / "oj"))
         root = (tmp_path / "oj").resolve()
@@ -167,7 +167,7 @@ class TestLegacyConstantsHonorEnv:
         # End-to-end: a non-config subsystem (credentials) resolves under the
         # custom root, proving the override is no longer split-brain.
         _clear_env(monkeypatch)
-        from DEMON.core import credentials
+        from OpenDEMON.core import credentials
 
         monkeypatch.setenv("DEMON_HOME", str(tmp_path / "oj"))
         assert (

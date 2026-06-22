@@ -1,10 +1,10 @@
-﻿"""Tests for CLI log configuration."""
+"""Tests for CLI log configuration."""
 
 from __future__ import annotations
 
 import logging
 
-from DEMON.cli.log_config import setup_logging
+from OpenDEMON.cli.log_config import setup_logging
 
 
 class TestSetupLogging:

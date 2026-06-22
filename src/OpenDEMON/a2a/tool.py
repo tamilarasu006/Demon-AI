@@ -1,13 +1,13 @@
-﻿"""A2AAgentTool — wraps an external A2A agent as an invocable tool."""
+"""A2AAgentTool — wraps an external A2A agent as an invocable tool."""
 
 from __future__ import annotations
 
 import logging
 from typing import Any
 
-from DEMON.a2a.client import A2AClient
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.a2a.client import A2AClient
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 logger = logging.getLogger(__name__)
 

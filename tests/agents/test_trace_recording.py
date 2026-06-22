@@ -1,14 +1,14 @@
-﻿"""Tests for trace recording in AgentExecutor."""
+"""Tests for trace recording in AgentExecutor."""
 
 from __future__ import annotations
 
 from unittest.mock import patch
 
-from DEMON.agents._stubs import AgentResult
-from DEMON.agents.executor import AgentExecutor
-from DEMON.agents.manager import AgentManager
-from DEMON.core.events import EventBus, EventType
-from DEMON.traces.store import TraceStore
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.executor import AgentExecutor
+from OpenDEMON.agents.manager import AgentManager
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.traces.store import TraceStore
 
 
 def test_executor_records_trace(tmp_path):
@@ -58,7 +58,7 @@ def test_executor_records_trace(tmp_path):
 
 def test_executor_records_error_trace(tmp_path):
     """execute_tick records an error trace on failure."""
-    from DEMON.agents.errors import FatalError
+    from OpenDEMON.agents.errors import FatalError
 
     mgr = AgentManager(str(tmp_path / "agents.db"))
     trace_store = TraceStore(str(tmp_path / "traces.db"))

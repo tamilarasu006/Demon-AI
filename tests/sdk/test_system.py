@@ -1,4 +1,4 @@
-﻿"""Tests for the composition layer."""
+"""Tests for the composition layer."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.core.config import DEMONConfig
-from DEMON.core.events import EventBus
-from DEMON.system import DEMONSystem, SystemBuilder
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.system import DEMONSystem, SystemBuilder
 
 
 class TestDEMONSystem:
@@ -85,8 +85,8 @@ class TestDEMONSystem:
 
     def test_ask_with_agent_override(self):
         """Passing agent= param should use that agent even if system has a default."""
-        from DEMON.agents._stubs import AgentResult
-        from DEMON.core.registry import AgentRegistry
+        from OpenDEMON.agents._stubs import AgentResult
+        from OpenDEMON.core.registry import AgentRegistry
 
         class TestAgent:
             agent_id = "test-system-agent"
@@ -280,7 +280,7 @@ class TestSystemBuilder:
         assert builder._traces is False
 
     def test_import_works(self):
-        from DEMON.system import DEMONSystem, SystemBuilder
+        from OpenDEMON.system import DEMONSystem, SystemBuilder
 
         assert DEMONSystem is not None
         assert SystemBuilder is not None

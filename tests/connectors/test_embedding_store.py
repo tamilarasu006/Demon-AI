@@ -1,4 +1,4 @@
-﻿"""Tests for EmbeddingStore — disk-persistent ColBERT token-level embeddings."""
+"""Tests for EmbeddingStore — disk-persistent ColBERT token-level embeddings."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.connectors.embedding_store import EmbeddingStore
+from OpenDEMON.connectors.embedding_store import EmbeddingStore
 
 torch = pytest.importorskip("torch", reason="torch required for embedding tests")
 

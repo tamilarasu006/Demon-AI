@@ -1,10 +1,10 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
 import pytest
 
-from DEMON.core.config import MemoryFilesConfig, SystemPromptConfig
+from OpenDEMON.core.config import MemoryFilesConfig, SystemPromptConfig
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def memory_dir(tmp_path: Path) -> Path:
 
 
 def test_build_frozen_prefix(memory_dir: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are DEMON.",
@@ -41,7 +41,7 @@ def test_config_prefix_prepended(memory_dir: Path):
     """Regression for #401: a configured system_prompt.prefix leads the
     assembled prompt, ahead of the agent template, and is exposed as a
     'prefix' section."""
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are DEMON.",
@@ -64,7 +64,7 @@ def test_config_prefix_prepended(memory_dir: Path):
 def test_empty_prefix_leaves_prompt_unchanged(memory_dir: Path):
     """Backward compatibility: the default empty prefix adds no section and
     leaves build() output identical to having no prefix configured."""
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     def _make(prefix: str) -> SystemPromptBuilder:
         return SystemPromptBuilder(
@@ -85,7 +85,7 @@ def test_empty_prefix_leaves_prompt_unchanged(memory_dir: Path):
 
 
 def test_frozen_prefix_stability(memory_dir: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are DEMON.",
@@ -103,7 +103,7 @@ def test_frozen_prefix_stability(memory_dir: Path):
 
 
 def test_char_limit_truncation(memory_dir: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     (memory_dir / "SOUL.md").write_text("x" * 10000)
     builder = SystemPromptBuilder(
@@ -121,7 +121,7 @@ def test_char_limit_truncation(memory_dir: Path):
 
 
 def test_skill_index_in_prompt(memory_dir: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     skills = [("api_health_check", "Check API health across all endpoints")]
     builder = SystemPromptBuilder(
@@ -140,7 +140,7 @@ def test_skill_index_in_prompt(memory_dir: Path):
 
 
 def test_dynamic_section_appended(memory_dir: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are DEMON.",
@@ -157,7 +157,7 @@ def test_dynamic_section_appended(memory_dir: Path):
 
 
 def test_sections_expose_prompt_metadata(memory_dir: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are DEMON.",
@@ -188,7 +188,7 @@ def test_sections_expose_prompt_metadata(memory_dir: Path):
 
 
 def test_sections_keep_frozen_file_content_stable(memory_dir: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are DEMON.",
@@ -208,7 +208,7 @@ def test_sections_keep_frozen_file_content_stable(memory_dir: Path):
 
 
 def test_missing_files_handled(tmp_path: Path):
-    from DEMON.prompt.builder import SystemPromptBuilder
+    from OpenDEMON.prompt.builder import SystemPromptBuilder
 
     builder = SystemPromptBuilder(
         agent_template="You are DEMON.",

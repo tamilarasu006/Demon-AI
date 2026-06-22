@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.evals.backends.external.openclaw.OpenClawBackend."""
+"""Tests for DEMON.evals.backends.external.openclaw.OpenClawBackend."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.evals.backends.external._subprocess_runner import SubprocessResult
-from DEMON.evals.backends.external.openclaw import OpenClawBackend
-from DEMON.evals.comparison.third_party import (
+from OpenDEMON.evals.backends.external._subprocess_runner import SubprocessResult
+from OpenDEMON.evals.backends.external.openclaw import OpenClawBackend
+from OpenDEMON.evals.comparison.third_party import (
     CommitDriftError,
     ThirdPartyConfig,
     ThirdPartyEntry,

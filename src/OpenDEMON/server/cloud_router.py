@@ -1,4 +1,4 @@
-﻿"""Direct cloud API router — bypasses the engine system entirely.
+"""Direct cloud API router — bypasses the engine system entirely.
 
 Reads API keys from ~/.DEMON/cloud-keys.env at request time so
 it works even when the server was started without cloud keys in its
@@ -14,8 +14,8 @@ from typing import Any, Sequence
 
 import httpx
 
-from DEMON.core.paths import get_config_dir
-from DEMON.core.types import Message
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.types import Message
 
 # ---------------------------------------------------------------------------
 # Key / provider detection

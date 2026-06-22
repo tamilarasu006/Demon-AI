@@ -1,4 +1,4 @@
-﻿"""Agent-pillar appliers: prompts, class, params, few-shot.
+"""Agent-pillar appliers: prompts, class, params, few-shot.
 
 See spec §4.1 op semantics for agent ops.
 """
@@ -9,14 +9,14 @@ import json
 import logging
 from pathlib import Path
 
-from DEMON.learning.spec_search.execute.base import (
+from OpenDEMON.learning.spec_search.execute.base import (
     ApplyContext,
     ApplyResult,
     EditApplier,
     ValidationResult,
 )
-from DEMON.learning.spec_search.models import Edit, EditOp
-from DEMON.learning.spec_search.plan.prompt_diff import apply_unified_diff
+from OpenDEMON.learning.spec_search.models import Edit, EditOp
+from OpenDEMON.learning.spec_search.plan.prompt_diff import apply_unified_diff
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""Tests for MCP transport implementations."""
+"""Tests for MCP transport implementations."""
 
 from __future__ import annotations
 
@@ -9,16 +9,16 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.mcp.protocol import MCPRequest
-from DEMON.mcp.server import MCPServer
-from DEMON.mcp.transport import (
+from OpenDEMON.mcp.protocol import MCPRequest
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.mcp.transport import (
     InProcessTransport,
     SSETransport,
     StdioTransport,
     StreamableHTTPTransport,
 )
-from DEMON.tools.calculator import CalculatorTool
-from DEMON.tools.think import ThinkTool
+from OpenDEMON.tools.calculator import CalculatorTool
+from OpenDEMON.tools.think import ThinkTool
 
 
 @pytest.fixture

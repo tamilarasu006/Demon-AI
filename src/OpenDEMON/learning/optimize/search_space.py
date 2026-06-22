@@ -1,10 +1,10 @@
-﻿"""Search space builder and default search space for configuration optimization."""
+"""Search space builder and default search space for configuration optimization."""
 
 from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from DEMON.learning.optimize.types import SearchDimension, SearchSpace
+from OpenDEMON.learning.optimize.types import SearchDimension, SearchSpace
 
 
 def build_search_space(config: Dict[str, Any]) -> SearchSpace:

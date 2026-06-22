@@ -1,11 +1,11 @@
-﻿"""Tests for orchestrator GRPO trainer."""
+"""Tests for orchestrator GRPO trainer."""
 
 from __future__ import annotations
 
-from DEMON.learning.intelligence.orchestrator.grpo_trainer import (
+from OpenDEMON.learning.intelligence.orchestrator.grpo_trainer import (
     OrchestratorGRPOConfig,
 )
-from DEMON.learning.intelligence.orchestrator.types import Episode
+from OpenDEMON.learning.intelligence.orchestrator.types import Episode
 
 
 class TestOrchestratorGRPOConfig:
@@ -74,7 +74,7 @@ class TestGroupAdvantageNormalization:
 
 class TestRewardIntegration:
     def test_episode_reward(self):
-        from DEMON.learning.intelligence.orchestrator.reward import (
+        from OpenDEMON.learning.intelligence.orchestrator.reward import (
             MultiObjectiveReward,
             Normalizers,
             RewardWeights,
@@ -97,7 +97,7 @@ class TestRewardIntegration:
 
 class TestGRPORegistration:
     def test_registered_in_learning_registry(self):
-        import DEMON.learning.intelligence.orchestrator.grpo_trainer  # noqa: F401
-        from DEMON.core.registry import LearningRegistry
+        import OpenDEMON.learning.intelligence.orchestrator.grpo_trainer  # noqa: F401
+        from OpenDEMON.core.registry import LearningRegistry
 
         assert LearningRegistry.contains("orchestrator_grpo")

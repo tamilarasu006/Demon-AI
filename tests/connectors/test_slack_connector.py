@@ -1,4 +1,4 @@
-﻿"""Tests for SlackConnector — OAuth-authenticated Slack channel message sync.
+"""Tests for SlackConnector — OAuth-authenticated Slack channel message sync.
 
 All Slack API calls are mocked; no network access is required.
 """
@@ -12,8 +12,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Fake API payloads
@@ -69,7 +69,7 @@ _AUTH_TEST_RESPONSE = {
 @pytest.fixture()
 def connector(tmp_path: Path):
     """SlackConnector pointing at a tmp credentials path (no file yet)."""
-    from DEMON.connectors.slack_connector import SlackConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import SlackConnector  # noqa: PLC0415
 
     creds_path = str(tmp_path / "slack.json")
     return SlackConnector(credentials_path=creds_path)
@@ -219,7 +219,7 @@ def test_conversations_list_requests_all_conversation_types(mock_retry) -> None:
     is the API request shape: ``types`` must include im + mpim so the bot
     token's DMs and group DMs come back in the listing.
     """
-    from DEMON.connectors.slack_connector import (  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import (  # noqa: PLC0415
         _slack_api_conversations_list,
     )
 
@@ -374,7 +374,7 @@ def test_mcp_tools(connector) -> None:
 
 def test_registry() -> None:
     """SlackConnector can be registered and retrieved via ConnectorRegistry."""
-    from DEMON.connectors.slack_connector import SlackConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import SlackConnector  # noqa: PLC0415
 
     # The registry is cleared before each test by the autouse conftest fixture,
     # so we imperatively re-register here (same pattern as test_gmail.py).
@@ -408,9 +408,9 @@ def test_end_to_end_ingest_and_search(
     namespaced thread_id, channel, participants, and a workspace-qualified
     permalink all survive ingest → store → hit.
     """
-    from DEMON.connectors.hybrid_search import HybridSearch  # noqa: PLC0415
-    from DEMON.connectors.pipeline import IngestionPipeline  # noqa: PLC0415
-    from DEMON.connectors.store import KnowledgeStore  # noqa: PLC0415
+    from OpenDEMON.connectors.hybrid_search import HybridSearch  # noqa: PLC0415
+    from OpenDEMON.connectors.pipeline import IngestionPipeline  # noqa: PLC0415
+    from OpenDEMON.connectors.store import KnowledgeStore  # noqa: PLC0415
 
     creds_path = Path(connector._credentials_path)
     creds_path.write_text(
@@ -447,7 +447,7 @@ def test_end_to_end_ingest_and_search(
     assert target.document_id == "slack:acme:C001:1710500000.000100"
 
     # And the research-loop builder reconstructs the workspace permalink.
-    from DEMON.agents.research_loop import _hit_url  # noqa: PLC0415
+    from OpenDEMON.agents.research_loop import _hit_url  # noqa: PLC0415
 
     assert _hit_url(target.source, target.document_id) == (
         "https://acme.slack.com/archives/C001/p1710500000000100"
@@ -461,7 +461,7 @@ def test_end_to_end_ingest_and_search(
 
 def test_handle_callback_rejects_xoxb(connector) -> None:
     """handle_callback() refuses bot tokens before writing them to disk."""
-    from DEMON.connectors.slack_connector import (  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import (  # noqa: PLC0415
         SlackTokenError,
     )
 
@@ -477,7 +477,7 @@ def test_handle_callback_rejects_xoxb(connector) -> None:
 
 def test_handle_callback_rejects_unknown_prefix(connector) -> None:
     """handle_callback() refuses tokens that don't match the user-token shape."""
-    from DEMON.connectors.slack_connector import (  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import (  # noqa: PLC0415
         SlackTokenError,
     )
 
@@ -586,7 +586,7 @@ def test_handle_callback_persists_after_auth_test_succeeds(
 @patch("DEMON.connectors.slack_connector._slack_api_auth_test")
 def test_handle_callback_rejects_when_auth_test_fails(mock_auth, connector) -> None:
     """A well-formed token Slack rejects (auth.test not ok) is never written."""
-    from DEMON.connectors.slack_connector import SlackTokenError  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import SlackTokenError  # noqa: PLC0415
 
     mock_auth.return_value = {"ok": False, "error": "invalid_auth"}
 
@@ -600,7 +600,7 @@ def test_handle_callback_rejects_when_auth_test_fails(mock_auth, connector) -> N
 @patch("DEMON.connectors.slack_connector._slack_api_auth_test")
 def test_handle_callback_skips_auth_test_for_bad_shape(mock_auth, connector) -> None:
     """Shape validation short-circuits before any network call is made."""
-    from DEMON.connectors.slack_connector import SlackTokenError  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import SlackTokenError  # noqa: PLC0415
 
     with pytest.raises(SlackTokenError):
         connector.handle_callback("xoxb-bot-token")
@@ -611,7 +611,7 @@ def test_handle_callback_skips_auth_test_for_bad_shape(mock_auth, connector) -> 
 
 def test_handle_callback_xoxb_message_wording(connector) -> None:
     """The xoxb- rejection carries the user-facing 'can't read DMs' guidance."""
-    from DEMON.connectors.slack_connector import SlackTokenError  # noqa: PLC0415
+    from OpenDEMON.connectors.slack_connector import SlackTokenError  # noqa: PLC0415
 
     with pytest.raises(SlackTokenError) as excinfo:
         connector.handle_callback("xoxb-bot-token")

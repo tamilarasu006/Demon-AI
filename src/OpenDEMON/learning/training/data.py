@@ -1,4 +1,4 @@
-﻿"""TrainingDataMiner — extract supervised training pairs from the TraceStore.
+"""TrainingDataMiner — extract supervised training pairs from the TraceStore.
 
 Provides three extraction modes:
 
@@ -15,8 +15,8 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any, Dict, List
 
-from DEMON.core.types import StepType, Trace
-from DEMON.learning.routing._utils import classify_query
+from OpenDEMON.core.types import StepType, Trace
+from OpenDEMON.learning.routing._utils import classify_query
 
 
 class TrainingDataMiner:

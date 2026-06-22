@@ -1,4 +1,4 @@
-﻿"""Tests for ClaudeCodeAgent."""
+"""Tests for ClaudeCodeAgent."""
 
 from __future__ import annotations
 
@@ -8,15 +8,15 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-import DEMON.agents  # noqa: F401 -- trigger registration
-from DEMON.agents._stubs import AgentResult
-from DEMON.agents.claude_code import (
+import OpenDEMON.agents  # noqa: F401 -- trigger registration
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.claude_code import (
     _OUTPUT_END,
     _OUTPUT_START,
     ClaudeCodeAgent,
 )
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import AgentRegistry
 
 # ---------------------------------------------------------------------------
 # Helpers

@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON doctor`` optional dependency labels."""
+"""Tests for ``DEMON doctor`` optional dependency labels."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 _real_import = builtins.__import__
 

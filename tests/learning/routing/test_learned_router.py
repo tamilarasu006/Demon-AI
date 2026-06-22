@@ -1,15 +1,15 @@
-﻿"""Tests for LearnedRouterPolicy (merged trace-driven + SFT routing)."""
+"""Tests for LearnedRouterPolicy (merged trace-driven + SFT routing)."""
 
 from __future__ import annotations
 
 import time
 from pathlib import Path
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.learning._stubs import RoutingContext
-from DEMON.learning.routing.learned_router import LearnedRouterPolicy
-from DEMON.traces.analyzer import TraceAnalyzer
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.learning._stubs import RoutingContext
+from OpenDEMON.learning.routing.learned_router import LearnedRouterPolicy
+from OpenDEMON.traces.analyzer import TraceAnalyzer
+from OpenDEMON.traces.store import TraceStore
 
 
 def _make_trace(
@@ -44,8 +44,8 @@ def _make_trace(
 
 class TestLearnedRouterPolicy:
     def test_registered_as_learned(self) -> None:
-        from DEMON.core.registry import RouterPolicyRegistry
-        from DEMON.learning.routing.learned_router import ensure_registered
+        from OpenDEMON.core.registry import RouterPolicyRegistry
+        from OpenDEMON.learning.routing.learned_router import ensure_registered
 
         ensure_registered()
         assert RouterPolicyRegistry.contains("learned")

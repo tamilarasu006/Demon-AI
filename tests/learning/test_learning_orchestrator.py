@@ -1,13 +1,13 @@
-﻿"""Tests for LearningOrchestrator -- coordinate trace->learn->eval loop."""
+"""Tests for LearningOrchestrator -- coordinate trace->learn->eval loop."""
 
 from __future__ import annotations
 
 import time
 from pathlib import Path
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.learning.learning_orchestrator import LearningOrchestrator
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.learning.learning_orchestrator import LearningOrchestrator
+from OpenDEMON.traces.store import TraceStore
 
 # ---------------------------------------------------------------------------
 # Helpers

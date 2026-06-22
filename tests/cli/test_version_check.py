@@ -1,4 +1,4 @@
-﻿"""Tests for the post-command "new version available" hint."""
+"""Tests for the post-command "new version available" hint."""
 
 from __future__ import annotations
 
@@ -9,8 +9,8 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.cli import _version_check
-from DEMON.cli._version_check import (
+from OpenDEMON.cli import _version_check
+from OpenDEMON.cli._version_check import (
     _check_disabled,
     _config_disabled,
     _fetch_latest_stable,

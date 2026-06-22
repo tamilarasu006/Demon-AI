@@ -1,4 +1,4 @@
-﻿"""Tests for the agent template loader."""
+"""Tests for the agent template loader."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.templates.agent_templates import (
+from OpenDEMON.templates.agent_templates import (
     AgentTemplate,
     discover_templates,
     load_template,

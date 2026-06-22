@@ -1,11 +1,11 @@
-﻿"""WorkflowBuilder — fluent API for constructing workflows."""
+"""WorkflowBuilder — fluent API for constructing workflows."""
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from DEMON.workflow.graph import WorkflowGraph
-from DEMON.workflow.types import NodeType, WorkflowEdge, WorkflowNode
+from OpenDEMON.workflow.graph import WorkflowGraph
+from OpenDEMON.workflow.types import NodeType, WorkflowEdge, WorkflowNode
 
 
 class WorkflowBuilder:

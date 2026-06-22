@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.mining._miner_loop_main."""
+"""Tests for DEMON.mining._miner_loop_main."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ def fake_mining_info_result():
 
 
 def test_decode_mining_info_returns_header_bytes_and_target(fake_mining_info_result):
-    from DEMON.mining._miner_loop_main import _decode_mining_info
+    from OpenDEMON.mining._miner_loop_main import _decode_mining_info
 
     header_bytes, target = _decode_mining_info(fake_mining_info_result)
     assert isinstance(header_bytes, (bytes, bytearray))
@@ -32,7 +32,7 @@ def test_encode_plain_proof_returns_to_base64_result():
 
     No double-encode: to_base64() already returns a base64 string.
     """
-    from DEMON.mining._miner_loop_main import _encode_plain_proof
+    from OpenDEMON.mining._miner_loop_main import _encode_plain_proof
 
     fake_proof = MagicMock()
     fake_proof.to_base64.return_value = "ABCabc012=="
@@ -43,7 +43,7 @@ def test_encode_plain_proof_returns_to_base64_result():
 
 def test_jsonrpc_envelope_shape():
     """The JSON-RPC envelope conforms to gateway's JSON_RPC_SCHEMA."""
-    from DEMON.mining._miner_loop_main import _make_request
+    from OpenDEMON.mining._miner_loop_main import _make_request
 
     req = _make_request("getMiningInfo", {}, request_id=42)
     assert req["jsonrpc"] == "2.0"
@@ -54,7 +54,7 @@ def test_jsonrpc_envelope_shape():
 
 def test_open_gateway_connection_retries_until_listener_ready(monkeypatch):
     """Initial gateway connect has startup-race retry/backoff."""
-    from DEMON.mining import _miner_loop_main
+    from OpenDEMON.mining import _miner_loop_main
 
     calls = 0
     fake_reader = object()

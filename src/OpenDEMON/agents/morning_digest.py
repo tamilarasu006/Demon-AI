@@ -1,4 +1,4 @@
-﻿"""Morning Digest Agent — synthesizes a daily briefing from multiple sources.
+"""Morning Digest Agent — synthesizes a daily briefing from multiple sources.
 
 Thin orchestrator that delegates to digest_collect (data fetching),
 the LLM (narrative synthesis), and text_to_speech (audio generation).
@@ -11,11 +11,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.agents.digest_store import DigestArtifact, DigestStore
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.agents.digest_store import DigestArtifact, DigestStore
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall
 
 
 def _load_persona(persona_name: str) -> str:
@@ -170,7 +170,7 @@ class MorningDigestAgent(ToolUsingAgent):
         quality_score = 0.0
         evaluator_feedback = ""
         try:
-            from DEMON.agents.digest_evaluator import DigestEvaluator
+            from OpenDEMON.agents.digest_evaluator import DigestEvaluator
 
             evaluator = DigestEvaluator(self._engine, self._model)
             quality_score, evaluator_feedback = evaluator.evaluate(

@@ -1,4 +1,4 @@
-﻿"""Tests for _get_mcp_tools() caching in agent_manager_routes."""
+"""Tests for _get_mcp_tools() caching in agent_manager_routes."""
 
 from __future__ import annotations
 
@@ -50,7 +50,7 @@ def _make_adapter(name: str) -> MagicMock:
 @patch("DEMON.core.config.load_config")
 def test_returns_tools_from_mcp_server(mock_load_config: MagicMock):
     """With a mocked MCP server, discovered tools are returned."""
-    from DEMON.server.agent_manager_routes import _get_mcp_tools
+    from OpenDEMON.server.agent_manager_routes import _get_mcp_tools
 
     server_cfg = [{"name": "test-server", "url": "http://localhost:9999"}]
     mock_load_config.return_value = _make_config(
@@ -77,7 +77,7 @@ def test_returns_tools_from_mcp_server(mock_load_config: MagicMock):
 @patch("DEMON.core.config.load_config")
 def test_caches_successful_discovery(mock_load_config: MagicMock):
     """Second call returns cached result without re-discovering."""
-    from DEMON.server.agent_manager_routes import _get_mcp_tools
+    from OpenDEMON.server.agent_manager_routes import _get_mcp_tools
 
     server_cfg = [{"name": "test-server", "url": "http://localhost:9999"}]
     mock_load_config.return_value = _make_config(
@@ -109,7 +109,7 @@ def test_caches_successful_discovery(mock_load_config: MagicMock):
 @patch("DEMON.core.config.load_config")
 def test_does_not_cache_empty_results(mock_load_config: MagicMock):
     """Failed/empty discovery is not cached so it can be retried."""
-    from DEMON.server.agent_manager_routes import _get_mcp_tools
+    from OpenDEMON.server.agent_manager_routes import _get_mcp_tools
 
     server_cfg = [{"name": "failing-server", "url": "http://localhost:9999"}]
     mock_load_config.return_value = _make_config(
@@ -143,7 +143,7 @@ def test_does_not_cache_empty_results(mock_load_config: MagicMock):
 @patch("DEMON.core.config.load_config")
 def test_handles_config_load_failure(mock_load_config: MagicMock):
     """Config load failure returns empty, no crash."""
-    from DEMON.server.agent_manager_routes import _get_mcp_tools
+    from OpenDEMON.server.agent_manager_routes import _get_mcp_tools
 
     mock_load_config.side_effect = RuntimeError("config broken")
 

@@ -1,4 +1,4 @@
-﻿"""Global logging configuration for the DEMON CLI."""
+"""Global logging configuration for the DEMON CLI."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Optional, Union
 
-from DEMON.core.paths import get_config_dir
-from DEMON.security.credential_stripper import CredentialStripper
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.security.credential_stripper import CredentialStripper
 
 _stripper = CredentialStripper()
 
@@ -67,7 +67,7 @@ def setup_logging(
     # File handler (verbose or explicit path)
     if verbose or log_file is not None:
         if log_file is None:
-            from DEMON.security.file_utils import secure_mkdir
+            from OpenDEMON.security.file_utils import secure_mkdir
 
             log_dir = get_config_dir()
             secure_mkdir(log_dir)

@@ -1,7 +1,7 @@
-﻿"""CLI for generating framework-comparison eval configs from `_template.toml`.
+"""CLI for generating framework-comparison eval configs from `_template.toml`.
 
 Usage:
-    python -m DEMON.evals.comparison.make_configs \\
+    python -m OpenDEMON.evals.comparison.make_configs \\
         --framework hermes --model qwen-9b --benchmark gaia
 """
 

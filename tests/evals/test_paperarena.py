@@ -1,10 +1,10 @@
-﻿"""Tests for PaperArena benchmark."""
+"""Tests for PaperArena benchmark."""
 
 from unittest.mock import MagicMock
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.datasets.paperarena import PaperArenaDataset
-from DEMON.evals.scorers.paperarena_judge import PaperArenaScorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.datasets.paperarena import PaperArenaDataset
+from OpenDEMON.evals.scorers.paperarena_judge import PaperArenaScorer
 
 
 def _mock_backend() -> MagicMock:
@@ -103,18 +103,18 @@ class TestPaperArenaScorer:
 
 class TestPaperArenaCLI:
     def test_in_benchmarks(self) -> None:
-        from DEMON.evals.cli import BENCHMARKS
+        from OpenDEMON.evals.cli import BENCHMARKS
 
         assert "paperarena" in BENCHMARKS
 
     def test_build_dataset(self) -> None:
-        from DEMON.evals.cli import _build_dataset
+        from OpenDEMON.evals.cli import _build_dataset
 
         ds = _build_dataset("paperarena")
         assert ds.dataset_id == "paperarena"
 
     def test_build_scorer(self) -> None:
-        from DEMON.evals.cli import _build_scorer
+        from OpenDEMON.evals.cli import _build_scorer
 
         s = _build_scorer("paperarena", _mock_backend(), "test-model")
         assert s.scorer_id == "paperarena"

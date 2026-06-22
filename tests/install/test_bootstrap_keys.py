@@ -1,10 +1,10 @@
-﻿"""Tests for DEMON.cli._bootstrap.detect_cloud_keys."""
+"""Tests for DEMON.cli._bootstrap.detect_cloud_keys."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.cli import _bootstrap
+from OpenDEMON.cli import _bootstrap
 
 ALL_KEYS = (
     "OPENROUTER_API_KEY",

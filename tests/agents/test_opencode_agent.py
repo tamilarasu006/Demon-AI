@@ -1,4 +1,4 @@
-﻿"""Tests for OpenCodeAgent (wraps the `opencode` coding agent).
+"""Tests for OpenCodeAgent (wraps the `opencode` coding agent).
 
 The pure helpers, provider-config wiring, graceful degradation, and response
 parsing are tested without the `opencode` binary. SPIKE_RESPONSE is the actual
@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from DEMON.agents.opencode import (
+from OpenDEMON.agents.opencode import (
     OpenCodeAgent,
     _derive_openai_base_url,
     _extract_text,

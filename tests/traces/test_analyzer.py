@@ -1,13 +1,13 @@
-﻿"""Tests for the TraceAnalyzer."""
+"""Tests for the TraceAnalyzer."""
 
 from __future__ import annotations
 
 import time
 from pathlib import Path
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.traces.analyzer import TraceAnalyzer
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.traces.analyzer import TraceAnalyzer
+from OpenDEMON.traces.store import TraceStore
 
 
 def _make_trace(

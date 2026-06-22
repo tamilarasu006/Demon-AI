@@ -1,4 +1,4 @@
-﻿"""Nexa SDK shim.
+"""Nexa SDK shim.
 
 Thin FastAPI server wrapping the Nexa SDK (``nexaai``) as an
 OpenAI-compatible API on port 18181.  Intended for on-device inference
@@ -9,7 +9,7 @@ The shim returns 0 for prompt/completion/total tokens. Savings and
 leaderboard metrics will not include sessions that use this engine.
 
 Usage:
-    uvicorn DEMON.engine.nexa_shim:app \
+    uvicorn OpenDEMON.engine.nexa_shim:app \
         --host 127.0.0.1 --port 18181
 """
 

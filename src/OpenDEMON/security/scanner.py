@@ -1,12 +1,12 @@
-﻿"""Concrete security scanners — secrets and PII detection."""
+"""Concrete security scanners — secrets and PII detection."""
 
 from __future__ import annotations
 
 from typing import Dict, Tuple
 
-from DEMON._rust_bridge import get_rust_module, scan_result_from_json
-from DEMON.security._stubs import BaseScanner
-from DEMON.security.types import ScanResult, ThreatLevel
+from OpenDEMON._rust_bridge import get_rust_module, scan_result_from_json
+from OpenDEMON.security._stubs import BaseScanner
+from OpenDEMON.security.types import ScanResult, ThreatLevel
 
 # ---------------------------------------------------------------------------
 # SecretScanner

@@ -1,10 +1,10 @@
-﻿"""Tests for rate limiter -- token bucket algorithm."""
+"""Tests for rate limiter -- token bucket algorithm."""
 
 from __future__ import annotations
 
 import time
 
-from DEMON.security.rate_limiter import (
+from OpenDEMON.security.rate_limiter import (
     RateLimitConfig,
     RateLimiter,
     TokenBucket,

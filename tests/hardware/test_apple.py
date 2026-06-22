@@ -1,4 +1,4 @@
-﻿"""Apple Silicon hardware tests."""
+"""Apple Silicon hardware tests."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     GpuInfo,
     HardwareInfo,
     _detect_apple_gpu,

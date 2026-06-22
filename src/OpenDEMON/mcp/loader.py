@@ -1,4 +1,4 @@
-﻿"""Shared helper for loading MCP server tools from a TOML config blob.
+"""Shared helper for loading MCP server tools from a TOML config blob.
 
 Used by ``cli/ask.py``, ``cli/serve.py``, ``system/builder.py`` and
 ``server/agent_manager_routes.py`` so each call site doesn't reimplement
@@ -23,9 +23,9 @@ import logging
 from typing import TYPE_CHECKING, Any, Optional
 
 if TYPE_CHECKING:
-    from DEMON.core.types import ToolSpec  # noqa: F401
-    from DEMON.mcp.client import MCPClient
-    from DEMON.tools._stubs import BaseTool
+    from OpenDEMON.core.types import ToolSpec  # noqa: F401
+    from OpenDEMON.mcp.client import MCPClient
+    from OpenDEMON.tools._stubs import BaseTool
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ def load_mcp_tools_from_config(
     Returns ``([], [])`` when mcp is disabled or no servers are
     configured — no exception, no warning.
     """
-    # ``enabled`` and ``servers`` come from DEMON.core.config's
+    # ``enabled`` and ``servers`` come from OpenDEMON.core.config's
     # MCPConfig dataclass; accept duck-typed equivalents for tests.
     enabled = getattr(mcp_cfg, "enabled", False)
     servers_blob = getattr(mcp_cfg, "servers", None)
@@ -73,9 +73,9 @@ def load_mcp_tools_from_config(
     # Imported lazily so that `DEMON.mcp.loader` can be imported
     # cheaply from CLI startup paths without dragging in the heavy MCP
     # client stack until something actually wants to discover tools.
-    from DEMON.mcp.client import MCPClient
-    from DEMON.mcp.transport import StdioTransport, StreamableHTTPTransport
-    from DEMON.tools.mcp_adapter import MCPToolProvider
+    from OpenDEMON.mcp.client import MCPClient
+    from OpenDEMON.mcp.transport import StdioTransport, StreamableHTTPTransport
+    from OpenDEMON.tools.mcp_adapter import MCPToolProvider
 
     tools: list["BaseTool"] = []
     clients: list["MCPClient"] = []

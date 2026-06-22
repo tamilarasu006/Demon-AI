@@ -1,4 +1,4 @@
-﻿"""ScanChunksTool — semantic grep via LM-powered chunk scanning.
+"""ScanChunksTool — semantic grep via LM-powered chunk scanning.
 
 Pulls chunks from the KnowledgeStore by filter, batches them, and asks the
 LM to extract information relevant to a question.  Catches semantic matches
@@ -9,11 +9,11 @@ from __future__ import annotations
 
 from typing import Any, List, Optional
 
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import Message, Role, ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import Message, Role, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 _DEFAULT_MAX_CHUNKS = 200
 _DEFAULT_BATCH_SIZE = 20

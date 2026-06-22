@@ -1,4 +1,4 @@
-﻿"""Tests for install-method detection."""
+"""Tests for install-method detection."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.cli._install_detect import InstallInfo, detect_install
+from OpenDEMON.cli._install_detect import InstallInfo, detect_install
 
 
 def _patch_pkg_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:

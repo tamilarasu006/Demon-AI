@@ -1,4 +1,4 @@
-﻿"""WildChat dataset provider (allenai/WildChat-1M).
+"""WildChat dataset provider (allenai/WildChat-1M).
 
 Filters to English single-turn conversations for chat quality evaluation.
 """
@@ -8,8 +8,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class WildChatDataset(DatasetProvider):

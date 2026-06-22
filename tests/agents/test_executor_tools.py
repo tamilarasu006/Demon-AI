@@ -1,18 +1,18 @@
-﻿"""Tests for tool wiring in AgentExecutor."""
+"""Tests for tool wiring in AgentExecutor."""
 
 from __future__ import annotations
 
-from DEMON.agents.executor import AgentExecutor
-from DEMON.agents.manager import AgentManager
-from DEMON.core.events import EventBus
+from OpenDEMON.agents.executor import AgentExecutor
+from OpenDEMON.agents.manager import AgentManager
+from OpenDEMON.core.events import EventBus
 from tests.agents.fake_engine import FakeEngine
 from tests.agents.scenario_harness import FakeSystem
 
 
 def _register_agent():
     """Re-register MonitorOperativeAgent (cleared by autouse fixture)."""
-    from DEMON.agents.monitor_operative import MonitorOperativeAgent
-    from DEMON.core.registry import AgentRegistry
+    from OpenDEMON.agents.monitor_operative import MonitorOperativeAgent
+    from OpenDEMON.core.registry import AgentRegistry
 
     if not AgentRegistry.contains("monitor_operative"):
         AgentRegistry.register("monitor_operative")(MonitorOperativeAgent)

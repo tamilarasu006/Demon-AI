@@ -1,11 +1,11 @@
-﻿"""WorkflowGraph — DAG with validation and topological sort."""
+"""WorkflowGraph — DAG with validation and topological sort."""
 
 from __future__ import annotations
 
 from collections import defaultdict, deque
 from typing import Dict, List, Optional, Set, Tuple
 
-from DEMON.workflow.types import WorkflowEdge, WorkflowNode
+from OpenDEMON.workflow.types import WorkflowEdge, WorkflowNode
 
 
 class WorkflowGraph:

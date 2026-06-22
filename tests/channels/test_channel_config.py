@@ -1,11 +1,11 @@
-﻿"""Tests for channel configuration — nested sub-configs and TOML loading."""
+"""Tests for channel configuration — nested sub-configs and TOML loading."""
 
 from __future__ import annotations
 
 import tempfile
 from pathlib import Path
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     ChannelConfig,
     DiscordChannelConfig,
     EmailChannelConfig,

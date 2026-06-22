@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON config`` CLI commands."""
+"""Tests for the ``DEMON config`` CLI commands."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestConfigCmd:

@@ -1,4 +1,4 @@
-﻿"""Tests for InstrumentedEngine telemetry wrapper."""
+"""Tests for InstrumentedEngine telemetry wrapper."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, Role
-from DEMON.telemetry.instrumented_engine import InstrumentedEngine
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
 
 
 @pytest.fixture
@@ -135,7 +135,7 @@ class TestTokensPerJoule:
 
     def test_tokens_per_joule_formula_via_record(self):
         """Verify the formula: tokens_per_joule = completion_tokens / energy_joules."""
-        from DEMON.core.types import TelemetryRecord
+        from OpenDEMON.core.types import TelemetryRecord
 
         # Direct construction — verifies the field accepts computed values
         rec = TelemetryRecord(
@@ -149,7 +149,7 @@ class TestTokensPerJoule:
 
     def test_tokens_per_joule_zero_when_no_tokens(self):
         """tokens_per_joule is 0.0 when completion_tokens is 0."""
-        from DEMON.core.types import TelemetryRecord
+        from OpenDEMON.core.types import TelemetryRecord
 
         rec = TelemetryRecord(
             timestamp=1.0,

@@ -1,4 +1,4 @@
-﻿"""Regression tests for compute_savings — leaderboard correctness.
+"""Regression tests for compute_savings — leaderboard correctness.
 
 The leaderboard pipeline feeds aggregated telemetry sums into
 `compute_savings`, which in turn feeds the public leaderboard. The old
@@ -12,7 +12,7 @@ leaderboard. These tests pin the conservative fallback behaviour.
 
 from __future__ import annotations
 
-from DEMON.server.savings import compute_savings
+from OpenDEMON.server.savings import compute_savings
 
 
 class TestPromptTokensEvaluatedFallback:

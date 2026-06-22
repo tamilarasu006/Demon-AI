@@ -1,4 +1,4 @@
-﻿"""ACE agent optimizer — context evolution via the ACE Generator /
+"""ACE agent optimizer — context evolution via the ACE Generator /
 Reflector / Curator triad.
 
 ACE (`ace-agent/ace <https://github.com/ace-agent/ace>`_) optimizes
@@ -29,10 +29,10 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, List
 
-from DEMON.core.config import ACEOptimizerConfig
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import LearningRegistry
-from DEMON.learning._stubs import AgentLearningPolicy
+from OpenDEMON.core.config import ACEOptimizerConfig
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import LearningRegistry
+from OpenDEMON.learning._stubs import AgentLearningPolicy
 
 logger = logging.getLogger(__name__)
 

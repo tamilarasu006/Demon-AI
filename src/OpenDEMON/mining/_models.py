@@ -1,11 +1,11 @@
-﻿"""Pearl mining model support registry."""
+"""Pearl mining model support registry."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Literal
 
-from DEMON.mining._constants import DEFAULT_PEARL_MODEL
+from OpenDEMON.mining._constants import DEFAULT_PEARL_MODEL
 
 PearlModelStatus = Literal["validated", "planned"]
 

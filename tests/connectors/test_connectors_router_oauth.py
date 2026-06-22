@@ -1,4 +1,4 @@
-﻿"""Regression tests for the connectors-router OAuth flow (issue #512).
+"""Regression tests for the connectors-router OAuth flow (issue #512).
 
 These tests reproduce the three coupled defects that prevented Google Drive
 (and its Google siblings) from ever completing OAuth and appearing in Data
@@ -72,10 +72,10 @@ def hermetic_connectors(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path
     import importlib
     import sys
 
-    import DEMON.connectors.oauth as oauth_mod
-    import DEMON.core.config as config_mod
-    import DEMON.server.connectors_router as router_mod
-    from DEMON.core.registry import ConnectorRegistry
+    import OpenDEMON.connectors.oauth as oauth_mod
+    import OpenDEMON.core.config as config_mod
+    import OpenDEMON.server.connectors_router as router_mod
+    from OpenDEMON.core.registry import ConnectorRegistry
 
     conn_dir = tmp_path / "connectors"
     conn_dir.mkdir(parents=True, exist_ok=True)
@@ -113,7 +113,7 @@ def hermetic_connectors(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path
 
 @pytest.fixture()
 def client(hermetic_connectors: Path) -> Iterator[TestClient]:
-    from DEMON.server.connectors_router import create_connectors_router
+    from OpenDEMON.server.connectors_router import create_connectors_router
 
     app = FastAPI()
     app.include_router(create_connectors_router())
@@ -217,7 +217,7 @@ def test_oauth_start_without_creds_returns_400(client: TestClient) -> None:
 def test_oauth_callback_exchanges_and_connects(
     client: TestClient, hermetic_connectors: Path
 ) -> None:
-    import DEMON.connectors.oauth as oauth_mod
+    import OpenDEMON.connectors.oauth as oauth_mod
 
     client.post("/v1/connectors/gdrive/connect", json={"code": _CLIENT_PAIR})
 
@@ -241,7 +241,7 @@ def test_oauth_callback_exchanges_and_connects(
         assert saved["refresh_token"] == "1//REAL"
 
     # The connector now reports connected, and GET /connectors agrees.
-    from DEMON.connectors.gdrive import GDriveConnector
+    from OpenDEMON.connectors.gdrive import GDriveConnector
 
     assert GDriveConnector().is_connected() is True
 
@@ -259,7 +259,7 @@ def test_oauth_callback_error_param_renders_failure(client: TestClient) -> None:
 def test_oauth_callback_exchange_failure_renders_error(
     client: TestClient,
 ) -> None:
-    import DEMON.connectors.oauth as oauth_mod
+    import OpenDEMON.connectors.oauth as oauth_mod
 
     client.post("/v1/connectors/gdrive/connect", json={"code": _CLIENT_PAIR})
 

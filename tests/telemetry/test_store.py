@@ -1,13 +1,13 @@
-﻿"""Tests for the telemetry SQLite store."""
+"""Tests for the telemetry SQLite store."""
 
 from __future__ import annotations
 
 import time
 from pathlib import Path
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import TelemetryRecord
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import TelemetryRecord
+from OpenDEMON.telemetry.store import TelemetryStore
 
 
 class TestTelemetryStore:
@@ -120,7 +120,7 @@ class TestTelemetryStore:
         store.close()
 
     def test_record_mining_stats_persists(self, tmp_path: Path) -> None:
-        from DEMON.mining._stubs import MiningStats
+        from OpenDEMON.mining._stubs import MiningStats
 
         store = TelemetryStore(tmp_path / "test.db")
         store.record_mining_stats(

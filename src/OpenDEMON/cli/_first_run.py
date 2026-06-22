@@ -1,4 +1,4 @@
-﻿"""Bare-`DEMON` first-run guard.
+"""Bare-`DEMON` first-run guard.
 
 When the user types ``DEMON`` with no subcommand, route them to the
 chat command if a config exists, otherwise into the init wizard with
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from DEMON.core import config as _cfg
+from OpenDEMON.core import config as _cfg
 
 if TYPE_CHECKING:
     import click
@@ -26,8 +26,8 @@ def check_and_route(ctx: click.Context) -> None:
         return
 
     # Late imports to avoid circular import with cli/__init__.py.
-    from DEMON.cli.chat_cmd import chat as chat_cmd
-    from DEMON.cli.init_cmd import init as init_cmd
+    from OpenDEMON.cli.chat_cmd import chat as chat_cmd
+    from OpenDEMON.cli.init_cmd import init as init_cmd
 
     if _cfg.DEFAULT_CONFIG_PATH.exists():
         ctx.invoke(chat_cmd)

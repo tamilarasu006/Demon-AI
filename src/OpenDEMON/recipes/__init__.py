@@ -1,10 +1,10 @@
-﻿"""Recipe system — composable primitive configurations."""
+"""Recipe system — composable primitive configurations."""
 
-from DEMON.recipes.composer import (
+from OpenDEMON.recipes.composer import (
     recipe_to_eval_suite,
     recipe_to_operator,
 )
-from DEMON.recipes.loader import (
+from OpenDEMON.recipes.loader import (
     Recipe,
     discover_recipes,
     load_recipe,

@@ -1,4 +1,4 @@
-﻿"""FRAMES benchmark dataset (google/frames-benchmark).
+"""FRAMES benchmark dataset (google/frames-benchmark).
 
 Adapted from IPW's frames.py dataset loader.
 """
@@ -8,8 +8,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _DEFAULT_INPUT_PROMPT = """Please answer the question below. You should:
 

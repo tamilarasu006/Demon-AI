@@ -1,4 +1,4 @@
-﻿"""Tests for the energy benchmark."""
+"""Tests for the energy benchmark."""
 
 from __future__ import annotations
 
@@ -7,15 +7,15 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.bench.energy import EnergyBenchmark
-from DEMON.core.registry import BenchmarkRegistry
-from DEMON.telemetry.energy_monitor import EnergySample
+from OpenDEMON.bench.energy import EnergyBenchmark
+from OpenDEMON.core.registry import BenchmarkRegistry
+from OpenDEMON.telemetry.energy_monitor import EnergySample
 
 
 @pytest.fixture(autouse=True)
 def _register_energy():
     """Re-register energy benchmark after registry clear."""
-    from DEMON.bench.energy import ensure_registered
+    from OpenDEMON.bench.energy import ensure_registered
 
     ensure_registered()
 
@@ -114,7 +114,7 @@ class TestEnergyBenchmark:
         assert result.metrics.get("total_energy_joules", 0.0) == 0.0
 
     def test_ensure_registered(self):
-        from DEMON.bench.energy import ensure_registered
+        from OpenDEMON.bench.energy import ensure_registered
 
         ensure_registered()  # should not raise
         assert BenchmarkRegistry.contains("energy")

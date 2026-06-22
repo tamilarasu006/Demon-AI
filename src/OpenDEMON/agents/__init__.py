@@ -1,10 +1,10 @@
-﻿"""Agents primitive — multi-turn reasoning and tool use."""
+"""Agents primitive — multi-turn reasoning and tool use."""
 
 from __future__ import annotations
 
 import logging
 
-from DEMON.agents._stubs import (
+from OpenDEMON.agents._stubs import (
     AgentContext,
     AgentResult,
     BaseAgent,
@@ -15,72 +15,72 @@ logger = logging.getLogger(__name__)
 
 # Import agent modules to trigger @AgentRegistry.register() decorators
 try:
-    import DEMON.agents.simple  # noqa: F401
+    import OpenDEMON.agents.simple  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.orchestrator  # noqa: F401
+    import OpenDEMON.agents.orchestrator  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.native_react  # noqa: F401
+    import OpenDEMON.agents.native_react  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.native_openhands  # noqa: F401
+    import OpenDEMON.agents.native_openhands  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.react  # noqa: F401 -- backward-compat shim
+    import OpenDEMON.agents.react  # noqa: F401 -- backward-compat shim
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.openhands  # noqa: F401
+    import OpenDEMON.agents.openhands  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.rlm  # noqa: F401
+    import OpenDEMON.agents.rlm  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.claude_code  # noqa: F401
+    import OpenDEMON.agents.claude_code  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.opencode  # noqa: F401
+    import OpenDEMON.agents.opencode  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.operative  # noqa: F401
+    import OpenDEMON.agents.operative  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.monitor  # noqa: F401
+    import OpenDEMON.agents.monitor  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.monitor_operative  # noqa: F401
+    import OpenDEMON.agents.monitor_operative  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.deep_research  # noqa: F401
+    import OpenDEMON.agents.deep_research  # noqa: F401
 except ImportError:
     pass
 
 try:
-    import DEMON.agents.morning_digest  # noqa: F401
+    import OpenDEMON.agents.morning_digest  # noqa: F401
 except ImportError:
     pass
 
@@ -88,13 +88,13 @@ except ImportError:
 # SkillOrchestra, ToolOrchestra). Each module registers under its own name
 # via @AgentRegistry.register(). Optional deps may make some unavailable.
 try:
-    import DEMON.agents.hybrid  # noqa: F401
+    import OpenDEMON.agents.hybrid  # noqa: F401
 except ImportError:
     pass
 
 # Registry alias: "react" -> NativeReActAgent (for backward compat)
 try:
-    from DEMON.core.registry import AgentRegistry
+    from OpenDEMON.core.registry import AgentRegistry
 
     if AgentRegistry.contains("native_react") and not AgentRegistry.contains("react"):
         AgentRegistry.register_value("react", AgentRegistry.get("native_react"))

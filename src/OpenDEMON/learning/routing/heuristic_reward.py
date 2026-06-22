@@ -1,10 +1,10 @@
-﻿"""Heuristic reward function — weighted score from latency, cost, efficiency."""
+"""Heuristic reward function — weighted score from latency, cost, efficiency."""
 
 from __future__ import annotations
 
 from typing import Any
 
-from DEMON.learning._stubs import RewardFunction, RoutingContext
+from OpenDEMON.learning._stubs import RewardFunction, RoutingContext
 
 
 class HeuristicRewardFunction(RewardFunction):

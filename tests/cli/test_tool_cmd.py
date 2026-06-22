@@ -1,11 +1,11 @@
-﻿"""Tests for the ``DEMON tool`` CLI commands."""
+"""Tests for the ``DEMON tool`` CLI commands."""
 
 from __future__ import annotations
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.registry import ToolRegistry
+from OpenDEMON.cli import cli
+from OpenDEMON.core.registry import ToolRegistry
 
 
 class TestToolCmd:
@@ -47,7 +47,7 @@ class TestToolCmd:
     def test_tool_inspect_known_tool(self) -> None:
         """Test that inspecting a known tool shows details."""
         # First, trigger tool registration
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
 
         # Get a known tool name
         registered_tools = ToolRegistry.keys()
@@ -73,7 +73,7 @@ class TestToolCmd:
     def test_tool_list_with_registered_tools(self) -> None:
         """Test that tool list shows details for registered tools."""
         # Trigger tool registration
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
 
         result = CliRunner().invoke(cli, ["tool", "list"])
         assert result.exit_code == 0
@@ -99,7 +99,7 @@ class TestToolCmd:
 
     def test_tool_inspect_with_spec_details(self) -> None:
         """Test that inspect shows full spec details for tools with specs."""
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
 
         registered_tools = ToolRegistry.keys()
         if registered_tools:

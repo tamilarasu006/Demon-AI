@@ -1,4 +1,4 @@
-﻿# src/DEMON/mining/_collector.py
+# src/DEMON/mining/_collector.py
 """Background poller for mining telemetry.
 
 Shipped in v1 but not wired into the gateway daemon. v1's status command
@@ -15,8 +15,8 @@ from typing import Any
 
 import httpx
 
-from DEMON.mining._metrics import parse_gateway_metrics
-from DEMON.mining._stubs import MiningStats, Sidecar
+from OpenDEMON.mining._metrics import parse_gateway_metrics
+from OpenDEMON.mining._stubs import MiningStats, Sidecar
 
 log = logging.getLogger(__name__)
 

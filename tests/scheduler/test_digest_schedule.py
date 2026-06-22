@@ -1,4 +1,4 @@
-﻿"""Tests for digest schedule integration — CLI and API endpoints."""
+"""Tests for digest schedule integration — CLI and API endpoints."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from DEMON.cli.digest_cmd import digest
+from OpenDEMON.cli.digest_cmd import digest
 
 # ---------------------------------------------------------------------------
 # CLI tests
@@ -111,7 +111,7 @@ class TestDigestScheduleEndpoints:
         from fastapi import FastAPI
         from fastapi.testclient import TestClient
 
-        from DEMON.server.digest_routes import create_digest_router
+        from OpenDEMON.server.digest_routes import create_digest_router
 
         app = FastAPI()
         app.include_router(create_digest_router())

@@ -1,6 +1,6 @@
-﻿"""TauBench V2 dataset provider — multi-turn customer service benchmark.
+"""TauBench V2 dataset provider — multi-turn customer service benchmark.
 
-Wraps the tau2-bench framework for evaluation within DEMON.
+Wraps the tau2-bench framework for evaluation within OpenDEMON.
 Supports airline, retail, and telecom domains.
 
 Reference: https://github.com/sierra-research/tau2-bench
@@ -14,10 +14,10 @@ import subprocess
 import sys
 from typing import Iterable, List, Optional
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 
@@ -256,7 +256,7 @@ class TauBenchDataset(DatasetProvider):
 
     def create_task_env(self, record: EvalRecord):
         """Create a TauBench task environment for evaluation."""
-        from DEMON.evals.execution.taubench_env import TauBenchTaskEnv
+        from OpenDEMON.evals.execution.taubench_env import TauBenchTaskEnv
 
         return TauBenchTaskEnv(
             record,

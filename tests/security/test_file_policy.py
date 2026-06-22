@@ -1,10 +1,10 @@
-﻿"""Tests for file sensitivity policy."""
+"""Tests for file sensitivity policy."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.security.file_policy import filter_sensitive_paths, is_sensitive_file
+from OpenDEMON.security.file_policy import filter_sensitive_paths, is_sensitive_file
 
 
 class TestIsSensitiveFile:

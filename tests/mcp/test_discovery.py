@@ -1,4 +1,4 @@
-﻿"""Tests for _discover_external_mcp in SystemBuilder."""
+"""Tests for _discover_external_mcp in SystemBuilder."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.tools._stubs import ToolSpec
 
 
 def _make_mock_tool(name: str) -> MagicMock:
@@ -19,7 +19,7 @@ def _make_mock_tool(name: str) -> MagicMock:
 @pytest.fixture
 def builder():
     """Create a minimal SystemBuilder instance for testing _discover_external_mcp."""
-    from DEMON.system import SystemBuilder
+    from OpenDEMON.system import SystemBuilder
 
     def _minimal_init(self):
         self._mcp_clients = []

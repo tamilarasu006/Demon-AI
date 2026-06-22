@@ -1,4 +1,4 @@
-﻿"""SimpleQA scorer -- normalized exact match with LLM fallback.
+"""SimpleQA scorer -- normalized exact match with LLM fallback.
 
 Evaluates short factual answers using exact string matching (with
 normalization) and falls back to an LLM judge for semantic comparison.
@@ -11,8 +11,8 @@ import re
 import string
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

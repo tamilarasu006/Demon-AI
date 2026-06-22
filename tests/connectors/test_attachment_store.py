@@ -1,4 +1,4 @@
-﻿"""Tests for AttachmentStore — content-addressed blob storage."""
+"""Tests for AttachmentStore — content-addressed blob storage."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.connectors.attachment_store import AttachmentStore
+from OpenDEMON.connectors.attachment_store import AttachmentStore
 
 # ---------------------------------------------------------------------------
 # Fixtures

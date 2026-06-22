@@ -1,4 +1,4 @@
-﻿"""Prompt diff utilities for the plan phase.
+"""Prompt diff utilities for the plan phase.
 
 Handles the PATCH_SYSTEM_PROMPT → REPLACE_SYSTEM_PROMPT downgrade logic.
 When the teacher proposes a PATCH edit, the planner checks if the diff
@@ -14,7 +14,7 @@ import logging
 import re
 from typing import Callable, Optional
 
-from DEMON.learning.spec_search.models import Edit, EditOp
+from OpenDEMON.learning.spec_search.models import Edit, EditOp
 
 logger = logging.getLogger(__name__)
 

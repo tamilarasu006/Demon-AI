@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.learning.spec_search.diagnose.runner module.
+"""Tests for DEMON.learning.spec_search.diagnose.runner module.
 
 All tests use mocked dependencies — no live API calls.
 """
@@ -61,7 +61,7 @@ class TestDiagnosisRunner:
     """Tests for DiagnosisRunner."""
 
     def test_produces_diagnosis_artifact(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.diagnose.runner import (
+        from OpenDEMON.learning.spec_search.diagnose.runner import (
             DiagnosisRunner,
         )
 
@@ -95,7 +95,7 @@ class TestDiagnosisRunner:
         assert "Math" in diagnosis_path.read_text()
 
     def test_returns_failure_clusters(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.diagnose.runner import (
+        from OpenDEMON.learning.spec_search.diagnose.runner import (
             DiagnosisRunner,
         )
 
@@ -128,7 +128,7 @@ class TestDiagnosisRunner:
         assert result.clusters[1].id == "cluster-002"
 
     def test_persists_teacher_traces_jsonl(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.diagnose.runner import (
+        from OpenDEMON.learning.spec_search.diagnose.runner import (
             DiagnosisRunner,
         )
 
@@ -174,7 +174,7 @@ class TestDiagnosisRunner:
         assert "tool" in record
 
     def test_returns_cost(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.diagnose.runner import (
+        from OpenDEMON.learning.spec_search.diagnose.runner import (
             DiagnosisRunner,
         )
 
@@ -203,7 +203,7 @@ class TestDiagnosisRunner:
         assert result.cost_usd >= 0.0
 
     def test_handles_no_clusters_in_output(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.diagnose.runner import (
+        from OpenDEMON.learning.spec_search.diagnose.runner import (
             DiagnosisRunner,
         )
 

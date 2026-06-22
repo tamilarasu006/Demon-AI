@@ -1,4 +1,4 @@
-﻿"""DSPy agent optimizer -- programmatic pipeline optimization.
+"""DSPy agent optimizer -- programmatic pipeline optimization.
 
 Wraps an agent's reasoning pipeline as a DSPy Module and optimizes
 it end-to-end using DSPy teleprompters. Outputs TOML-compatible
@@ -10,9 +10,9 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List
 
-from DEMON.core.config import DSPyOptimizerConfig
-from DEMON.core.registry import LearningRegistry
-from DEMON.learning._stubs import AgentLearningPolicy
+from OpenDEMON.core.config import DSPyOptimizerConfig
+from OpenDEMON.core.registry import LearningRegistry
+from OpenDEMON.learning._stubs import AgentLearningPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -174,7 +174,7 @@ class DSPyAgentOptimizer:
         """Write updated configs via AgentConfigEvolver."""
         import pathlib
 
-        from DEMON.learning.agents.agent_evolver import (
+        from OpenDEMON.learning.agents.agent_evolver import (
             AgentConfigEvolver,
         )
 

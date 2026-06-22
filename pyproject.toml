@@ -1,4 +1,4 @@
-﻿[build-system]
+[build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
@@ -158,8 +158,8 @@ Repository = "https://github.com/DEMON/DEMON"
 Issues = "https://github.com/DEMON/DEMON/issues"
 
 [project.scripts]
-DEMON = "DEMON.cli:main"
-DEMON-eval = "DEMON.evals.cli:main"
+DEMON = "OpenDEMON.cli:main"
+DEMON-eval = "OpenDEMON.evals.cli:main"
 
 # Version is derived from git tags by hatch-vcs (see #526). For source/editable
 # checkouts this yields the true `git describe` version (e.g. 1.0.3.dev109+g<sha>)
@@ -186,13 +186,7 @@ git_describe_command = [
 fallback_version = "0.0.0+unknown"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/DEMON"]
-
-[tool.hatch.build.targets.wheel.force-include]
-"src/DEMON/agents/claude_code_runner" = "_node_modules/claude_code_runner"
-"src/DEMON/channels/whatsapp_baileys_bridge" = "_node_modules/whatsapp_baileys_bridge"
-"scripts/install" = "_install_scripts"
-"deploy/windows" = "_deploy/windows"
+packages = ["src/OpenDEMON"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -219,16 +213,10 @@ src = ["src", "tests"]
 select = ["E", "F", "I", "W"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/DEMON/evals/datasets/*.py" = ["E501"]
-"src/DEMON/evals/scorers/*.py" = ["E501"]
-# hybrid/ is research code with long prompt strings and paradigm-specific
-# config dicts — same relaxation as evals research code above. The ``**`` glob
-# also covers subpackages (e.g. hybrid/skillorchestra/), which the prior
-# ``hybrid/*.py`` glob missed.
-"src/DEMON/agents/hybrid/**/*.py" = ["E501"]
-# research_loop.py carries long prompt strings too (documented in CLAUDE.md);
-# the ignore was missing here.
-"src/DEMON/agents/research_loop.py" = ["E501"]
+"src/OpenDEMON/evals/datasets/*.py" = ["E501"]
+"src/OpenDEMON/evals/scorers/*.py" = ["E501"]
+"src/OpenDEMON/agents/hybrid/**/*.py" = ["E501"]
+"src/OpenDEMON/agents/research_loop.py" = ["E501"]
 
 [dependency-groups]
 dev = [

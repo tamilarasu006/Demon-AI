@@ -1,4 +1,4 @@
-﻿"""TrialRunner -- evaluates a proposed config against a benchmark."""
+"""TrialRunner -- evaluates a proposed config against a benchmark."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, List, Optional
 
-from DEMON.evals.core.types import RunConfig, RunSummary
-from DEMON.learning.optimize.types import (
+from OpenDEMON.evals.core.types import RunConfig, RunSummary
+from OpenDEMON.learning.optimize.types import (
     BenchmarkScore,
     SampleScore,
     TrialConfig,
@@ -66,13 +66,13 @@ class TrialRunner:
         run_config = self._build_run_config(trial, recipe)
 
         # Lazy imports so the optimize package stays lightweight
-        from DEMON.evals.cli import (
+        from OpenDEMON.evals.cli import (
             _build_backend,
             _build_dataset,
             _build_judge_backend,
             _build_scorer,
         )
-        from DEMON.evals.core.runner import EvalRunner
+        from OpenDEMON.evals.core.runner import EvalRunner
 
         dataset = _build_dataset(self.benchmark)
         backend = _build_backend(

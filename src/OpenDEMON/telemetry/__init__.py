@@ -1,18 +1,18 @@
-﻿"""Telemetry — SQLite-backed inference recording and instrumented wrappers."""
+"""Telemetry — SQLite-backed inference recording and instrumented wrappers."""
 
 from __future__ import annotations
 
-from DEMON.telemetry.aggregator import (
+from OpenDEMON.telemetry.aggregator import (
     AggregatedStats,
     EngineStats,
     ModelStats,
     TelemetryAggregator,
 )
-from DEMON.telemetry.store import TelemetryStore
-from DEMON.telemetry.wrapper import instrumented_generate
+from OpenDEMON.telemetry.store import TelemetryStore
+from OpenDEMON.telemetry.wrapper import instrumented_generate
 
 try:
-    from DEMON.telemetry.gpu_monitor import (
+    from OpenDEMON.telemetry.gpu_monitor import (
         GpuHardwareSpec,
         GpuMonitor,
         GpuSample,
@@ -22,17 +22,17 @@ except ImportError:
     pass
 
 try:
-    from DEMON.telemetry.efficiency import EfficiencyMetrics, compute_efficiency
+    from OpenDEMON.telemetry.efficiency import EfficiencyMetrics, compute_efficiency
 except ImportError:
     pass
 
 try:
-    from DEMON.telemetry.vllm_metrics import VLLMMetrics, VLLMMetricsScraper
+    from OpenDEMON.telemetry.vllm_metrics import VLLMMetrics, VLLMMetricsScraper
 except ImportError:
     pass
 
 try:
-    from DEMON.telemetry.energy_monitor import (
+    from OpenDEMON.telemetry.energy_monitor import (
         EnergyMonitor,
         EnergySample,
         EnergyVendor,
@@ -41,30 +41,30 @@ try:
 except ImportError:
     pass
 
-from DEMON.telemetry.batch import BatchMetrics, EnergyBatch
-from DEMON.telemetry.steady_state import (
+from OpenDEMON.telemetry.batch import BatchMetrics, EnergyBatch
+from OpenDEMON.telemetry.steady_state import (
     SteadyStateConfig,
     SteadyStateDetector,
     SteadyStateResult,
 )
 
 try:
-    from DEMON.telemetry.session import TelemetrySample, TelemetrySession
+    from OpenDEMON.telemetry.session import TelemetrySample, TelemetrySession
 except ImportError:
     pass
 
 try:
-    from DEMON.telemetry.phase_metrics import compute_phase_metrics, split_at_ttft
+    from OpenDEMON.telemetry.phase_metrics import compute_phase_metrics, split_at_ttft
 except ImportError:
     pass
 
 try:
-    from DEMON.telemetry.itl import compute_itl_stats
+    from OpenDEMON.telemetry.itl import compute_itl_stats
 except ImportError:
     pass
 
 try:
-    from DEMON.telemetry.flops import (
+    from OpenDEMON.telemetry.flops import (
         GPU_PEAK_TFLOPS_BF16,
         MODEL_PARAMS_B,
         compute_mfu,

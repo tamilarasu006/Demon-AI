@@ -1,4 +1,4 @@
-﻿"""FAISS dense retrieval memory backend.
+"""FAISS dense retrieval memory backend.
 
 Uses cosine similarity via inner-product search on L2-normalised
 vectors.  Requires ``faiss-cpu`` (or ``faiss-gpu``) and ``numpy``.
@@ -17,10 +17,10 @@ except ImportError as _faiss_exc:
         "pip install faiss-cpu  (or faiss-gpu)"
     ) from _faiss_exc
 
-from DEMON.core.events import EventType, get_event_bus
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
-from DEMON.tools.storage.embeddings import (
+from OpenDEMON.core.events import EventType, get_event_bus
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.tools.storage.embeddings import (
     Embedder,
     SentenceTransformerEmbedder,
 )

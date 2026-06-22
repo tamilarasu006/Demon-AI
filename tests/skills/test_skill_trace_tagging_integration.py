@@ -1,4 +1,4 @@
-﻿"""End-to-end integration test for skill trace tagging (Plan 2A C1 fix).
+"""End-to-end integration test for skill trace tagging (Plan 2A C1 fix).
 
 Verifies the full flow:
     SkillTool.execute()
@@ -13,12 +13,12 @@ from __future__ import annotations
 
 import json
 
-from DEMON.core.events import EventBus
-from DEMON.core.types import StepType, ToolCall, ToolResult
-from DEMON.skills.executor import SkillExecutor
-from DEMON.skills.tool_adapter import SkillTool
-from DEMON.skills.types import SkillManifest
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import StepType, ToolCall, ToolResult
+from OpenDEMON.skills.executor import SkillExecutor
+from OpenDEMON.skills.tool_adapter import SkillTool
+from OpenDEMON.skills.types import SkillManifest
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
 
 class TestSkillTraceTaggingEndToEnd:
@@ -33,7 +33,7 @@ class TestSkillTraceTaggingEndToEnd:
             nonlocal captured_metadata
             captured_metadata = event.data.get("metadata", {})
 
-        from DEMON.core.events import EventType
+        from OpenDEMON.core.events import EventType
 
         bus.subscribe(EventType.TOOL_CALL_END, _on_tool_end)
 
@@ -61,7 +61,7 @@ class TestSkillTraceTaggingEndToEnd:
 
     def test_trace_collector_writes_metadata_to_step(self) -> None:
         """A real TraceCollector populates TraceStep.metadata from the event."""
-        from DEMON.traces.collector import TraceCollector
+        from OpenDEMON.traces.collector import TraceCollector
 
         bus = EventBus(record_history=True)
 
@@ -81,7 +81,7 @@ class TestSkillTraceTaggingEndToEnd:
             agent_id = "stub"
 
             def run(self, query, context=None, **kwargs):
-                from DEMON.agents._stubs import AgentResult
+                from OpenDEMON.agents._stubs import AgentResult
 
                 tool_executor.execute(
                     ToolCall(
@@ -147,7 +147,7 @@ class TestEventMetadataIsJsonSafe:
     """
 
     def test_event_metadata_excludes_non_json_objects(self):
-        from DEMON.core.events import EventType
+        from OpenDEMON.core.events import EventType
 
         bus = EventBus(record_history=True)
         captured: dict = {}
@@ -180,7 +180,7 @@ class TestEventMetadataIsJsonSafe:
 
     def test_skill_metadata_still_present_after_filtering(self):
         """The JSON-safe filter must NOT drop legitimate skill metadata."""
-        from DEMON.core.events import EventType
+        from OpenDEMON.core.events import EventType
 
         bus = EventBus(record_history=True)
         captured: dict = {}

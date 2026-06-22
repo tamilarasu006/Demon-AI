@@ -1,10 +1,10 @@
-﻿"""Tests for continuation handling (Phase 14.2)."""
+"""Tests for continuation handling (Phase 14.2)."""
 
 from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from DEMON.agents._stubs import AgentResult, BaseAgent
+from OpenDEMON.agents._stubs import AgentResult, BaseAgent
 
 
 class MockEngine:

@@ -1,4 +1,4 @@
-﻿"""WebChoreArena task environment — Playwright-based browser interaction.
+"""WebChoreArena task environment — Playwright-based browser interaction.
 
 Wraps the WebArena browser environment to provide per-task setup,
 observation access, action stepping, and evaluation using the
@@ -532,7 +532,7 @@ class WebChoreArenaTaskEnv:
     def _call_judge(self, prompt: str) -> Optional[str]:
         """Call an LLM judge for fuzzy/ua matching."""
         try:
-            from DEMON.evals.core.backend import InferenceBackend
+            from OpenDEMON.evals.core.backend import InferenceBackend
 
             backend = InferenceBackend.create_default()
             return backend.generate(

@@ -1,14 +1,14 @@
-﻿"""Manage persistent agent memory (MEMORY.md)."""
+"""Manage persistent agent memory (MEMORY.md)."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
 
-from DEMON.core.paths import get_config_dir
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("memory_manage")

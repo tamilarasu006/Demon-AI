@@ -1,4 +1,4 @@
-﻿"""Tests for mining/_metrics.py — Prometheus → MiningStats adapter."""
+"""Tests for mining/_metrics.py — Prometheus → MiningStats adapter."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ FIXTURE = Path(__file__).parent / "fixtures" / "gateway_metrics_sample.txt"
 
 
 def test_parse_gateway_metrics_full():
-    from DEMON.mining._metrics import parse_gateway_metrics
+    from OpenDEMON.mining._metrics import parse_gateway_metrics
 
     text = FIXTURE.read_text()
     stats = parse_gateway_metrics(text, provider_id="vllm-pearl")
@@ -22,7 +22,7 @@ def test_parse_gateway_metrics_full():
 
 
 def test_parse_gateway_metrics_missing_metrics_zero_fills():
-    from DEMON.mining._metrics import parse_gateway_metrics
+    from OpenDEMON.mining._metrics import parse_gateway_metrics
 
     stats = parse_gateway_metrics("# empty exposition\n", provider_id="vllm-pearl")
     assert stats.shares_submitted == 0
@@ -32,7 +32,7 @@ def test_parse_gateway_metrics_missing_metrics_zero_fills():
 
 
 def test_parse_gateway_metrics_ignores_comment_lines():
-    from DEMON.mining._metrics import parse_gateway_metrics
+    from OpenDEMON.mining._metrics import parse_gateway_metrics
 
     stats = parse_gateway_metrics(
         "# HELP something\n# TYPE something counter\nsomething 99\n",
@@ -42,7 +42,7 @@ def test_parse_gateway_metrics_ignores_comment_lines():
 
 
 def test_parse_vllm_metrics_reports_runtime_uptime():
-    from DEMON.mining._metrics import parse_vllm_metrics
+    from OpenDEMON.mining._metrics import parse_vllm_metrics
 
     stats = parse_vllm_metrics(
         "process_start_time_seconds 1\n"

@@ -1,15 +1,15 @@
-﻿"""Core module — registries, types, configuration, and event bus."""
+"""Core module — registries, types, configuration, and event bus."""
 
 from __future__ import annotations
 
-from DEMON.core.registry import (
+from OpenDEMON.core.registry import (
     AgentRegistry,
     EngineRegistry,
     MemoryRegistry,
     ModelRegistry,
     ToolRegistry,
 )
-from DEMON.core.types import (
+from OpenDEMON.core.types import (
     Conversation,
     Message,
     ModelSpec,
@@ -19,7 +19,7 @@ from DEMON.core.types import (
     ToolCall,
     ToolResult,
 )
-from DEMON.core.utils import get_python_executable, open_browser
+from OpenDEMON.core.utils import get_python_executable, open_browser
 
 __all__ = [
     "AgentRegistry",

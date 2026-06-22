@@ -1,4 +1,4 @@
-﻿"""Tests for the API server routes."""
+"""Tests for the API server routes."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import pytest
 fastapi = pytest.importorskip("fastapi")
 from fastapi.testclient import TestClient  # noqa: E402
 
-from DEMON.server.app import create_app  # noqa: E402
+from OpenDEMON.server.app import create_app  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -46,7 +46,7 @@ def _make_engine(content="Hello from server", models=None):
 
 
 def _make_agent(content="Hello from agent"):
-    from DEMON.agents._stubs import AgentResult
+    from OpenDEMON.agents._stubs import AgentResult
 
     agent = MagicMock()
     agent.agent_id = "mock"
@@ -265,8 +265,8 @@ class TestChatCompletions:
         The fix unwraps the engine via `engine._inner` before passing it
         to `instrumented_generate`. This test pins that contract.
         """
-        from DEMON.core.events import EventBus, EventType
-        from DEMON.telemetry.instrumented_engine import InstrumentedEngine
+        from OpenDEMON.core.events import EventBus, EventType
+        from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
 
         # Build a fresh engine + bus and explicitly wrap with
         # InstrumentedEngine (mirrors the production app construction).
@@ -310,7 +310,7 @@ class TestChatCompletions:
         # would carry no version stamp and `current_methodology_only`
         # would drop it from leaderboard sums entirely. Pin that
         # contract — see the adversarial review on PR #498.
-        from DEMON.core.types import TOKEN_COUNTING_VERSION
+        from OpenDEMON.core.types import TOKEN_COUNTING_VERSION
 
         rec = received_records[0].data["record"]
         assert rec.token_counting_version == TOKEN_COUNTING_VERSION, (
@@ -387,8 +387,8 @@ class TestChatCompletions:
         agent's own tool loop, and word-splits generic filler content,
         dropping the tool_calls the caller asked for.
         """
-        from DEMON.core.events import EventBus
-        from DEMON.engine._stubs import StreamChunk
+        from OpenDEMON.core.events import EventBus
+        from OpenDEMON.engine._stubs import StreamChunk
 
         engine = _make_engine()
 
@@ -520,7 +520,7 @@ def _make_capturing_engine(captured: list):
     async def mock_stream_full(
         messages, *, model, temperature=0.7, max_tokens=1024, **kw
     ):
-        from DEMON.engine._stubs import StreamChunk
+        from OpenDEMON.engine._stubs import StreamChunk
 
         captured.append(messages)
         yield StreamChunk(content="ok", finish_reason="stop")
@@ -739,7 +739,7 @@ class TestTraceRecording:
         IntegrityError on the trace_id primary key and the request would 500 —
         so asserting 200 + count == 1 guards that double-save regression.
         """
-        from DEMON.core.events import EventBus
+        from OpenDEMON.core.events import EventBus
 
         engine = _make_engine()
         agent = _make_agent(content="traced reply")

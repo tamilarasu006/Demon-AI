@@ -1,4 +1,4 @@
-﻿"""Tests for extended API routes."""
+"""Tests for extended API routes."""
 
 import pytest
 
@@ -6,7 +6,7 @@ fastapi = pytest.importorskip("fastapi")
 from fastapi import FastAPI  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
-from DEMON.server.api_routes import include_all_routes  # noqa: E402
+from OpenDEMON.server.api_routes import include_all_routes  # noqa: E402
 
 
 def _make_app():
@@ -61,7 +61,7 @@ class TestMemoryRustMissing:
         def _boom():
             raise ImportError("No module named 'DEMON_rust'")
 
-        import DEMON._rust_bridge as bridge
+        import OpenDEMON._rust_bridge as bridge
 
         monkeypatch.setattr(bridge, "get_rust_module", _boom)
         return TestClient(_make_app())

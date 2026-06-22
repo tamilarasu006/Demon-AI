@@ -1,4 +1,4 @@
-﻿"""Tests for mining/_discovery.py — capability detection matrix."""
+"""Tests for mining/_discovery.py — capability detection matrix."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 
 
 def test_detect_supported_on_h100(hopper_hw):
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=hopper_hw,
@@ -19,7 +19,7 @@ def test_detect_supported_on_h100(hopper_hw):
 
 
 def test_detect_unsupported_on_ada_4090(ada_hw):
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=ada_hw,
@@ -33,7 +33,7 @@ def test_detect_unsupported_on_ada_4090(ada_hw):
 
 def test_detect_unsupported_on_apple_engine(apple_hw):
     """Engine check rejects mlx before reaching the GPU vendor branch."""
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=apple_hw,
@@ -47,7 +47,7 @@ def test_detect_unsupported_on_apple_engine(apple_hw):
 
 def test_detect_unsupported_on_apple_gpu_vendor(apple_hw):
     """Apple Silicon GPU is rejected by the vendor branch (Spec B territory)."""
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=apple_hw,
@@ -60,7 +60,7 @@ def test_detect_unsupported_on_apple_gpu_vendor(apple_hw):
 
 
 def test_detect_unsupported_for_non_vllm_engine(hopper_hw):
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=hopper_hw,
@@ -73,7 +73,7 @@ def test_detect_unsupported_for_non_vllm_engine(hopper_hw):
 
 
 def test_detect_unsupported_for_non_pearl_model(hopper_hw):
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=hopper_hw,
@@ -86,7 +86,7 @@ def test_detect_unsupported_for_non_pearl_model(hopper_hw):
 
 
 def test_detect_raw_planned_model_points_to_pearl_variant(hopper_hw):
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=hopper_hw,
@@ -100,7 +100,7 @@ def test_detect_raw_planned_model_points_to_pearl_variant(hopper_hw):
 
 
 def test_detect_planned_pearl_model_is_not_enabled_yet(hopper_hw):
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     cap = detect_for_engine_model(
         hw=hopper_hw,
@@ -115,8 +115,8 @@ def test_detect_planned_pearl_model_is_not_enabled_yet(hopper_hw):
 
 
 def test_detect_unsupported_for_low_vram():
-    from DEMON.core.config import GpuInfo, HardwareInfo
-    from DEMON.mining._discovery import detect_for_engine_model
+    from OpenDEMON.core.config import GpuInfo, HardwareInfo
+    from OpenDEMON.mining._discovery import detect_for_engine_model
 
     hw = HardwareInfo(
         platform="linux",
@@ -139,7 +139,7 @@ def test_detect_unsupported_for_low_vram():
 
 
 def test_check_docker_available_true():
-    from DEMON.mining._discovery import check_docker_available
+    from OpenDEMON.mining._discovery import check_docker_available
 
     with patch("DEMON.mining._discovery._docker_client") as fake:
         fake.return_value.ping.return_value = True
@@ -150,7 +150,7 @@ def test_check_docker_available_true():
 
 
 def test_check_docker_available_false_when_daemon_down():
-    from DEMON.mining._discovery import check_docker_available
+    from OpenDEMON.mining._discovery import check_docker_available
 
     with patch("DEMON.mining._discovery._docker_client") as fake:
         fake.side_effect = Exception("Cannot connect to the Docker daemon")
@@ -160,7 +160,7 @@ def test_check_docker_available_false_when_daemon_down():
 
 
 def test_check_docker_available_false_when_sdk_missing():
-    from DEMON.mining._discovery import check_docker_available
+    from OpenDEMON.mining._discovery import check_docker_available
 
     with patch("DEMON.mining._discovery._docker_client") as fake:
         fake.side_effect = RuntimeError(
@@ -172,7 +172,7 @@ def test_check_docker_available_false_when_sdk_missing():
 
 
 def test_check_disk_free_passes(tmp_path):
-    from DEMON.mining._discovery import check_disk_free
+    from OpenDEMON.mining._discovery import check_disk_free
 
     with patch("DEMON.mining._discovery.shutil.disk_usage") as du:
         # 500 GB free
@@ -186,7 +186,7 @@ def test_check_disk_free_passes(tmp_path):
 
 
 def test_check_disk_free_fails_below_threshold(tmp_path):
-    from DEMON.mining._discovery import check_disk_free
+    from OpenDEMON.mining._discovery import check_disk_free
 
     with patch("DEMON.mining._discovery.shutil.disk_usage") as du:
         du.return_value = MagicMock(
@@ -199,7 +199,7 @@ def test_check_disk_free_fails_below_threshold(tmp_path):
 
 
 def test_check_pearld_reachable_true():
-    from DEMON.mining._discovery import check_pearld_reachable
+    from OpenDEMON.mining._discovery import check_pearld_reachable
 
     with patch("DEMON.mining._discovery.httpx.post") as post:
         post.return_value.status_code = 200
@@ -214,7 +214,7 @@ def test_check_pearld_reachable_true():
 def test_check_pearld_reachable_false_on_connection_error():
     import httpx
 
-    from DEMON.mining._discovery import check_pearld_reachable
+    from OpenDEMON.mining._discovery import check_pearld_reachable
 
     with patch("DEMON.mining._discovery.httpx.post") as post:
         post.side_effect = httpx.ConnectError("connection refused")
@@ -223,14 +223,14 @@ def test_check_pearld_reachable_false_on_connection_error():
 
 
 def test_check_wallet_address_format_valid():
-    from DEMON.mining._discovery import check_wallet_address_format
+    from OpenDEMON.mining._discovery import check_wallet_address_format
 
     ok, info = check_wallet_address_format("prl1qexampleaddress0123456789")
     assert ok is True
 
 
 def test_check_wallet_address_format_valid_prl1p():
-    from DEMON.mining._discovery import check_wallet_address_format
+    from OpenDEMON.mining._discovery import check_wallet_address_format
 
     ok, info = check_wallet_address_format(
         "prl1pkf5s56dgm6jpg4z9z9qv5wua4jgs3h8q98rfh3gsqxp60eagmruqdnr3dp"
@@ -239,7 +239,7 @@ def test_check_wallet_address_format_valid_prl1p():
 
 
 def test_check_wallet_address_format_invalid():
-    from DEMON.mining._discovery import check_wallet_address_format
+    from OpenDEMON.mining._discovery import check_wallet_address_format
 
     ok, info = check_wallet_address_format("not-a-pearl-address")
     assert ok is False

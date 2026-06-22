@@ -1,4 +1,4 @@
-﻿"""Browser accessibility tree extraction tool.
+"""Browser accessibility tree extraction tool.
 
 Extracts the accessibility tree (AX tree) from the current browser page,
 providing a structured text representation of the DOM with element IDs,
@@ -10,15 +10,15 @@ from __future__ import annotations
 
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # Re-use the shared browser session from the browser module.
 # This is imported at module level so tests can patch
 # ``DEMON.tools.browser_axtree._session``.
 try:
-    from DEMON.tools.browser import _session
+    from OpenDEMON.tools.browser import _session
 except Exception:  # pragma: no cover — optional dependency
     _session = None  # type: ignore[assignment]
 

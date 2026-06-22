@@ -1,4 +1,4 @@
-﻿"""Tests for the DSPy agent optimizer (mocked -- no dspy dependency required)."""
+"""Tests for the DSPy agent optimizer (mocked -- no dspy dependency required)."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 
 class TestDSPyOptimizerConfig:
     def test_default_config(self) -> None:
-        from DEMON.core.config import DSPyOptimizerConfig
+        from OpenDEMON.core.config import DSPyOptimizerConfig
 
         cfg = DSPyOptimizerConfig()
         assert cfg.optimizer == "BootstrapFewShotWithRandomSearch"
@@ -16,8 +16,8 @@ class TestDSPyOptimizerConfig:
         assert cfg.min_traces == 20
 
     def test_optimizer_init(self) -> None:
-        from DEMON.core.config import DSPyOptimizerConfig
-        from DEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
+        from OpenDEMON.core.config import DSPyOptimizerConfig
+        from OpenDEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
 
         cfg = DSPyOptimizerConfig()
         optimizer = DSPyAgentOptimizer(cfg)
@@ -26,8 +26,8 @@ class TestDSPyOptimizerConfig:
 
 class TestDSPyOptimizerTraceConversion:
     def test_too_few_traces_skipped(self) -> None:
-        from DEMON.core.config import DSPyOptimizerConfig
-        from DEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
+        from OpenDEMON.core.config import DSPyOptimizerConfig
+        from OpenDEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
 
         optimizer = DSPyAgentOptimizer(DSPyOptimizerConfig(min_traces=10))
         mock_store = MagicMock()
@@ -37,9 +37,9 @@ class TestDSPyOptimizerTraceConversion:
         assert result["status"] == "skipped"
 
     def test_optimize_returns_toml_updates(self) -> None:
-        from DEMON.core.config import DSPyOptimizerConfig
-        from DEMON.core.types import StepType, Trace, TraceStep
-        from DEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
+        from OpenDEMON.core.config import DSPyOptimizerConfig
+        from OpenDEMON.core.types import StepType, Trace, TraceStep
+        from OpenDEMON.learning.agents.dspy_optimizer import DSPyAgentOptimizer
 
         cfg = DSPyOptimizerConfig(min_traces=1)
         optimizer = DSPyAgentOptimizer(cfg)
@@ -74,7 +74,7 @@ class TestDSPyOptimizerTraceConversion:
         mock_store.list_traces.return_value = traces
 
         # Mock dspy so the test works without the dependency
-        import DEMON.learning.agents.dspy_optimizer as mod
+        import OpenDEMON.learning.agents.dspy_optimizer as mod
 
         with patch.object(mod, "HAS_DSPY", True):
             with patch.object(

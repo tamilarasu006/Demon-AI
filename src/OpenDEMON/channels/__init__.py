@@ -1,8 +1,8 @@
-﻿"""Channel abstraction for multi-platform messaging."""
+"""Channel abstraction for multi-platform messaging."""
 
 import importlib
 
-from DEMON.channels._stubs import (
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelHandler,
     ChannelMessage,

@@ -1,4 +1,4 @@
-﻿"""ArchonAgent — port of ScalingIntelligence/Archon.
+"""ArchonAgent — port of ScalingIntelligence/Archon.
 
 Inference-time architecture search: layered (generator → ranker → fuser)
 sampling where a generator proposes K candidates, a ranker scores them,
@@ -41,8 +41,8 @@ import threading
 import types
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import (
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import (
     WEB_SEARCH_COST_PER_CALL,
     LocalCloudAgent,
     _bump_cloud_calls,
@@ -51,14 +51,14 @@ from DEMON.agents.hybrid._base import (
     build_web_search_tool,
     web_search_cfg,
 )
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents.hybrid._prices import (
     NO_TEMP_PREFIXES,
 )
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents.hybrid._prices import (
     cost as _cost_cloud,
 )
-from DEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
+from OpenDEMON.core.registry import AgentRegistry
 
 ARCHON_SWE_RANKER_SYS = (
     "You are ranking K candidate patches for a SWE-bench bug. For each "

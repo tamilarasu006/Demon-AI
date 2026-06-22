@@ -1,8 +1,8 @@
-﻿"""Tests for learning ABC stubs."""
+"""Tests for learning ABC stubs."""
 
 from __future__ import annotations
 
-from DEMON.learning._stubs import RoutingContext
+from OpenDEMON.learning._stubs import RoutingContext
 
 
 class TestRoutingContext:

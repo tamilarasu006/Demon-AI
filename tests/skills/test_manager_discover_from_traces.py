@@ -1,13 +1,13 @@
-﻿"""Tests for SkillManager.discover_from_traces (Plan 2A)."""
+"""Tests for SkillManager.discover_from_traces (Plan 2A)."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, List
 
-from DEMON.core.events import EventBus
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.skills.manager import SkillManager
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.skills.manager import SkillManager
 
 
 class _FakeTraceStore:

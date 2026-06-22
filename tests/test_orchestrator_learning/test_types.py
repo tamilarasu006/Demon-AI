@@ -1,10 +1,10 @@
-﻿"""Tests for orchestrator learning types."""
+"""Tests for orchestrator learning types."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.learning.intelligence.orchestrator.types import (
+from OpenDEMON.learning.intelligence.orchestrator.types import (
     Episode,
     EpisodeState,
     OrchestratorAction,

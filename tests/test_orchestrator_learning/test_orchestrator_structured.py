@@ -1,11 +1,11 @@
-﻿"""Tests for OrchestratorAgent structured mode."""
+"""Tests for OrchestratorAgent structured mode."""
 
 from __future__ import annotations
 
-from DEMON.agents.orchestrator import OrchestratorAgent
-from DEMON.core.types import ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.agents.orchestrator import OrchestratorAgent
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # -- Mocks -------------------------------------------------------------------
 

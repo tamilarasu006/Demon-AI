@@ -1,4 +1,4 @@
-﻿"""ABC for benchmark implementations and the BenchmarkSuite runner."""
+"""ABC for benchmark implementations and the BenchmarkSuite runner."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.engine._stubs import InferenceEngine
 
 
 @dataclass(slots=True)

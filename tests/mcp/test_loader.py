@@ -1,4 +1,4 @@
-﻿"""Regression tests for DEMON.mcp.loader.load_mcp_tools_from_config.
+"""Regression tests for DEMON.mcp.loader.load_mcp_tools_from_config.
 
 Closes the gap that #461 surfaced — MCP tools were silently dropped on
 `DEMON ask` and `DEMON serve` because neither path read
@@ -53,7 +53,7 @@ def _mock_mcp_stack():
 
 class TestLoaderEarlyReturns:
     def test_disabled_returns_empty(self, _mock_mcp_stack):
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         cfg = _make_mcp_cfg(enabled=False, servers=[{"url": "http://x"}])
         tools, clients = load_mcp_tools_from_config(cfg)
@@ -63,7 +63,7 @@ class TestLoaderEarlyReturns:
         _mock_mcp_stack["http"].assert_not_called()
 
     def test_empty_servers_returns_empty(self, _mock_mcp_stack):
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         cfg = _make_mcp_cfg(enabled=True, servers=[])
         tools, clients = load_mcp_tools_from_config(cfg)
@@ -71,7 +71,7 @@ class TestLoaderEarlyReturns:
         assert clients == []
 
     def test_malformed_json_logs_warning_returns_empty(self, _mock_mcp_stack, caplog):
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         cfg = MagicMock()
         cfg.enabled = True
@@ -86,7 +86,7 @@ class TestLoaderEarlyReturns:
 class TestLoaderTokenPlumbing:
     def test_token_passed_to_streamable_http(self, _mock_mcp_stack):
         """Regression for #461 — token in cfg → StreamableHTTPTransport(token=...)."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         cfg = _make_mcp_cfg(
             enabled=True,
@@ -106,7 +106,7 @@ class TestLoaderTokenPlumbing:
 
     def test_no_token_passes_none(self, _mock_mcp_stack):
         """Missing token in cfg → token=None (not 'undefined' or KeyError)."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         cfg = _make_mcp_cfg(
             enabled=True,
@@ -120,7 +120,7 @@ class TestLoaderTokenPlumbing:
 
     def test_stdio_server_does_not_get_token_kwarg(self, _mock_mcp_stack):
         """StdioTransport doesn't take a token (unix-socket auth is OOB)."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         cfg = _make_mcp_cfg(
             enabled=True,
@@ -137,7 +137,7 @@ class TestLoaderTokenPlumbing:
 class TestLoaderFiltering:
     def test_allowed_names_filter_applied(self, _mock_mcp_stack):
         """allowed_names limits the returned tools to that set."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         _mock_mcp_stack["provider"].return_value.discover.return_value = [
             _fake_tool("alpha"),
@@ -153,7 +153,7 @@ class TestLoaderFiltering:
 
     def test_include_tools_per_server(self, _mock_mcp_stack):
         """Per-server include_tools restricts to just those names."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         _mock_mcp_stack["provider"].return_value.discover.return_value = [
             _fake_tool("alpha"),
@@ -170,7 +170,7 @@ class TestLoaderFiltering:
 
     def test_exclude_tools_per_server(self, _mock_mcp_stack):
         """Per-server exclude_tools drops the named tools."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         _mock_mcp_stack["provider"].return_value.discover.return_value = [
             _fake_tool("alpha"),
@@ -192,7 +192,7 @@ class TestLoaderClientLifetime:
         the transports' httpx sessions stay open. (#461 adversarial
         review caught this.) The list returned MUST contain a client
         per successfully-initialized server."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         cfg = _make_mcp_cfg(
             enabled=True,
@@ -209,7 +209,7 @@ class TestLoaderFailureIsolation:
     def test_one_server_failure_doesnt_abort_others(self, _mock_mcp_stack, caplog):
         """When one server's initialize() raises, the loader logs and
         moves on — the remaining servers still contribute tools."""
-        from DEMON.mcp.loader import load_mcp_tools_from_config
+        from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
         # First initialize() raises, second succeeds
         bad_client = MagicMock()

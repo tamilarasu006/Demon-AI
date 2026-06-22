@@ -1,4 +1,4 @@
-﻿"""IngestionPipeline — deduplicate, chunk, and store Documents.
+"""IngestionPipeline — deduplicate, chunk, and store Documents.
 
 Takes ``Document`` objects from connectors, deduplicates by ``doc_id``,
 splits content using ``SemanticChunker``, and persists chunks to a
@@ -17,10 +17,10 @@ import hashlib
 import time
 from typing import TYPE_CHECKING, Iterable, Optional
 
-from DEMON.connectors._stubs import Attachment, Document
-from DEMON.connectors.chunker import SemanticChunker
-from DEMON.connectors.embeddings import OllamaEmbedder
-from DEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors._stubs import Attachment, Document
+from OpenDEMON.connectors.chunker import SemanticChunker
+from OpenDEMON.connectors.embeddings import OllamaEmbedder
+from OpenDEMON.connectors.store import KnowledgeStore
 
 
 def _namespace_thread_id(source: str, thread_id: Optional[str]) -> Optional[str]:
@@ -57,7 +57,7 @@ def _content_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 if TYPE_CHECKING:
-    from DEMON.connectors.attachment_store import AttachmentStore
+    from OpenDEMON.connectors.attachment_store import AttachmentStore
 
 
 class IngestionPipeline:

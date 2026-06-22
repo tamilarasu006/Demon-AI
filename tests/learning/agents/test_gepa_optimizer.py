@@ -1,4 +1,4 @@
-﻿"""Tests for the GEPA agent optimizer (mocked -- no gepa dependency required)."""
+"""Tests for the GEPA agent optimizer (mocked -- no gepa dependency required)."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 
 class TestGEPAOptimizerConfig:
     def test_default_config(self) -> None:
-        from DEMON.core.config import GEPAOptimizerConfig
+        from OpenDEMON.core.config import GEPAOptimizerConfig
 
         cfg = GEPAOptimizerConfig()
         assert cfg.max_metric_calls == 150
@@ -16,8 +16,8 @@ class TestGEPAOptimizerConfig:
         assert cfg.min_traces == 20
 
     def test_optimizer_init(self) -> None:
-        from DEMON.core.config import GEPAOptimizerConfig
-        from DEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
+        from OpenDEMON.core.config import GEPAOptimizerConfig
+        from OpenDEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
 
         cfg = GEPAOptimizerConfig()
         optimizer = GEPAAgentOptimizer(cfg)
@@ -26,8 +26,8 @@ class TestGEPAOptimizerConfig:
 
 class TestGEPAOptimizerOptimize:
     def test_too_few_traces_skipped(self) -> None:
-        from DEMON.core.config import GEPAOptimizerConfig
-        from DEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
+        from OpenDEMON.core.config import GEPAOptimizerConfig
+        from OpenDEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
 
         optimizer = GEPAAgentOptimizer(GEPAOptimizerConfig(min_traces=10))
         mock_store = MagicMock()
@@ -37,9 +37,9 @@ class TestGEPAOptimizerOptimize:
         assert result["status"] == "skipped"
 
     def test_no_gepa_reports_error(self) -> None:
-        from DEMON.core.config import GEPAOptimizerConfig
-        from DEMON.core.types import StepType, Trace, TraceStep
-        from DEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
+        from OpenDEMON.core.config import GEPAOptimizerConfig
+        from OpenDEMON.core.types import StepType, Trace, TraceStep
+        from OpenDEMON.learning.agents.gepa_optimizer import GEPAAgentOptimizer
 
         cfg = GEPAOptimizerConfig(min_traces=1)
         optimizer = GEPAAgentOptimizer(cfg)
@@ -83,8 +83,8 @@ class TestGEPAOptimizerOptimize:
 
 class TestDEMONGEPAAdapter:
     def test_adapter_init(self) -> None:
-        from DEMON.core.config import GEPAOptimizerConfig
-        from DEMON.learning.agents.gepa_optimizer import (
+        from OpenDEMON.core.config import GEPAOptimizerConfig
+        from OpenDEMON.learning.agents.gepa_optimizer import (
             DEMONGEPAAdapter,
         )
 

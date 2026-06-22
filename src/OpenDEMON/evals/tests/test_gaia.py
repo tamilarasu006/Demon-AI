@@ -1,9 +1,9 @@
-﻿"""Tests for GAIA scorer logic (normalization and exact match)."""
+"""Tests for GAIA scorer logic (normalization and exact match)."""
 
 from __future__ import annotations
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.gaia_exact import (
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.gaia_exact import (
     GAIAScorer,
     _is_float,
     _normalize_number_str,
@@ -11,7 +11,7 @@ from DEMON.evals.scorers.gaia_exact import (
     _split_string,
     exact_match,
 )
-from DEMON.evals.tests.conftest import MockBackend
+from OpenDEMON.evals.tests.conftest import MockBackend
 
 
 class TestNormalization:

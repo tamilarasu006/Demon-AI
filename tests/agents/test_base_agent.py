@@ -1,18 +1,18 @@
-﻿"""Tests for BaseAgent helpers and ToolUsingAgent."""
+"""Tests for BaseAgent helpers and ToolUsingAgent."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.agents._stubs import (
+from OpenDEMON.agents._stubs import (
     AgentContext,
     AgentResult,
     BaseAgent,
     ToolUsingAgent,
 )
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Conversation, Message, Role, ToolCall, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Conversation, Message, Role, ToolCall, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Concrete subclass for testing
@@ -163,7 +163,7 @@ class TestBuildMessages:
         assert messages[1].role == Role.USER
 
     def test_empty_config_default_no_system_message(self, monkeypatch):
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.core.config import DEMONConfig
 
         empty_cfg = DEMONConfig()
         empty_cfg.agent.default_system_prompt = ""

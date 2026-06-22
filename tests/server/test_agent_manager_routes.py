@@ -1,4 +1,4 @@
-﻿"""Tests for Agent Manager API routes."""
+"""Tests for Agent Manager API routes."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents.manager import AgentManager
+from OpenDEMON.agents.manager import AgentManager
 
 
 @pytest.fixture
@@ -35,7 +35,7 @@ class TestAgentManagerRoutes:
     def client(self, manager):
         from fastapi import FastAPI
 
-        from DEMON.server.agent_manager_routes import create_agent_manager_router
+        from OpenDEMON.server.agent_manager_routes import create_agent_manager_router
 
         app = FastAPI()
         routers = create_agent_manager_router(manager)
@@ -224,7 +224,7 @@ class TestAgentManagerRoutes:
 
 def test_run_agent_concurrent_returns_409(tmp_path):
     """Rapid Run Now clicks should not spawn multiple ticks."""
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     mgr = AgentManager(db_path=str(tmp_path / "test.db"))
     agent = mgr.create_agent("Test", config={"schedule_type": "manual"})
@@ -251,7 +251,7 @@ class TestAgentManagerStreaming:
     @pytest.fixture
     def _mock_engine(self):
         """Create a mock engine with a working stream_full() method."""
-        from DEMON.engine._stubs import StreamChunk
+        from OpenDEMON.engine._stubs import StreamChunk
 
         engine = MagicMock()
         engine.engine_id = "mock"
@@ -278,7 +278,7 @@ class TestAgentManagerStreaming:
     def stream_client(self, manager, _mock_engine):
         from fastapi import FastAPI
 
-        from DEMON.server.agent_manager_routes import create_agent_manager_router
+        from OpenDEMON.server.agent_manager_routes import create_agent_manager_router
 
         app = FastAPI()
         app.state.engine = _mock_engine
@@ -402,7 +402,7 @@ class TestAgentManagerStreaming:
         from fastapi import FastAPI
         from fastapi.testclient import TestClient as TC
 
-        from DEMON.server.agent_manager_routes import create_agent_manager_router
+        from OpenDEMON.server.agent_manager_routes import create_agent_manager_router
 
         app = FastAPI()
         app.state.engine = error_engine
@@ -435,7 +435,7 @@ class TestResolveToolSpecs:
         import importlib
         import sys
 
-        from DEMON.core.registry import ToolRegistry
+        from OpenDEMON.core.registry import ToolRegistry
 
         for mod_name in list(sys.modules):
             if (
@@ -450,7 +450,7 @@ class TestResolveToolSpecs:
         yield ToolRegistry
 
     def test_string_names_resolve_to_openai_specs(self, _registered_tools):
-        from DEMON.server.agent_manager_routes import _resolve_tool_specs
+        from OpenDEMON.server.agent_manager_routes import _resolve_tool_specs
 
         specs = _resolve_tool_specs(["file_read", "think"])
         assert len(specs) == 2
@@ -463,14 +463,14 @@ class TestResolveToolSpecs:
             assert "parameters" in s["function"]
 
     def test_unknown_names_dropped(self, _registered_tools):
-        from DEMON.server.agent_manager_routes import _resolve_tool_specs
+        from OpenDEMON.server.agent_manager_routes import _resolve_tool_specs
 
         specs = _resolve_tool_specs(["file_read", "nonexistent_tool_xyz"])
         assert len(specs) == 1
         assert specs[0]["function"]["name"] == "file_read"
 
     def test_dict_entries_passed_through(self, _registered_tools):
-        from DEMON.server.agent_manager_routes import _resolve_tool_specs
+        from OpenDEMON.server.agent_manager_routes import _resolve_tool_specs
 
         full_spec = {
             "type": "function",
@@ -485,7 +485,7 @@ class TestResolveToolSpecs:
         assert specs[0] is full_spec
 
     def test_empty_and_none_return_empty_list(self):
-        from DEMON.server.agent_manager_routes import _resolve_tool_specs
+        from OpenDEMON.server.agent_manager_routes import _resolve_tool_specs
 
         assert _resolve_tool_specs(None) == []
         assert _resolve_tool_specs([]) == []
@@ -520,7 +520,7 @@ class TestLightweightSystemEngineResolution:
 
     def test_resolves_preferred_engine_over_default(self, monkeypatch):
         pytest.importorskip("fastapi")
-        from DEMON.server import agent_manager_routes as amr
+        from OpenDEMON.server import agent_manager_routes as amr
 
         captured = self._capture_get_engine(monkeypatch)
         amr._make_lightweight_system(
@@ -530,7 +530,7 @@ class TestLightweightSystemEngineResolution:
 
     def test_falls_back_to_engine_default_without_preference(self, monkeypatch):
         pytest.importorskip("fastapi")
-        from DEMON.server import agent_manager_routes as amr
+        from OpenDEMON.server import agent_manager_routes as amr
 
         captured = self._capture_get_engine(monkeypatch)
         amr._make_lightweight_system(

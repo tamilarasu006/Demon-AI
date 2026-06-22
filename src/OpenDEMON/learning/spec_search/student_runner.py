@@ -1,4 +1,4 @@
-﻿"""Real student runner for spec-search experiments.
+"""Real student runner for spec-search experiments.
 
 Replaces the ``MagicMock()`` in the experiment runner script with a
 callable that actually invokes the student model via vLLM (or any
@@ -111,7 +111,7 @@ def build_benchmark_samples_from_traces(
     Pulls recent traces (optionally filtered by feedback score) and
     converts them into benchmark samples the teacher can reference.
     """
-    from DEMON.learning.optimize.personal.synthesizer import (
+    from OpenDEMON.learning.optimize.personal.synthesizer import (
         PersonalBenchmarkSample,
     )
 

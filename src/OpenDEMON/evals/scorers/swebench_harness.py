@@ -1,4 +1,4 @@
-﻿"""SWE-bench harness scorer — runs the official `swebench` test harness.
+"""SWE-bench harness scorer — runs the official `swebench` test harness.
 
 This is the authoritative pass/fail scorer for SWE-bench-Verified.
 The lightweight :class:`SWEBenchScorer` in ``swebench_structural.py``
@@ -49,9 +49,9 @@ import tempfile
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 logger = logging.getLogger(__name__)
 

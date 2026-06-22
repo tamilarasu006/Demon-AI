@@ -1,4 +1,4 @@
-﻿"""``DEMON gateway start|stop|status|logs`` — multi-channel gateway management."""
+"""``DEMON gateway start|stop|status|logs`` — multi-channel gateway management."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ def start(install: bool) -> None:
     if install:
         import platform as plat
 
-        from DEMON.daemon.service import (
+        from OpenDEMON.daemon.service import (
             generate_launchd_plist,
             generate_systemd_service,
         )

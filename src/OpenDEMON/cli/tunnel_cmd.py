@@ -1,4 +1,4 @@
-﻿"""CLI commands for Cloudflare Tunnel management."""
+"""CLI commands for Cloudflare Tunnel management."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import sys
 
 import click
 
-from DEMON.core.config import DEFAULT_CONFIG_PATH
+from OpenDEMON.core.config import DEFAULT_CONFIG_PATH
 
 
 @click.group("tunnel", invoke_without_command=True)

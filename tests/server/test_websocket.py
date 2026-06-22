@@ -1,4 +1,4 @@
-﻿"""Tests for the WebSocket streaming endpoint."""
+"""Tests for the WebSocket streaming endpoint."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ fastapi = pytest.importorskip("fastapi")
 from fastapi import FastAPI  # noqa: E402
 from starlette.testclient import TestClient  # noqa: E402
 
-from DEMON.server.api_routes import include_all_routes  # noqa: E402
+from OpenDEMON.server.api_routes import include_all_routes  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Helpers

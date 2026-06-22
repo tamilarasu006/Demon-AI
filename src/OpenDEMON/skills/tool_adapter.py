@@ -1,14 +1,14 @@
-﻿"""SkillTool — wraps a skill as a tool that agents can invoke."""
+"""SkillTool — wraps a skill as a tool that agents can invoke."""
 
 from __future__ import annotations
 
 import re
 from typing import Any, Dict, List, Optional, Set
 
-from DEMON.core.types import ToolResult
-from DEMON.skills.executor import SkillExecutor
-from DEMON.skills.types import SkillManifest
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.skills.executor import SkillExecutor
+from OpenDEMON.skills.types import SkillManifest
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 _PLACEHOLDER_RE = re.compile(r"\{(\w+)\}")
 

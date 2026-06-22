@@ -1,4 +1,4 @@
-﻿"""Database query tool — execute SQL queries against SQLite and PostgreSQL."""
+"""Database query tool — execute SQL queries against SQLite and PostgreSQL."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ import sqlite3
 from pathlib import Path
 from typing import Any, List, Optional, Tuple
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # SQL validation helpers
@@ -197,7 +197,7 @@ class DatabaseQueryTool(BaseTool):
     ) -> ToolResult:
         # Validate db_path against sensitive file policy
         if db_path:
-            from DEMON.security.file_policy import is_sensitive_file
+            from OpenDEMON.security.file_policy import is_sensitive_file
 
             p = Path(db_path)
             if is_sensitive_file(p):

@@ -1,4 +1,4 @@
-﻿"""Latency benchmark — measures per-call inference latency."""
+"""Latency benchmark — measures per-call inference latency."""
 
 from __future__ import annotations
 
@@ -6,11 +6,11 @@ import logging
 import time
 from typing import Any, List
 
-from DEMON.bench._stats import compute_stats
-from DEMON.bench._stubs import BaseBenchmark, BenchmarkResult
-from DEMON.core.registry import BenchmarkRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.bench._stats import compute_stats
+from OpenDEMON.bench._stubs import BaseBenchmark, BenchmarkResult
+from OpenDEMON.core.registry import BenchmarkRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._stubs import InferenceEngine
 
 logger = logging.getLogger(__name__)
 

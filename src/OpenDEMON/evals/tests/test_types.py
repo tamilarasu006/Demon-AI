@@ -1,8 +1,8 @@
-﻿"""Tests for core data types."""
+"""Tests for core data types."""
 
 from __future__ import annotations
 
-from DEMON.evals.core.types import (
+from OpenDEMON.evals.core.types import (
     BenchmarkConfig,
     DefaultsConfig,
     EvalRecord,

@@ -1,4 +1,4 @@
-﻿"""Tests for the HTTP request tool with SSRF protection."""
+"""Tests for the HTTP request tool with SSRF protection."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import httpx
 import pytest
 import respx
 
-from DEMON.tools.http_request import HttpRequestTool
+from OpenDEMON.tools.http_request import HttpRequestTool
 
 
 @pytest.fixture(autouse=True)

@@ -1,7 +1,7 @@
-﻿"""Tests for the coding_assistant scorer."""
+"""Tests for the coding_assistant scorer."""
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.coding_assistant import CodingAssistantScorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.coding_assistant import CodingAssistantScorer
 
 
 def _make_record(buggy_code, test_code, originally_failing, originally_passing):

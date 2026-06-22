@@ -1,4 +1,4 @@
-﻿"""AMD energy monitor — hardware counters via amdsmi (ROCm 6.1+)."""
+"""AMD energy monitor — hardware counters via amdsmi (ROCm 6.1+)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import time
 from contextlib import contextmanager
 from typing import Generator, List, Tuple
 
-from DEMON.telemetry.energy_monitor import (
+from OpenDEMON.telemetry.energy_monitor import (
     EnergyMonitor,
     EnergySample,
     EnergyVendor,

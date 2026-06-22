@@ -1,4 +1,4 @@
-﻿"""LearningOrchestrator — coordinate the full trace->learn->eval loop.
+"""LearningOrchestrator — coordinate the full trace->learn->eval loop.
 
 Pulls traces from a :class:`TraceStore`, mines training data via
 :class:`TrainingDataMiner`, evolves agent configs via
@@ -54,8 +54,8 @@ class LearningOrchestrator:
         lora_config: Optional[Any] = None,
         model_name: Optional[str] = None,
     ) -> None:
-        from DEMON.learning.agents.agent_evolver import AgentConfigEvolver
-        from DEMON.learning.training.data import TrainingDataMiner
+        from OpenDEMON.learning.agents.agent_evolver import AgentConfigEvolver
+        from OpenDEMON.learning.training.data import TrainingDataMiner
 
         self._trace_store = trace_store
         self._config_dir = Path(config_dir)
@@ -103,7 +103,7 @@ class LearningOrchestrator:
         # rather than mined as SFT pairs, so they can be optimized even when
         # there's no other training data available.
         try:
-            from DEMON.core.config import load_config
+            from OpenDEMON.core.config import load_config
 
             cfg = load_config()
             skills_cfg = getattr(cfg.learning, "skills", None)
@@ -200,7 +200,7 @@ class LearningOrchestrator:
     ) -> Optional[Dict[str, Any]]:
         """Attempt LoRA training, returning result or None on failure."""
         try:
-            from DEMON.learning.training.lora import (
+            from OpenDEMON.learning.training.lora import (
                 HAS_TORCH,
                 LoRATrainer,
             )
@@ -235,9 +235,9 @@ class LearningOrchestrator:
         if not auto_optimize:
             return None
         try:
-            from DEMON.core.events import EventBus
-            from DEMON.learning.agents.skill_optimizer import SkillOptimizer
-            from DEMON.skills.manager import SkillManager
+            from OpenDEMON.core.events import EventBus
+            from OpenDEMON.learning.agents.skill_optimizer import SkillOptimizer
+            from OpenDEMON.skills.manager import SkillManager
 
             mgr = SkillManager(bus=EventBus())
             mgr.discover()

@@ -1,4 +1,4 @@
-﻿"""Email triage scorer — classification accuracy + draft quality.
+"""Email triage scorer — classification accuracy + draft quality.
 
 Scores urgency and category via exact match, with LLM fallback
 for draft reply quality assessment.
@@ -10,8 +10,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

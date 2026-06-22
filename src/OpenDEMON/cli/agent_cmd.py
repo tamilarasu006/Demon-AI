@@ -1,4 +1,4 @@
-﻿"""``DEMON agents`` — persistent agent lifecycle management."""
+"""``DEMON agents`` — persistent agent lifecycle management."""
 
 from __future__ import annotations
 
@@ -12,9 +12,9 @@ from rich.table import Table
 
 def _get_manager():
     """Get or create the AgentManager singleton."""
-    from DEMON.agents.manager import AgentManager
-    from DEMON.core.config import load_config
-    from DEMON.core.paths import get_config_dir
+    from OpenDEMON.agents.manager import AgentManager
+    from OpenDEMON.core.config import load_config
+    from OpenDEMON.core.paths import get_config_dir
 
     config = load_config()
     db_path = config.agent_manager.db_path or str(get_config_dir() / "agents.db")
@@ -269,9 +269,9 @@ def search(agent_id: str, query: str, limit: int) -> None:
     """Cross-session search across agent traces."""
     console = Console(stderr=True)
     try:
-        from DEMON.core.config import load_config
-        from DEMON.core.paths import get_config_dir
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import load_config
+        from OpenDEMON.core.paths import get_config_dir
+        from OpenDEMON.traces.store import TraceStore
 
         config = load_config()
         mgr = _get_manager()
@@ -300,7 +300,7 @@ def templates() -> None:
     """List available agent templates."""
     console = Console(stderr=True)
     try:
-        from DEMON.agents.manager import AgentManager
+        from OpenDEMON.agents.manager import AgentManager
 
         tpls = AgentManager.list_templates()
         if not tpls:
@@ -325,7 +325,7 @@ def templates() -> None:
 
 def _get_system():
     """Build a DEMONSystem for CLI commands that need scheduler/executor."""
-    from DEMON.system import SystemBuilder
+    from OpenDEMON.system import SystemBuilder
 
     try:
         return SystemBuilder().build()
@@ -365,7 +365,7 @@ def _run_tick_with_live_trace(executor, agent_id: str, console: Console) -> None
     are always torn down in the ``finally`` so a second invocation in the
     same process doesn't double-print.
     """
-    from DEMON.core.events import EventType
+    from OpenDEMON.core.events import EventType
 
     bus = getattr(executor, "_bus", None)
 
@@ -405,7 +405,7 @@ def _run_tick_with_live_trace(executor, agent_id: str, console: Console) -> None
 @agent.command()
 def launch():
     """Interactive agent launcher."""
-    from DEMON.agents.manager import AgentManager as _AM
+    from OpenDEMON.agents.manager import AgentManager as _AM
 
     templates = _AM.list_templates()
     click.echo("Available templates:")
@@ -623,7 +623,7 @@ def learning(agent_id, trigger_run):
 
     if trigger_run:
         click.echo(f'Triggering learning for "{agent_data["name"]}"...')
-        from DEMON.core.events import EventType, get_event_bus
+        from OpenDEMON.core.events import EventType, get_event_bus
 
         bus = get_event_bus()
         bus.publish(EventType.AGENT_LEARNING_STARTED, {"agent_id": agent_id})
@@ -658,9 +658,9 @@ def trace(agent_id, run_number, limit):
     """Show step-by-step trace of agent ticks."""
     import datetime
 
-    from DEMON.core.config import load_config
-    from DEMON.core.paths import get_config_dir
-    from DEMON.traces.store import TraceStore
+    from OpenDEMON.core.config import load_config
+    from OpenDEMON.core.paths import get_config_dir
+    from OpenDEMON.traces.store import TraceStore
 
     manager = _get_manager()
     agent_data = manager.get_agent(agent_id)
@@ -760,7 +760,7 @@ def watch(agent_id):
     """Live feed of agent activity."""
     import signal
 
-    from DEMON.core.events import EventType, get_event_bus
+    from OpenDEMON.core.events import EventType, get_event_bus
 
     click.echo("Watching agent events... (press Ctrl+C to stop)")
     bus = get_event_bus()

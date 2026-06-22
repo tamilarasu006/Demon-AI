@@ -1,4 +1,4 @@
-﻿"""Shared fixtures — clear all registries and the event bus between tests."""
+"""Shared fixtures — clear all registries and the event bus between tests."""
 
 from __future__ import annotations
 
@@ -9,9 +9,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.config import GpuInfo, HardwareInfo
-from DEMON.core.events import EventBus, reset_event_bus
-from DEMON.core.registry import (
+from OpenDEMON.core.config import GpuInfo, HardwareInfo
+from OpenDEMON.core.events import EventBus, reset_event_bus
+from OpenDEMON.core.registry import (
     AgentRegistry,
     BenchmarkRegistry,
     ChannelRegistry,

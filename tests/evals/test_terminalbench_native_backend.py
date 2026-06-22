@@ -1,4 +1,4 @@
-﻿"""Tests for the TerminalBench native backend (mocked terminal_bench).
+"""Tests for the TerminalBench native backend (mocked terminal_bench).
 
 Covers: timeout kwargs threading (config -> backend -> Harness kwargs),
 loud failure on terminal-bench builds without the timeout kwargs, and the
@@ -15,8 +15,8 @@ from typing import Any, Dict, List, Optional
 
 import pytest
 
-import DEMON.evals.backends.terminalbench_native as tbn
-from DEMON.evals.backends.terminalbench_native import (
+import OpenDEMON.evals.backends.terminalbench_native as tbn
+from OpenDEMON.evals.backends.terminalbench_native import (
     summarize_benchmark_results,
 )
 
@@ -242,8 +242,8 @@ class TestRunTerminalbenchNativeWiring:
     def _run(self, fake_tb_backend, tmp_path, trials: List[Any], **config_kwargs):
         from rich.console import Console
 
-        from DEMON.evals.cli import _run_terminalbench_native
-        from DEMON.evals.core.types import RunConfig
+        from OpenDEMON.evals.cli import _run_terminalbench_native
+        from OpenDEMON.evals.core.types import RunConfig
 
         fake_tb_backend.results = SimpleNamespace(results=trials)
         config = RunConfig(

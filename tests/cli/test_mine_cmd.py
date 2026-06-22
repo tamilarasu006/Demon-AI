@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON mine`` CLI."""
+"""Tests for the ``DEMON mine`` CLI."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ from unittest.mock import MagicMock, patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.mining import Sidecar
+from OpenDEMON.cli import cli
+from OpenDEMON.mining import Sidecar
 
 
 def test_mine_help() -> None:
@@ -36,7 +36,7 @@ def test_mine_models_lists_validated_and_planned_models() -> None:
 
 
 def test_pearl_base_model_lookup_uses_public_pearl_ai_artifacts():
-    from DEMON.mining._models import pearl_variant_for_base_model
+    from OpenDEMON.mining._models import pearl_variant_for_base_model
 
     assert (
         pearl_variant_for_base_model("google/gemma-4-31B-it")
@@ -159,7 +159,7 @@ def test_mine_init_writes_mining_config(tmp_path: Path) -> None:
 def test_mine_init_writes_cuda_visible_devices_for_vllm(
     tmp_path: Path,
 ) -> None:
-    from DEMON.mining._stubs import MiningCapabilities
+    from OpenDEMON.mining._stubs import MiningCapabilities
 
     config_path = tmp_path / "config.toml"
 

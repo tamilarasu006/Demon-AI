@@ -1,4 +1,4 @@
-﻿"""Tests for llama.cpp engine with compatible models."""
+"""Tests for llama.cpp engine with compatible models."""
 
 from __future__ import annotations
 
@@ -8,10 +8,10 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.openai_compat_engines import LlamaCppEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.openai_compat_engines import LlamaCppEngine
 
 LLAMACPP_HOST = "http://testhost:8080"
 # Only models with llamacpp in supported_engines

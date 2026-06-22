@@ -1,8 +1,8 @@
-﻿"""Tests for the shared binary checklist scorer."""
+"""Tests for the shared binary checklist scorer."""
 
 from __future__ import annotations
 
-from DEMON.evals.scorers._checklist import (
+from OpenDEMON.evals.scorers._checklist import (
     ChecklistScorer,
     contains_key_phrases,
     normalize_str,

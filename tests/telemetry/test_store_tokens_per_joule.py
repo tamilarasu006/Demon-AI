@@ -1,4 +1,4 @@
-﻿"""Tests for tokens_per_joule storage and aggregation."""
+"""Tests for tokens_per_joule storage and aggregation."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from DEMON.core.types import TelemetryRecord
-from DEMON.telemetry.aggregator import TelemetryAggregator
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.core.types import TelemetryRecord
+from OpenDEMON.telemetry.aggregator import TelemetryAggregator
+from OpenDEMON.telemetry.store import TelemetryStore
 
 
 class TestTokensPerJouleStorage:

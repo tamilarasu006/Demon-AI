@@ -1,4 +1,4 @@
-﻿"""Tests for RaplEnergyMonitor -- mock sysfs (no real RAPL required)."""
+"""Tests for RaplEnergyMonitor -- mock sysfs (no real RAPL required)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.telemetry.energy_rapl import (
+from OpenDEMON.telemetry.energy_rapl import (
     RaplEnergyMonitor,
     _discover_domains,
 )

@@ -1,4 +1,4 @@
-﻿"""Apple Health connector -- reads HealthKit SQLite DB or iPhone Health export XML.
+"""Apple Health connector -- reads HealthKit SQLite DB or iPhone Health export XML.
 
 Two data sources are tried in order:
 1. HealthKit SQLite DB at ``~/Library/Health/healthdb_secure.sqlite`` (macOS
@@ -21,9 +21,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterator, List, Optional
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
 
 logger = logging.getLogger(__name__)
 

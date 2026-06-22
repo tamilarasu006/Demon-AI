@@ -1,4 +1,4 @@
-﻿"""Bundle dataclasses that group cohesive subsystems of DEMONSystem."""
+"""Bundle dataclasses that group cohesive subsystems of DEMONSystem."""
 
 from __future__ import annotations
 
@@ -6,19 +6,19 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    from DEMON.agents._stubs import BaseAgent
-    from DEMON.agents.executor import AgentExecutor
-    from DEMON.agents.manager import AgentManager
-    from DEMON.agents.scheduler import AgentScheduler
-    from DEMON.scheduler.scheduler import TaskScheduler
-    from DEMON.scheduler.store import SchedulerStore
-    from DEMON.security.audit import AuditLogger
-    from DEMON.security.boundary import BoundaryGuard
-    from DEMON.security.capabilities import CapabilityPolicy
-    from DEMON.telemetry.gpu_monitor import GpuMonitor
-    from DEMON.telemetry.store import TelemetryStore
-    from DEMON.traces.collector import TraceCollector
-    from DEMON.traces.store import TraceStore
+    from OpenDEMON.agents._stubs import BaseAgent
+    from OpenDEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.scheduler.scheduler import TaskScheduler
+    from OpenDEMON.scheduler.store import SchedulerStore
+    from OpenDEMON.security.audit import AuditLogger
+    from OpenDEMON.security.boundary import BoundaryGuard
+    from OpenDEMON.security.capabilities import CapabilityPolicy
+    from OpenDEMON.telemetry.gpu_monitor import GpuMonitor
+    from OpenDEMON.telemetry.store import TelemetryStore
+    from OpenDEMON.traces.collector import TraceCollector
+    from OpenDEMON.traces.store import TraceStore
 
 
 @dataclass

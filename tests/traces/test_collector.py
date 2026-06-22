@@ -1,4 +1,4 @@
-﻿"""Tests for the TraceCollector."""
+"""Tests for the TraceCollector."""
 
 from __future__ import annotations
 
@@ -6,11 +6,11 @@ import time
 from pathlib import Path
 from typing import Any, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import StepType
-from DEMON.traces.collector import TraceCollector
-from DEMON.traces.store import TraceStore
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import StepType
+from OpenDEMON.traces.collector import TraceCollector
+from OpenDEMON.traces.store import TraceStore
 
 
 class _FakeAgent(BaseAgent):
@@ -248,7 +248,7 @@ class _RichToolAgent(BaseAgent):
         self, input: str, context: Optional[AgentContext] = None,
         **kwargs: Any,
     ) -> AgentResult:
-        from DEMON.core.types import ToolResult
+        from OpenDEMON.core.types import ToolResult
 
         # Turn 1: inference with tool call request
         self._bus.publish(EventType.INFERENCE_START, {

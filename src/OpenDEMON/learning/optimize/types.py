@@ -1,12 +1,12 @@
-﻿"""Core data types for the optimization framework."""
+"""Core data types for the optimization framework."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from DEMON.evals.core.types import RunSummary
-from DEMON.recipes.loader import Recipe
+from OpenDEMON.evals.core.types import RunSummary
+from OpenDEMON.recipes.loader import Recipe
 
 
 @dataclass(slots=True)

@@ -1,4 +1,4 @@
-﻿"""Tests for DEMONAgentBackend skills_enabled / overlay_dir kwargs (Plan 2B)."""
+"""Tests for DEMONAgentBackend skills_enabled / overlay_dir kwargs (Plan 2B)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 class TestDEMONAgentBackendSkillsKwargs:
     def test_default_skills_enabled_true(self):
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         # Construction should not raise even if no model/engine is reachable
         # because we don't call generate(). The kwargs themselves should be
@@ -27,7 +27,7 @@ class TestDEMONAgentBackendSkillsKwargs:
         assert backend._system.config.skills.enabled is True
 
     def test_skills_enabled_false_disables_skills(self):
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         try:
             backend = DEMONAgentBackend(
@@ -42,7 +42,7 @@ class TestDEMONAgentBackendSkillsKwargs:
         assert backend._system.skill_manager is None
 
     def test_overlay_dir_kwarg_applied_to_config(self, tmp_path: Path):
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         custom = tmp_path / "custom-overlays"
         try:
@@ -63,7 +63,7 @@ class TestDEMONAgentBackendSkillsKwargs:
         the new kwargs without raising TypeError."""
         import inspect
 
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         sig = inspect.signature(DEMONAgentBackend.__init__)
         assert "skills_enabled" in sig.parameters

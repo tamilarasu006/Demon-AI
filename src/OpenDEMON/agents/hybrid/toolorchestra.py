@@ -1,4 +1,4 @@
-﻿"""ToolOrchestraAgent — port of NVlabs ToolOrchestra (arXiv:2511.21689).
+"""ToolOrchestraAgent — port of NVlabs ToolOrchestra (arXiv:2511.21689).
 
 Two modes, gated by ``method_cfg.orchestrator_mode``:
 
@@ -57,8 +57,8 @@ import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import (
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import (
     ANTHROPIC_WEB_SEARCH_TOOL,
     GEMINI_SEARCH_COST_PER_CALL,
     OPENAI_WEB_SEARCH_COST_PER_CALL,
@@ -66,17 +66,17 @@ from DEMON.agents.hybrid._base import (
     LocalCloudAgent,
     tavily_search_context,
 )
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents.hybrid._prices import (
     PRICES,
     is_gpt5_family,
     supports_temperature,
 )
-from DEMON.agents.hybrid.mini_swe_agent import (
+from OpenDEMON.agents.hybrid.mini_swe_agent import (
     _clone_repo,
     _extract_diff,
     run_swe_agent_loop,
 )
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.core.registry import AgentRegistry
 
 ORCHESTRATOR_SYS = """\
 You are a tool-orchestrating agent. You coordinate a pool of workers to answer the user's question. Each turn you MUST emit exactly one JSON object — no prose, no markdown fences — taking one of two forms:

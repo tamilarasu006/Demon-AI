@@ -1,11 +1,11 @@
-﻿"""Built-in model catalog with well-known ModelSpec entries."""
+"""Built-in model catalog with well-known ModelSpec entries."""
 
 from __future__ import annotations
 
 from typing import List
 
-from DEMON.core.registry import ModelRegistry
-from DEMON.core.types import ModelSpec, Quantization
+from OpenDEMON.core.registry import ModelRegistry
+from OpenDEMON.core.types import ModelSpec, Quantization
 
 BUILTIN_MODELS: List[ModelSpec] = [
     # -----------------------------------------------------------------------

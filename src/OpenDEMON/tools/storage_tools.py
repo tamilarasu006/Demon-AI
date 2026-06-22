@@ -1,4 +1,4 @@
-﻿"""Storage MCP tools — expose MemoryBackend operations as BaseTool instances.
+"""Storage MCP tools — expose MemoryBackend operations as BaseTool instances.
 
 These tools wrap the ``MemoryBackend`` ABC so that memory operations
 (store, retrieve, search, index) are discoverable and callable via MCP.
@@ -9,10 +9,10 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
-from DEMON.tools.storage._stubs import MemoryBackend
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.tools.storage._stubs import MemoryBackend
 
 
 @ToolRegistry.register("memory_store")
@@ -278,8 +278,8 @@ class MemoryIndexTool(BaseTool):
         try:
             from pathlib import Path
 
-            from DEMON.tools.storage.chunking import ChunkConfig
-            from DEMON.tools.storage.ingest import ingest_path
+            from OpenDEMON.tools.storage.chunking import ChunkConfig
+            from OpenDEMON.tools.storage.ingest import ingest_path
 
             chunk_cfg = ChunkConfig(
                 chunk_size=int(params.get("chunk_size", 512)),

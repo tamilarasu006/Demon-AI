@@ -1,4 +1,4 @@
-﻿# ruff: noqa: E501
+# ruff: noqa: E501
 """Proactive agent tools — check/record permissions, queue and execute actions.
 
 These tools are used exclusively by ``ProactiveAgent`` to manage the
@@ -27,10 +27,10 @@ import json
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
-from DEMON.tools.approval_store import (
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.tools.approval_store import (
     DECISION_ALWAYS_APPROVE,
     DECISION_ALWAYS_DENY,
     STATUS_APPROVED,
@@ -436,7 +436,7 @@ def _exec_email_delete(payload: Dict[str, Any]) -> Tuple[bool, str]:
     if not msg_id:
         return False, "Missing message_id in payload"
     try:
-        from DEMON.connectors.gmail import GmailConnector
+        from OpenDEMON.connectors.gmail import GmailConnector
 
         conn = GmailConnector()
         conn.delete_message(msg_id)
@@ -450,7 +450,7 @@ def _exec_email_archive(payload: Dict[str, Any]) -> Tuple[bool, str]:
     if not msg_id:
         return False, "Missing message_id in payload"
     try:
-        from DEMON.connectors.gmail import GmailConnector
+        from OpenDEMON.connectors.gmail import GmailConnector
 
         conn = GmailConnector()
         conn.archive_message(msg_id)
@@ -465,7 +465,7 @@ def _exec_sms_send(payload: Dict[str, Any]) -> Tuple[bool, str]:
     if not contact or not body:
         return False, "Missing contact or body in payload"
     try:
-        from DEMON.channels.imessage_daemon import send_imessage
+        from OpenDEMON.channels.imessage_daemon import send_imessage
 
         send_imessage(contact, body)
         return True, f"Sent iMessage to {contact}"
@@ -479,7 +479,7 @@ def _exec_calendar_decline(payload: Dict[str, Any]) -> Tuple[bool, str]:
     if not event_id:
         return False, "Missing event_id in payload"
     try:
-        from DEMON.connectors.gcalendar import GCalendarConnector
+        from OpenDEMON.connectors.gcalendar import GCalendarConnector
 
         conn = GCalendarConnector()
         conn.decline_event(event_id, calendar_id=calendar_id)
@@ -494,7 +494,7 @@ def _exec_calendar_accept(payload: Dict[str, Any]) -> Tuple[bool, str]:
     if not event_id:
         return False, "Missing event_id in payload"
     try:
-        from DEMON.connectors.gcalendar import GCalendarConnector
+        from OpenDEMON.connectors.gcalendar import GCalendarConnector
 
         conn = GCalendarConnector()
         conn.accept_event(event_id, calendar_id=calendar_id)

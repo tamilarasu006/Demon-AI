@@ -1,9 +1,9 @@
-﻿"""TauBench task environment — native DEMON agent in tau2 simulation.
+"""TauBench task environment — native DEMON agent in tau2 simulation.
 
 Plugs DEMON's inference engine into tau2-bench's orchestrator as a
 ``HalfDuplexAgent``, so the multi-turn conversation loop, user simulator,
 domain tools, database, and evaluation all come from tau2-bench while the
-agent's LLM calls go through DEMON.
+agent's LLM calls go through OpenDEMON.
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ import logging
 from types import TracebackType
 from typing import Any, Optional, Type
 
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 
@@ -27,8 +27,8 @@ def _tau2_to_oj_messages(
     tau2_messages: list,
 ) -> list:
     """Convert tau2 Message objects to DEMON Message objects."""
-    from DEMON.core.types import Message, Role
-    from DEMON.core.types import ToolCall as OJToolCall
+    from OpenDEMON.core.types import Message, Role
+    from OpenDEMON.core.types import ToolCall as OJToolCall
 
     oj_msgs: list = []
     for m in tau2_messages:
@@ -271,7 +271,7 @@ class TauBenchTaskEnv:
 
     def __enter__(self) -> TauBenchTaskEnv:
         # Build DEMON system for engine access
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.system import SystemBuilder
 
         builder = SystemBuilder()
         if self._engine_key:

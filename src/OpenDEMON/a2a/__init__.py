@@ -1,9 +1,9 @@
-﻿"""Agent-to-Agent protocol — Google A2A spec implementation."""
+"""Agent-to-Agent protocol — Google A2A spec implementation."""
 
-from DEMON.a2a.client import A2AClient
-from DEMON.a2a.protocol import A2ARequest, A2AResponse, A2ATask, AgentCard
-from DEMON.a2a.server import A2AServer
-from DEMON.a2a.tool import A2AAgentTool
+from OpenDEMON.a2a.client import A2AClient
+from OpenDEMON.a2a.protocol import A2ARequest, A2AResponse, A2ATask, AgentCard
+from OpenDEMON.a2a.server import A2AServer
+from OpenDEMON.a2a.tool import A2AAgentTool
 
 __all__ = [
     "A2AAgentTool",

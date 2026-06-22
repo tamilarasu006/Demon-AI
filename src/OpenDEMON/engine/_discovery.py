@@ -1,4 +1,4 @@
-﻿"""Engine discovery — probe running engines and aggregate available models."""
+"""Engine discovery — probe running engines and aggregate available models."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Dict, List, Tuple
 
-from DEMON.core.config import DEMONConfig
-from DEMON.core.registry import EngineRegistry
-from DEMON.engine._base import InferenceEngine
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.engine._base import InferenceEngine
 
 logger = logging.getLogger(__name__)
 
@@ -63,8 +63,8 @@ def _maybe_register_mining_sidecar_engine() -> None:
     sidecars don't include ``vllm_endpoint``.
     """
     try:
-        from DEMON.mining import Sidecar
-        from DEMON.mining._constants import SIDECAR_PATH
+        from OpenDEMON.mining import Sidecar
+        from OpenDEMON.mining._constants import SIDECAR_PATH
     except ImportError:
         return
 
@@ -80,7 +80,7 @@ def _maybe_register_mining_sidecar_engine() -> None:
     if not endpoint or not model:
         return  # data-driven gate: no vllm_endpoint → don't register
 
-    from DEMON.engine._openai_compat import _OpenAICompatibleEngine
+    from OpenDEMON.engine._openai_compat import _OpenAICompatibleEngine
 
     # Strip a trailing "/v1" path segment so _default_host is the bare
     # base URL and _api_prefix="/v1" combines correctly in request paths.

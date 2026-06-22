@@ -1,11 +1,11 @@
-﻿"""Tests for HeuristicRewardFunction."""
+"""Tests for HeuristicRewardFunction."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.learning._stubs import RoutingContext
-from DEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
+from OpenDEMON.learning._stubs import RoutingContext
+from OpenDEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
 
 
 class TestHeuristicRewardFunction:

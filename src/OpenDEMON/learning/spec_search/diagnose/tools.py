@@ -1,4 +1,4 @@
-﻿"""Diagnostic tools exposed to the teacher in the diagnose phase.
+"""Diagnostic tools exposed to the teacher in the diagnose phase.
 
 All tools are **read-only** relative to the user's config. They do not mutate
 ``~/.DEMON/config.toml``, agent prompts, or tool descriptions.
@@ -16,7 +16,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from DEMON.learning.spec_search.diagnose.types import DiagnosticTool
+from OpenDEMON.learning.spec_search.diagnose.types import DiagnosticTool
 
 
 def build_diagnostic_tools(

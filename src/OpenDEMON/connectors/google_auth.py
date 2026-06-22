@@ -1,4 +1,4 @@
-﻿"""Shared Google OAuth helpers: access token read + one-shot 401 refresh.
+"""Shared Google OAuth helpers: access token read + one-shot 401 refresh.
 
 All Google connectors (Gmail, Calendar, Contacts, Drive, Tasks) authenticate
 with the same OAuth flow and store identical token payloads at
@@ -19,7 +19,7 @@ from typing import Any, Callable, Dict
 
 import httpx
 
-from DEMON.connectors.oauth import load_tokens, save_tokens
+from OpenDEMON.connectors.oauth import load_tokens, save_tokens
 
 logger = logging.getLogger(__name__)
 

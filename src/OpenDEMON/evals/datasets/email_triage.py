@@ -1,4 +1,4 @@
-﻿"""Email triage benchmark dataset.
+"""Email triage benchmark dataset.
 
 Synthetic email threads for evaluating urgency classification,
 category assignment, and draft response generation.
@@ -9,8 +9,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """You are an AI email assistant. Analyze the following email and provide:
 1. Urgency level: critical, high, medium, or low

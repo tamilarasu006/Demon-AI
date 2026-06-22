@@ -1,8 +1,8 @@
-﻿"""Tests for the apply_patch tool."""
+"""Tests for the apply_patch tool."""
 
 from __future__ import annotations
 
-from DEMON.tools.apply_patch import ApplyPatchTool
+from OpenDEMON.tools.apply_patch import ApplyPatchTool
 
 
 class TestApplyPatchTool:

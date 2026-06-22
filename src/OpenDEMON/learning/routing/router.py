@@ -1,13 +1,13 @@
-﻿"""Heuristic model router — selects the best model based on query characteristics."""
+"""Heuristic model router — selects the best model based on query characteristics."""
 
 from __future__ import annotations
 
 import logging
 from typing import List, Optional
 
-from DEMON.core.registry import ModelRegistry
-from DEMON.core.types import RoutingContext
-from DEMON.learning._stubs import QueryAnalyzer, RouterPolicy
+from OpenDEMON.core.registry import ModelRegistry
+from OpenDEMON.core.types import RoutingContext
+from OpenDEMON.learning._stubs import QueryAnalyzer, RouterPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ def build_routing_context(
     When *model* is provided, the suggested token budget is adjusted
     for thinking models that need extra headroom.
     """
-    from DEMON.learning.routing.complexity import (
+    from OpenDEMON.learning.routing.complexity import (
         adjust_tokens_for_model,
         score_complexity,
     )

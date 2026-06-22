@@ -1,4 +1,4 @@
-﻿"""Tests for StravaConnector — Strava REST API v3."""
+"""Tests for StravaConnector — Strava REST API v3."""
 
 from __future__ import annotations
 
@@ -7,11 +7,11 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_strava_registered():
-    from DEMON.connectors.strava import StravaConnector
+    from OpenDEMON.connectors.strava import StravaConnector
 
     ConnectorRegistry.register_value("strava", StravaConnector)
     assert ConnectorRegistry.contains("strava")
@@ -50,7 +50,7 @@ _ACTIVITIES_RESPONSE = [
 
 @pytest.fixture()
 def connector(tmp_path):
-    from DEMON.connectors.strava import StravaConnector
+    from OpenDEMON.connectors.strava import StravaConnector
 
     token_path = tmp_path / "strava.json"
     token_path.write_text(

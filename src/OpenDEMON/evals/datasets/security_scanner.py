@@ -1,4 +1,4 @@
-﻿"""security_scanner dataset — 30 vulnerable code projects for security auditing.
+"""security_scanner dataset — 30 vulnerable code projects for security auditing.
 
 Each task presents a small Python project with planted vulnerabilities.
 The agent must identify vulnerabilities, classify severity, and recommend fixes.
@@ -14,8 +14,8 @@ from __future__ import annotations
 import random
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """You are a security auditor. Scan the following Python project for security vulnerabilities.
 

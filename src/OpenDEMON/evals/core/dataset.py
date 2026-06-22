@@ -1,4 +1,4 @@
-﻿"""Abstract base class for dataset providers."""
+"""Abstract base class for dataset providers."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from contextlib import AbstractContextManager
 from typing import Iterable, List, Optional
 
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class DatasetProvider(ABC):

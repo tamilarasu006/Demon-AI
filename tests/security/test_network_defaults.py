@@ -1,4 +1,4 @@
-﻿"""Tests for secure network defaults (Section 1 of security hardening)."""
+"""Tests for secure network defaults (Section 1 of security hardening)."""
 
 from __future__ import annotations
 
@@ -11,19 +11,19 @@ class TestServerConfigDefaults:
     """ServerConfig should bind to loopback by default."""
 
     def test_default_host_is_loopback(self) -> None:
-        from DEMON.core.config import ServerConfig
+        from OpenDEMON.core.config import ServerConfig
 
         cfg = ServerConfig()
         assert cfg.host == "127.0.0.1"
 
     def test_default_port_unchanged(self) -> None:
-        from DEMON.core.config import ServerConfig
+        from OpenDEMON.core.config import ServerConfig
 
         cfg = ServerConfig()
         assert cfg.port == 8000
 
     def test_cors_origins_default(self) -> None:
-        from DEMON.core.config import ServerConfig
+        from OpenDEMON.core.config import ServerConfig
 
         cfg = ServerConfig()
         assert isinstance(cfg.cors_origins, list)
@@ -41,26 +41,26 @@ class TestSecurityConfigDefaults:
     """SecurityConfig should default to redact mode with rate limiting."""
 
     def test_default_mode_is_redact(self) -> None:
-        from DEMON.core.config import SecurityConfig
+        from OpenDEMON.core.config import SecurityConfig
 
         cfg = SecurityConfig()
         assert cfg.mode == "redact"
 
     def test_rate_limiting_enabled_by_default(self) -> None:
-        from DEMON.core.config import SecurityConfig
+        from OpenDEMON.core.config import SecurityConfig
 
         cfg = SecurityConfig()
         assert cfg.rate_limit_enabled is True
 
     def test_bypass_defaults_conservative(self) -> None:
-        from DEMON.core.config import SecurityConfig
+        from OpenDEMON.core.config import SecurityConfig
 
         cfg = SecurityConfig()
         assert cfg.local_engine_bypass is False
         assert cfg.local_tool_bypass is False
 
     def test_profile_default_empty(self) -> None:
-        from DEMON.core.config import SecurityConfig
+        from OpenDEMON.core.config import SecurityConfig
 
         cfg = SecurityConfig()
         assert cfg.profile == ""
@@ -85,7 +85,7 @@ class TestNonLoopbackAuthEnforcement:
 
     def test_non_loopback_requires_key(self) -> None:
         starlette = pytest.importorskip("starlette")  # noqa: F841
-        from DEMON.server.auth_middleware import check_bind_safety
+        from OpenDEMON.server.auth_middleware import check_bind_safety
 
         try:
             check_bind_safety("0.0.0.0", api_key="")
@@ -95,7 +95,7 @@ class TestNonLoopbackAuthEnforcement:
 
     def test_non_loopback_with_key_ok(self) -> None:
         starlette = pytest.importorskip("starlette")  # noqa: F841
-        from DEMON.server.auth_middleware import check_bind_safety
+        from OpenDEMON.server.auth_middleware import check_bind_safety
 
         check_bind_safety("0.0.0.0", api_key="oj_sk_test123")
 
@@ -109,7 +109,7 @@ class TestCORSConfiguration:
 
         from fastapi.testclient import TestClient
 
-        from DEMON.server.app import create_app
+        from OpenDEMON.server.app import create_app
 
         mock_engine = MagicMock()
         mock_engine.health.return_value = True
@@ -157,7 +157,7 @@ class TestCORSConfiguration:
 
         from fastapi.testclient import TestClient
 
-        from DEMON.server.app import create_app
+        from OpenDEMON.server.app import create_app
 
         mock_engine = MagicMock()
         mock_engine.health.return_value = True

@@ -1,4 +1,4 @@
-﻿"""Native TerminalBench V2.1 backend.
+"""Native TerminalBench V2.1 backend.
 
 Uses Harness for Docker-based execution and scoring.
 """
@@ -10,8 +10,8 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.backend import InferenceBackend
-from DEMON.evals.core.types import RunSummary
+from OpenDEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.core.types import RunSummary
 
 LOGGER = logging.getLogger(__name__)
 

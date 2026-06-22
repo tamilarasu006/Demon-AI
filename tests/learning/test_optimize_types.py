@@ -1,8 +1,8 @@
-﻿"""Tests for DEMON.optimize.types module."""
+"""Tests for DEMON.optimize.types module."""
 
 from __future__ import annotations
 
-from DEMON.learning.optimize.types import (
+from OpenDEMON.learning.optimize.types import (
     OptimizationRun,
     SampleScore,
     SearchDimension,
@@ -11,7 +11,7 @@ from DEMON.learning.optimize.types import (
     TrialFeedback,
     TrialResult,
 )
-from DEMON.recipes.loader import Recipe
+from OpenDEMON.recipes.loader import Recipe
 
 # ---------------------------------------------------------------------------
 # SearchDimension

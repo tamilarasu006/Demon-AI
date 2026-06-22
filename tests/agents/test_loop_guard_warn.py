@@ -1,8 +1,8 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.agents.loop_guard import LoopGuard, LoopGuardConfig, LoopVerdict
+from OpenDEMON.agents.loop_guard import LoopGuard, LoopGuardConfig, LoopVerdict
 
 
 def test_warn_before_block_first_cycle_warns():

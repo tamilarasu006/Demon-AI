@@ -1,4 +1,4 @@
-﻿"""Transparent telemetry wrapper for inference engines."""
+"""Transparent telemetry wrapper for inference engines."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ import time
 from collections.abc import AsyncIterator
 from typing import Any, Dict, List, Optional, Sequence
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import TOKEN_COUNTING_VERSION, Message, TelemetryRecord
-from DEMON.engine._stubs import InferenceEngine, StreamChunk
-from DEMON.telemetry.gpu_monitor import GpuSample
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import TOKEN_COUNTING_VERSION, Message, TelemetryRecord
+from OpenDEMON.engine._stubs import InferenceEngine, StreamChunk
+from OpenDEMON.telemetry.gpu_monitor import GpuSample
 
 # ---------------------------------------------------------------------------
 # ITL helpers

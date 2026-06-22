@@ -1,8 +1,8 @@
-﻿"""Personal benchmark system -- synthesize benchmarks from interaction traces."""
+"""Personal benchmark system -- synthesize benchmarks from interaction traces."""
 
-from DEMON.learning.optimize.personal.dataset import PersonalBenchmarkDataset
-from DEMON.learning.optimize.personal.scorer import PersonalBenchmarkScorer
-from DEMON.learning.optimize.personal.synthesizer import (
+from OpenDEMON.learning.optimize.personal.dataset import PersonalBenchmarkDataset
+from OpenDEMON.learning.optimize.personal.scorer import PersonalBenchmarkScorer
+from OpenDEMON.learning.optimize.personal.synthesizer import (
     PersonalBenchmark,
     PersonalBenchmarkSample,
     PersonalBenchmarkSynthesizer,

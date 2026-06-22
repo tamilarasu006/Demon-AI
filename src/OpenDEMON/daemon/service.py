@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import sys
 from pathlib import Path
@@ -10,7 +10,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart={python} -m DEMON.daemon.gateway
+ExecStart={python} -m OpenDEMON.daemon.gateway
 Restart=on-failure
 RestartSec=5
 

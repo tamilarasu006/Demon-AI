@@ -1,4 +1,4 @@
-﻿"""Isolated QueryOrchestrator tests using a minimal fake system."""
+"""Isolated QueryOrchestrator tests using a minimal fake system."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from typing import Any, Dict, List, Optional
 
 import pytest
 
-from DEMON.core.config import DEMONConfig
-from DEMON.core.events import EventBus
-from DEMON.system import QueryOrchestrator
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.system import QueryOrchestrator
 
 
 class _FakeEngine:
@@ -121,7 +121,7 @@ class TestDetectAgentIntent:
         ],
     )
     def test_morning_digest_triggers(self, query):
-        from DEMON.core.registry import AgentRegistry
+        from OpenDEMON.core.registry import AgentRegistry
 
         # Register a stub so the intent check returns the name.
         try:

@@ -1,4 +1,4 @@
-﻿"""Shared fixtures for channel integration tests."""
+"""Shared fixtures for channel integration tests."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from contextlib import contextmanager
 
 import pytest
 
-from DEMON.core.events import EventBus
+from OpenDEMON.core.events import EventBus
 from tests.agents.fake_engine import FakeEngine
 from tests.agents.scenario_harness import FakeSystem, ScenarioHarness
 
@@ -15,11 +15,11 @@ from tests.agents.scenario_harness import FakeSystem, ScenarioHarness
 @pytest.fixture
 def scenario_harness(tmp_path):
     """Wire up real components for agent lifecycle testing (channels copy)."""
-    from DEMON.agents.executor import AgentExecutor
-    from DEMON.agents.manager import AgentManager
-    from DEMON.agents.monitor_operative import MonitorOperativeAgent
-    from DEMON.agents.scheduler import AgentScheduler
-    from DEMON.core.registry import AgentRegistry
+    from OpenDEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.monitor_operative import MonitorOperativeAgent
+    from OpenDEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.core.registry import AgentRegistry
 
     if not AgentRegistry.contains("monitor_operative"):
         AgentRegistry.register("monitor_operative")(MonitorOperativeAgent)

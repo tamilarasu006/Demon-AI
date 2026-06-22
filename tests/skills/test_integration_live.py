@@ -1,4 +1,4 @@
-﻿"""Live integration tests for the skills system.
+"""Live integration tests for the skills system.
 
 These tests require a running Ollama instance with qwen3.5:4b.
 Mark: live
@@ -8,10 +8,10 @@ from __future__ import annotations
 
 import pytest
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.skills.manager import SkillManager
-from DEMON.skills.tool_adapter import SkillTool
-from DEMON.system import SystemBuilder
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.skills.manager import SkillManager
+from OpenDEMON.skills.tool_adapter import SkillTool
+from OpenDEMON.system import SystemBuilder
 
 
 @pytest.mark.live
@@ -126,10 +126,10 @@ class TestSkillEventsAndTracing:
 
     def test_skill_execution_emits_events(self):
         """Running a structured skill emits SKILL_EXECUTE_START/END events."""
-        from DEMON.core.types import ToolResult
-        from DEMON.skills.executor import SkillExecutor
-        from DEMON.skills.types import SkillManifest, SkillStep
-        from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+        from OpenDEMON.core.types import ToolResult
+        from OpenDEMON.skills.executor import SkillExecutor
+        from OpenDEMON.skills.types import SkillManifest, SkillStep
+        from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
         class EchoTool(BaseTool):
             tool_id = "echo"

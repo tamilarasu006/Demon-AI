@@ -1,4 +1,4 @@
-﻿"""Multi-objective reward function for orchestrator training.
+"""Multi-objective reward function for orchestrator training.
 
 Adapted from IPW's ``reward.py``.  Balances accuracy, cost, energy,
 latency, and power into a single scalar reward used by both the SFT
@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List
 
-from DEMON.learning.intelligence.orchestrator.types import Episode
+from OpenDEMON.learning.intelligence.orchestrator.types import Episode
 
 
 @dataclass

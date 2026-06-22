@@ -1,4 +1,4 @@
-﻿"""LiveCodeBench dataset provider — competitive programming code generation.
+"""LiveCodeBench dataset provider — competitive programming code generation.
 
 Loads problems from the LiveCodeBench HuggingFace dataset
 (livecodebench/code_generation_lite) for evaluating code generation capability.
@@ -14,9 +14,9 @@ import logging
 import random
 from typing import Any, Dict, Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

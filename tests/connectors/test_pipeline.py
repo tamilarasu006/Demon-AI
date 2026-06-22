@@ -1,4 +1,4 @@
-﻿"""Tests for IngestionPipeline — dedup, chunking, and indexed storage."""
+"""Tests for IngestionPipeline — dedup, chunking, and indexed storage."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.store import KnowledgeStore
 
 # ---------------------------------------------------------------------------
 # Helpers

@@ -1,10 +1,10 @@
-﻿"""Tests for security middleware -- HTTP security headers."""
+"""Tests for security middleware -- HTTP security headers."""
 
 from __future__ import annotations
 
 from unittest.mock import patch
 
-from DEMON.server.middleware import SECURITY_HEADERS, create_security_middleware
+from OpenDEMON.server.middleware import SECURITY_HEADERS, create_security_middleware
 
 
 class TestSecurityHeaders:
@@ -27,7 +27,7 @@ class TestSecurityHeaders:
         """When starlette is not available, returns None."""
         import importlib
 
-        import DEMON.server.middleware as mod
+        import OpenDEMON.server.middleware as mod
 
         blocked = {
             "starlette": None,

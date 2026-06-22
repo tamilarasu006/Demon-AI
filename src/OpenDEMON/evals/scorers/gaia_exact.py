@@ -1,4 +1,4 @@
-﻿"""GAIA scorer — normalized exact match with LLM fallback.
+"""GAIA scorer — normalized exact match with LLM fallback.
 
 Adapted from IPW's gaia.py evaluation handler.
 """
@@ -10,8 +10,8 @@ import re
 import string
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

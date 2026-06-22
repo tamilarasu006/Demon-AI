@@ -1,4 +1,4 @@
-﻿"""Agent template loader — load pre-configured agent manifests from TOML files."""
+"""Agent template loader — load pre-configured agent manifests from TOML files."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ try:
 except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore[no-redef]
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 
 @dataclass(slots=True)

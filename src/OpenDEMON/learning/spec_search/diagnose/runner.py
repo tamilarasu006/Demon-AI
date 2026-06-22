@@ -1,4 +1,4 @@
-﻿"""DiagnosisRunner: orchestrates phase 1 of the spec-search loop.
+"""DiagnosisRunner: orchestrates phase 1 of the spec-search loop.
 
 Builds diagnostic tools, runs the TeacherAgent, parses failure clusters
 from the teacher's output, and persists artifacts.
@@ -15,20 +15,20 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from DEMON.learning.spec_search.diagnose.teacher_agent import (
+from OpenDEMON.learning.spec_search.diagnose.teacher_agent import (
     TeacherAgent,
 )
-from DEMON.learning.spec_search.diagnose.tools import (
+from OpenDEMON.learning.spec_search.diagnose.tools import (
     build_diagnostic_tools,
 )
-from DEMON.learning.spec_search.diagnose.types import ToolCallRecord
-from DEMON.learning.spec_search.models import FailureCluster
+from OpenDEMON.learning.spec_search.diagnose.types import ToolCallRecord
+from OpenDEMON.learning.spec_search.models import FailureCluster
 
 logger = logging.getLogger(__name__)
 
 _SYSTEM_PROMPT = """\
 You are a meta-engineer analyzing the performance of a local AI assistant \
-called DEMON. Your job is to diagnose why the local student model fails \
+called OpenDEMON. Your job is to diagnose why the local student model fails \
 on certain tasks and identify root cause patterns.
 
 IMPORTANT — OUTPUT REQUIREMENT: You MUST end your response with a JSON array \

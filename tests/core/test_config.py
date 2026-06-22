@@ -1,10 +1,10 @@
-﻿"""Tests for configuration, hardware detection, and engine recommendation."""
+"""Tests for configuration, hardware detection, and engine recommendation."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     AgentConfig,
     ChannelConfig,
     EngineConfig,
@@ -502,7 +502,7 @@ class TestSchedulerConfig:
 class TestApplyTomlSectionListNormalization:
     def test_apply_toml_section_list_to_str_field(self) -> None:
         """TOML arrays assigned to str-typed fields should be joined with ','."""
-        from DEMON.core.config import ToolsConfig, _apply_toml_section
+        from OpenDEMON.core.config import ToolsConfig, _apply_toml_section
 
         target = ToolsConfig()
         tools = ["code_interpreter", "web_search", "file_read"]
@@ -513,7 +513,7 @@ class TestApplyTomlSectionListNormalization:
     def test_apply_toml_section_list_to_property_setter(self) -> None:
         """TOML arrays passed to backward-compat property setters should be
         normalized to comma-separated strings, not passed as raw lists."""
-        from DEMON.core.config import _apply_toml_section
+        from OpenDEMON.core.config import _apply_toml_section
 
         target = LearningConfig()
         _apply_toml_section(
@@ -527,7 +527,7 @@ class TestApplyTomlSectionListNormalization:
 
     def test_apply_toml_section_agent_tools_list(self) -> None:
         """Agent tools should work as a TOML array."""
-        from DEMON.core.config import _apply_toml_section
+        from OpenDEMON.core.config import _apply_toml_section
 
         target = AgentConfig()
         _apply_toml_section(
@@ -568,7 +568,7 @@ class TestWhatsAppBaileysChannelConfig:
 
 
 def test_mining_config_absent_means_none(tmp_path):
-    from DEMON.core.config import load_config
+    from OpenDEMON.core.config import load_config
 
     cfg_path = tmp_path / "config.toml"
     cfg_path.write_text("")  # empty config
@@ -579,8 +579,8 @@ def test_mining_config_absent_means_none(tmp_path):
 def test_mining_config_solo_parsed(tmp_path):
     from pathlib import Path
 
-    from DEMON.core.config import load_config
-    from DEMON.mining._stubs import SoloTarget
+    from OpenDEMON.core.config import load_config
+    from OpenDEMON.mining._stubs import SoloTarget
 
     src = Path(__file__).parent.parent / "mining" / "fixtures" / "config_minimal.toml"
     target = tmp_path / "config.toml"
@@ -598,8 +598,8 @@ def test_mining_config_solo_parsed(tmp_path):
 def test_mining_config_pool_parsed_as_pool_target(tmp_path):
     from pathlib import Path
 
-    from DEMON.core.config import load_config
-    from DEMON.mining._stubs import PoolTarget
+    from OpenDEMON.core.config import load_config
+    from OpenDEMON.mining._stubs import PoolTarget
 
     src = Path(__file__).parent.parent / "mining" / "fixtures" / "config_pool_v2.toml"
     target = tmp_path / "config.toml"

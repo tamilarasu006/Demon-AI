@@ -1,4 +1,4 @@
-﻿# src/DEMON/mining/_docker.py
+# src/DEMON/mining/_docker.py
 """Pearl Docker container orchestration.
 
 See spec ``docs/design/2026-05-05-vllm-pearl-mining-integration-design.md``
@@ -15,9 +15,9 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from DEMON.mining._stubs import MiningConfig
+    from OpenDEMON.mining._stubs import MiningConfig
 
-from DEMON.mining._constants import (
+from OpenDEMON.mining._constants import (
     PEARL_CACHE_DIR,
     PEARL_IMAGE_TAG,
     PEARL_PINNED_REF,

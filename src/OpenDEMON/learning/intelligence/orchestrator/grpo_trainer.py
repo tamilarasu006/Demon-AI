@@ -1,4 +1,4 @@
-﻿"""GRPO (Group Relative Policy Optimization) trainer for orchestrator.
+"""GRPO (Group Relative Policy Optimization) trainer for orchestrator.
 
 Adapted from IPW's ``trainer.py``.  GRPO is simpler than PPO because it
 doesn't require a separate critic model — instead, it uses
@@ -30,8 +30,8 @@ except ImportError:
     torch = None  # type: ignore[assignment]
     F = None  # type: ignore[assignment]
 
-from DEMON.core.registry import LearningRegistry
-from DEMON.learning._stubs import IntelligenceLearningPolicy
+from OpenDEMON.core.registry import LearningRegistry
+from OpenDEMON.learning._stubs import IntelligenceLearningPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +120,7 @@ class OrchestratorGRPOTrainer:
     # -- Initialisation ------------------------------------------------------
 
     def _init_model(self) -> None:
-        from DEMON.learning.intelligence.orchestrator.policy_model import (
+        from OpenDEMON.learning.intelligence.orchestrator.policy_model import (
             OrchestratorPolicyModel,
         )
 
@@ -232,12 +232,12 @@ class OrchestratorGRPOTrainer:
         all_advantages: list[float] = []
         all_rewards: list[float] = []
 
-        from DEMON.learning.intelligence.orchestrator.reward import (
+        from OpenDEMON.learning.intelligence.orchestrator.reward import (
             MultiObjectiveReward,
             Normalizers,
             RewardWeights,
         )
-        from DEMON.learning.intelligence.orchestrator.types import (
+        from OpenDEMON.learning.intelligence.orchestrator.types import (
             Episode,
         )
 

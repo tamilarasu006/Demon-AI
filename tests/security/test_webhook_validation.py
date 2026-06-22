@@ -1,4 +1,4 @@
-﻿"""Tests for webhook fail-closed validation (Section 3)."""
+"""Tests for webhook fail-closed validation (Section 3)."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ class TestTwilioValidationFailClosed:
 
     def test_missing_sdk_returns_false(self) -> None:
         pytest.importorskip("fastapi")
-        from DEMON.server.webhook_routes import _validate_twilio_signature
+        from OpenDEMON.server.webhook_routes import _validate_twilio_signature
 
         with patch.dict(
             "sys.modules", {"twilio": None, "twilio.request_validator": None}
@@ -27,7 +27,7 @@ class TestTwilioValidationFailClosed:
 
     def test_empty_auth_token_returns_false(self) -> None:
         pytest.importorskip("fastapi")
-        from DEMON.server.webhook_routes import _validate_twilio_signature
+        from OpenDEMON.server.webhook_routes import _validate_twilio_signature
 
         result = _validate_twilio_signature(
             auth_token="",

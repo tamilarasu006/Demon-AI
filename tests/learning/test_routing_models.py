@@ -1,12 +1,12 @@
-﻿"""Tests for router behavior with the extended model catalog."""
+"""Tests for router behavior with the extended model catalog."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.intelligence.model_catalog import register_builtin_models
-from DEMON.learning._stubs import RoutingContext
-from DEMON.learning.routing.router import (
+from OpenDEMON.intelligence.model_catalog import register_builtin_models
+from OpenDEMON.learning._stubs import RoutingContext
+from OpenDEMON.learning.routing.router import (
     HeuristicRouter,
     build_routing_context,
 )

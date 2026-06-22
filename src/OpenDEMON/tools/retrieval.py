@@ -1,14 +1,14 @@
-﻿"""Retrieval tool — search memory backends for relevant context."""
+"""Retrieval tool — search memory backends for relevant context."""
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
-from DEMON.tools.storage._stubs import MemoryBackend
-from DEMON.tools.storage.context import format_context
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.tools.storage._stubs import MemoryBackend
+from OpenDEMON.tools.storage.context import format_context
 
 
 @ToolRegistry.register("retrieval")

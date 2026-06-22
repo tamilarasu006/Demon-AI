@@ -1,4 +1,4 @@
-﻿"""HTTP request tool — make HTTP requests with SSRF protection."""
+"""HTTP request tool — make HTTP requests with SSRF protection."""
 
 from __future__ import annotations
 
@@ -10,10 +10,10 @@ from typing import Any
 
 import httpx
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.security.ssrf import check_ssrf
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.security.ssrf import check_ssrf
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 logger = logging.getLogger(__name__)
 
@@ -118,7 +118,7 @@ class HttpRequestTool(BaseTool):
 
         _rust = None
         try:
-            from DEMON._rust_bridge import get_rust_module
+            from OpenDEMON._rust_bridge import get_rust_module
 
             _rust = get_rust_module()
         except ImportError:

@@ -1,4 +1,4 @@
-﻿"""SimpleQA dataset provider (basicv8vc/SimpleQA).
+"""SimpleQA dataset provider (basicv8vc/SimpleQA).
 
 Short-answer factual QA benchmark for evaluating factual accuracy.
 """
@@ -9,8 +9,8 @@ import ast
 import random
 from typing import Any, Dict, Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """Please answer the following question with a short, factual response.
 Your answer should be a word, phrase, name, number, or date.

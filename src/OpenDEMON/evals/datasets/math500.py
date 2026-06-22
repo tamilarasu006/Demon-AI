@@ -1,4 +1,4 @@
-﻿"""MATH-500 dataset provider (HuggingFaceH4/MATH-500).
+"""MATH-500 dataset provider (HuggingFaceH4/MATH-500).
 
 Adapted from IPW's reasoning benchmark loaders.
 """
@@ -8,8 +8,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = (
     "Solve the following math problem step by step. "

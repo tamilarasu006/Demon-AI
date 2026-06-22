@@ -1,13 +1,13 @@
-﻿"""Tests for MCP server upgrade to protocol version 2025-11-25."""
+"""Tests for MCP server upgrade to protocol version 2025-11-25."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.mcp.protocol import MCPRequest
-from DEMON.mcp.server import MCPServer
-from DEMON.tools.calculator import CalculatorTool
-from DEMON.tools.think import ThinkTool
+from OpenDEMON.mcp.protocol import MCPRequest
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.tools.calculator import CalculatorTool
+from OpenDEMON.tools.think import ThinkTool
 
 
 @pytest.fixture
@@ -112,7 +112,7 @@ class TestAutoDiscovery:
 
 class TestStorageToolAnnotations:
     def test_memory_store_destructive(self):
-        from DEMON.tools.storage_tools import MemoryStoreTool
+        from OpenDEMON.tools.storage_tools import MemoryStoreTool
 
         server = MCPServer([MemoryStoreTool()])
         req = MCPRequest(method="tools/list", id=1)
@@ -122,7 +122,7 @@ class TestStorageToolAnnotations:
         assert tool["annotations"]["readOnlyHint"] is False
 
     def test_memory_retrieve_read_only(self):
-        from DEMON.tools.storage_tools import MemoryRetrieveTool
+        from OpenDEMON.tools.storage_tools import MemoryRetrieveTool
 
         server = MCPServer([MemoryRetrieveTool()])
         req = MCPRequest(method="tools/list", id=1)

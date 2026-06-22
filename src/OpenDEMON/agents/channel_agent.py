@@ -1,4 +1,4 @@
-﻿"""ChannelAgent — bridge between messaging channels and AI agents.
+"""ChannelAgent — bridge between messaging channels and AI agents.
 
 Routes incoming :class:`~DEMON.channels._stubs.ChannelMessage` objects
 to an agent, classifies queries as "quick" or "deep", and delivers responses
@@ -12,7 +12,7 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Optional
 
-from DEMON.channels._stubs import BaseChannel, ChannelMessage
+from OpenDEMON.channels._stubs import BaseChannel, ChannelMessage
 
 # ---------------------------------------------------------------------------
 # Query classifier

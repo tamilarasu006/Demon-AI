@@ -1,10 +1,10 @@
-﻿"""Tests for MCP protocol message types."""
+"""Tests for MCP protocol message types."""
 
 from __future__ import annotations
 
 import json
 
-from DEMON.mcp.protocol import (
+from OpenDEMON.mcp.protocol import (
     INTERNAL_ERROR,
     INVALID_PARAMS,
     INVALID_REQUEST,

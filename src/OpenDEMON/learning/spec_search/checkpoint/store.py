@@ -1,4 +1,4 @@
-﻿"""Git-backed checkpoint store for spec-search config rollback.
+"""Git-backed checkpoint store for spec-search config rollback.
 
 A thin wrapper over a local git repository at ``<DEMON_home>/.git``.
 The repo tracks ``config.toml``, ``agents/``, and ``tools/`` so that the
@@ -19,7 +19,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
-from DEMON.learning.spec_search.storage.paths import (
+from OpenDEMON.learning.spec_search.storage.paths import (
     ConfigurationError,
     _find_source_root,
 )

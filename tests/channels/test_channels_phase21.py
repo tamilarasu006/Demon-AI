@@ -1,4 +1,4 @@
-﻿"""Tests for Phase 21 messaging channels."""
+"""Tests for Phase 21 messaging channels."""
 
 from __future__ import annotations
 
@@ -7,18 +7,18 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.channels.line_channel import LineChannel
-from DEMON.channels.mastodon_channel import MastodonChannel
-from DEMON.channels.messenger_channel import MessengerChannel
-from DEMON.channels.nostr_channel import NostrChannel
-from DEMON.channels.reddit_channel import RedditChannel
-from DEMON.channels.rocketchat_channel import RocketChatChannel
-from DEMON.channels.twitch_channel import TwitchChannel
-from DEMON.channels.viber_channel import ViberChannel
-from DEMON.channels.xmpp_channel import XMPPChannel
-from DEMON.channels.zulip_channel import ZulipChannel
-from DEMON.core.registry import ChannelRegistry
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.channels.line_channel import LineChannel
+from OpenDEMON.channels.mastodon_channel import MastodonChannel
+from OpenDEMON.channels.messenger_channel import MessengerChannel
+from OpenDEMON.channels.nostr_channel import NostrChannel
+from OpenDEMON.channels.reddit_channel import RedditChannel
+from OpenDEMON.channels.rocketchat_channel import RocketChatChannel
+from OpenDEMON.channels.twitch_channel import TwitchChannel
+from OpenDEMON.channels.viber_channel import ViberChannel
+from OpenDEMON.channels.xmpp_channel import XMPPChannel
+from OpenDEMON.channels.zulip_channel import ZulipChannel
+from OpenDEMON.core.registry import ChannelRegistry
 
 # (class, registry key, library module name, pip package name)
 CHANNELS = [

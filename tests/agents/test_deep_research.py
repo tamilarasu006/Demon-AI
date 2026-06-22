@@ -1,4 +1,4 @@
-﻿"""Tests for DeepResearchAgent -- multi-hop retrieval with citations."""
+"""Tests for DeepResearchAgent -- multi-hop retrieval with citations."""
 
 from __future__ import annotations
 
@@ -7,11 +7,11 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents._stubs import AgentResult
-from DEMON.agents.deep_research import DeepResearchAgent
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.core.registry import AgentRegistry
-from DEMON.tools.knowledge_search import KnowledgeSearchTool
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.deep_research import DeepResearchAgent
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
 
 # ---------------------------------------------------------------------------
 # Fixtures

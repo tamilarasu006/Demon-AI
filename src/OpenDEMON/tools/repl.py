@@ -1,4 +1,4 @@
-﻿"""Persistent Python REPL tool — maintains state across calls within a session.
+"""Persistent Python REPL tool — maintains state across calls within a session.
 
 Unlike ``CodeInterpreterTool`` (which runs each snippet in a fresh subprocess),
 this tool keeps variables, functions, and imports alive across invocations
@@ -15,9 +15,9 @@ from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Security

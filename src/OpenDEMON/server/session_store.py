@@ -1,4 +1,4 @@
-﻿"""SQLite-backed session store for channel conversations."""
+"""SQLite-backed session store for channel conversations."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ class SessionStore:
     def __init__(self, db_path: str = "") -> None:
         if not db_path:
             db_path = str(get_config_dir() / "sessions.db")
-        from DEMON.security.file_utils import secure_create
+        from OpenDEMON.security.file_utils import secure_create
 
         secure_create(Path(db_path))
         self._db = sqlite3.connect(db_path, check_same_thread=False)

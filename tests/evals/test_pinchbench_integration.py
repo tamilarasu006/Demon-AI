@@ -1,4 +1,4 @@
-﻿"""Integration tests for PinchBench eval pipeline.
+"""Integration tests for PinchBench eval pipeline.
 
 These tests use synthetic task files to verify the full pipeline
 without requiring the actual PinchBench repo or cloud API keys.
@@ -7,8 +7,8 @@ without requiring the actual PinchBench repo or cloud API keys.
 import textwrap
 from pathlib import Path
 
-from DEMON.evals.core.event_recorder import EventRecorder, EventType
-from DEMON.evals.datasets.pinchbench import PinchBenchDataset
+from OpenDEMON.evals.core.event_recorder import EventRecorder, EventType
+from OpenDEMON.evals.datasets.pinchbench import PinchBenchDataset
 
 
 def _create_test_repo(tmp_path: Path) -> Path:

@@ -1,10 +1,10 @@
-﻿"""Tests for VLLMMetricsScraper — Prometheus text format parsing."""
+"""Tests for VLLMMetricsScraper — Prometheus text format parsing."""
 
 from __future__ import annotations
 
 from unittest.mock import patch
 
-from DEMON.telemetry.vllm_metrics import (
+from OpenDEMON.telemetry.vllm_metrics import (
     VLLMMetrics,
     VLLMMetricsScraper,
     _parse_gauge,

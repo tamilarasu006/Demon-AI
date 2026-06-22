@@ -1,4 +1,4 @@
-﻿"""Tests for backend construction with mocks."""
+"""Tests for backend construction with mocks."""
 
 from __future__ import annotations
 
@@ -37,7 +37,7 @@ class TestDEMONDirectBackend:
         mock_builder.build.return_value = mock_system
         mock_builder_cls.return_value = mock_builder
 
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         backend = DEMONDirectBackend()
         assert backend.backend_id == "DEMON-direct"
@@ -54,7 +54,7 @@ class TestDEMONDirectBackend:
         mock_builder.build.return_value = MagicMock()
         mock_builder_cls.return_value = mock_builder
 
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         DEMONDirectBackend(engine_key="cloud")
         mock_builder.engine.assert_called_with("cloud")
@@ -75,7 +75,7 @@ class TestDEMONDirectBackend:
         mock_builder.build.return_value = mock_system
         mock_builder_cls.return_value = mock_builder
 
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         backend = DEMONDirectBackend()
         result = backend.generate_full("What is 2+2?", model="test-model")
@@ -98,7 +98,7 @@ class TestDEMONDirectBackend:
         mock_builder.build.return_value = mock_system
         mock_builder_cls.return_value = mock_builder
 
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         backend = DEMONDirectBackend()
         text = backend.generate("Capital of France?", model="m")
@@ -117,7 +117,7 @@ class TestDEMONAgentBackend:
         mock_builder.build.return_value = MagicMock()
         mock_builder_cls.return_value = mock_builder
 
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         backend = DEMONAgentBackend(
             engine_key="cloud",
@@ -150,7 +150,7 @@ class TestDEMONAgentBackend:
         mock_builder.build.return_value = mock_system
         mock_builder_cls.return_value = mock_builder
 
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         backend = DEMONAgentBackend(agent_name="orchestrator")
         result = backend.generate_full("What is 2+2?", model="gpt-4o")
@@ -165,8 +165,8 @@ class TestDEMONDirectBackendBaseUrl:
 
     @patch("DEMON.system.SystemBuilder")
     def test_base_url_injects_pinned_openai_compat_engine(self, mock_builder_cls):
-        from DEMON.engine.openai_compat_engines import OpenAICompatEngine
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.engine.openai_compat_engines import OpenAICompatEngine
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         mock_builder = _mock_builder()
         mock_builder_cls.return_value = mock_builder
@@ -188,7 +188,7 @@ class TestDEMONDirectBackendBaseUrl:
 
     @patch("DEMON.system.SystemBuilder")
     def test_unreachable_base_url_fails_fast_naming_url(self, mock_builder_cls):
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         mock_builder = _mock_builder()
         mock_builder_cls.return_value = mock_builder
@@ -206,7 +206,7 @@ class TestDEMONDirectBackendBaseUrl:
 
     @patch("DEMON.system.SystemBuilder")
     def test_no_base_url_keeps_engine_key_path(self, mock_builder_cls):
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         mock_builder = _mock_builder()
         mock_builder_cls.return_value = mock_builder
@@ -217,7 +217,7 @@ class TestDEMONDirectBackendBaseUrl:
 
     @patch("DEMON.system.SystemBuilder")
     def test_base_url_wins_over_engine_key(self, mock_builder_cls):
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         mock_builder = _mock_builder()
         mock_builder_cls.return_value = mock_builder
@@ -239,8 +239,8 @@ class TestDEMONAgentBackendBaseUrl:
 
     @patch("DEMON.system.SystemBuilder")
     def test_base_url_injects_pinned_openai_compat_engine(self, mock_builder_cls):
-        from DEMON.engine.openai_compat_engines import OpenAICompatEngine
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.engine.openai_compat_engines import OpenAICompatEngine
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         mock_builder = _mock_builder()
         mock_builder_cls.return_value = mock_builder
@@ -260,7 +260,7 @@ class TestDEMONAgentBackendBaseUrl:
 
     @patch("DEMON.system.SystemBuilder")
     def test_unreachable_base_url_fails_fast_naming_url(self, mock_builder_cls):
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         mock_builder = _mock_builder()
         mock_builder_cls.return_value = mock_builder
@@ -277,7 +277,7 @@ class TestDEMONAgentBackendBaseUrl:
 
     @patch("DEMON.system.SystemBuilder")
     def test_no_base_url_keeps_engine_key_path(self, mock_builder_cls):
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         mock_builder = _mock_builder()
         mock_builder_cls.return_value = mock_builder

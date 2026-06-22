@@ -1,4 +1,4 @@
-﻿"""LifelongAgentBench dataset loader.
+"""LifelongAgentBench dataset loader.
 
 Faithful reimplementation of:
   https://github.com/caixd-220529/LifelongAgentBench
@@ -37,8 +37,8 @@ import logging
 from collections import defaultdict
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 logger = logging.getLogger(__name__)
 
@@ -265,7 +265,7 @@ class LifelongAgentDataset(DatasetProvider):
         This is called by EvalRunner when episode_mode=True and enables
         the faithful multi-turn interaction protocol matching the original.
         """
-        from DEMON.evals.environments.lifelong_agent_env import (
+        from OpenDEMON.evals.environments.lifelong_agent_env import (
             create_task_environment,
         )
 

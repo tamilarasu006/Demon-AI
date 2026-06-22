@@ -1,4 +1,4 @@
-﻿"""Container-scoped shell executor.
+"""Container-scoped shell executor.
 
 Runs commands inside the currently-active TB v2.1 task container (set via
 :func:`DEMON.tools.docker_shell_exec.set_active_container`). When no
@@ -7,7 +7,7 @@ host-shell alternative.
 
 The expected lifecycle is:
 
-    from DEMON.tools.docker_shell_exec import set_active_container
+    from OpenDEMON.tools.docker_shell_exec import set_active_container
 
     set_active_container(container_name)
     try:
@@ -24,8 +24,8 @@ import subprocess
 import threading
 from typing import Any, Optional
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.tools._stubs import BaseTool, ToolResult, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.tools._stubs import BaseTool, ToolResult, ToolSpec
 
 # NOTE: We use a module-level (process-wide) variable rather than a
 # threading.local, because ToolExecutor dispatches each tool call onto a

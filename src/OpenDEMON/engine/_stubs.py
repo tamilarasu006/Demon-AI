@@ -1,4 +1,4 @@
-﻿"""ABC for inference engine backends.
+"""ABC for inference engine backends.
 
 Adapted from IPW's ``InferenceClient`` at ``src/ipw/clients/base.py``.
 Phase 1 will provide concrete implementations (vLLM, Ollama, etc.).
@@ -11,7 +11,7 @@ from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence
 
-from DEMON.core.types import Message
+from OpenDEMON.core.types import Message
 
 
 @dataclass(slots=True)

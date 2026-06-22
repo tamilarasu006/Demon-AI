@@ -1,4 +1,4 @@
-﻿"""Cloud-key auto-detection and initial-config writing.
+"""Cloud-key auto-detection and initial-config writing.
 
 Used by both ``install.sh`` (via ``DEMON _bootstrap --write-config``)
 and ``DEMON init`` (so there is a single source of truth for the
@@ -15,9 +15,9 @@ from typing import Optional
 
 import click
 
-import DEMON
-from DEMON.core import config as _cfg
-from DEMON.core.config import (
+import OpenDEMON
+from OpenDEMON.core import config as _cfg
+from OpenDEMON.core.config import (
     HardwareInfo,
     detect_hardware,
     recommend_engine,
@@ -91,7 +91,7 @@ def _now_iso() -> str:
 
 
 def _installer_version() -> str:
-    return DEMON.__version__
+    return OpenDEMON.__version__
 
 
 def _render_provenance_lines() -> str:

@@ -1,4 +1,4 @@
-﻿"""DEMON Agent backend — agent-level inference with tool calling."""
+"""DEMON Agent backend — agent-level inference with tool calling."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.evals.backends._commit_util import DEMON_commit
-from DEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.backends._commit_util import DEMON_commit
+from OpenDEMON.evals.core.backend import InferenceBackend
 
 
 class DEMONAgentBackend(InferenceBackend):
@@ -34,7 +34,7 @@ class DEMONAgentBackend(InferenceBackend):
         base_url: Optional[str] = None,
         api_key: Optional[str] = None,
     ) -> None:
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.system import SystemBuilder
 
         self._agent_name = agent_name
         self._tools = tools or []
@@ -46,7 +46,7 @@ class DEMONAgentBackend(InferenceBackend):
             # Explicit endpoint targeting (--base-url): pin the eval to
             # exactly this OpenAI-compatible endpoint. Fails fast if it is
             # unreachable; never falls back to a discovered engine.
-            from DEMON.evals.backends._endpoint_util import (
+            from OpenDEMON.evals.backends._endpoint_util import (
                 build_endpoint_engine,
             )
 
@@ -79,7 +79,7 @@ class DEMONAgentBackend(InferenceBackend):
     @property
     def framework_commit_value(self) -> str:
         """DEMON repo HEAD commit (for telemetry tagging)."""
-        from DEMON.evals.backends._commit_util import DEMON_commit
+        from OpenDEMON.evals.backends._commit_util import DEMON_commit
 
         return DEMON_commit()
 

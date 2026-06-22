@@ -1,9 +1,9 @@
-﻿"""Tests for the code interpreter tool."""
+"""Tests for the code interpreter tool."""
 
 from __future__ import annotations
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.tools.code_interpreter import CodeInterpreterTool
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.tools.code_interpreter import CodeInterpreterTool
 
 
 class TestCodeInterpreterTool:

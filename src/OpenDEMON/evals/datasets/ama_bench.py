@@ -1,4 +1,4 @@
-﻿"""AMA-Bench dataset loader.
+"""AMA-Bench dataset loader.
 
 Reference dataset:
 https://huggingface.co/datasets/AMA-bench/AMA-bench
@@ -24,8 +24,8 @@ import random
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

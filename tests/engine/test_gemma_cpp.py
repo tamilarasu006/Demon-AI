@@ -1,4 +1,4 @@
-﻿"""Tests for the gemma.cpp engine backend."""
+"""Tests for the gemma.cpp engine backend."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.core.config import EngineConfig, GemmaCppEngineConfig
-from DEMON.core.types import Message, Role
+from OpenDEMON.core.config import EngineConfig, GemmaCppEngineConfig
+from OpenDEMON.core.types import Message, Role
 
 
 class TestGemmaCppEngineConfig:
@@ -28,7 +28,7 @@ class TestGemmaCppEngineConfig:
 class TestMessagesToPrompt:
     def _make_engine(self):
         """Create engine with no paths (won't load model, just test formatting)."""
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         return GemmaCppEngine()
 
@@ -94,7 +94,7 @@ class TestMessagesToPrompt:
 
 class TestGemmaCppLifecycle:
     def _make_engine(self, **kwargs):
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         defaults = {
             "model_path": "/fake/model.sbs",
@@ -165,7 +165,7 @@ class TestGemmaCppLifecycle:
         mock_import.return_value = mock_gemma_cls
 
         engine = self._make_engine(model_type="2b-it")
-        from DEMON.engine import gemma_cpp as gc_mod
+        from OpenDEMON.engine import gemma_cpp as gc_mod
 
         with patch.object(gc_mod.logger, "warning") as mock_warn:
             engine.generate(
@@ -200,7 +200,7 @@ class TestGemmaCppStream:
         mock_gemma_cls.return_value = mock_gemma_instance
         mock_import.return_value = mock_gemma_cls
 
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine(
             model_path="/fake/model.sbs",
@@ -223,7 +223,7 @@ class TestGemmaCppHealth:
         tokenizer_file = tmp_path / "tokenizer.spm"
         model_file.write_text("fake")
         tokenizer_file.write_text("fake")
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine(
             model_path=str(model_file),
@@ -234,7 +234,7 @@ class TestGemmaCppHealth:
             assert engine.health() is True
 
     def test_health_false_when_files_missing(self) -> None:
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine(
             model_path="/nonexistent/model.sbs",
@@ -244,7 +244,7 @@ class TestGemmaCppHealth:
         assert engine.health() is False
 
     def test_health_false_when_unconfigured(self) -> None:
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine()
         assert engine.health() is False
@@ -254,7 +254,7 @@ class TestGemmaCppHealth:
         tokenizer_file = tmp_path / "tokenizer.spm"
         model_file.write_text("fake")
         tokenizer_file.write_text("fake")
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine(
             model_path=str(model_file),
@@ -274,7 +274,7 @@ class TestGemmaCppListModels:
         tokenizer_file = tmp_path / "tokenizer.spm"
         model_file.write_text("fake")
         tokenizer_file.write_text("fake")
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine(
             model_path=str(model_file),
@@ -284,13 +284,13 @@ class TestGemmaCppListModels:
         assert engine.list_models() == ["2b-it"]
 
     def test_list_models_unconfigured(self) -> None:
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine()
         assert engine.list_models() == []
 
     def test_list_models_files_missing(self) -> None:
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         engine = GemmaCppEngine(
             model_path="/nonexistent/model.sbs",
@@ -302,14 +302,14 @@ class TestGemmaCppListModels:
 
 class TestGemmaCppConfigResolution:
     def test_explicit_args_take_priority(self) -> None:
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         with patch.dict(os.environ, {"GEMMA_CPP_MODEL_PATH": "/env/model"}):
             engine = GemmaCppEngine(model_path="/explicit/model")
         assert engine._model_path == "/explicit/model"
 
     def test_env_vars_fallback(self) -> None:
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         env = {
             "GEMMA_CPP_MODEL_PATH": "/env/model.sbs",
@@ -325,7 +325,7 @@ class TestGemmaCppConfigResolution:
         assert engine._num_threads == 8
 
     def test_defaults_when_nothing_set(self) -> None:
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         with patch.dict(os.environ, {}, clear=True):
             engine = GemmaCppEngine()
@@ -337,16 +337,16 @@ class TestGemmaCppConfigResolution:
 
 class TestGemmaCppDiscovery:
     def test_host_map_contains_gemma_cpp(self) -> None:
-        from DEMON.engine._discovery import _HOST_MAP
+        from OpenDEMON.engine._discovery import _HOST_MAP
 
         assert "gemma_cpp" in _HOST_MAP
         assert _HOST_MAP["gemma_cpp"] is None
 
     def test_make_engine_passes_config(self) -> None:
-        from DEMON.core.config import GemmaCppEngineConfig, DEMONConfig
-        from DEMON.core.registry import EngineRegistry
-        from DEMON.engine._discovery import _make_engine
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.core.config import GemmaCppEngineConfig, DEMONConfig
+        from OpenDEMON.core.registry import EngineRegistry
+        from OpenDEMON.engine._discovery import _make_engine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         EngineRegistry.register_value("gemma_cpp", GemmaCppEngine)
         config = DEMONConfig()
@@ -363,8 +363,8 @@ class TestGemmaCppDiscovery:
         assert engine._num_threads == 4
 
     def test_registry_contains_gemma_cpp(self) -> None:
-        from DEMON.core.registry import EngineRegistry
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.core.registry import EngineRegistry
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         EngineRegistry.register_value("gemma_cpp", GemmaCppEngine)
         assert EngineRegistry.contains("gemma_cpp")
@@ -379,7 +379,7 @@ class TestGemmaCppLive:
     """
 
     def _make_engine(self):
-        from DEMON.engine.gemma_cpp import GemmaCppEngine
+        from OpenDEMON.engine.gemma_cpp import GemmaCppEngine
 
         return GemmaCppEngine()
 

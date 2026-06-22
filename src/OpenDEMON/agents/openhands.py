@@ -1,4 +1,4 @@
-﻿"""OpenHandsAgent -- wraps the real openhands-sdk for AI-driven development.
+"""OpenHandsAgent -- wraps the real openhands-sdk for AI-driven development.
 
 Requires the ``openhands-sdk`` package (``uv sync --extra openhands``).
 For the native CodeAct-style agent, see :mod:`DEMON.agents.native_openhands`.
@@ -9,10 +9,10 @@ from __future__ import annotations
 import os
 from typing import Any, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.engine._stubs import InferenceEngine
 
 
 @AgentRegistry.register("openhands")

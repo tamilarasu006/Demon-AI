@@ -1,4 +1,4 @@
-﻿"""End-to-end tests for ``DEMON ask``."""
+"""End-to-end tests for ``DEMON ask``."""
 
 from __future__ import annotations
 
@@ -9,8 +9,8 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.config import DEMONConfig
+from OpenDEMON.cli import cli
+from OpenDEMON.core.config import DEMONConfig
 
 # Import the actual module (not the Click command attribute)
 _ask_mod = importlib.import_module("DEMON.cli.ask")
@@ -35,8 +35,8 @@ def _patch_ask(monkeypatch, tmp_path, *, engine_result=None, no_engine=False):
     # Re-register SimpleAgent after the autouse `_clean_registries` conftest
     # fixture clears it. ``DEMONConfig().agent.default_agent`` defaults to
     # ``"simple"``, so ``DEMON ask "..."`` (no --agent) routes through it.
-    from DEMON.agents.simple import SimpleAgent
-    from DEMON.core.registry import AgentRegistry
+    from OpenDEMON.agents.simple import SimpleAgent
+    from OpenDEMON.core.registry import AgentRegistry
 
     if not AgentRegistry.contains("simple"):
         AgentRegistry.register_value("simple", SimpleAgent)

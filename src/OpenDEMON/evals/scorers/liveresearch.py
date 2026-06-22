@@ -1,4 +1,4 @@
-﻿"""DeepResearchBench scorer — LLM-as-judge for deep research quality.
+"""DeepResearchBench scorer — LLM-as-judge for deep research quality.
 
 Evaluates research output quality across four dimensions from the
 DeepResearchBench rubric: comprehensiveness, insight, instruction_following,
@@ -16,8 +16,8 @@ import logging
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

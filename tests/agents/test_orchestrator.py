@@ -1,14 +1,14 @@
-﻿"""Tests for the OrchestratorAgent."""
+"""Tests for the OrchestratorAgent."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.orchestrator import OrchestratorAgent
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Conversation, Message, Role, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.orchestrator import OrchestratorAgent
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Conversation, Message, Role, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Helpers

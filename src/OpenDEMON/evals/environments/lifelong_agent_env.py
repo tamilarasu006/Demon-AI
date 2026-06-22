@@ -1,4 +1,4 @@
-﻿"""Multi-turn task environments for LifelongAgentBench.
+"""Multi-turn task environments for LifelongAgentBench.
 
 Implements faithful reproductions of the original's interaction protocols:
   - DB: MySQL Docker container (SQLite fallback with degraded-mode warning)
@@ -18,9 +18,9 @@ import subprocess
 import time
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.environments.base import TaskEnvironment
-from DEMON.evals.scorers.lifelong_agent_scorer import (
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.environments.base import TaskEnvironment
+from OpenDEMON.evals.scorers.lifelong_agent_scorer import (
     _TYPE_MAP,
     _normalize_entity,
     compare_tuple_lists,
@@ -268,7 +268,7 @@ class DBEnvironment(TaskEnvironment):
             )
             meta["ref_sql_sqlite_error"] = str(exc)
             meta["fallback"] = "normalized_sql_comparison"
-            from DEMON.evals.scorers.lifelong_agent_scorer import (
+            from OpenDEMON.evals.scorers.lifelong_agent_scorer import (
                 _normalize_sql,
             )
 
@@ -342,7 +342,7 @@ class DBEnvironment(TaskEnvironment):
 
         # Strategy 2: Parse text from final answer
         if self._agent_final_answer:
-            from DEMON.evals.scorers.lifelong_agent_scorer import (
+            from OpenDEMON.evals.scorers.lifelong_agent_scorer import (
                 _parse_text_answer,
             )
 

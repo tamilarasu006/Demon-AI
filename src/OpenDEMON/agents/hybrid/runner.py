@@ -1,8 +1,8 @@
-﻿"""CLI runner for hybrid paradigm experiments.
+"""CLI runner for hybrid paradigm experiments.
 
 ::
 
-    python -m DEMON.agents.hybrid.runner --cell minions-gaia-qwen27b-opus-3
+    python -m OpenDEMON.agents.hybrid.runner --cell minions-gaia-qwen27b-opus-3
 
 Reads a cell definition from ``registry/<method>.toml`` (bundled with this
 package or pointed at by ``DEMON_HYBRID_REGISTRY_DIR``), constructs
@@ -35,10 +35,10 @@ try:
 except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore[import-not-found,no-redef]
 
-from DEMON.agents._stubs import AgentContext, AgentResult
-from DEMON.agents.hybrid._energy import EnergyCollector
-from DEMON.agents.hybrid._prompts import format_prompt as _format_prompt
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.agents._stubs import AgentContext, AgentResult
+from OpenDEMON.agents.hybrid._energy import EnergyCollector
+from OpenDEMON.agents.hybrid._prompts import format_prompt as _format_prompt
+from OpenDEMON.core.paths import get_config_dir
 
 PACKAGE_DIR = Path(__file__).parent
 DEFAULT_REGISTRY_DIR = PACKAGE_DIR / "registry"
@@ -126,7 +126,7 @@ def load_registry(registry_dir: Optional[Path] = None) -> Dict[str, Dict[str, An
 
 def _load_gaia_tasks(n: Optional[int]) -> List[Dict[str, Any]]:
     """GAIA validation. Each task is a dict with `task_id` + `question`."""
-    from DEMON.evals.datasets.gaia import GAIADataset
+    from OpenDEMON.evals.datasets.gaia import GAIADataset
 
     ds = GAIADataset()
     ds.load(max_samples=n)
@@ -152,7 +152,7 @@ def _load_gaia_tasks(n: Optional[int]) -> List[Dict[str, Any]]:
 
 def _load_swebench_tasks(n: Optional[int]) -> List[Dict[str, Any]]:
     """SWE-bench-Verified test. Each task carries patch-evaluation fields."""
-    from DEMON.evals.datasets.swebench import SWEBenchDataset
+    from OpenDEMON.evals.datasets.swebench import SWEBenchDataset
 
     ds = SWEBenchDataset(variant="verified")
     ds.load(max_samples=n)
@@ -270,10 +270,10 @@ def _get_gaia_scorer():
     if _GAIA_SCORER is None:
         with _GAIA_SCORER_LOCK:
             if _GAIA_SCORER is None:
-                from DEMON.evals.backends.DEMON_direct import (
+                from OpenDEMON.evals.backends.DEMON_direct import (
                     DEMONDirectBackend,
                 )
-                from DEMON.evals.scorers.gaia_exact import GAIAScorer
+                from OpenDEMON.evals.scorers.gaia_exact import GAIAScorer
 
                 judge_model = os.environ.get(
                     "DEMON_GAIA_JUDGE_MODEL", "gpt-5-mini-2025-08-07"
@@ -296,7 +296,7 @@ def _score_gaia(task: Dict[str, Any], answer: str) -> Dict[str, Any]:
     GPT-5-mini / Haiku almost never do, so their GAIA cells were badly
     undercounted. The judge recovers the answer from prose instead.
     """
-    from DEMON.evals.core.types import EvalRecord
+    from OpenDEMON.evals.core.types import EvalRecord
 
     ref = (task.get("reference") or "").strip()
     if not ref:
@@ -332,8 +332,8 @@ def _score_swebench(
     swebench harness cache and the second cell silently scores 0 with
     ``reason: no_report`` (or reads the first cell's verdict).
     """
-    from DEMON.evals.core.types import EvalRecord
-    from DEMON.evals.scorers.swebench_harness import (
+    from OpenDEMON.evals.core.types import EvalRecord
+    from OpenDEMON.evals.scorers.swebench_harness import (
         SWEBenchHarnessScorer,
         extract_patch,
     )
@@ -423,8 +423,8 @@ def _cell_lock(out_dir: Path, cell_name: str):
 
 def _build_agent(cell: Dict[str, Any]):
     """Construct the registered agent for this cell."""
-    import DEMON.agents  # noqa: F401 — populate registry
-    from DEMON.core.registry import AgentRegistry
+    import OpenDEMON.agents  # noqa: F401 — populate registry
+    from OpenDEMON.core.registry import AgentRegistry
 
     method = cell["method"]
     if not AgentRegistry.contains(method):
@@ -871,7 +871,7 @@ def _run_cell_locked(
 
 def main(argv: Optional[List[str]] = None) -> int:
     p = argparse.ArgumentParser(
-        prog="python -m DEMON.agents.hybrid.runner",
+        prog="python -m OpenDEMON.agents.hybrid.runner",
         description="Run a hybrid paradigm experiment cell.",
     )
     p.add_argument("--cell", required=True, help="Cell name from the registry TOMLs.")

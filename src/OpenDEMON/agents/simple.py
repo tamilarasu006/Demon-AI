@@ -1,11 +1,11 @@
-﻿"""SimpleAgent — single-turn query-to-response agent (no tool calling)."""
+"""SimpleAgent — single-turn query-to-response agent (no tool calling)."""
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.core.registry import AgentRegistry
 
 
 @AgentRegistry.register("simple")

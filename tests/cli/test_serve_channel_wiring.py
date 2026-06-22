@@ -1,4 +1,4 @@
-﻿"""Tests for DEMONSystem.wire_channel() — channel → agent routing.
+"""Tests for DEMONSystem.wire_channel() — channel → agent routing.
 
 These tests exercise wire_channel() on DEMONSystem directly. The serve.py
 entrypoint now delegates all channel-wiring logic there.
@@ -8,11 +8,11 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.channels._stubs import ChannelMessage
-from DEMON.core.config import DEMONConfig
-from DEMON.core.events import EventBus
-from DEMON.sessions.session import SessionStore
-from DEMON.system import DEMONSystem
+from OpenDEMON.channels._stubs import ChannelMessage
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.sessions.session import SessionStore
+from OpenDEMON.system import DEMONSystem
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -291,7 +291,7 @@ class TestChannelToolLoading:
 
     def test_tool_using_agent_receives_tools(self, tmp_path):
         """DEMONSystem built with a tool list passes tools to the agent via ask()."""
-        from DEMON.tools._stubs import BaseTool, ToolSpec
+        from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
         # Minimal fake tool
         class _FakeTool(BaseTool):

@@ -1,4 +1,4 @@
-﻿"""Integration tests for ChannelAgent with DeepResearchAgent and KnowledgeStore.
+"""Integration tests for ChannelAgent with DeepResearchAgent and KnowledgeStore.
 
 Covers the full path:
   Documents
@@ -19,14 +19,14 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from unittest.mock import MagicMock
 
-from DEMON.agents.channel_agent import ChannelAgent
-from DEMON.agents.deep_research import DeepResearchAgent
-from DEMON.channels._stubs import BaseChannel, ChannelMessage, ChannelStatus
-from DEMON.connectors._stubs import Document
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.retriever import TwoStageRetriever
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.tools.knowledge_search import KnowledgeSearchTool
+from OpenDEMON.agents.channel_agent import ChannelAgent
+from OpenDEMON.agents.deep_research import DeepResearchAgent
+from OpenDEMON.channels._stubs import BaseChannel, ChannelMessage, ChannelStatus
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.retriever import TwoStageRetriever
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
 
 # ---------------------------------------------------------------------------
 # FakeChannel helper

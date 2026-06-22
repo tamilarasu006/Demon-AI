@@ -1,4 +1,4 @@
-﻿"""End-to-end integration tests for the Deep Research pipeline.
+"""End-to-end integration tests for the Deep Research pipeline.
 
 Covers the full path:
   multi-source Documents
@@ -16,12 +16,12 @@ import json
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from DEMON.agents.deep_research import DeepResearchAgent
-from DEMON.connectors._stubs import Document
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.retriever import TwoStageRetriever
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.tools.knowledge_search import KnowledgeSearchTool
+from OpenDEMON.agents.deep_research import DeepResearchAgent
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.retriever import TwoStageRetriever
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
 
 # ---------------------------------------------------------------------------
 # Helpers

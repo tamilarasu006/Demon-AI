@@ -1,8 +1,8 @@
-﻿"""Tests for ``recommend_model()`` hardware-aware model recommendation."""
+"""Tests for ``recommend_model()`` hardware-aware model recommendation."""
 
 from __future__ import annotations
 
-from DEMON.core.config import GpuInfo, HardwareInfo, recommend_model
+from OpenDEMON.core.config import GpuInfo, HardwareInfo, recommend_model
 
 
 class TestRecommendModelTiers:

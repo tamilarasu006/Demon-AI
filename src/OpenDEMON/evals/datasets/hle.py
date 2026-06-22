@@ -1,4 +1,4 @@
-﻿"""HLE dataset provider (cais/hle).
+"""HLE dataset provider (cais/hle).
 
 Adapted from IPW's reasoning benchmark loaders.
 """
@@ -8,8 +8,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 # Fields whose presence signals a multimodal row.
 _MULTIMODAL_FIELDS = frozenset(

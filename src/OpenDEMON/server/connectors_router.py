@@ -1,4 +1,4 @@
-﻿"""FastAPI router for /v1/connectors — connector management endpoints."""
+"""FastAPI router for /v1/connectors — connector management endpoints."""
 
 from __future__ import annotations
 
@@ -37,11 +37,11 @@ def _ensure_connectors_registered() -> None:
     import importlib
     import sys
 
-    from DEMON.core.registry import ConnectorRegistry
+    from OpenDEMON.core.registry import ConnectorRegistry
 
     # First, try a normal import (works if modules haven't been imported yet).
     try:
-        import DEMON.connectors  # noqa: F401
+        import OpenDEMON.connectors  # noqa: F401
     except Exception:
         pass
 
@@ -103,7 +103,7 @@ def create_connectors_router():
     if ConnectRequest is None:
         raise ImportError("pydantic is required for the connectors router")
 
-    from DEMON.core.registry import ConnectorRegistry
+    from OpenDEMON.core.registry import ConnectorRegistry
 
     router = APIRouter(prefix="/v1/connectors", tags=["connectors"])
 
@@ -122,7 +122,7 @@ def create_connectors_router():
         """Build the dict returned by GET /connectors."""
         chunks = 0
         try:
-            from DEMON.connectors.store import KnowledgeStore
+            from OpenDEMON.connectors.store import KnowledgeStore
 
             with KnowledgeStore() as store:
                 rows = store._conn.execute(
@@ -158,7 +158,7 @@ def create_connectors_router():
         in REVIEW.md, a bad credential surfaces an actionable error rather than
         a perpetual ``pending`` state.
         """
-        from DEMON.connectors.oauth import (
+        from OpenDEMON.connectors.oauth import (
             get_provider_for_connector,
             save_client_credentials,
         )
@@ -245,9 +245,9 @@ def create_connectors_router():
         # report "X new this run" without each client tracking it.
         baseline_items = 0
         try:
-            from DEMON.connectors.pipeline import IngestionPipeline
-            from DEMON.connectors.store import KnowledgeStore
-            from DEMON.connectors.sync_engine import SyncEngine
+            from OpenDEMON.connectors.pipeline import IngestionPipeline
+            from OpenDEMON.connectors.store import KnowledgeStore
+            from OpenDEMON.connectors.sync_engine import SyncEngine
 
             cp = SyncEngine(
                 pipeline=IngestionPipeline(store=KnowledgeStore()),
@@ -265,9 +265,9 @@ def create_connectors_router():
 
         def _run_sync() -> None:
             try:
-                from DEMON.connectors.pipeline import IngestionPipeline
-                from DEMON.connectors.store import KnowledgeStore
-                from DEMON.connectors.sync_engine import SyncEngine
+                from OpenDEMON.connectors.pipeline import IngestionPipeline
+                from OpenDEMON.connectors.store import KnowledgeStore
+                from OpenDEMON.connectors.sync_engine import SyncEngine
 
                 store = KnowledgeStore()
                 pipeline = IngestionPipeline(store=store)
@@ -346,7 +346,7 @@ def create_connectors_router():
         # Include OAuth provider setup info if applicable
         oauth_setup = None
         try:
-            from DEMON.connectors.oauth import (
+            from OpenDEMON.connectors.oauth import (
                 get_client_credentials,
                 get_provider_for_connector,
             )
@@ -483,7 +483,7 @@ def create_connectors_router():
         """
         from urllib.parse import urlencode
 
-        from DEMON.connectors.oauth import (
+        from OpenDEMON.connectors.oauth import (
             get_client_credentials,
             get_provider_for_connector,
         )
@@ -532,7 +532,7 @@ def create_connectors_router():
         """Handle OAuth callback from the provider."""
         from fastapi.responses import HTMLResponse
 
-        from DEMON.connectors.oauth import (
+        from OpenDEMON.connectors.oauth import (
             _CONNECTORS_DIR,
             _exchange_token,
             get_client_credentials,
@@ -606,7 +606,7 @@ def create_connectors_router():
             content=(
                 f"<html><body style='{_style}'>"
                 "<h2 style='color:#22c55e'>Connected!</h2>"
-                "<p>You can close this tab and return to DEMON.</p>"
+                "<p>You can close this tab and return to OpenDEMON.</p>"
                 "<script>setTimeout(()=>window.close(),2000)</script>"
                 "</body></html>"
             )
@@ -659,9 +659,9 @@ def create_connectors_router():
         checkpoint: Optional[Dict[str, Any]] = None
         oldest_item_date: Optional[str] = None
         try:
-            from DEMON.connectors.pipeline import IngestionPipeline
-            from DEMON.connectors.store import KnowledgeStore
-            from DEMON.connectors.sync_engine import SyncEngine
+            from OpenDEMON.connectors.pipeline import IngestionPipeline
+            from OpenDEMON.connectors.store import KnowledgeStore
+            from OpenDEMON.connectors.sync_engine import SyncEngine
 
             store = KnowledgeStore()
             checkpoint = SyncEngine(

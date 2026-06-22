@@ -1,8 +1,8 @@
-﻿"""Tests for SteadyStateConfig, SteadyStateDetector, and SteadyStateResult."""
+"""Tests for SteadyStateConfig, SteadyStateDetector, and SteadyStateResult."""
 
 from __future__ import annotations
 
-from DEMON.telemetry.steady_state import (
+from OpenDEMON.telemetry.steady_state import (
     SteadyStateConfig,
     SteadyStateDetector,
     SteadyStateResult,

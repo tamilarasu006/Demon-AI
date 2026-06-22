@@ -1,4 +1,4 @@
-﻿"""``DEMON digest`` — display and play the morning digest."""
+"""``DEMON digest`` — display and play the morning digest."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ import click
 from rich.console import Console
 from rich.markdown import Markdown
 
-from DEMON.agents.digest_store import DigestStore
-from DEMON.core.config import DEFAULT_CONFIG_PATH, load_config
+from OpenDEMON.agents.digest_store import DigestStore
+from OpenDEMON.core.config import DEFAULT_CONFIG_PATH, load_config
 
 
 def _play_audio(audio_path: str) -> None:
@@ -84,8 +84,8 @@ def _save_digest_schedule(enabled: bool, cron: str) -> None:
 def _create_scheduler_task(cron: str) -> Optional[str]:
     """Create a digest task in the TaskScheduler. Returns task ID or None."""
     try:
-        from DEMON.scheduler.scheduler import TaskScheduler
-        from DEMON.scheduler.store import SchedulerStore
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.scheduler.store import SchedulerStore
 
         db_path = DEFAULT_CONFIG_PATH.parent / "scheduler.db"
         store = SchedulerStore(db_path)
@@ -111,8 +111,8 @@ def _create_scheduler_task(cron: str) -> Optional[str]:
 def _cancel_scheduler_tasks() -> int:
     """Cancel all active digest tasks. Returns count cancelled."""
     try:
-        from DEMON.scheduler.scheduler import TaskScheduler
-        from DEMON.scheduler.store import SchedulerStore
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.scheduler.store import SchedulerStore
 
         db_path = DEFAULT_CONFIG_PATH.parent / "scheduler.db"
         store = SchedulerStore(db_path)
@@ -181,7 +181,7 @@ def digest(
         # Trigger on-demand generation
         console.print("[yellow]Generating fresh digest...[/yellow]")
         try:
-            from DEMON.sdk import DEMON
+            from OpenDEMON.sdk import DEMON
 
             with DEMON() as j:
                 j.ask("Generate my morning digest", agent="morning_digest")

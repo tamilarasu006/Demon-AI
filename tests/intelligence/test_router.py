@@ -1,11 +1,11 @@
-﻿"""Tests for the intelligence router via canonical learning.routing.router imports."""
+"""Tests for the intelligence router via canonical learning.routing.router imports."""
 
 from __future__ import annotations
 
-from DEMON.core.registry import ModelRegistry
-from DEMON.core.types import ModelSpec
-from DEMON.learning._stubs import RoutingContext
-from DEMON.learning.routing.router import (
+from OpenDEMON.core.registry import ModelRegistry
+from OpenDEMON.core.types import ModelSpec
+from OpenDEMON.learning._stubs import RoutingContext
+from OpenDEMON.learning.routing.router import (
     HeuristicRouter,
     build_routing_context,
 )

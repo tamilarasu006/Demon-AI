@@ -1,4 +1,4 @@
-﻿"""Tests for AgentManager persistent agent lifecycle."""
+"""Tests for AgentManager persistent agent lifecycle."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import pytest
 @pytest.fixture
 def manager():
     """Create an AgentManager with a temp database."""
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     with tempfile.TemporaryDirectory() as tmpdir:
         db_path = Path(tmpdir) / "agents.db"
@@ -149,7 +149,7 @@ class TestSummaryMemory:
         # Import the cap from the module so this test follows the constant
         # rather than hardcoding a number that drifts every time the cap is
         # tuned (it was 2000, then 16000 after the truncation fix).
-        from DEMON.agents.manager import _SUMMARY_MAX
+        from OpenDEMON.agents.manager import _SUMMARY_MAX
 
         agent = manager.create_agent(name="test", agent_type="simple")
         long_text = "x" * (_SUMMARY_MAX + 1000)
@@ -287,7 +287,7 @@ def test_update_agent_budget_fields(tmp_path):
     """update_agent() accepts budget and stall kwargs."""
     import time
 
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     mgr = AgentManager(str(tmp_path / "test.db"))
     agent = mgr.create_agent("budget-test")
@@ -320,7 +320,7 @@ def test_update_agent_budget_fields(tmp_path):
 
 def test_learning_log_crud(tmp_path):
     """AgentManager can write and read learning log entries."""
-    from DEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.manager import AgentManager
 
     mgr = AgentManager(str(tmp_path / "test.db"))
     agent = mgr.create_agent("learner")

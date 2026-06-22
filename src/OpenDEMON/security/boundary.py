@@ -1,4 +1,4 @@
-﻿"""BoundaryGuard — scans content at device exit points.
+"""BoundaryGuard — scans content at device exit points.
 
 Wraps SecretScanner and PIIScanner to redact, warn, or block
 secrets and PII before data leaves the device via cloud engines
@@ -11,11 +11,11 @@ import logging
 from dataclasses import replace
 from typing import TYPE_CHECKING, List, Optional
 
-from DEMON.core.types import ToolCall
+from OpenDEMON.core.types import ToolCall
 
 if TYPE_CHECKING:
-    from DEMON.core.events import EventBus
-    from DEMON.security._stubs import BaseScanner
+    from OpenDEMON.core.events import EventBus
+    from OpenDEMON.security._stubs import BaseScanner
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +59,7 @@ class BoundaryGuard:
     @staticmethod
     def _default_scanners() -> List["BaseScanner"]:
         try:
-            from DEMON.security.scanner import PIIScanner, SecretScanner
+            from OpenDEMON.security.scanner import PIIScanner, SecretScanner
 
             return [SecretScanner(), PIIScanner()]
         except (ImportError, Exception) as exc:
@@ -124,7 +124,7 @@ class BoundaryGuard:
         if self._bus is None:
             return
         try:
-            from DEMON.core.events import EventType
+            from OpenDEMON.core.events import EventType
 
             self._bus.publish(
                 EventType.SECURITY_ALERT,

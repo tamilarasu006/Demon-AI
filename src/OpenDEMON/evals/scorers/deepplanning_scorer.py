@@ -1,12 +1,12 @@
-﻿"""LLM-judge scorer for DeepPlanning constraint satisfaction."""
+"""LLM-judge scorer for DeepPlanning constraint satisfaction."""
 
 from __future__ import annotations
 
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 _JUDGE_PROMPT = """You are evaluating a planning task response.
 

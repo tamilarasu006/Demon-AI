@@ -1,13 +1,13 @@
-﻿"""Context injection — retrieve relevant memory and inject into prompts."""
+"""Context injection — retrieve relevant memory and inject into prompts."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import List, Optional
 
-from DEMON.core.events import EventType, get_event_bus
-from DEMON.core.types import Message, Role
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.core.events import EventType, get_event_bus
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
 
 
 @dataclass(slots=True)

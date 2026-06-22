@@ -1,4 +1,4 @@
-﻿"""TerminalBench Native dataset — loads from the terminal-bench pip package (v2 API).
+"""TerminalBench Native dataset — loads from the terminal-bench pip package (v2 API).
 
 Agentic benchmark using the native terminal-bench SDK for task loading
 and test-based evaluation.
@@ -10,8 +10,8 @@ import random
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 try:
     from terminal_bench.dataset import Dataset as _TBDataset
@@ -164,7 +164,7 @@ class TerminalBenchNativeDataset(DatasetProvider):
     def create_task_env(self, record):
         """Return a TerminalBenchTaskEnv for the given record."""
         try:
-            from DEMON.evals.execution.terminalbench_env import (
+            from OpenDEMON.evals.execution.terminalbench_env import (
                 TerminalBenchTaskEnv,
             )
 

@@ -1,4 +1,4 @@
-﻿"""WebSocket bridge: EventBus → connected WebSocket clients."""
+"""WebSocket bridge: EventBus → connected WebSocket clients."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import asyncio
 import logging
 from typing import Any
 
-from DEMON.core.events import Event, EventBus, EventType
+from OpenDEMON.core.events import Event, EventBus, EventType
 
 try:
     from fastapi import APIRouter, WebSocket, WebSocketDisconnect
@@ -65,7 +65,7 @@ def create_ws_router(event_bus: EventBus) -> Any:
 
     @router.websocket("/v1/agents/events")
     async def agent_events(websocket: WebSocket) -> None:
-        from DEMON.server.auth_middleware import websocket_authorized
+        from OpenDEMON.server.auth_middleware import websocket_authorized
 
         expected_key = getattr(websocket.app.state, "api_key", "")
         if not websocket_authorized(websocket, expected_key):

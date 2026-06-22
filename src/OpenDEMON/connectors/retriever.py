@@ -1,4 +1,4 @@
-﻿"""TwoStageRetriever — BM25 recall from KnowledgeStore + optional reranking.
+"""TwoStageRetriever — BM25 recall from KnowledgeStore + optional reranking.
 
 Composes a fast BM25 first-stage recall (via ``KnowledgeStore``) with an
 optional second-stage ``Reranker`` for semantic reordering.  The default
@@ -18,11 +18,11 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, List, Optional
 
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.tools.storage._stubs import RetrievalResult
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.tools.storage._stubs import RetrievalResult
 
 if TYPE_CHECKING:
-    from DEMON.connectors.embedding_store import EmbeddingStore
+    from OpenDEMON.connectors.embedding_store import EmbeddingStore
 
 logger = logging.getLogger(__name__)
 

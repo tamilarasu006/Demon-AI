@@ -1,4 +1,4 @@
-﻿"""`DEMON self-update` — upgrade DEMON to the latest release.
+"""`DEMON self-update` — upgrade DEMON to the latest release.
 
 Runs the right upgrade command for how the user installed DEMON:
 
@@ -18,8 +18,8 @@ import sys
 
 import click
 
-import DEMON
-from DEMON.cli._install_detect import detect_install
+import OpenDEMON
+from OpenDEMON.cli._install_detect import detect_install
 
 
 @click.command(
@@ -44,7 +44,7 @@ from DEMON.cli._install_detect import detect_install
 )
 def self_update(check: bool, yes: bool) -> None:
     info = detect_install()
-    current = DEMON.__version__
+    current = OpenDEMON.__version__
 
     click.echo(f"Current DEMON version: v{current}")
     click.echo(f"Install method: {info.kind}")

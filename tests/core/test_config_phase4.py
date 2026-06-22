@@ -1,10 +1,10 @@
-﻿"""Tests for LearningConfig and its integration into DEMONConfig."""
+"""Tests for LearningConfig and its integration into DEMONConfig."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     HardwareInfo,
     DEMONConfig,
     LearningConfig,

@@ -1,4 +1,4 @@
-﻿"""OpenClawResolver — resolves skills from the OpenClaw skill index.
+"""OpenClawResolver — resolves skills from the OpenClaw skill index.
 
 Layout:
     skills/<owner>/<skill-name>/SKILL.md
@@ -15,8 +15,8 @@ from typing import List
 
 import yaml
 
-from DEMON.core.paths import get_config_dir
-from DEMON.skills.sources.base import ResolvedSkill, SourceResolver
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.skills.sources.base import ResolvedSkill, SourceResolver
 
 LOGGER = logging.getLogger(__name__)
 

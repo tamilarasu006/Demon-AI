@@ -1,4 +1,4 @@
-﻿"""ToolScale (nvidia) — external tool-use corpus.
+"""ToolScale (nvidia) — external tool-use corpus.
 
 NOT USED FOR EVALUATION. Surfaces tool-use trajectories from
 ``nvidia/ToolScale`` (the dataset underlying the ToolOrchestra paper) to
@@ -33,9 +33,9 @@ import ast
 import random
 from typing import Any, Iterable, List, MutableMapping, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 HF_DATASET_ID = "nvidia/ToolScale"
 HF_SPLIT = "train"

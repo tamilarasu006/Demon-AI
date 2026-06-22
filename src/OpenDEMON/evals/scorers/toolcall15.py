@@ -1,4 +1,4 @@
-﻿"""ToolCall-15 scorer — deterministic tool-calling evaluation.
+"""ToolCall-15 scorer — deterministic tool-calling evaluation.
 
 Scores each of the 15 scenarios based on whether the model called the
 correct tool(s) with correct arguments, following the scoring rubric
@@ -15,8 +15,8 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

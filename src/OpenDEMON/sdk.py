@@ -1,4 +1,4 @@
-﻿"""High-level Python SDK for DEMON."""
+"""High-level Python SDK for OpenDEMON."""
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ from collections.abc import AsyncIterator
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-import DEMON
-from DEMON.core.config import DEMONConfig, load_config
-from DEMON.core.events import EventBus
-from DEMON.core.types import Message, Role
-from DEMON.engine._discovery import get_engine
-from DEMON.system import DEMONSystem, SystemBuilder
-from DEMON.telemetry.instrumented_engine import InstrumentedEngine
-from DEMON.telemetry.store import TelemetryStore
+import OpenDEMON
+from OpenDEMON.core.config import DEMONConfig, load_config
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._discovery import get_engine
+from OpenDEMON.system import DEMONSystem, SystemBuilder
+from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
+from OpenDEMON.telemetry.store import TelemetryStore
 
 logger = logging.getLogger(__name__)
 
@@ -30,14 +30,14 @@ class MemoryHandle:
         if self._backend is not None:
             return self._backend
 
-        import DEMON.tools.storage  # noqa: F401
-        from DEMON.core.registry import MemoryRegistry
+        import OpenDEMON.tools.storage  # noqa: F401
+        from OpenDEMON.core.registry import MemoryRegistry
 
         key = self._config.memory.default_backend
         if not MemoryRegistry.contains(key):
             # Register built-in backends
             try:
-                from DEMON.tools.storage.sqlite import SQLiteMemory  # noqa: F401
+                from OpenDEMON.tools.storage.sqlite import SQLiteMemory  # noqa: F401
             except ImportError:
                 pass
 
@@ -61,8 +61,8 @@ class MemoryHandle:
         chunk_overlap: int = 64,
     ) -> Dict[str, Any]:
         """Index a file or directory into memory."""
-        from DEMON.tools.storage.chunking import ChunkConfig
-        from DEMON.tools.storage.ingest import ingest_path
+        from OpenDEMON.tools.storage.chunking import ChunkConfig
+        from OpenDEMON.tools.storage.ingest import ingest_path
 
         backend = self._get_backend()
         cfg = ChunkConfig(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
@@ -191,7 +191,7 @@ class DEMON:
     @property
     def version(self) -> str:
         """Return the DEMON version string."""
-        return DEMON.__version__
+        return OpenDEMON.__version__
 
     def _ensure_engine(self) -> None:
         """Lazily initialize the inference engine."""
@@ -200,7 +200,7 @@ class DEMON:
 
         # Import engines to trigger registration
         try:
-            import DEMON.engine  # noqa: F401
+            import OpenDEMON.engine  # noqa: F401
         except ImportError:
             pass
 
@@ -215,7 +215,7 @@ class DEMON:
         self._resolved_engine_key, engine = resolved
 
         # Apply security guardrails
-        from DEMON.security import setup_security
+        from OpenDEMON.security import setup_security
 
         sec = setup_security(self._config, engine, self._bus)
         engine = sec.engine
@@ -226,7 +226,7 @@ class DEMON:
         energy_monitor = None
         if self._config.telemetry.gpu_metrics:
             try:
-                from DEMON.telemetry.energy_monitor import create_energy_monitor
+                from OpenDEMON.telemetry.energy_monitor import create_energy_monitor
 
                 energy_monitor = create_energy_monitor(
                     prefer_vendor=self._config.telemetry.energy_vendor or None,
@@ -450,9 +450,9 @@ class DEMON:
         channel: Optional[Any] = None,
     ) -> Dict[str, Any]:
         """Run an agent and return the result dict."""
-        import DEMON.agents  # noqa: F401
-        from DEMON.agents._stubs import AgentContext
-        from DEMON.core.registry import AgentRegistry
+        import OpenDEMON.agents  # noqa: F401
+        from OpenDEMON.agents._stubs import AgentContext
+        from OpenDEMON.core.registry import AgentRegistry
 
         if not AgentRegistry.contains(agent_name):
             raise ValueError(
@@ -465,8 +465,8 @@ class DEMON:
         # Build tools
         tool_objects: List[Any] = []
         if tools:
-            import DEMON.tools  # noqa: F401
-            from DEMON.cli.ask import _build_tools
+            import OpenDEMON.tools  # noqa: F401
+            from OpenDEMON.cli.ask import _build_tools
 
             tool_objects = _build_tools(
                 tools,
@@ -509,8 +509,8 @@ class DEMON:
                 }
             )
             # Ensure digest agent always has its required tools
-            from DEMON.tools.digest_collect import DigestCollectTool
-            from DEMON.tools.text_to_speech import TextToSpeechTool
+            from OpenDEMON.tools.digest_collect import DigestCollectTool
+            from OpenDEMON.tools.text_to_speech import TextToSpeechTool
 
             digest_tools = [DigestCollectTool(), TextToSpeechTool()]
             existing = agent_kwargs.get("tools", [])
@@ -522,8 +522,8 @@ class DEMON:
         # Context injection
         if context and self._config.agent.context_from_memory:
             try:
-                from DEMON.cli.ask import _get_memory_backend
-                from DEMON.tools.storage.context import (
+                from OpenDEMON.cli.ask import _get_memory_backend
+                from OpenDEMON.tools.storage.context import (
                     ContextConfig,
                     inject_context,
                 )
@@ -570,8 +570,8 @@ class DEMON:
     ) -> List[Message]:
         """Inject memory context into messages."""
         try:
-            from DEMON.cli.ask import _get_memory_backend
-            from DEMON.tools.storage.context import ContextConfig, inject_context
+            from OpenDEMON.cli.ask import _get_memory_backend
+            from OpenDEMON.tools.storage.context import ContextConfig, inject_context
 
             backend = _get_memory_backend(self._config)
             if backend is not None:
@@ -592,7 +592,7 @@ class DEMON:
 
     def list_engines(self) -> List[str]:
         """Return a list of registered engine keys."""
-        from DEMON.core.registry import EngineRegistry
+        from OpenDEMON.core.registry import EngineRegistry
 
         return list(EngineRegistry.keys())
 

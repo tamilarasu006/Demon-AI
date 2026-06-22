@@ -1,4 +1,4 @@
-﻿"""Tests for the StreamableHTTPTransport class."""
+"""Tests for the StreamableHTTPTransport class."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.mcp.protocol import MCPRequest
+from OpenDEMON.mcp.protocol import MCPRequest
 
 
 @pytest.fixture
@@ -34,7 +34,7 @@ def _make_http_response(result, *, session_id=None):
 class TestStreamableHTTPTransport:
     def test_send_request(self, _mock_httpx_client):
         """Verify correct URL, headers, JSON body, and MCPResponse parsing."""
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.return_value = _make_http_response({"tools": []})
@@ -64,7 +64,7 @@ class TestStreamableHTTPTransport:
 
     def test_session_id_tracking(self, _mock_httpx_client):
         """First response sets Mcp-Session-Id, subsequent requests include it."""
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         # First response sets the session id
@@ -89,7 +89,7 @@ class TestStreamableHTTPTransport:
 
     def test_first_request_has_no_session_id(self, _mock_httpx_client):
         """First request should not include Mcp-Session-Id header."""
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.return_value = _make_http_response({})
@@ -102,7 +102,7 @@ class TestStreamableHTTPTransport:
 
     def test_authorization_header_with_token(self, _mock_httpx_client):
         """Regression for #461 — token kwarg → Authorization: Bearer header."""
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.return_value = _make_http_response({})
@@ -118,7 +118,7 @@ class TestStreamableHTTPTransport:
 
     def test_no_authorization_header_without_token(self, _mock_httpx_client):
         """Backward compat — no token kwarg → no Authorization header."""
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.return_value = _make_http_response({})
@@ -137,7 +137,7 @@ class TestStreamableHTTPTransport:
         Bearer ` (with a trailing space) — that's a malformed header that
         most servers reject with a confusing 400 rather than 401.
         """
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.return_value = _make_http_response({})
@@ -150,7 +150,7 @@ class TestStreamableHTTPTransport:
 
     def test_authorization_persists_across_requests(self, _mock_httpx_client):
         """Authorization header must accompany every request, not just the first."""
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.return_value = _make_http_response({})
@@ -168,7 +168,7 @@ class TestStreamableHTTPTransport:
         """httpx.ConnectError should be wrapped in RuntimeError."""
         import httpx
 
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.side_effect = httpx.ConnectError("Connection refused")
@@ -181,7 +181,7 @@ class TestStreamableHTTPTransport:
         """httpx.TimeoutException should be wrapped in RuntimeError."""
         import httpx
 
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         mock_client.post.side_effect = httpx.TimeoutException("Read timed out")
@@ -192,7 +192,7 @@ class TestStreamableHTTPTransport:
 
     def test_close(self, _mock_httpx_client):
         """close() should close the underlying httpx client."""
-        from DEMON.mcp.transport import StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import StreamableHTTPTransport
 
         mock_client = _mock_httpx_client
         transport = StreamableHTTPTransport("http://localhost:9583/mcp")
@@ -201,6 +201,6 @@ class TestStreamableHTTPTransport:
 
     def test_backward_compat_alias(self):
         """SSETransport should be the same class as StreamableHTTPTransport."""
-        from DEMON.mcp.transport import SSETransport, StreamableHTTPTransport
+        from OpenDEMON.mcp.transport import SSETransport, StreamableHTTPTransport
 
         assert SSETransport is StreamableHTTPTransport

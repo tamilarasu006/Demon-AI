@@ -1,4 +1,4 @@
-﻿# src/DEMON/mining/_stubs.py
+# src/DEMON/mining/_stubs.py
 """ABCs and dataclasses for the mining subsystem.
 
 See spec ``docs/design/2026-05-05-vllm-pearl-mining-integration-design.md``
@@ -15,7 +15,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Optional, Union
 
-from DEMON.core.config import HardwareInfo
+from OpenDEMON.core.config import HardwareInfo
 
 # ---------------------------------------------------------------------------
 # Capability descriptor

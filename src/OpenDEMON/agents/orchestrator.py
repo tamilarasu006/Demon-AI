@@ -1,4 +1,4 @@
-﻿"""OrchestratorAgent — multi-turn agent with tool-calling loop.
+"""OrchestratorAgent — multi-turn agent with tool-calling loop.
 
 Supports two modes:
 
@@ -16,12 +16,12 @@ import concurrent.futures
 import re
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall, ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool
 
 
 @AgentRegistry.register("orchestrator")
@@ -102,7 +102,7 @@ class OrchestratorAgent(ToolUsingAgent):
         if self._system_prompt:
             sys_prompt = self._system_prompt
         else:
-            from DEMON.learning.intelligence.orchestrator.prompt_registry import (
+            from OpenDEMON.learning.intelligence.orchestrator.prompt_registry import (
                 build_system_prompt,
             )
 

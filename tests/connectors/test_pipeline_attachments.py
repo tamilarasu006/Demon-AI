@@ -1,4 +1,4 @@
-﻿"""Tests for attachment processing in IngestionPipeline."""
+"""Tests for attachment processing in IngestionPipeline."""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.connectors._stubs import Attachment, Document
-from DEMON.connectors.attachment_store import AttachmentStore
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors._stubs import Attachment, Document
+from OpenDEMON.connectors.attachment_store import AttachmentStore
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.store import KnowledgeStore
 
 # ---------------------------------------------------------------------------
 # Helpers

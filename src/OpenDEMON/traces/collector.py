@@ -1,14 +1,14 @@
-﻿"""TraceCollector — wraps any BaseAgent to record interaction traces."""
+"""TraceCollector — wraps any BaseAgent to record interaction traces."""
 
 from __future__ import annotations
 
 import time
 from typing import Any, Dict, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.traces.store import TraceStore
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.traces.store import TraceStore
 
 
 class TraceCollector:

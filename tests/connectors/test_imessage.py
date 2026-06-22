@@ -1,4 +1,4 @@
-﻿"""Tests for IMessageConnector — local macOS Messages database connector.
+"""Tests for IMessageConnector — local macOS Messages database connector.
 
 All tests use a temporary SQLite database that mimics the real chat.db schema.
 No actual macOS Messages database is required.
@@ -12,8 +12,8 @@ from typing import List
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 # ---------------------------------------------------------------------------
 # Helper: create a fake chat.db
@@ -81,7 +81,7 @@ def fake_db(tmp_path: Path) -> Path:
 @pytest.fixture()
 def connector(fake_db: Path):
     """IMessageConnector pointing at the fake DB."""
-    from DEMON.connectors.imessage import IMessageConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.imessage import IMessageConnector  # noqa: PLC0415
 
     return IMessageConnector(db_path=str(fake_db))
 
@@ -103,7 +103,7 @@ def test_is_connected(connector) -> None:
 
 def test_not_connected_missing_db() -> None:
     """is_connected() returns False when the database file does not exist."""
-    from DEMON.connectors.imessage import IMessageConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.imessage import IMessageConnector  # noqa: PLC0415
 
     conn = IMessageConnector(db_path="/nonexistent/path/chat.db")
     assert conn.is_connected() is False
@@ -194,7 +194,7 @@ def test_mcp_tools(connector) -> None:
 
 def test_registry() -> None:
     """IMessageConnector is registered and retrievable via ConnectorRegistry."""
-    from DEMON.connectors.imessage import IMessageConnector  # noqa: PLC0415
+    from OpenDEMON.connectors.imessage import IMessageConnector  # noqa: PLC0415
 
     ConnectorRegistry.register_value("imessage", IMessageConnector)
     assert ConnectorRegistry.contains("imessage")

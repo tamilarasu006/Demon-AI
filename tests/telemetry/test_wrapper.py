@@ -1,4 +1,4 @@
-﻿"""Tests for the instrumented inference wrappers."""
+"""Tests for the instrumented inference wrappers."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from collections.abc import AsyncIterator, Sequence
 from typing import Any, Dict, List
 from unittest import mock
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, Role, TelemetryRecord
-from DEMON.engine._base import InferenceEngine
-from DEMON.telemetry.wrapper import instrumented_generate
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, Role, TelemetryRecord
+from OpenDEMON.engine._base import InferenceEngine
+from OpenDEMON.telemetry.wrapper import instrumented_generate
 
 
 class _StubEngine(InferenceEngine):

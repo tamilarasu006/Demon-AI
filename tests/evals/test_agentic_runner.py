@@ -1,4 +1,4 @@
-﻿"""Tests for AgenticRunner with mock agent and dataset."""
+"""Tests for AgenticRunner with mock agent and dataset."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ from typing import Any, Dict, List
 
 import pytest
 
-from DEMON.evals.core.agentic_runner import AgenticRunner, _extract_patch
-from DEMON.evals.core.environment import TaskEnvironmentError
+from OpenDEMON.evals.core.agentic_runner import AgenticRunner, _extract_patch
+from OpenDEMON.evals.core.environment import TaskEnvironmentError
 
 # ---------------------------------------------------------------------------
 # Mock objects

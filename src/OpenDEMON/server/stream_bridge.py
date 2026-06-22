@@ -1,4 +1,4 @@
-﻿"""Bridge sync agent.run() + EventBus events to an async SSE generator.
+"""Bridge sync agent.run() + EventBus events to an async SSE generator.
 
 Subscribes to EventBus callbacks that push events into an asyncio.Queue,
 runs agent.run() in a background thread, and yields SSE-formatted strings
@@ -14,9 +14,9 @@ from typing import AsyncGenerator
 
 from fastapi.responses import StreamingResponse
 
-from DEMON.agents._stubs import AgentContext, BaseAgent
-from DEMON.core.events import Event, EventBus, EventType
-from DEMON.server.models import (
+from OpenDEMON.agents._stubs import AgentContext, BaseAgent
+from OpenDEMON.core.events import Event, EventBus, EventType
+from OpenDEMON.server.models import (
     ChatCompletionChunk,
     ChatCompletionRequest,
     DeltaMessage,
@@ -116,7 +116,7 @@ class AgentStreamBridge:
         ctx = AgentContext()
         # Build conversation context from prior messages
         if len(self._request.messages) > 1:
-            from DEMON.core.types import Message, Role
+            from OpenDEMON.core.types import Message, Role
 
             for m in self._request.messages[:-1]:
                 role = Role(m.role) if m.role in {r.value for r in Role} else Role.USER
@@ -247,8 +247,8 @@ class AgentStreamBridge:
                 # Re-stream using the engine for real token delivery.
                 # Build the same messages the agent used for its final turn.
                 try:
-                    from DEMON.core.types import Message as MsgType
-                    from DEMON.core.types import Role as RoleType
+                    from OpenDEMON.core.types import Message as MsgType
+                    from OpenDEMON.core.types import Role as RoleType
 
                     replay_messages = []
                     for m in self._request.messages:

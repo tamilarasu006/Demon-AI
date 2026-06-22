@@ -1,8 +1,8 @@
-﻿"""Tests for Phase 3 config additions (AgentConfig expansion, ServerConfig)."""
+"""Tests for Phase 3 config additions (AgentConfig expansion, ServerConfig)."""
 
 from __future__ import annotations
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     AgentConfig,
     HardwareInfo,
     DEMONConfig,

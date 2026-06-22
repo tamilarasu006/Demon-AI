@@ -1,5 +1,5 @@
-﻿"""MCP tool templates — reusable tool definitions from TOML."""
+"""MCP tool templates — reusable tool definitions from TOML."""
 
-from DEMON.tools.templates.loader import ToolTemplate, discover_templates
+from OpenDEMON.tools.templates.loader import ToolTemplate, discover_templates
 
 __all__ = ["ToolTemplate", "discover_templates"]

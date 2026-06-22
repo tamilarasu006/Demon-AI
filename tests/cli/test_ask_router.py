@@ -1,4 +1,4 @@
-﻿"""Tests for model resolution fallback chain in DEMON ask."""
+"""Tests for model resolution fallback chain in DEMON ask."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 _ask_mod = importlib.import_module("DEMON.cli.ask")
 
@@ -34,8 +34,8 @@ def _register_agents():
     so ``DEMON ask "..."`` (without ``--agent``) routes through SimpleAgent.
     Without this re-registration, that path raises ``Unknown agent: simple``.
     """
-    from DEMON.agents.simple import SimpleAgent
-    from DEMON.core.registry import AgentRegistry
+    from OpenDEMON.agents.simple import SimpleAgent
+    from OpenDEMON.core.registry import AgentRegistry
 
     if not AgentRegistry.contains("simple"):
         AgentRegistry.register_value("simple", SimpleAgent)

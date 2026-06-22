@@ -1,9 +1,9 @@
-﻿"""Tests for DEMON.optimize.store module."""
+"""Tests for DEMON.optimize.store module."""
 
 from __future__ import annotations
 
-from DEMON.learning.optimize.store import OptimizationStore
-from DEMON.learning.optimize.types import (
+from OpenDEMON.learning.optimize.store import OptimizationStore
+from OpenDEMON.learning.optimize.types import (
     OptimizationRun,
     SampleScore,
     SearchDimension,

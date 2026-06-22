@@ -1,4 +1,4 @@
-﻿"""Tests for the /v1/connectors API router."""
+"""Tests for the /v1/connectors API router."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ def app():
     except ImportError:
         pytest.skip("fastapi not installed")
 
-    from DEMON.server.connectors_router import create_connectors_router
+    from OpenDEMON.server.connectors_router import create_connectors_router
 
     _app = FastAPI()
     router = create_connectors_router()
@@ -113,8 +113,8 @@ def test_trigger_sync(app, tmp_path: Path) -> None:
 
 def test_connect_slack_bot_token_returns_400(app, tmp_path: Path) -> None:
     """POST connect with an xoxb- token is rejected 400 and writes nothing."""
-    from DEMON.connectors.slack_connector import SlackConnector
-    from DEMON.server.connectors_router import _instances
+    from OpenDEMON.connectors.slack_connector import SlackConnector
+    from OpenDEMON.server.connectors_router import _instances
 
     creds = tmp_path / "slack.json"
     _instances["slack"] = SlackConnector(credentials_path=str(creds))
@@ -136,8 +136,8 @@ def test_connect_granola_invalid_key_returns_400_keeps_existing(
     import json
     from unittest.mock import patch
 
-    from DEMON.connectors.granola import GranolaConnector, GranolaKeyError
-    from DEMON.server.connectors_router import _instances
+    from OpenDEMON.connectors.granola import GranolaConnector, GranolaKeyError
+    from OpenDEMON.server.connectors_router import _instances
 
     creds = tmp_path / "granola.json"
     creds.write_text(json.dumps({"token": "grl_real_existing_key"}))

@@ -1,4 +1,4 @@
-﻿"""DeepResearchAgent -- multi-hop retrieval agent with cited reports.
+"""DeepResearchAgent -- multi-hop retrieval agent with cited reports.
 
 Searches personal data across sources (email, Slack, documents) using
 native function calling (OpenAI tool_calls format), cross-references
@@ -9,16 +9,16 @@ from __future__ import annotations
 
 from typing import Any, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.agents.prompt_loader import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.agents.prompt_loader import (
     load_few_shot_exemplars,
     load_system_prompt_override,
 )
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall, ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool
 
 
 def _tc_name(tc: dict) -> str:

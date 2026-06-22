@@ -1,4 +1,4 @@
-﻿"""Cartesia text-to-speech backend.
+"""Cartesia text-to-speech backend.
 
 Uses the Cartesia REST API for high-quality, low-latency voice synthesis.
 Requires CARTESIA_API_KEY environment variable or config.
@@ -11,8 +11,8 @@ from typing import List
 
 import httpx
 
-from DEMON.core.registry import TTSRegistry
-from DEMON.speech.tts import TTSBackend, TTSResult
+from OpenDEMON.core.registry import TTSRegistry
+from OpenDEMON.speech.tts import TTSBackend, TTSResult
 
 _CARTESIA_API_BASE = "https://api.cartesia.ai"
 

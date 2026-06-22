@@ -1,4 +1,4 @@
-﻿"""CLI smoke tests via Click CliRunner."""
+"""CLI smoke tests via Click CliRunner."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from click.testing import CliRunner
 
 
 def test_mine_doctor_prints_capability_matrix(hopper_hw):
-    from DEMON.cli.mine_cmd import mine
+    from OpenDEMON.cli.mine_cmd import mine
 
     runner = CliRunner()
     with (
@@ -38,7 +38,7 @@ def test_mine_doctor_prints_capability_matrix(hopper_hw):
 
 
 def test_mine_doctor_flags_unsupported_hardware(ada_hw):
-    from DEMON.cli.mine_cmd import mine
+    from OpenDEMON.cli.mine_cmd import mine
 
     runner = CliRunner()
     with (
@@ -64,7 +64,7 @@ def test_mine_doctor_flags_unsupported_hardware(ada_hw):
 
 
 def _mining_config():
-    from DEMON.mining._stubs import MiningConfig, SoloTarget
+    from OpenDEMON.mining._stubs import MiningConfig, SoloTarget
 
     return MiningConfig(
         provider="vllm-pearl",
@@ -74,7 +74,7 @@ def _mining_config():
 
 
 def test_mine_start_runs_provider_start():
-    from DEMON.cli.mine_cmd import mine
+    from OpenDEMON.cli.mine_cmd import mine
 
     runner = CliRunner()
     fake_provider_class = MagicMock()
@@ -93,7 +93,7 @@ def test_mine_start_runs_provider_start():
 
 
 def test_mine_stop_calls_provider_stop():
-    from DEMON.cli.mine_cmd import mine
+    from OpenDEMON.cli.mine_cmd import mine
 
     runner = CliRunner()
     fake_provider_class = MagicMock()
@@ -112,7 +112,7 @@ def test_mine_stop_calls_provider_stop():
 
 
 def test_mine_start_errors_when_no_mining_config():
-    from DEMON.cli.mine_cmd import mine
+    from OpenDEMON.cli.mine_cmd import mine
 
     runner = CliRunner()
     with patch("DEMON.cli.mine_cmd.load_config") as load:
@@ -124,8 +124,8 @@ def test_mine_start_errors_when_no_mining_config():
 
 
 def test_mine_status_renders_stats():
-    from DEMON.cli.mine_cmd import mine
-    from DEMON.mining._stubs import MiningStats
+    from OpenDEMON.cli.mine_cmd import mine
+    from OpenDEMON.mining._stubs import MiningStats
 
     runner = CliRunner()
     fake_provider = MagicMock()
@@ -150,7 +150,7 @@ def test_mine_status_renders_stats():
 
 
 def test_mine_attach_writes_sidecar(tmp_path, monkeypatch):
-    from DEMON.cli.mine_cmd import mine
+    from OpenDEMON.cli.mine_cmd import mine
 
     runner = CliRunner()
     sidecar = tmp_path / "mining.json"
@@ -176,7 +176,7 @@ def test_mine_attach_writes_sidecar(tmp_path, monkeypatch):
 
 
 def test_mine_logs_streams_container_output():
-    from DEMON.cli.mine_cmd import mine
+    from OpenDEMON.cli.mine_cmd import mine
 
     runner = CliRunner()
     fake_container = MagicMock()

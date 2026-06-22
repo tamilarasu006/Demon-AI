@@ -1,4 +1,4 @@
-﻿"""HermesBackend - runs real Hermes Agent as a subprocess per task.
+"""HermesBackend - runs real Hermes Agent as a subprocess per task.
 
 Implements the InferenceBackend ABC by spawning hermes_runner.py with the
 foreign Hermes installation on sys.path. Foreign code never imports into
@@ -13,13 +13,13 @@ import tempfile
 from pathlib import Path
 from typing import Any, Dict
 
-from DEMON.evals.backends.external._subprocess_runner import run_one_shot
-from DEMON.evals.comparison.third_party import (
+from OpenDEMON.evals.backends.external._subprocess_runner import run_one_shot
+from OpenDEMON.evals.comparison.third_party import (
     ThirdPartyEntry,
     load_third_party_config,
     verify_commit_pin,
 )
-from DEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.core.backend import InferenceBackend
 
 
 class HermesBackend(InferenceBackend):

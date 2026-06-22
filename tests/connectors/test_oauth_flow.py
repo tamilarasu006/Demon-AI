@@ -1,4 +1,4 @@
-﻿"""Tests for OAuth token exchange and Google connector integration."""
+"""Tests for OAuth token exchange and Google connector integration."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 
 def test_exchange_google_token_calls_endpoint() -> None:
-    from DEMON.connectors.oauth import exchange_google_token
+    from OpenDEMON.connectors.oauth import exchange_google_token
 
     mock_resp = MagicMock()
     mock_resp.json.return_value = {
@@ -42,8 +42,8 @@ def test_gdrive_handle_callback_persists_creds_no_background_flow(
     save the client_id/secret; the in-process server flow owns the consent
     round-trip. We assert ``open_browser`` is never invoked.
     """
-    from DEMON.connectors.gdrive import GDriveConnector
-    from DEMON.connectors.oauth import load_tokens
+    from OpenDEMON.connectors.gdrive import GDriveConnector
+    from OpenDEMON.connectors.oauth import load_tokens
 
     creds = str(tmp_path / "gdrive.json")
     conn = GDriveConnector(credentials_path=creds)
@@ -62,8 +62,8 @@ def test_gdrive_handle_callback_persists_creds_no_background_flow(
 
 
 def test_gdrive_is_connected_requires_access_token(tmp_path: Path) -> None:
-    from DEMON.connectors.gdrive import GDriveConnector
-    from DEMON.connectors.oauth import save_tokens
+    from OpenDEMON.connectors.gdrive import GDriveConnector
+    from OpenDEMON.connectors.oauth import save_tokens
 
     creds = str(tmp_path / "gdrive.json")
     conn = GDriveConnector(credentials_path=creds)
@@ -81,8 +81,8 @@ def test_gcalendar_handle_callback_persists_creds_no_background_flow(
     tmp_path: Path,
 ) -> None:
     """Sibling connector shares the fix: creds saved, no browser thread (#512)."""
-    from DEMON.connectors.gcalendar import GCalendarConnector
-    from DEMON.connectors.oauth import load_tokens
+    from OpenDEMON.connectors.gcalendar import GCalendarConnector
+    from OpenDEMON.connectors.oauth import load_tokens
 
     creds = str(tmp_path / "gcalendar.json")
     conn = GCalendarConnector(credentials_path=creds)
@@ -102,8 +102,8 @@ def test_gcontacts_handle_callback_persists_creds_no_background_flow(
     tmp_path: Path,
 ) -> None:
     """Sibling connector shares the fix: creds saved, no browser thread (#512)."""
-    from DEMON.connectors.gcontacts import GContactsConnector
-    from DEMON.connectors.oauth import load_tokens
+    from OpenDEMON.connectors.gcontacts import GContactsConnector
+    from OpenDEMON.connectors.oauth import load_tokens
 
     creds = str(tmp_path / "gcontacts.json")
     conn = GContactsConnector(credentials_path=creds)
@@ -120,8 +120,8 @@ def test_gcontacts_handle_callback_persists_creds_no_background_flow(
 
 
 def test_gdrive_handle_callback_raw_token(tmp_path: Path) -> None:
-    from DEMON.connectors.gdrive import GDriveConnector
-    from DEMON.connectors.oauth import load_tokens
+    from OpenDEMON.connectors.gdrive import GDriveConnector
+    from OpenDEMON.connectors.oauth import load_tokens
 
     creds = str(tmp_path / "gdrive.json")
     conn = GDriveConnector(credentials_path=creds)
@@ -136,7 +136,7 @@ def test_gdrive_handle_callback_raw_token(tmp_path: Path) -> None:
 def test_gdrive_auth_url_returns_credentials_page_without_client_id(
     tmp_path: Path,
 ) -> None:
-    from DEMON.connectors.gdrive import GDriveConnector
+    from OpenDEMON.connectors.gdrive import GDriveConnector
 
     creds = str(tmp_path / "gdrive.json")
     conn = GDriveConnector(credentials_path=creds)
@@ -148,8 +148,8 @@ def test_gdrive_auth_url_returns_credentials_page_without_client_id(
 def test_gdrive_auth_url_returns_consent_url_with_client_id(
     tmp_path: Path,
 ) -> None:
-    from DEMON.connectors.gdrive import GDriveConnector
-    from DEMON.connectors.oauth import save_tokens
+    from OpenDEMON.connectors.gdrive import GDriveConnector
+    from OpenDEMON.connectors.oauth import save_tokens
 
     creds = str(tmp_path / "gdrive.json")
     conn = GDriveConnector(credentials_path=creds)

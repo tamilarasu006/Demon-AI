@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON start|stop|restart|status`` daemon management commands."""
+"""Tests for ``DEMON start|stop|restart|status`` daemon management commands."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.cli.daemon_cmd import _read_pid, _write_pid
+from OpenDEMON.cli import cli
+from OpenDEMON.cli.daemon_cmd import _read_pid, _write_pid
 
 
 class TestDaemonCommands:

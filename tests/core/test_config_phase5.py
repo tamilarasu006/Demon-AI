@@ -1,11 +1,11 @@
-﻿"""Phase 5 foundation tests — BenchmarkRegistry and config."""
+"""Phase 5 foundation tests — BenchmarkRegistry and config."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.core.config import DEMONConfig, load_config
-from DEMON.core.registry import BenchmarkRegistry
+from OpenDEMON.core.config import DEMONConfig, load_config
+from OpenDEMON.core.registry import BenchmarkRegistry
 
 
 class TestBenchmarkRegistry:
@@ -36,13 +36,13 @@ class TestConfigPhase5:
         assert cfg.learning is not None
 
     def test_benchmark_registry_importable(self):
-        from DEMON.core.registry import BenchmarkRegistry
+        from OpenDEMON.core.registry import BenchmarkRegistry
 
         assert BenchmarkRegistry is not None
 
     def test_registry_isolation(self):
         """BenchmarkRegistry entries don't leak into other registries."""
-        from DEMON.core.registry import ModelRegistry
+        from OpenDEMON.core.registry import ModelRegistry
 
         BenchmarkRegistry.register_value("iso-test", "bench-value")
         with pytest.raises(KeyError):

@@ -1,4 +1,4 @@
-﻿"""Tests for OpenHandsAgent (real openhands-sdk wrapper)."""
+"""Tests for OpenHandsAgent (real openhands-sdk wrapper)."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents._stubs import BaseAgent
-from DEMON.agents.openhands import OpenHandsAgent
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents._stubs import BaseAgent
+from OpenDEMON.agents.openhands import OpenHandsAgent
+from OpenDEMON.core.registry import AgentRegistry
 
 
 class TestOpenHandsAgentRegistration:

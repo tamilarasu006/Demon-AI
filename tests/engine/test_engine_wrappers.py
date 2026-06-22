@@ -1,4 +1,4 @@
-﻿"""Tests for InstrumentedEngine, GuardrailsEngine, and MultiEngine stream_full
+"""Tests for InstrumentedEngine, GuardrailsEngine, and MultiEngine stream_full
 delegation."""
 
 from __future__ import annotations
@@ -8,12 +8,12 @@ from typing import Any, Dict, List
 
 import pytest
 
-from DEMON.core.events import EventBus
-from DEMON.core.types import Message, Role
-from DEMON.engine._stubs import InferenceEngine, StreamChunk
-from DEMON.engine.multi import MultiEngine
-from DEMON.security.guardrails import GuardrailsEngine
-from DEMON.telemetry.instrumented_engine import InstrumentedEngine
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._stubs import InferenceEngine, StreamChunk
+from OpenDEMON.engine.multi import MultiEngine
+from OpenDEMON.security.guardrails import GuardrailsEngine
+from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
 
 # ---------------------------------------------------------------------------
 # Fake engine that yields predetermined StreamChunks via stream_full

@@ -1,9 +1,9 @@
-﻿"""Tests for the shared build_tool_descriptions() builder."""
+"""Tests for the shared build_tool_descriptions() builder."""
 
 from __future__ import annotations
 
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import (
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import (
     BaseTool,
     ToolSpec,
     build_tool_descriptions,

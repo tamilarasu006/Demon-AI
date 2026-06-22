@@ -1,4 +1,4 @@
-﻿"""Dependency graph: cycle detection, topological sort, capability union."""
+"""Dependency graph: cycle detection, topological sort, capability union."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from collections import deque
 from typing import TYPE_CHECKING, Dict, List, Set
 
 if TYPE_CHECKING:
-    from DEMON.skills.types import SkillManifest
+    from OpenDEMON.skills.types import SkillManifest
 
 
 class DependencyCycleError(Exception):

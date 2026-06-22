@@ -1,4 +1,4 @@
-﻿"""AMD-specific hardware tests."""
+"""AMD-specific hardware tests."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.core.config import (
+from OpenDEMON.core.config import (
     GpuInfo,
     HardwareInfo,
     _detect_amd_gpu,

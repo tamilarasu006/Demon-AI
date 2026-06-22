@@ -1,4 +1,4 @@
-﻿"""TraceJudge -- LLM-as-judge scoring for agent traces."""
+"""TraceJudge -- LLM-as-judge scoring for agent traces."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import logging
 import re
 from typing import List, Tuple
 
-from DEMON.core.types import Trace
-from DEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.core.types import Trace
+from OpenDEMON.evals.core.backend import InferenceBackend
 
 LOGGER = logging.getLogger(__name__)
 

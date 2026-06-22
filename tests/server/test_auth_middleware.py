@@ -1,4 +1,4 @@
-﻿"""Tests for API key authentication middleware."""
+"""Tests for API key authentication middleware."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ pytest.importorskip("fastapi", reason="DEMON[server] not installed")
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from DEMON.server.auth_middleware import AuthMiddleware
+from OpenDEMON.server.auth_middleware import AuthMiddleware
 
 
 def _make_app(api_key: str) -> FastAPI:

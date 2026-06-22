@@ -1,4 +1,4 @@
-﻿"""SyncScheduler — background thread for periodic incremental connector syncs.
+"""SyncScheduler — background thread for periodic incremental connector syncs.
 
 Registers connectors for timed re-sync and runs them on a configurable
 interval.  Designed to be long-lived (daemon thread) inside a running
@@ -25,8 +25,8 @@ import logging
 import threading
 from typing import Dict, List, Optional
 
-from DEMON.connectors._stubs import BaseConnector
-from DEMON.connectors.sync_engine import SyncEngine
+from OpenDEMON.connectors._stubs import BaseConnector
+from OpenDEMON.connectors.sync_engine import SyncEngine
 
 logger = logging.getLogger(__name__)
 

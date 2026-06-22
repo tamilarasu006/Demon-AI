@@ -1,7 +1,7 @@
-﻿"""Training data extraction and fine-tuning pipelines for trace-driven learning."""
+"""Training data extraction and fine-tuning pipelines for trace-driven learning."""
 
-from DEMON.learning.training.data import TrainingDataMiner
-from DEMON.learning.training.lora import (
+from OpenDEMON.learning.training.data import TrainingDataMiner
+from OpenDEMON.learning.training.lora import (
     HAS_TORCH,
     LoRATrainer,
     LoRATrainingConfig,

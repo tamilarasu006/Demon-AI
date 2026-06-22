@@ -1,4 +1,4 @@
-﻿"""WebSocket authentication tests (issue #217).
+"""WebSocket authentication tests (issue #217).
 
 The HTTP ``AuthMiddleware`` never sees WebSocket upgrade requests, so the
 streaming endpoints (`/v1/chat/stream`, `/v1/agents/events`) must validate the
@@ -17,10 +17,10 @@ from fastapi import FastAPI  # noqa: E402
 from starlette.testclient import TestClient  # noqa: E402
 from starlette.websockets import WebSocketDisconnect  # noqa: E402
 
-from DEMON.core.events import EventBus, EventType  # noqa: E402
-from DEMON.server.api_routes import include_all_routes  # noqa: E402
-from DEMON.server.auth_middleware import websocket_authorized  # noqa: E402
-from DEMON.server.ws_bridge import create_ws_router  # noqa: E402
+from OpenDEMON.core.events import EventBus, EventType  # noqa: E402
+from OpenDEMON.server.api_routes import include_all_routes  # noqa: E402
+from OpenDEMON.server.auth_middleware import websocket_authorized  # noqa: E402
+from OpenDEMON.server.ws_bridge import create_ws_router  # noqa: E402
 
 
 def _ws(query=None, headers=None):

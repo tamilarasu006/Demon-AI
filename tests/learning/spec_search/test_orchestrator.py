@@ -1,4 +1,4 @@
-﻿"""Tests for SpecSearchOrchestrator — full session with mocks."""
+"""Tests for SpecSearchOrchestrator — full session with mocks."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ import json
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.models import (
     AutonomyMode,
     BenchmarkSnapshot,
     FailureCluster,
     SessionStatus,
 )
-from DEMON.learning.spec_search.triggers import OnDemandTrigger
+from OpenDEMON.learning.spec_search.triggers import OnDemandTrigger
 
 
 def _make_snapshot(overall: float = 0.6) -> BenchmarkSnapshot:
@@ -26,7 +26,7 @@ def _make_snapshot(overall: float = 0.6) -> BenchmarkSnapshot:
 
 
 def _make_diagnosis_result():
-    from DEMON.learning.spec_search.diagnose.runner import DiagnosisResult
+    from OpenDEMON.learning.spec_search.diagnose.runner import DiagnosisResult
 
     return DiagnosisResult(
         diagnosis_md="## Diagnosis\nMath routing is broken.",
@@ -77,7 +77,7 @@ def _make_mock_engine():
 
 class TestSpecSearchOrchestrator:
     def test_full_session_completes(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.orchestrator import (
+        from OpenDEMON.learning.spec_search.orchestrator import (
             SpecSearchOrchestrator,
         )
 
@@ -112,7 +112,7 @@ class TestSpecSearchOrchestrator:
         assert session.teacher_cost_usd >= 0
 
     def test_cold_start_returns_failed(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.orchestrator import (
+        from OpenDEMON.learning.spec_search.orchestrator import (
             SpecSearchOrchestrator,
         )
 
@@ -141,7 +141,7 @@ class TestSpecSearchOrchestrator:
         assert "not enough traces" in (session.error or "").lower()
 
     def test_session_persisted_to_store(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.orchestrator import (
+        from OpenDEMON.learning.spec_search.orchestrator import (
             SpecSearchOrchestrator,
         )
 
@@ -176,8 +176,8 @@ class TestSpecSearchOrchestrator:
 
 class TestFromConfig:
     def test_from_config_round_trips_paper_defaults(self, tmp_path: Path) -> None:
-        from DEMON.core.config import SpecSearchLearningConfig
-        from DEMON.learning.spec_search.orchestrator import (
+        from OpenDEMON.core.config import SpecSearchLearningConfig
+        from OpenDEMON.learning.spec_search.orchestrator import (
             SpecSearchOrchestrator,
         )
 

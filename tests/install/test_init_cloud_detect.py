@@ -1,4 +1,4 @@
-﻿"""Tests for init's cloud auto-detect and from-bare-DEMON flag."""
+"""Tests for init's cloud auto-detect and from-bare-DEMON flag."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
-from DEMON.cli.init_cmd import init
+from OpenDEMON.cli.init_cmd import init
 
 
 def _clear_keys(monkeypatch) -> None:

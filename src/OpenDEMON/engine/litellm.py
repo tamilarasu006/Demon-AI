@@ -1,4 +1,4 @@
-﻿"""LiteLLM inference engine — unified access to 100+ LLM providers."""
+"""LiteLLM inference engine — unified access to 100+ LLM providers."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import logging
 from collections.abc import AsyncIterator, Sequence
 from typing import Any, Dict, List
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message
-from DEMON.engine._base import InferenceEngine, messages_to_dicts
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message
+from OpenDEMON.engine._base import InferenceEngine, messages_to_dicts
 
 logger = logging.getLogger(__name__)
 

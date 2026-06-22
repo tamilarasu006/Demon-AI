@@ -1,10 +1,10 @@
-﻿"""Integration tests for LearningOrchestrator agent_id scoping."""
+"""Integration tests for LearningOrchestrator agent_id scoping."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.learning.learning_orchestrator import LearningOrchestrator
+from OpenDEMON.learning.learning_orchestrator import LearningOrchestrator
 
 
 def test_learning_orchestrator_run_with_agent_id(tmp_path):
@@ -40,10 +40,10 @@ def test_learning_orchestrator_run_without_agent_id(tmp_path):
 
 def test_scheduler_tracks_tick_count_for_learning(tmp_path):
     """Scheduler increments per-agent tick count and triggers learning."""
-    from DEMON.agents.executor import AgentExecutor
-    from DEMON.agents.manager import AgentManager
-    from DEMON.agents.scheduler import AgentScheduler
-    from DEMON.core.events import EventBus, EventType
+    from OpenDEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.core.events import EventBus, EventType
 
     mgr = AgentManager(str(tmp_path / "test.db"))
     bus = EventBus(record_history=True)
@@ -77,10 +77,10 @@ def test_scheduler_tracks_tick_count_for_learning(tmp_path):
 
 def test_scheduler_no_learning_when_disabled(tmp_path):
     """Scheduler does not trigger learning when learning_enabled is False."""
-    from DEMON.agents.executor import AgentExecutor
-    from DEMON.agents.manager import AgentManager
-    from DEMON.agents.scheduler import AgentScheduler
-    from DEMON.core.events import EventBus, EventType
+    from OpenDEMON.agents.executor import AgentExecutor
+    from OpenDEMON.agents.manager import AgentManager
+    from OpenDEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.core.events import EventBus, EventType
 
     mgr = AgentManager(str(tmp_path / "test.db"))
     bus = EventBus(record_history=True)

@@ -1,4 +1,4 @@
-﻿"""Tests for ``DEMON memory`` CLI commands."""
+"""Tests for ``DEMON memory`` CLI commands."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage.sqlite import SQLiteMemory
+from OpenDEMON.cli import cli
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage.sqlite import SQLiteMemory
 
 
 def _register_sqlite():

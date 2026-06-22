@@ -1,4 +1,4 @@
-﻿"""OpenAI TTS backend — cloud-based voice synthesis via OpenAI API."""
+"""OpenAI TTS backend — cloud-based voice synthesis via OpenAI API."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from typing import List
 
 import httpx
 
-from DEMON.core.registry import TTSRegistry
-from DEMON.speech.tts import TTSBackend, TTSResult
+from OpenDEMON.core.registry import TTSRegistry
+from OpenDEMON.speech.tts import TTSBackend, TTSResult
 
 _OPENAI_TTS_URL = "https://api.openai.com/v1/audio/speech"
 

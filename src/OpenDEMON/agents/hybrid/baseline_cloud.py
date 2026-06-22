@@ -1,4 +1,4 @@
-﻿"""BaselineCloudAgent — cloud-only reference for the hybrid ablation.
+"""BaselineCloudAgent — cloud-only reference for the hybrid ablation.
 
 Used as the "what does the cloud do alone?" row in the n=100 ablation
 matrix (see ``.DEMON/experiments/hybrid/docs/results-table.md``).
@@ -24,17 +24,17 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import (
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import (
     WEB_SEARCH_COST_PER_CALL,
     LocalCloudAgent,
     build_web_search_tool,
     web_search_cfg,
 )
-from DEMON.agents.hybrid._prices import cost as estimate_cost
-from DEMON.agents.hybrid._prices import default_max_output_tokens
-from DEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents.hybrid._prices import cost as estimate_cost
+from OpenDEMON.agents.hybrid._prices import default_max_output_tokens
+from OpenDEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
+from OpenDEMON.core.registry import AgentRegistry
 
 
 @AgentRegistry.register("baseline_cloud")

@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.learning.spec_search.execute.base module."""
+"""Tests for DEMON.learning.spec_search.execute.base module."""
 
 from __future__ import annotations
 
@@ -11,26 +11,26 @@ class TestApplyContext:
     """Tests for ApplyContext dataclass."""
 
     def test_constructs(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.base import ApplyContext
+        from OpenDEMON.learning.spec_search.execute.base import ApplyContext
 
         ctx = ApplyContext(DEMON_home=tmp_path, session_id="s1")
         assert ctx.DEMON_home == tmp_path
         assert ctx.session_id == "s1"
 
     def test_config_path(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.base import ApplyContext
+        from OpenDEMON.learning.spec_search.execute.base import ApplyContext
 
         ctx = ApplyContext(DEMON_home=tmp_path, session_id="s1")
         assert ctx.config_path == tmp_path / "config.toml"
 
     def test_agents_dir(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.base import ApplyContext
+        from OpenDEMON.learning.spec_search.execute.base import ApplyContext
 
         ctx = ApplyContext(DEMON_home=tmp_path, session_id="s1")
         assert ctx.agents_dir == tmp_path / "agents"
 
     def test_tools_dir(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.base import ApplyContext
+        from OpenDEMON.learning.spec_search.execute.base import ApplyContext
 
         ctx = ApplyContext(DEMON_home=tmp_path, session_id="s1")
         assert ctx.tools_dir == tmp_path / "tools"
@@ -40,14 +40,14 @@ class TestValidationResult:
     """Tests for ValidationResult."""
 
     def test_ok_result(self) -> None:
-        from DEMON.learning.spec_search.execute.base import ValidationResult
+        from OpenDEMON.learning.spec_search.execute.base import ValidationResult
 
         r = ValidationResult(ok=True)
         assert r.ok is True
         assert r.reason == ""
 
     def test_error_result(self) -> None:
-        from DEMON.learning.spec_search.execute.base import ValidationResult
+        from OpenDEMON.learning.spec_search.execute.base import ValidationResult
 
         r = ValidationResult(ok=False, reason="target not found")
         assert r.ok is False
@@ -58,14 +58,14 @@ class TestEditApplierRegistry:
     """Tests for EditApplierRegistry."""
 
     def test_register_and_get(self) -> None:
-        from DEMON.learning.spec_search.execute.base import (
+        from OpenDEMON.learning.spec_search.execute.base import (
             ApplyContext,
             ApplyResult,
             EditApplier,
             EditApplierRegistry,
             ValidationResult,
         )
-        from DEMON.learning.spec_search.models import Edit, EditOp
+        from OpenDEMON.learning.spec_search.models import Edit, EditOp
 
         class FakeApplier(EditApplier):
             op = EditOp.SET_MODEL_PARAM
@@ -86,19 +86,19 @@ class TestEditApplierRegistry:
         assert isinstance(applier, FakeApplier)
 
     def test_is_supported_returns_false_for_unregistered(self) -> None:
-        from DEMON.learning.spec_search.execute.base import (
+        from OpenDEMON.learning.spec_search.execute.base import (
             EditApplierRegistry,
         )
-        from DEMON.learning.spec_search.models import EditOp
+        from OpenDEMON.learning.spec_search.models import EditOp
 
         registry = EditApplierRegistry()
         assert registry.is_supported(EditOp.LORA_FINETUNE) is False
 
     def test_get_raises_for_unregistered(self) -> None:
-        from DEMON.learning.spec_search.execute.base import (
+        from OpenDEMON.learning.spec_search.execute.base import (
             EditApplierRegistry,
         )
-        from DEMON.learning.spec_search.models import EditOp
+        from OpenDEMON.learning.spec_search.models import EditOp
 
         registry = EditApplierRegistry()
         with pytest.raises(KeyError):

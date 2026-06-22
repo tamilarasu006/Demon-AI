@@ -1,4 +1,4 @@
-﻿"""Tests for SpecSearchLoop (paper Algorithm 1)."""
+"""Tests for SpecSearchLoop (paper Algorithm 1)."""
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.models import (
     AutonomyMode,
     BenchmarkSnapshot,
     LearningSession,
     SessionStatus,
     TriggerKind,
 )
-from DEMON.learning.spec_search.multi_session import (
+from OpenDEMON.learning.spec_search.multi_session import (
     SpecSearchLoop,
 )
 

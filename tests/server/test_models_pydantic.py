@@ -1,4 +1,4 @@
-﻿"""Tests for server Pydantic models."""
+"""Tests for server Pydantic models."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import pytest
 
 pydantic = pytest.importorskip("pydantic")
 
-from DEMON.server.models import (  # noqa: E402
+from OpenDEMON.server.models import (  # noqa: E402
     ChatCompletionChunk,
     ChatCompletionRequest,
     ChatCompletionResponse,

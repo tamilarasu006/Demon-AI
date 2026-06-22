@@ -1,4 +1,4 @@
-﻿"""``DEMON channels`` — manage messaging channels for the agent."""
+"""``DEMON channels`` — manage messaging channels for the agent."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ def channels() -> None:
 @channels.command("status")
 def channels_status() -> None:
     """Show status of all configured channels."""
-    from DEMON.channels.imessage_daemon import is_running
+    from OpenDEMON.channels.imessage_daemon import is_running
 
     console = Console()
     table = Table(title="Channel Status")
@@ -56,7 +56,7 @@ def imessage_start(
 
     CHAT_IDENTIFIER is the phone number or email to monitor.
     """
-    from DEMON.channels.imessage_daemon import (
+    from OpenDEMON.channels.imessage_daemon import (
         is_running,
         run_daemon,
     )
@@ -95,22 +95,22 @@ def imessage_start(
         )
         console.print("Press Ctrl+C to stop.\n")
 
-        from DEMON.agents.deep_research import (
+        from OpenDEMON.agents.deep_research import (
             DeepResearchAgent,
         )
-        from DEMON.connectors.retriever import (
+        from OpenDEMON.connectors.retriever import (
             TwoStageRetriever,
         )
-        from DEMON.connectors.store import KnowledgeStore
-        from DEMON.engine.ollama import OllamaEngine
-        from DEMON.tools.knowledge_search import (
+        from OpenDEMON.connectors.store import KnowledgeStore
+        from OpenDEMON.engine.ollama import OllamaEngine
+        from OpenDEMON.tools.knowledge_search import (
             KnowledgeSearchTool,
         )
-        from DEMON.tools.knowledge_sql import (
+        from OpenDEMON.tools.knowledge_sql import (
             KnowledgeSQLTool,
         )
-        from DEMON.tools.scan_chunks import ScanChunksTool
-        from DEMON.tools.think import ThinkTool
+        from OpenDEMON.tools.scan_chunks import ScanChunksTool
+        from OpenDEMON.tools.think import ThinkTool
 
         engine = OllamaEngine()
         store = KnowledgeStore()
@@ -144,7 +144,7 @@ def imessage_start(
 @channels.command("imessage-stop")
 def imessage_stop() -> None:
     """Stop the iMessage daemon."""
-    from DEMON.channels.imessage_daemon import stop_daemon
+    from OpenDEMON.channels.imessage_daemon import stop_daemon
 
     console = Console()
     if stop_daemon():

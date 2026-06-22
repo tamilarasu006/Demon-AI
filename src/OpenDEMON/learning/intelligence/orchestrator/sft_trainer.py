@@ -1,4 +1,4 @@
-﻿"""SFT (Supervised Fine-Tuning) trainer for orchestrator.
+"""SFT (Supervised Fine-Tuning) trainer for orchestrator.
 
 Adapted from IPW's ``sft_trainer.py``.  Trains the orchestrator policy
 using supervised learning on trajectories.  All ``torch``/``transformers``
@@ -25,8 +25,8 @@ except ImportError:
     torch = None  # type: ignore[assignment]
     DataLoader = None  # type: ignore[assignment,misc]
 
-from DEMON.core.registry import LearningRegistry
-from DEMON.learning._stubs import IntelligenceLearningPolicy
+from OpenDEMON.core.registry import LearningRegistry
+from OpenDEMON.learning._stubs import IntelligenceLearningPolicy
 
 logger = logging.getLogger(__name__)
 
@@ -237,7 +237,7 @@ class OrchestratorSFTTrainer:
         self._init_optimizer()
 
     def _init_model(self) -> None:
-        from DEMON.learning.intelligence.orchestrator.policy_model import (
+        from OpenDEMON.learning.intelligence.orchestrator.policy_model import (
             OrchestratorPolicyModel,
         )
 

@@ -1,10 +1,10 @@
-﻿"""Tests for SemanticChunker — type-aware text splitting."""
+"""Tests for SemanticChunker — type-aware text splitting."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.connectors.chunker import ChunkResult, SemanticChunker
+from OpenDEMON.connectors.chunker import ChunkResult, SemanticChunker
 
 # ---------------------------------------------------------------------------
 # Fixtures

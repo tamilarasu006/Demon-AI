@@ -1,4 +1,4 @@
-﻿"""Configuration loading, hardware detection, and engine recommendation.
+"""Configuration loading, hardware detection, and engine recommendation.
 
 User configuration lives at ``~/.DEMON/config.toml``.  ``load_config()``
 detects hardware, fills sensible defaults, then overlays any user overrides
@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
-from DEMON.core.paths import (
+from OpenDEMON.core.paths import (
     ConfigurationError,
     get_cache_dir,
     get_config_dir,
@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     # ``_parse_mining_section()`` to break the import cycle:
     # ``mining/_stubs.py`` imports ``HardwareInfo`` from this module at its
     # top level.
-    from DEMON.mining._stubs import MiningConfig
+    from OpenDEMON.mining._stubs import MiningConfig
 
 try:
     import tomllib  # Python 3.11+
@@ -56,7 +56,7 @@ DEFAULT_CONFIG_PATH = get_config_path()
 
 def _ensure_config_dir() -> Path:
     """Ensure the config directory exists with restrictive permissions."""
-    from DEMON.security.file_utils import secure_mkdir
+    from OpenDEMON.security.file_utils import secure_mkdir
 
     return secure_mkdir(get_config_dir())
 
@@ -306,7 +306,7 @@ def recommend_model(hw: HardwareInfo, engine: str) -> str:
     For Lemonade, prefer the validated Qwen3.6 35B A3B GGUF default.
     For other local engines, use the generic Qwen3.5 tier mapping.
     """
-    from DEMON.intelligence.model_catalog import BUILTIN_MODELS
+    from OpenDEMON.intelligence.model_catalog import BUILTIN_MODELS
 
     available_gb = _available_memory_gb(hw)
     if available_gb <= 0:
@@ -968,7 +968,7 @@ class AgentConfig:
         "You are DEMON, a helpful AI assistant running locally on the "
         "user's own hardware. You are not a cloud service, and you are not "
         "Claude, ChatGPT, Gemini, or any other branded assistant. If asked "
-        "who or what you are, identify yourself as DEMON. Respond "
+        "who or what you are, identify yourself as OpenDEMON. Respond "
         "helpfully, concisely, and accurately."
     )
 
@@ -1555,7 +1555,7 @@ class DigestConfig:
 
 @dataclass
 class DEMONConfig:
-    """Top-level configuration for DEMON."""
+    """Top-level configuration for OpenDEMON."""
 
     installed_at: str = ""
     installer_version: str = ""
@@ -1654,7 +1654,7 @@ def validate_config_key(dotted_key: str) -> type:
         fld_type = fld.type
         if isinstance(fld_type, str):
             # Evaluate forward references in the config module namespace
-            import DEMON.core.config as _cfg_mod
+            import OpenDEMON.core.config as _cfg_mod
 
             fld_type = eval(fld_type, vars(_cfg_mod))  # noqa: S307
 
@@ -1762,7 +1762,7 @@ def _parse_mining_section(data: dict) -> Optional["MiningConfig"]:
     # imports ``HardwareInfo`` from this module at its top level. By the
     # time ``_parse_mining_section`` is called, ``core.config`` is already
     # fully initialized in ``sys.modules``, so the cycle is harmless.
-    from DEMON.mining._stubs import MiningConfig, PoolTarget, SoloTarget
+    from OpenDEMON.mining._stubs import MiningConfig, PoolTarget, SoloTarget
 
     section = data["mining"]
     extra = section.get("extra", {}) or {}

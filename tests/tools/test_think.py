@@ -1,8 +1,8 @@
-﻿"""Tests for the think tool."""
+"""Tests for the think tool."""
 
 from __future__ import annotations
 
-from DEMON.tools.think import ThinkTool
+from OpenDEMON.tools.think import ThinkTool
 
 
 class TestThinkTool:

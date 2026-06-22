@@ -1,8 +1,8 @@
-﻿"""Tests for classify_query utility."""
+"""Tests for classify_query utility."""
 
 from __future__ import annotations
 
-from DEMON.learning.routing._utils import classify_query
+from OpenDEMON.learning.routing._utils import classify_query
 
 
 class TestClassifyQuery:

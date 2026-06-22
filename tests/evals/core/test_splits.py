@@ -1,9 +1,9 @@
-﻿# tests/evals/core/test_splits.py
+# tests/evals/core/test_splits.py
 from __future__ import annotations
 
 import pytest
 
-from DEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.splits import apply_split
 
 
 def test_train_is_first_20_percent():

@@ -1,8 +1,8 @@
-﻿"""Tests for the document chunking pipeline."""
+"""Tests for the document chunking pipeline."""
 
 from __future__ import annotations
 
-from DEMON.tools.storage.chunking import ChunkConfig, chunk_text
+from OpenDEMON.tools.storage.chunking import ChunkConfig, chunk_text
 
 
 def test_empty_string_returns_empty():

@@ -1,4 +1,4 @@
-﻿"""Small router exposing the anonymous analytics identity to the frontend.
+"""Small router exposing the anonymous analytics identity to the frontend.
 
 The Tauri desktop app and web frontend need the same ``anon_id`` that
 the backend and install.sh use so that all events tie to one person.
@@ -16,11 +16,11 @@ from __future__ import annotations
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from DEMON.analytics.identity import (
+from OpenDEMON.analytics.identity import (
     get_or_create_anon_id,
     is_analytics_enabled,
 )
-from DEMON.core.config import load_config
+from OpenDEMON.core.config import load_config
 
 
 class AnalyticsIdentity(BaseModel):

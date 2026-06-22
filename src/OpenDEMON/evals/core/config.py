@@ -1,4 +1,4 @@
-﻿"""TOML config loader and matrix expansion for eval suites."""
+"""TOML config loader and matrix expansion for eval suites."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from typing import List
 
-from DEMON.evals.core.types import (
+from OpenDEMON.evals.core.types import (
     BenchmarkConfig,
     DefaultsConfig,
     EvalSuiteConfig,

@@ -1,4 +1,4 @@
-﻿"""Security regression tests for the tool-template loader (issue #216).
+"""Security regression tests for the tool-template loader (issue #216).
 
 `python`-action templates must not be able to escape the expression sandbox
 (no attribute walks reaching `object.__subclasses__()`), and `shell`-action
@@ -11,7 +11,7 @@ import os
 
 import pytest
 
-from DEMON.tools.templates.loader import (
+from OpenDEMON.tools.templates.loader import (
     ToolTemplate,
     discover_templates,
     safe_eval_expr,
@@ -124,3 +124,4 @@ def test_attribute_access_unavailable_even_for_param_objects() -> None:
     """Even if a param holds a module, attribute access stays unreachable."""
     with pytest.raises((ValueError, SyntaxError)):
         safe_eval_expr("payload.__class__", {"payload": os})
+ 

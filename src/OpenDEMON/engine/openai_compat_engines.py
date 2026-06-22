@@ -1,9 +1,9 @@
-﻿"""Data-driven registration of OpenAI-compatible inference engines."""
+"""Data-driven registration of OpenAI-compatible inference engines."""
 
 from __future__ import annotations
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.engine._openai_compat import _OpenAICompatibleEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.engine._openai_compat import _OpenAICompatibleEngine
 
 _ENGINES = {
     "vllm": ("VLLMEngine", "http://localhost:8000", "/v1"),

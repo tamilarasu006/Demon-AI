@@ -1,17 +1,17 @@
-﻿"""Tests for the MCP server."""
+"""Tests for the MCP server."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.mcp.protocol import (
+from OpenDEMON.mcp.protocol import (
     INVALID_PARAMS,
     METHOD_NOT_FOUND,
     MCPRequest,
 )
-from DEMON.mcp.server import MCPServer
-from DEMON.tools.calculator import CalculatorTool
-from DEMON.tools.think import ThinkTool
+from OpenDEMON.mcp.server import MCPServer
+from OpenDEMON.tools.calculator import CalculatorTool
+from OpenDEMON.tools.think import ThinkTool
 
 
 @pytest.fixture

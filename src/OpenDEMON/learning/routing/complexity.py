@@ -1,4 +1,4 @@
-﻿"""Query complexity analyzer — scores queries and suggests token budgets.
+"""Query complexity analyzer — scores queries and suggests token budgets.
 
 Produces a numeric complexity score (0.0–1.0) and a suggested
 ``max_tokens`` budget based on query characteristics such as length,
@@ -12,8 +12,8 @@ import re
 from dataclasses import dataclass
 from typing import Optional
 
-from DEMON.core.types import RoutingContext
-from DEMON.learning._stubs import QueryAnalyzer
+from OpenDEMON.core.types import RoutingContext
+from OpenDEMON.learning._stubs import QueryAnalyzer
 
 # ---------------------------------------------------------------------------
 # Signal patterns

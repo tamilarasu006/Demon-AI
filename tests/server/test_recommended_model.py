@@ -1,4 +1,4 @@
-﻿"""Tests for /v1/recommended-model endpoint."""
+"""Tests for /v1/recommended-model endpoint."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ except ImportError:
 @pytest.mark.skipif(not HAS_FASTAPI, reason="fastapi not installed")
 def test_recommended_model_picks_second_largest():
     """Should pick the second-largest local model."""
-    from DEMON.server.agent_manager_routes import _pick_recommended_model
+    from OpenDEMON.server.agent_manager_routes import _pick_recommended_model
 
     models = ["qwen3.5:0.8b", "qwen3.5:4b", "qwen3.5:9b", "qwen3.5:35b"]
     result = _pick_recommended_model(models)
@@ -25,7 +25,7 @@ def test_recommended_model_picks_second_largest():
 @pytest.mark.skipif(not HAS_FASTAPI, reason="fastapi not installed")
 def test_recommended_model_single_model():
     """With only one model, pick it."""
-    from DEMON.server.agent_manager_routes import _pick_recommended_model
+    from OpenDEMON.server.agent_manager_routes import _pick_recommended_model
 
     result = _pick_recommended_model(["qwen3.5:4b"])
     assert result["model"] == "qwen3.5:4b"
@@ -34,7 +34,7 @@ def test_recommended_model_single_model():
 @pytest.mark.skipif(not HAS_FASTAPI, reason="fastapi not installed")
 def test_recommended_model_filters_cloud():
     """Cloud models should be excluded from recommendation."""
-    from DEMON.server.agent_manager_routes import _pick_recommended_model
+    from OpenDEMON.server.agent_manager_routes import _pick_recommended_model
 
     models = ["qwen3.5:4b", "gpt-4o", "claude-3.5-sonnet", "qwen3.5:9b"]
     result = _pick_recommended_model(models)
@@ -44,7 +44,7 @@ def test_recommended_model_filters_cloud():
 @pytest.mark.skipif(not HAS_FASTAPI, reason="fastapi not installed")
 def test_parse_param_count():
     """Parse parameter counts from model names."""
-    from DEMON.server.agent_manager_routes import _parse_param_count
+    from OpenDEMON.server.agent_manager_routes import _parse_param_count
 
     assert _parse_param_count("qwen3.5:9b") == 9.0
     assert _parse_param_count("qwen3.5:0.8b") == 0.8

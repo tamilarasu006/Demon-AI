@@ -1,4 +1,4 @@
-﻿"""``DEMON add`` — quick MCP server setup."""
+"""``DEMON add`` — quick MCP server setup."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import sys
 import click
 from rich.console import Console
 
-from DEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
 _MCP_CONFIG_DIR = DEFAULT_CONFIG_DIR / "mcp"
 

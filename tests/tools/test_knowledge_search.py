@@ -1,4 +1,4 @@
-﻿"""Tests for the knowledge_search tool."""
+"""Tests for the knowledge_search tool."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ from pathlib import Path
 
 import pytest
 
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.core.registry import ToolRegistry
-from DEMON.tools.knowledge_search import KnowledgeSearchTool
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.tools.knowledge_search import KnowledgeSearchTool
 
 # ---------------------------------------------------------------------------
 # Fixture
@@ -142,7 +142,7 @@ class TestKnowledgeSearchTool:
 
 def test_tool_uses_two_stage_retriever(tmp_path: Path) -> None:
     """KnowledgeSearchTool delegates to TwoStageRetriever when supplied."""
-    from DEMON.connectors.retriever import TwoStageRetriever
+    from OpenDEMON.connectors.retriever import TwoStageRetriever
 
     store = KnowledgeStore(db_path=str(tmp_path / "ts_test.db"))
     store.store(

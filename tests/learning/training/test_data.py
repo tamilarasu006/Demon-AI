@@ -1,12 +1,12 @@
-﻿"""Tests for TrainingDataMiner — SFT, routing, and agent config extraction."""
+"""Tests for TrainingDataMiner — SFT, routing, and agent config extraction."""
 
 from __future__ import annotations
 
 import time
 from typing import Any, List
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.learning.training.data import TrainingDataMiner
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.learning.training.data import TrainingDataMiner
 
 # ---------------------------------------------------------------------------
 # Helpers

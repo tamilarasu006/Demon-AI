@@ -1,4 +1,4 @@
-﻿"""Upload / Paste router for ingesting documents into the knowledge store."""
+"""Upload / Paste router for ingesting documents into the knowledge store."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ from typing import List, Optional
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel
 
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
 logger = logging.getLogger(__name__)
 

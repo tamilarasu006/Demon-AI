@@ -1,4 +1,4 @@
-﻿"""LoRA fine-tuning stub — deferred to v2.
+"""LoRA fine-tuning stub — deferred to v2.
 
 The planner can emit LORA_FINETUNE edits so the diagnosis surfaces
 "this should be a weight update" pressure to the user, but the executor
@@ -9,13 +9,13 @@ See spec §4.1.
 
 from __future__ import annotations
 
-from DEMON.learning.spec_search.execute.base import (
+from OpenDEMON.learning.spec_search.execute.base import (
     ApplyContext,
     ApplyResult,
     EditApplier,
     ValidationResult,
 )
-from DEMON.learning.spec_search.models import Edit, EditOp
+from OpenDEMON.learning.spec_search.models import Edit, EditOp
 
 
 class LoraStubApplier(EditApplier):

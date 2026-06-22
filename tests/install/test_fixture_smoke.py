@@ -1,10 +1,10 @@
-﻿"""Smoke test that the tmp_DEMON_home fixture works."""
+"""Smoke test that the tmp_DEMON_home fixture works."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.core import config as config_mod
+from OpenDEMON.core import config as config_mod
 
 
 def test_fixture_redirects_default_config_dir(tmp_DEMON_home: Path) -> None:

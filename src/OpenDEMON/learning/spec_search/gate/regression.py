@@ -1,4 +1,4 @@
-﻿"""Per-cluster regression detection for the benchmark gate.
+"""Per-cluster regression detection for the benchmark gate.
 
 After an edit is applied, the gate compares the before and after
 BenchmarkSnapshots. If any cluster's score dropped by more than
@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from DEMON.learning.spec_search.models import BenchmarkSnapshot
+from OpenDEMON.learning.spec_search.models import BenchmarkSnapshot
 
 
 @dataclass

@@ -1,11 +1,11 @@
-﻿"""Tests for LearningOrchestrator integration with SystemBuilder."""
+"""Tests for LearningOrchestrator integration with SystemBuilder."""
 
 
 class TestSystemLearningIntegration:
     def test_learning_orchestrator_not_created_when_disabled(self):
         """Default config has training_enabled=False, so no orchestrator."""
-        from DEMON.core.config import DEMONConfig
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.core.config import DEMONConfig
+        from OpenDEMON.system import SystemBuilder
 
         config = DEMONConfig()
         assert config.learning.training_enabled is False
@@ -14,9 +14,9 @@ class TestSystemLearningIntegration:
 
     def test_learning_orchestrator_created_when_enabled(self):
         """When training_enabled=True, orchestrator is created."""
-        from DEMON.core.config import DEMONConfig
-        from DEMON.learning.learning_orchestrator import LearningOrchestrator
-        from DEMON.system import SystemBuilder
+        from OpenDEMON.core.config import DEMONConfig
+        from OpenDEMON.learning.learning_orchestrator import LearningOrchestrator
+        from OpenDEMON.system import SystemBuilder
 
         config = DEMONConfig()
         config.learning.training_enabled = True
@@ -25,7 +25,7 @@ class TestSystemLearningIntegration:
 
     def test_config_has_training_fields(self):
         """LearningConfig has the training pipeline fields."""
-        from DEMON.core.config import LearningConfig
+        from OpenDEMON.core.config import LearningConfig
 
         config = LearningConfig()
         assert config.training_enabled is False
@@ -37,7 +37,7 @@ class TestSystemLearningIntegration:
 
     def test_training_components_exported(self):
         """Learning package exports all training components."""
-        from DEMON.learning import (
+        from OpenDEMON.learning import (
             AgentConfigEvolver,
             LearningOrchestrator,
             LoRATrainer,

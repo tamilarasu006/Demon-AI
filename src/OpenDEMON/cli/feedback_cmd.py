@@ -1,4 +1,4 @@
-﻿"""``DEMON feedback`` — trace feedback management CLI."""
+"""``DEMON feedback`` — trace feedback management CLI."""
 
 from __future__ import annotations
 
@@ -33,8 +33,8 @@ def feedback_score(trace_id: str, score: float) -> None:
         sys.exit(1)
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.traces.store import TraceStore
 
         db_path = DEFAULT_CONFIG_DIR / "traces.db"
         if not db_path.exists():
@@ -78,8 +78,8 @@ def feedback_thumbs(
     score = 1.0 if thumbs_up else 0.0
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.traces.store import TraceStore
 
         db_path = DEFAULT_CONFIG_DIR / "traces.db"
         if not db_path.exists():
@@ -135,8 +135,8 @@ def feedback_evaluate(since: str) -> None:
     console.print(f"[cyan]Evaluating traces from the last {since}...[/cyan]")
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.traces.store import TraceStore
 
         db_path = DEFAULT_CONFIG_DIR / "traces.db"
         if not db_path.exists():
@@ -165,8 +165,8 @@ def feedback_stats() -> None:
     console = Console()
 
     try:
-        from DEMON.core.config import DEFAULT_CONFIG_DIR
-        from DEMON.traces.store import TraceStore
+        from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+        from OpenDEMON.traces.store import TraceStore
 
         db_path = DEFAULT_CONFIG_DIR / "traces.db"
         if not db_path.exists():

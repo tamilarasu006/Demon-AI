@@ -1,8 +1,8 @@
-﻿"""Tests for AgentManager.recover_agent() always resetting status."""
+"""Tests for AgentManager.recover_agent() always resetting status."""
 
 import pytest
 
-from DEMON.agents.manager import AgentManager
+from OpenDEMON.agents.manager import AgentManager
 
 
 @pytest.fixture

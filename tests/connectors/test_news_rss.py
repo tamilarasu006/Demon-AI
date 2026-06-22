@@ -1,4 +1,4 @@
-﻿"""Tests for NewsRSSConnector — RSS/Atom feed aggregator."""
+"""Tests for NewsRSSConnector — RSS/Atom feed aggregator."""
 
 from __future__ import annotations
 
@@ -7,13 +7,13 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_news_rss_registered():
     """NewsRSSConnector is discoverable via ConnectorRegistry."""
-    from DEMON.connectors.news_rss import NewsRSSConnector
+    from OpenDEMON.connectors.news_rss import NewsRSSConnector
 
     ConnectorRegistry.register_value("news_rss", NewsRSSConnector)
     assert ConnectorRegistry.contains("news_rss")
@@ -68,7 +68,7 @@ def connector(tmp_path):
     """NewsRSSConnector with fake config file."""
     import json
 
-    from DEMON.connectors.news_rss import NewsRSSConnector
+    from OpenDEMON.connectors.news_rss import NewsRSSConnector
 
     config_path = tmp_path / "news_rss.json"
     config_path.write_text(
@@ -89,14 +89,14 @@ def test_is_connected(connector):
 
 
 def test_is_connected_no_file(tmp_path):
-    from DEMON.connectors.news_rss import NewsRSSConnector
+    from OpenDEMON.connectors.news_rss import NewsRSSConnector
 
     c = NewsRSSConnector(config_path=str(tmp_path / "missing.json"))
     assert c.is_connected() is False
 
 
 def test_is_connected_empty_feeds(tmp_path):
-    from DEMON.connectors.news_rss import NewsRSSConnector
+    from OpenDEMON.connectors.news_rss import NewsRSSConnector
 
     config_path = tmp_path / "news_rss.json"
     config_path.write_text('{"feeds": []}', encoding="utf-8")
@@ -128,7 +128,7 @@ def test_sync_atom_feed(tmp_path):
     """Sync parses Atom XML and returns Documents."""
     import json
 
-    from DEMON.connectors.news_rss import NewsRSSConnector
+    from OpenDEMON.connectors.news_rss import NewsRSSConnector
 
     config_path = tmp_path / "news_rss.json"
     config_path.write_text(

@@ -1,12 +1,12 @@
-﻿"""Scorer for LogHub log anomaly detection benchmark."""
+"""Scorer for LogHub log anomaly detection benchmark."""
 
 from __future__ import annotations
 
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 _ANOMALY_PATTERN = re.compile(r"\bANOMAL(?:Y|OUS)\b", re.IGNORECASE)
 _NORMAL_PATTERN = re.compile(r"\bNORMAL\b", re.IGNORECASE)

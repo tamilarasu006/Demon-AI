@@ -1,11 +1,11 @@
-﻿"""Tests for skill index — sync and search."""
+"""Tests for skill index — sync and search."""
 
 from __future__ import annotations
 
 import textwrap
 from pathlib import Path
 
-from DEMON.skills.index import SkillIndex
+from OpenDEMON.skills.index import SkillIndex
 
 
 class TestSkillIndex:

@@ -1,10 +1,10 @@
-﻿"""A2A client — discover and call external A2A agents."""
+"""A2A client — discover and call external A2A agents."""
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
-from DEMON.a2a.protocol import A2ARequest, A2ATask, AgentCard
+from OpenDEMON.a2a.protocol import A2ARequest, A2ATask, AgentCard
 
 
 class A2AClient:

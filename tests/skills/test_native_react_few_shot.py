@@ -1,10 +1,10 @@
-﻿"""Tests for native_react skill_few_shot_examples wiring (Plan 2B I3 fix)."""
+"""Tests for native_react skill_few_shot_examples wiring (Plan 2B I3 fix)."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.agents.native_react import REACT_SYSTEM_PROMPT, NativeReActAgent
+from OpenDEMON.agents.native_react import REACT_SYSTEM_PROMPT, NativeReActAgent
 
 
 class _StubEngine:
@@ -74,9 +74,9 @@ class TestSystemBuilderCapturesFewShot:
         stashes them on the DEMONSystem instance for _run_agent to
         forward to tool-using agents."""
 
-        from DEMON.skills.manager import SkillManager
-        from DEMON.skills.overlay import SkillOverlay, write_overlay
-        from DEMON.skills.types import SkillManifest
+        from OpenDEMON.skills.manager import SkillManager
+        from OpenDEMON.skills.overlay import SkillOverlay, write_overlay
+        from OpenDEMON.skills.types import SkillManifest
 
         # Build an overlay so the manager picks up real few-shot examples
         overlay_dir = tmp_path / "overlays"
@@ -92,7 +92,7 @@ class TestSystemBuilderCapturesFewShot:
             overlay_dir,
         )
 
-        from DEMON.core.events import EventBus
+        from OpenDEMON.core.events import EventBus
 
         mgr = SkillManager(bus=EventBus(), overlay_dir=overlay_dir)
         mgr._skills["seeded-skill"] = SkillManifest(
@@ -114,8 +114,8 @@ class TestRunAgentForwardsExamples:
         agent_kwargs when the agent class has accepts_tools=True."""
         from unittest.mock import patch
 
-        from DEMON.agents._stubs import AgentResult
-        from DEMON.system import DEMONSystem
+        from OpenDEMON.agents._stubs import AgentResult
+        from OpenDEMON.system import DEMONSystem
 
         captured_kwargs: dict = {}
 

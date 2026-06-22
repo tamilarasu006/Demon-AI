@@ -1,4 +1,4 @@
-﻿"""TerminalBench dataset (terminal-bench/terminal-bench).
+"""TerminalBench dataset (terminal-bench/terminal-bench).
 
 Agentic benchmark for terminal / command-line tasks.
 """
@@ -8,8 +8,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 try:
     from datasets import load_dataset as _load_dataset  # noqa: F401

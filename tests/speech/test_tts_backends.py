@@ -1,11 +1,11 @@
-﻿"""Tests for TTS backend infrastructure."""
+"""Tests for TTS backend infrastructure."""
 
 from __future__ import annotations
 
 from unittest.mock import patch
 
-from DEMON.core.registry import TTSRegistry
-from DEMON.speech.tts import TTSResult
+from OpenDEMON.core.registry import TTSRegistry
+from OpenDEMON.speech.tts import TTSResult
 
 # ---------------------------------------------------------------------------
 # TTSResult tests
@@ -37,14 +37,14 @@ def test_tts_result_save(tmp_path):
 
 
 def test_cartesia_registered():
-    from DEMON.speech.cartesia_tts import CartesiaTTSBackend
+    from OpenDEMON.speech.cartesia_tts import CartesiaTTSBackend
 
     TTSRegistry.register_value("cartesia", CartesiaTTSBackend)
     assert TTSRegistry.contains("cartesia")
 
 
 def test_cartesia_synthesize():
-    from DEMON.speech.cartesia_tts import CartesiaTTSBackend
+    from OpenDEMON.speech.cartesia_tts import CartesiaTTSBackend
 
     backend = CartesiaTTSBackend(api_key="fake-key")
 
@@ -65,14 +65,14 @@ def test_cartesia_synthesize():
 
 
 def test_kokoro_registered():
-    from DEMON.speech.kokoro_tts import KokoroTTSBackend
+    from OpenDEMON.speech.kokoro_tts import KokoroTTSBackend
 
     TTSRegistry.register_value("kokoro", KokoroTTSBackend)
     assert TTSRegistry.contains("kokoro")
 
 
 def test_kokoro_health_false_without_package():
-    from DEMON.speech.kokoro_tts import KokoroTTSBackend
+    from OpenDEMON.speech.kokoro_tts import KokoroTTSBackend
 
     backend = KokoroTTSBackend()
     # Without kokoro installed, health returns False
@@ -85,14 +85,14 @@ def test_kokoro_health_false_without_package():
 
 
 def test_openai_tts_registered():
-    from DEMON.speech.openai_tts import OpenAITTSBackend
+    from OpenDEMON.speech.openai_tts import OpenAITTSBackend
 
     TTSRegistry.register_value("openai_tts", OpenAITTSBackend)
     assert TTSRegistry.contains("openai_tts")
 
 
 def test_openai_tts_synthesize():
-    from DEMON.speech.openai_tts import OpenAITTSBackend
+    from OpenDEMON.speech.openai_tts import OpenAITTSBackend
 
     backend = OpenAITTSBackend(api_key="fake-key")
 

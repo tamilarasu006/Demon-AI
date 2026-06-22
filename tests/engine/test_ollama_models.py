@@ -1,4 +1,4 @@
-﻿"""Tests for Ollama engine with extended local model set."""
+"""Tests for Ollama engine with extended local model set."""
 
 from __future__ import annotations
 
@@ -8,10 +8,10 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.ollama import OllamaEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.ollama import OllamaEngine
 
 OLLAMA_HOST = "http://testhost:11434"
 NEW_MODELS = ["gpt-oss:120b", "qwen3:8b", "glm-4.7-flash", "trinity-mini"]

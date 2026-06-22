@@ -1,9 +1,9 @@
-﻿"""Tests for API server model selection."""
+"""Tests for API server model selection."""
 
 from __future__ import annotations
 
-from DEMON.cli.serve import _resolve_server_model
-from DEMON.core.config import DEMONConfig
+from OpenDEMON.cli.serve import _resolve_server_model
+from OpenDEMON.core.config import DEMONConfig
 
 
 class _FakeEngine:

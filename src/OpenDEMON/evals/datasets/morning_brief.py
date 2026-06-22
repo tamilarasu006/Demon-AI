@@ -1,4 +1,4 @@
-﻿"""Morning brief benchmark dataset.
+"""Morning brief benchmark dataset.
 
 Synthetic user-context records for evaluating daily briefing generation:
 calendar events, todo items, news topics, and pending messages.
@@ -9,8 +9,8 @@ from __future__ import annotations
 import random
 from typing import Iterable, List, Optional
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _PROMPT_TEMPLATE = """You are a personal AI assistant preparing a morning briefing. Based on the following context, generate a concise, prioritized morning brief.
 

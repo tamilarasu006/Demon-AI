@@ -1,4 +1,4 @@
-﻿"""Route handlers for the OpenAI-compatible API server."""
+"""Route handlers for the OpenAI-compatible API server."""
 
 from __future__ import annotations
 
@@ -9,9 +9,9 @@ from typing import Any
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
-from DEMON.core.paths import get_config_dir
-from DEMON.core.types import Message, Role
-from DEMON.server.models import (
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.server.models import (
     ChatCompletionChunk,
     ChatCompletionRequest,
     ChatCompletionResponse,
@@ -72,7 +72,7 @@ def _ensure_identity_prompt(messages: list[Message], app_config) -> list[Message
         if app_config is not None:
             prompt = app_config.agent.default_system_prompt or ""
         else:
-            from DEMON.core.config import load_config
+            from OpenDEMON.core.config import load_config
 
             prompt = load_config().agent.default_system_prompt or ""
     except Exception:
@@ -106,7 +106,7 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
         and request_body.messages
     ):
         try:
-            from DEMON.tools.storage.context import ContextConfig, inject_context
+            from OpenDEMON.tools.storage.context import ContextConfig, inject_context
 
             # Extract query from the last user message
             query_text = ""
@@ -130,7 +130,7 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
                 )
                 # Rebuild request messages from enriched Message objects
                 if len(enriched) > len(messages):
-                    from DEMON.server.models import ChatMessage
+                    from OpenDEMON.server.models import ChatMessage
 
                     new_msgs = []
                     for msg in enriched:
@@ -158,7 +158,7 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
             break
     if query_text_for_complexity:
         try:
-            from DEMON.learning.routing.complexity import (
+            from OpenDEMON.learning.routing.complexity import (
                 adjust_tokens_for_model,
                 score_complexity,
             )
@@ -258,8 +258,8 @@ def _handle_direct(
     if req.tools:
         kwargs["tools"] = req.tools
     if bus:
-        from DEMON.telemetry.instrumented_engine import InstrumentedEngine
-        from DEMON.telemetry.wrapper import instrumented_generate
+        from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
+        from OpenDEMON.telemetry.wrapper import instrumented_generate
 
         # `app.state.engine` may already be an InstrumentedEngine (the
         # common case when telemetry is wired in). If we then wrap it
@@ -364,7 +364,7 @@ def _handle_agent(
     ``traces.db`` stayed empty and spec_search's cold-start gate
     (``check_readiness``, min 20 traces) could never open.
     """
-    from DEMON.agents._stubs import AgentContext
+    from OpenDEMON.agents._stubs import AgentContext
 
     # Build context from prior messages
     ctx = AgentContext()
@@ -382,7 +382,7 @@ def _handle_agent(
         agent._model = model
     try:
         if trace_store is not None:
-            from DEMON.traces.collector import TraceCollector
+            from OpenDEMON.traces.collector import TraceCollector
 
             collector = TraceCollector(agent, store=trace_store, bus=bus)
             result = collector.run(input_text, context=ctx)
@@ -403,7 +403,7 @@ def _handle_agent(
     if audio_path:
         from pathlib import Path
 
-        from DEMON.server.models import AudioMeta
+        from OpenDEMON.server.models import AudioMeta
 
         if Path(audio_path).exists():
             audio_meta = AudioMeta(url="/api/digest/audio")
@@ -446,7 +446,7 @@ async def _handle_stream_tools(
     tool_calls) — identical to the prior plain-stream behaviour, so this never
     regresses non-tool-capable engines.
     """
-    from DEMON.server.cloud_router import is_cloud_model
+    from OpenDEMON.server.cloud_router import is_cloud_model
 
     messages = _to_messages(req.messages)
     messages = _ensure_identity_prompt(messages, app_config)
@@ -556,7 +556,7 @@ async def _handle_stream(
     """
     import time
 
-    from DEMON.server.cloud_router import (
+    from OpenDEMON.server.cloud_router import (
         is_cloud_model,
         stream_cloud,
         stream_local,
@@ -611,7 +611,7 @@ async def _handle_stream(
                 # accidentally matched.
                 _use_local_fallback = False
                 try:
-                    from DEMON.engine.multi import MultiEngine
+                    from OpenDEMON.engine.multi import MultiEngine
 
                     _inner = getattr(engine, "_inner", engine)
                     if isinstance(_inner, MultiEngine):
@@ -673,7 +673,7 @@ async def _handle_stream(
         # the response). Mirrors the agent path so streamed chats also
         # populate traces.db.
         if trace_store is not None and full_content:
-            from DEMON.traces.collector import record_response_trace
+            from OpenDEMON.traces.collector import record_response_trace
 
             record_response_trace(
                 trace_store,
@@ -726,7 +726,7 @@ async def list_models(request: Request) -> ModelListResponse:
     Cloud models are not included here — they live in the Cloud Models tab
     of the UI and are selected there, not from this endpoint.
     """
-    from DEMON.server.cloud_router import is_cloud_model, list_local_models
+    from OpenDEMON.server.cloud_router import is_cloud_model, list_local_models
 
     # Prefer engine.list_models() so mock engines work in tests.
     # Filter out any cloud model IDs that may appear via MultiEngine.
@@ -834,8 +834,8 @@ async def reload_cloud_engine(request: Request):
 
     # Try to build a fresh CloudEngine.
     try:
-        from DEMON.engine.cloud import CloudEngine
-        from DEMON.engine.multi import MultiEngine
+        from OpenDEMON.engine.cloud import CloudEngine
+        from OpenDEMON.engine.multi import MultiEngine
 
         cloud = CloudEngine()
         if not cloud.health():
@@ -877,9 +877,9 @@ async def savings(request: Request):
     Only includes telemetry from the current server session so that
     counters start at zero each time a new model + agent is launched.
     """
-    from DEMON.core.config import DEFAULT_CONFIG_DIR
-    from DEMON.server.savings import compute_savings, savings_to_dict
-    from DEMON.telemetry.aggregator import TelemetryAggregator
+    from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+    from OpenDEMON.server.savings import compute_savings, savings_to_dict
+    from OpenDEMON.telemetry.aggregator import TelemetryAggregator
 
     db_path = DEFAULT_CONFIG_DIR / "telemetry.db"
     if not db_path.exists():
@@ -934,8 +934,8 @@ async def reset_telemetry():
     that the savings dashboard and leaderboard submissions start
     fresh with corrected values.
     """
-    from DEMON.core.config import DEFAULT_CONFIG_DIR
-    from DEMON.telemetry.aggregator import TelemetryAggregator
+    from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+    from OpenDEMON.telemetry.aggregator import TelemetryAggregator
 
     db_path = DEFAULT_CONFIG_DIR / "telemetry.db"
     if not db_path.exists():
@@ -1030,7 +1030,7 @@ async def channel_status(request: Request):
 @router.get("/v1/security/scan")
 async def security_scan():
     """Run a read-only security environment audit and return findings."""
-    from DEMON.cli.scan_cmd import PrivacyScanner
+    from OpenDEMON.cli.scan_cmd import PrivacyScanner
 
     scanner = PrivacyScanner()
     results = scanner.run_all()

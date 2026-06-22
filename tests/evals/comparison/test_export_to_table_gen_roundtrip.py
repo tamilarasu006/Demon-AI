@@ -1,4 +1,4 @@
-﻿"""Round-trip test: EvalRunner output -> table_gen reads it correctly.
+"""Round-trip test: EvalRunner output -> table_gen reads it correctly.
 
 Verifies that the schema emitted by `_summary_to_dict` (regular EvalRunner
 path used by hermes/openclaw) and `export_summary_json` (agentic-runner
@@ -14,7 +14,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from DEMON.evals.comparison.table_gen import (
+from OpenDEMON.evals.comparison.table_gen import (
     _build_t1,
     load_results,
 )
@@ -110,8 +110,8 @@ class TestSummaryToDictEmitsRequiredFields:
     """
 
     def test_summary_to_dict_includes_table_gen_fields(self) -> None:
-        from DEMON.evals.core.runner import _summary_to_dict
-        from DEMON.evals.core.types import EvalResult, RunSummary
+        from OpenDEMON.evals.core.runner import _summary_to_dict
+        from OpenDEMON.evals.core.types import EvalResult, RunSummary
 
         results = [
             EvalResult(
@@ -165,8 +165,8 @@ class TestSummaryToDictEmitsRequiredFields:
 
     def test_summary_to_dict_without_results_still_works(self) -> None:
         """Backward compat: calling without ``results`` must not error."""
-        from DEMON.evals.core.runner import _summary_to_dict
-        from DEMON.evals.core.types import RunSummary
+        from OpenDEMON.evals.core.runner import _summary_to_dict
+        from OpenDEMON.evals.core.types import RunSummary
 
         summary = RunSummary(
             benchmark="gaia",
@@ -194,8 +194,8 @@ class TestExportSummaryJsonEmitsRequiredFields:
     the §6.3 fields, sourced from the ``config`` dict argument."""
 
     def test_export_summary_includes_table_gen_fields(self, tmp_path: Path) -> None:
-        from DEMON.evals.core.export import export_summary_json
-        from DEMON.evals.core.trace import QueryTrace, TurnTrace
+        from OpenDEMON.evals.core.export import export_summary_json
+        from OpenDEMON.evals.core.trace import QueryTrace, TurnTrace
 
         # Build minimal traces with enough fields populated so the
         # statistics blocks are non-empty.

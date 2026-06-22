@@ -1,4 +1,4 @@
-﻿"""Slack connector — bulk channel message sync via the Slack Web API.
+"""Slack connector — bulk channel message sync via the Slack Web API.
 
 Uses a Slack **user** OAuth token (``xoxp-...``) stored locally so the
 sync sees everything the user can see — including their 1:1 DMs and
@@ -19,11 +19,11 @@ from urllib.parse import urlencode
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.connectors.oauth import delete_tokens, load_tokens, save_tokens
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.connectors.oauth import delete_tokens, load_tokens, save_tokens
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 logger = logging.getLogger(__name__)
 

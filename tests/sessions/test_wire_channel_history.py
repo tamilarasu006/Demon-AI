@@ -1,4 +1,4 @@
-﻿"""Tests for wire_channel session history"""
+"""Tests for wire_channel session history"""
 
 from __future__ import annotations
 
@@ -7,10 +7,10 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.config import DEMONConfig
-from DEMON.core.events import EventBus
-from DEMON.core.types import Role
-from DEMON.system import DEMONSystem
+from OpenDEMON.core.config import DEMONConfig
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import Role
+from OpenDEMON.system import DEMONSystem
 
 
 @pytest.fixture()
@@ -30,7 +30,7 @@ def minimal_system():
 class TestWireChannelHistory:
     def test_prior_messages_passed_to_ask(self, tmp_path, minimal_system):
         """Session history is forwarded as prior_messages to ask()."""
-        from DEMON.sessions.session import SessionStore
+        from OpenDEMON.sessions.session import SessionStore
 
         db = tmp_path / "sessions.db"
         store = SessionStore(db_path=db)
@@ -80,7 +80,7 @@ class TestWireChannelHistory:
 
     def test_empty_session_passes_empty_prior_messages(self, tmp_path, minimal_system):
         """First message in a new session passes prior_messages=[]."""
-        from DEMON.sessions.session import SessionStore
+        from OpenDEMON.sessions.session import SessionStore
 
         db = tmp_path / "sessions.db"
         store = SessionStore(db_path=db)

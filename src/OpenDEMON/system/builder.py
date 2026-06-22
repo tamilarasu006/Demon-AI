@@ -1,16 +1,16 @@
-﻿"""Config-driven fluent builder that wires up a DEMONSystem."""
+"""Config-driven fluent builder that wires up a DEMONSystem."""
 
 from __future__ import annotations
 
 import logging
 from typing import Any, List, Optional
 
-from DEMON.core.config import DEMONConfig, load_config
-from DEMON.core.events import EventBus, get_event_bus
-from DEMON.core.paths import get_config_dir
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.system.core import DEMONSystem
-from DEMON.tools._stubs import BaseTool, ToolExecutor
+from OpenDEMON.core.config import DEMONConfig, load_config
+from OpenDEMON.core.events import EventBus, get_event_bus
+from OpenDEMON.core.paths import get_config_dir
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.system.core import DEMONSystem
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor
 
 logger = logging.getLogger(__name__)
 
@@ -130,7 +130,7 @@ class SystemBuilder:
         energy_monitor = None
         if telemetry_enabled and config.telemetry.gpu_metrics:
             try:
-                from DEMON.telemetry.energy_monitor import (
+                from OpenDEMON.telemetry.energy_monitor import (
                     create_energy_monitor,
                 )
 
@@ -143,7 +143,7 @@ class SystemBuilder:
 
             if energy_monitor is None:
                 try:
-                    from DEMON.telemetry.gpu_monitor import GpuMonitor
+                    from OpenDEMON.telemetry.gpu_monitor import GpuMonitor
 
                     if GpuMonitor.available():
                         gpu_monitor = GpuMonitor(
@@ -152,13 +152,13 @@ class SystemBuilder:
                 except ImportError:
                     pass
 
-        from DEMON.security import setup_security
+        from OpenDEMON.security import setup_security
 
         sec = setup_security(config, engine, bus)
         engine = sec.engine
 
         if telemetry_enabled:
-            from DEMON.telemetry.instrumented_engine import (
+            from OpenDEMON.telemetry.instrumented_engine import (
                 InstrumentedEngine,
             )
 
@@ -190,7 +190,7 @@ class SystemBuilder:
             try:
                 from pathlib import Path
 
-                from DEMON.skills.manager import SkillManager
+                from OpenDEMON.skills.manager import SkillManager
 
                 skill_manager = SkillManager(
                     bus, capability_policy=sec.capability_policy
@@ -221,7 +221,7 @@ class SystemBuilder:
         trace_store = None
         if traces_enabled:
             try:
-                from DEMON.traces.store import TraceStore
+                from OpenDEMON.traces.store import TraceStore
 
                 trace_store = TraceStore(config.traces.db_path)
             except Exception:
@@ -233,7 +233,7 @@ class SystemBuilder:
         agent_manager = None
         if config.agent_manager.enabled:
             try:
-                from DEMON.agents.manager import AgentManager
+                from OpenDEMON.agents.manager import AgentManager
 
                 am_db = config.agent_manager.db_path or str(
                     get_config_dir() / "agents.db"
@@ -246,13 +246,13 @@ class SystemBuilder:
         agent_scheduler = None
         if agent_manager is not None:
             try:
-                from DEMON.agents.executor import AgentExecutor
-                from DEMON.agents.scheduler import AgentScheduler
+                from OpenDEMON.agents.executor import AgentExecutor
+                from OpenDEMON.agents.scheduler import AgentScheduler
 
                 _trace_store = None
                 if config.traces.enabled:
                     try:
-                        from DEMON.traces.store import TraceStore
+                        from OpenDEMON.traces.store import TraceStore
 
                         _trace_store = TraceStore(config.traces.db_path)
                     except Exception:
@@ -277,7 +277,7 @@ class SystemBuilder:
         speech_enabled = self._speech if self._speech is not None else True
         if speech_enabled:
             try:
-                from DEMON.speech._discovery import get_speech_backend
+                from OpenDEMON.speech._discovery import get_speech_backend
 
                 speech_backend = get_speech_backend(config)
             except Exception as exc:
@@ -335,7 +335,7 @@ class SystemBuilder:
                 )
             return engine, key
 
-        from DEMON.engine._discovery import get_engine
+        from OpenDEMON.engine._discovery import get_engine
 
         pref = config.intelligence.preferred_engine
         key = self._engine_key or pref or config.engine.default
@@ -373,7 +373,7 @@ class SystemBuilder:
 
     def _setup_telemetry(self, config, bus):
         try:
-            from DEMON.telemetry.store import TelemetryStore
+            from OpenDEMON.telemetry.store import TelemetryStore
 
             store = TelemetryStore(db_path=config.telemetry.db_path)
             store.subscribe_to_bus(bus)
@@ -384,8 +384,8 @@ class SystemBuilder:
 
     def _resolve_memory(self, config):
         try:
-            import DEMON.tools.storage  # noqa: F401 -- trigger registration
-            from DEMON.core.registry import MemoryRegistry
+            import OpenDEMON.tools.storage  # noqa: F401 -- trigger registration
+            from OpenDEMON.core.registry import MemoryRegistry
 
             key = config.memory.default_backend
             if MemoryRegistry.contains(key):
@@ -399,9 +399,9 @@ class SystemBuilder:
             return None
         key = config.channel.default_channel
         try:
-            import DEMON.channels  # noqa: F401 -- trigger registration
-            from DEMON.core.registry import ChannelRegistry
-            from DEMON.system._channel_kwargs import build_channel_kwargs
+            import OpenDEMON.channels  # noqa: F401 -- trigger registration
+            from OpenDEMON.core.registry import ChannelRegistry
+            from OpenDEMON.system._channel_kwargs import build_channel_kwargs
 
             if not key or not ChannelRegistry.contains(key):
                 return None
@@ -415,7 +415,7 @@ class SystemBuilder:
         self, config, engine, model, memory_backend, channel_backend=None
     ):
         """Resolve tool instances via MCPServer (primary) + external MCP servers."""
-        from DEMON.mcp.server import MCPServer
+        from OpenDEMON.mcp.server import MCPServer
 
         internal_server = MCPServer()
         for tool in internal_server.get_tools():
@@ -499,7 +499,7 @@ class SystemBuilder:
         if not sandbox_enabled:
             return None
         try:
-            from DEMON.sandbox.runner import ContainerRunner
+            from OpenDEMON.sandbox.runner import ContainerRunner
 
             return ContainerRunner(
                 image=config.sandbox.image,
@@ -519,19 +519,19 @@ class SystemBuilder:
         if not scheduler_enabled:
             return None, None
         try:
-            from DEMON.scheduler.store import SchedulerStore
+            from OpenDEMON.scheduler.store import SchedulerStore
 
             db_path = config.scheduler.db_path or str(
                 config.hardware.platform  # unused, just for fallback
             )
             if not config.scheduler.db_path:
-                from DEMON.core.config import DEFAULT_CONFIG_DIR
+                from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
 
                 db_path = str(DEFAULT_CONFIG_DIR / "scheduler.db")
 
             store = SchedulerStore(db_path=db_path)
 
-            from DEMON.scheduler.scheduler import TaskScheduler
+            from OpenDEMON.scheduler.scheduler import TaskScheduler
 
             sched = TaskScheduler(
                 store,
@@ -550,7 +550,7 @@ class SystemBuilder:
         if not workflow_enabled:
             return None
         try:
-            from DEMON.workflow.engine import WorkflowEngine
+            from OpenDEMON.workflow.engine import WorkflowEngine
 
             return WorkflowEngine(
                 bus=bus,
@@ -568,7 +568,7 @@ class SystemBuilder:
         if not sessions_enabled:
             return None
         try:
-            from DEMON.sessions.session import SessionStore
+            from OpenDEMON.sessions.session import SessionStore
 
             return SessionStore(
                 db_path=config.sessions.db_path,
@@ -584,12 +584,12 @@ class SystemBuilder:
         if not config.learning.training_enabled:
             return None
         try:
-            from DEMON.core.config import DEFAULT_CONFIG_DIR
-            from DEMON.learning.learning_orchestrator import (
+            from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+            from OpenDEMON.learning.learning_orchestrator import (
                 LearningOrchestrator,
             )
-            from DEMON.learning.training.lora import LoRATrainingConfig
-            from DEMON.traces.store import TraceStore
+            from OpenDEMON.learning.training.lora import LoRATrainingConfig
+            from OpenDEMON.traces.store import TraceStore
 
             trace_store = TraceStore(db_path=config.traces.db_path)
             config_dir = DEFAULT_CONFIG_DIR / "agent_configs"
@@ -620,9 +620,9 @@ class SystemBuilder:
         """
         import json
 
-        from DEMON.mcp.client import MCPClient
-        from DEMON.mcp.transport import StdioTransport, StreamableHTTPTransport
-        from DEMON.tools.mcp_adapter import MCPToolProvider
+        from OpenDEMON.mcp.client import MCPClient
+        from OpenDEMON.mcp.transport import StdioTransport, StreamableHTTPTransport
+        from OpenDEMON.tools.mcp_adapter import MCPToolProvider
 
         cfg = json.loads(server_cfg) if isinstance(server_cfg, str) else server_cfg
         name = cfg.get("name", "<unnamed>")

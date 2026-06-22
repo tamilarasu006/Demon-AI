@@ -1,4 +1,4 @@
-﻿"""ConductorAgent — static-DAG planner (Sakana AI, arXiv 2512.04388).
+"""ConductorAgent — static-DAG planner (Sakana AI, arXiv 2512.04388).
 
 Stage-1 inference-only repro. The paper's trained Qwen2.5-7B conductor is
 not released; we substitute a strong zero-shot cloud planner (default
@@ -39,8 +39,8 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import (
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import (
     GEMINI_SEARCH_COST_PER_CALL,
     OPENAI_WEB_SEARCH_COST_PER_CALL,
     WEB_SEARCH_COST_PER_CALL,
@@ -49,17 +49,17 @@ from DEMON.agents.hybrid._base import (
     tavily_search_context,
     web_search_cfg,
 )
-from DEMON.agents.hybrid._prices import (
+from OpenDEMON.agents.hybrid._prices import (
     PRICES,
     is_gpt5_family,
     supports_temperature,
 )
-from DEMON.agents.hybrid.mini_swe_agent import (
+from OpenDEMON.agents.hybrid.mini_swe_agent import (
     _clone_repo,
     _extract_diff,
     run_swe_agent_loop,
 )
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.core.registry import AgentRegistry
 
 CONDUCTOR_SYS = """\
 Your role as an assistant involves obtaining answers to questions by an iterative \

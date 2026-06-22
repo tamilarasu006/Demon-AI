@@ -1,4 +1,4 @@
-﻿"""Tests for GoogleTasksConnector — Google Tasks API v1."""
+"""Tests for GoogleTasksConnector — Google Tasks API v1."""
 
 from __future__ import annotations
 
@@ -7,11 +7,11 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_google_tasks_registered():
-    from DEMON.connectors.google_tasks import GoogleTasksConnector
+    from OpenDEMON.connectors.google_tasks import GoogleTasksConnector
 
     ConnectorRegistry.register_value("google_tasks", GoogleTasksConnector)
     assert ConnectorRegistry.contains("google_tasks")
@@ -50,7 +50,7 @@ _TASKS_RESPONSE = {
 
 @pytest.fixture()
 def connector(tmp_path):
-    from DEMON.connectors.google_tasks import GoogleTasksConnector
+    from OpenDEMON.connectors.google_tasks import GoogleTasksConnector
 
     creds = tmp_path / "google_tasks.json"
     creds.write_text('{"token": "fake-token"}', encoding="utf-8")

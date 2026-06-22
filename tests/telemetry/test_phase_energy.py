@@ -1,4 +1,4 @@
-﻿"""Tests for Tier 2.1 — phase energy split: decode_latency, prefill/decode energy."""
+"""Tests for Tier 2.1 — phase energy split: decode_latency, prefill/decode energy."""
 
 from __future__ import annotations
 
@@ -8,11 +8,11 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, Role, TelemetryRecord
-from DEMON.telemetry.aggregator import TelemetryAggregator
-from DEMON.telemetry.instrumented_engine import InstrumentedEngine
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, Role, TelemetryRecord
+from OpenDEMON.telemetry.aggregator import TelemetryAggregator
+from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
+from OpenDEMON.telemetry.store import TelemetryStore
 
 # ---------------------------------------------------------------------------
 # Helpers

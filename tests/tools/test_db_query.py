@@ -1,10 +1,10 @@
-﻿"""Tests for the db_query tool."""
+"""Tests for the db_query tool."""
 
 from __future__ import annotations
 
 import sqlite3
 
-from DEMON.tools.db_query import DatabaseQueryTool
+from OpenDEMON.tools.db_query import DatabaseQueryTool
 
 
 class TestDatabaseQueryTool:

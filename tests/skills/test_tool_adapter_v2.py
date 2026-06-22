@@ -1,12 +1,12 @@
-﻿"""Tests for SkillTool v2 — parameter extraction and markdown support."""
+"""Tests for SkillTool v2 — parameter extraction and markdown support."""
 
 from __future__ import annotations
 
-from DEMON.core.types import ToolResult
-from DEMON.skills.executor import SkillExecutor
-from DEMON.skills.tool_adapter import SkillTool
-from DEMON.skills.types import SkillManifest, SkillStep
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.skills.executor import SkillExecutor
+from OpenDEMON.skills.tool_adapter import SkillTool
+from OpenDEMON.skills.types import SkillManifest, SkillStep
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
 
 class EchoTool(BaseTool):

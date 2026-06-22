@@ -1,7 +1,7 @@
-﻿"""Tests for the doc_qa scorer."""
+"""Tests for the doc_qa scorer."""
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.doc_qa import DocQAScorer
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.doc_qa import DocQAScorer
 
 
 def _make_record(required_facts):

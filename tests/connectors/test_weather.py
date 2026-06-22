@@ -1,4 +1,4 @@
-﻿"""Tests for WeatherConnector — OpenWeatherMap API."""
+"""Tests for WeatherConnector — OpenWeatherMap API."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ from unittest.mock import patch
 
 import pytest
 
-from DEMON.connectors._stubs import Document
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import Document
+from OpenDEMON.core.registry import ConnectorRegistry
 
 
 def test_weather_registered():
     """WeatherConnector is discoverable via ConnectorRegistry."""
-    from DEMON.connectors.weather import WeatherConnector
+    from OpenDEMON.connectors.weather import WeatherConnector
 
     ConnectorRegistry.register_value("weather", WeatherConnector)
     assert ConnectorRegistry.contains("weather")
@@ -47,7 +47,7 @@ _FORECAST_RESPONSE = {
 @pytest.fixture()
 def connector(tmp_path):
     """WeatherConnector with fake config file."""
-    from DEMON.connectors.weather import WeatherConnector
+    from OpenDEMON.connectors.weather import WeatherConnector
 
     config_path = tmp_path / "weather.json"
     config_path.write_text(
@@ -62,7 +62,7 @@ def test_is_connected(connector):
 
 
 def test_is_connected_no_file(tmp_path):
-    from DEMON.connectors.weather import WeatherConnector
+    from OpenDEMON.connectors.weather import WeatherConnector
 
     c = WeatherConnector(token_path=str(tmp_path / "missing.json"))
     assert c.is_connected() is False

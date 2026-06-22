@@ -1,11 +1,11 @@
-﻿"""TOML config loader for optimization runs."""
+"""TOML config loader for optimization runs."""
 
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, Dict, List, Union
 
-from DEMON.learning.optimize.types import ObjectiveSpec
+from OpenDEMON.learning.optimize.types import ObjectiveSpec
 
 try:
     import tomllib
@@ -40,7 +40,7 @@ def load_objectives(data: Dict[str, Any]) -> List[ObjectiveSpec]:
     a list of :class:`ObjectiveSpec`.  Falls back to
     :data:`DEFAULT_OBJECTIVES` if the key is absent.
     """
-    from DEMON.learning.optimize.types import DEFAULT_OBJECTIVES
+    from OpenDEMON.learning.optimize.types import DEFAULT_OBJECTIVES
 
     optimize = data.get("optimize", {})
     raw_objectives = optimize.get("objectives")
@@ -70,7 +70,7 @@ def load_benchmark_specs(data: Dict[str, Any]) -> List[Any]:
     Returns an empty list if no benchmarks are configured (caller
     should fall back to CLI --benchmark).
     """
-    from DEMON.learning.optimize.trial_runner import BenchmarkSpec
+    from OpenDEMON.learning.optimize.trial_runner import BenchmarkSpec
 
     optimize = data.get("optimize", {})
 

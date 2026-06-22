@@ -1,10 +1,10 @@
-﻿"""Tests for SSRF protection module."""
+"""Tests for SSRF protection module."""
 
 from __future__ import annotations
 
 from unittest.mock import patch
 
-from DEMON.security.ssrf import _check_ssrf_python, check_ssrf, is_private_ip
+from OpenDEMON.security.ssrf import _check_ssrf_python, check_ssrf, is_private_ip
 
 
 class TestIsPrivateIp:

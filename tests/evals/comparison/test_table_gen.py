@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON.evals.comparison.table_gen."""
+"""Tests for DEMON.evals.comparison.table_gen."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import pytest
 
 pl = pytest.importorskip("polars")
 
-from DEMON.evals.comparison.table_gen import (  # noqa: E402
+from OpenDEMON.evals.comparison.table_gen import (  # noqa: E402
     MixedCommitError,
     ResultsFrame,
     load_results,
@@ -91,7 +91,7 @@ class TestLoadResults:
 
 class TestRenderBooktabs:
     def test_emits_valid_tabular(self) -> None:
-        from DEMON.evals.comparison.table_gen import _render_booktabs
+        from OpenDEMON.evals.comparison.table_gen import _render_booktabs
 
         df = pl.DataFrame(
             {
@@ -114,7 +114,7 @@ class TestRenderBooktabs:
         assert fragment in standalone
 
     def test_missing_cell_renders_em_dash(self) -> None:
-        from DEMON.evals.comparison.table_gen import _render_booktabs
+        from OpenDEMON.evals.comparison.table_gen import _render_booktabs
 
         df = pl.DataFrame(
             {
@@ -134,7 +134,7 @@ class TestRenderBooktabs:
 
 class TestT1Builder:
     def test_t1_builds_from_synthetic_results(self) -> None:
-        from DEMON.evals.comparison.table_gen import (
+        from OpenDEMON.evals.comparison.table_gen import (
             ResultsFrame,
             _build_t1,
         )
@@ -166,7 +166,7 @@ class TestT1Builder:
 
 class TestT2Builder:
     def test_t2_emits_efficiency_table(self) -> None:
-        from DEMON.evals.comparison.table_gen import (
+        from OpenDEMON.evals.comparison.table_gen import (
             ResultsFrame,
             _build_t2,
         )
@@ -213,7 +213,7 @@ class TestT3to7Builders:
         ["_build_t3", "_build_t4", "_build_t5", "_build_t6", "_build_t7"],
     )
     def test_builder_emits_tabular(self, builder_name: str) -> None:
-        import DEMON.evals.comparison.table_gen as m
+        import OpenDEMON.evals.comparison.table_gen as m
 
         builder = getattr(m, builder_name)
         rows = []
@@ -248,7 +248,7 @@ class TestT3to7Builders:
 
 class TestTableBuilderRegistry:
     def test_registry_has_all_seven(self) -> None:
-        from DEMON.evals.comparison.table_gen import _TABLE_BUILDERS
+        from OpenDEMON.evals.comparison.table_gen import _TABLE_BUILDERS
 
         assert set(_TABLE_BUILDERS.keys()) == {
             "T1",
@@ -265,7 +265,7 @@ class TestTableGenCLI:
     def test_cli_writes_fragment_and_preview(self, tmp_path: Path) -> None:
         from click.testing import CliRunner
 
-        from DEMON.evals.comparison.table_gen import main
+        from OpenDEMON.evals.comparison.table_gen import main
 
         results_dir = tmp_path / "results"
         results_dir.mkdir()

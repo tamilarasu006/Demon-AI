@@ -1,4 +1,4 @@
-﻿"""AgentConfigEvolver — analyze traces to evolve agent TOML configs.
+"""AgentConfigEvolver — analyze traces to evolve agent TOML configs.
 
 Reads interaction traces to determine which agent/tool/parameter
 combinations perform best for different query classes, then writes
@@ -12,9 +12,9 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from DEMON.core.types import StepType, Trace
-from DEMON.learning.routing._utils import classify_query
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import StepType, Trace
+from OpenDEMON.learning.routing._utils import classify_query
+from OpenDEMON.traces.store import TraceStore
 
 
 def _format_toml_value(value: Any) -> str:

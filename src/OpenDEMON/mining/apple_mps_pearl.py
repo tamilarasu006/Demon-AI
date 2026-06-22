@@ -1,4 +1,4 @@
-﻿"""Experimental Apple-GPU Pearl mining provider via PyTorch MPS.
+"""Experimental Apple-GPU Pearl mining provider via PyTorch MPS.
 
 This provider is a correctness-first bridge to upstream Pearl ``miner-base``.
 It uses the Apple GPU for the NoisyGEMM matmuls through PyTorch MPS, while
@@ -11,8 +11,8 @@ from __future__ import annotations
 import os
 import time
 
-from DEMON.core.config import HardwareInfo
-from DEMON.core.registry import MinerRegistry
+from OpenDEMON.core.config import HardwareInfo
+from OpenDEMON.core.registry import MinerRegistry
 
 from . import _install
 from ._constants import (

@@ -1,4 +1,4 @@
-﻿"""Read background-work state from ``~/.DEMON/.state/``.
+"""Read background-work state from ``~/.DEMON/.state/``.
 
 Pure-function reader used by the chat banner, completion-notification
 dispatcher, and ``DEMON doctor``.  No side effects — safe to call
@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Optional
 
-from DEMON.core import config
+from OpenDEMON.core import config
 
 
 @dataclass(slots=True)

@@ -1,4 +1,4 @@
-﻿"""Instrumented wrappers for inference engines — timing and telemetry publishing."""
+"""Instrumented wrappers for inference engines — timing and telemetry publishing."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import time
 from collections.abc import Sequence
 from typing import Any, Dict
 
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, TelemetryRecord
-from DEMON.engine._base import InferenceEngine
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, TelemetryRecord
+from OpenDEMON.engine._base import InferenceEngine
 
 
 def instrumented_generate(

@@ -1,4 +1,4 @@
-﻿"""``DEMON mine`` command group."""
+"""``DEMON mine`` command group."""
 
 from __future__ import annotations
 
@@ -15,9 +15,9 @@ from typing import Any
 
 import click
 
-from DEMON.core.config import HardwareInfo, detect_hardware, load_config
-from DEMON.core.registry import MinerRegistry
-from DEMON.mining._constants import (
+from OpenDEMON.core.config import HardwareInfo, detect_hardware, load_config
+from OpenDEMON.core.registry import MinerRegistry
+from OpenDEMON.mining._constants import (
     DEFAULT_GATEWAY_METRICS_PORT,
     DEFAULT_GATEWAY_RPC_PORT,
     DEFAULT_PEARL_MODEL,
@@ -25,22 +25,22 @@ from DEMON.mining._constants import (
     PEARL_IMAGE_TAG,
     SIDECAR_PATH,
 )
-from DEMON.mining._discovery import (
+from OpenDEMON.mining._discovery import (
     check_disk_free,
     check_docker_available,
     check_pearld_reachable,
     check_wallet_address_format,
     detect_for_engine_model,
 )
-from DEMON.mining._docker import PearlDockerLauncher
-from DEMON.mining._metrics import parse_gateway_metrics
-from DEMON.mining._models import (
+from OpenDEMON.mining._docker import PearlDockerLauncher
+from OpenDEMON.mining._metrics import parse_gateway_metrics
+from OpenDEMON.mining._models import (
     get_pearl_model_spec,
     iter_pearl_model_specs,
     pearl_variant_for_base_model,
 )
-from DEMON.mining._stubs import Sidecar
-from DEMON.mining.vllm_pearl import ensure_registered as ensure_vllm_registered
+from OpenDEMON.mining._stubs import Sidecar
+from OpenDEMON.mining.vllm_pearl import ensure_registered as ensure_vllm_registered
 
 
 def _detect_hardware() -> HardwareInfo:
@@ -57,11 +57,11 @@ def _docker_from_env():
 
 def _ensure_providers_registered() -> None:
     ensure_vllm_registered()
-    from DEMON.mining.cpu_pearl import ensure_registered as ensure_cpu_registered
+    from OpenDEMON.mining.cpu_pearl import ensure_registered as ensure_cpu_registered
 
     ensure_cpu_registered()
     try:
-        from DEMON.mining.apple_mps_pearl import (
+        from OpenDEMON.mining.apple_mps_pearl import (
             ensure_registered as ensure_mps_registered,
         )
 
@@ -469,7 +469,7 @@ def init(
             err=True,
         )
 
-    from DEMON.core.config import DEFAULT_CONFIG_PATH
+    from OpenDEMON.core.config import DEFAULT_CONFIG_PATH
 
     config_path = Path(os.environ.get("DEMON_CONFIG", DEFAULT_CONFIG_PATH))
     config_path.parent.mkdir(parents=True, exist_ok=True)

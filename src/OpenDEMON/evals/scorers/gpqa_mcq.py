@@ -1,4 +1,4 @@
-﻿"""GPQA MCQ scorer — LLM-based letter extraction + exact match.
+"""GPQA MCQ scorer — LLM-based letter extraction + exact match.
 
 Adapted from IPW's mcq.py and gpqa.py evaluation handlers.
 """
@@ -9,8 +9,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

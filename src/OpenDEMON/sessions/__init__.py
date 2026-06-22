@@ -1,5 +1,5 @@
-﻿"""Cross-channel session management."""
+"""Cross-channel session management."""
 
-from DEMON.sessions.session import Session, SessionIdentity, SessionStore
+from OpenDEMON.sessions.session import Session, SessionIdentity, SessionStore
 
 __all__ = ["Session", "SessionIdentity", "SessionStore"]

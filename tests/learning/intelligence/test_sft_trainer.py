@@ -1,4 +1,4 @@
-﻿"""Tests for the general-purpose SFT trainer."""
+"""Tests for the general-purpose SFT trainer."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 class TestSFTTrainerConfig:
     def test_default_config(self) -> None:
-        from DEMON.core.config import SFTConfig
+        from OpenDEMON.core.config import SFTConfig
 
         cfg = SFTConfig()
         assert cfg.model_name == "Qwen/Qwen3-1.7B"
@@ -16,16 +16,16 @@ class TestSFTTrainerConfig:
         assert cfg.min_pairs == 10
 
     def test_trainer_init(self) -> None:
-        from DEMON.core.config import SFTConfig
-        from DEMON.learning.intelligence.sft_trainer import SFTTrainer
+        from OpenDEMON.core.config import SFTConfig
+        from OpenDEMON.learning.intelligence.sft_trainer import SFTTrainer
 
         cfg = SFTConfig()
         trainer = SFTTrainer(cfg)
         assert trainer.config is cfg
 
     def test_target_modules_parsing(self) -> None:
-        from DEMON.core.config import SFTConfig
-        from DEMON.learning.intelligence.sft_trainer import SFTTrainer
+        from OpenDEMON.core.config import SFTConfig
+        from OpenDEMON.learning.intelligence.sft_trainer import SFTTrainer
 
         cfg = SFTConfig(target_modules="q_proj,v_proj,k_proj")
         trainer = SFTTrainer(cfg)
@@ -34,16 +34,16 @@ class TestSFTTrainerConfig:
 
 class TestSFTTrainerTrainOnPairs:
     def test_empty_pairs_skipped(self) -> None:
-        from DEMON.core.config import SFTConfig
-        from DEMON.learning.intelligence.sft_trainer import SFTTrainer
+        from OpenDEMON.core.config import SFTConfig
+        from OpenDEMON.learning.intelligence.sft_trainer import SFTTrainer
 
         trainer = SFTTrainer(SFTConfig())
         result = trainer.train_on_pairs([])
         assert result["status"] == "skipped"
 
     def test_too_few_pairs_skipped(self) -> None:
-        from DEMON.core.config import SFTConfig
-        from DEMON.learning.intelligence.sft_trainer import SFTTrainer
+        from OpenDEMON.core.config import SFTConfig
+        from OpenDEMON.learning.intelligence.sft_trainer import SFTTrainer
 
         trainer = SFTTrainer(SFTConfig(min_pairs=5))
         pairs = [{"input": "hi", "output": "hello"}]
@@ -54,8 +54,8 @@ class TestSFTTrainerTrainOnPairs:
 
 class TestSFTTrainerTraceMining:
     def test_train_delegates_to_miner(self) -> None:
-        from DEMON.core.config import SFTConfig
-        from DEMON.learning.intelligence.sft_trainer import SFTTrainer
+        from OpenDEMON.core.config import SFTConfig
+        from OpenDEMON.learning.intelligence.sft_trainer import SFTTrainer
 
         trainer = SFTTrainer(SFTConfig(min_pairs=1))
         mock_store = MagicMock()

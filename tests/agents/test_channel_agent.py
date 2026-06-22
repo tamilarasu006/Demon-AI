@@ -1,4 +1,4 @@
-﻿"""Tests for ChannelAgent and classify_query."""
+"""Tests for ChannelAgent and classify_query."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import time
 from typing import Any, Dict, List
 from unittest.mock import MagicMock
 
-from DEMON.agents._stubs import AgentResult
-from DEMON.agents.channel_agent import ChannelAgent, classify_query
-from DEMON.channels._stubs import (
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.channel_agent import ChannelAgent, classify_query
+from OpenDEMON.channels._stubs import (
     BaseChannel,
     ChannelHandler,
     ChannelMessage,

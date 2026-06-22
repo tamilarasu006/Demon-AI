@@ -1,4 +1,4 @@
-﻿"""Morning brief scorer — LLM judge for briefing quality.
+"""Morning brief scorer — LLM judge for briefing quality.
 
 Evaluates completeness, prioritization, conciseness, and actionability
 of generated morning briefings.
@@ -10,8 +10,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""Code interpreter tool — safe Python code execution in subprocess."""
+"""Code interpreter tool — safe Python code execution in subprocess."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import subprocess
 import sys
 from typing import Any
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # Dangerous patterns to block
 _BLOCKED_PATTERNS = [

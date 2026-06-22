@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON skill`` CLI commands."""
+"""Tests for the ``DEMON skill`` CLI commands."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestSkillCmd:
@@ -137,7 +137,7 @@ class TestSkillSearchCommand:
         assert result.exit_code == 0
 
     def test_search_no_sources_configured(self) -> None:
-        from DEMON.core.config import DEMONConfig, SkillsConfig
+        from OpenDEMON.core.config import DEMONConfig, SkillsConfig
 
         cfg = DEMONConfig()
         cfg.skills = SkillsConfig(sources=[])
@@ -149,12 +149,12 @@ class TestSkillSearchCommand:
     def test_search_filters_results(self) -> None:
         from pathlib import Path as _P
 
-        from DEMON.core.config import (
+        from OpenDEMON.core.config import (
             DEMONConfig,
             SkillsConfig,
             SkillSourceConfig,
         )
-        from DEMON.skills.sources.base import ResolvedSkill
+        from OpenDEMON.skills.sources.base import ResolvedSkill
 
         class _FakeResolver:
             def sync(self) -> None:
@@ -219,7 +219,7 @@ class TestSkillSourcesCommand:
     def test_sources_lists_configured_sources(self, tmp_path: Path) -> None:
         from unittest.mock import patch
 
-        from DEMON.core.config import (
+        from OpenDEMON.core.config import (
             DEMONConfig,
             SkillsConfig,
             SkillSourceConfig,
@@ -262,7 +262,7 @@ class TestSkillDiscoverCommand:
     def test_discover_writes_when_not_dry_run(self, tmp_path: Path) -> None:
         from unittest.mock import patch
 
-        from DEMON.core.types import StepType, Trace, TraceStep
+        from OpenDEMON.core.types import StepType, Trace, TraceStep
 
         def _trace():
             return Trace(
@@ -327,7 +327,7 @@ class TestSkillShowOverlayCommand:
     def test_show_overlay_displays_optimized(self, tmp_path: Path) -> None:
         from unittest.mock import patch
 
-        from DEMON.skills.overlay import SkillOverlay, write_overlay
+        from OpenDEMON.skills.overlay import SkillOverlay, write_overlay
 
         write_overlay(
             SkillOverlay(

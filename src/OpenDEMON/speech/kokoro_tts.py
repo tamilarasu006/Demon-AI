@@ -1,4 +1,4 @@
-﻿"""Kokoro TTS backend — fully open-source, runs locally.
+"""Kokoro TTS backend — fully open-source, runs locally.
 
 Requires the kokoro package: pip install kokoro
 Falls back gracefully if not installed.
@@ -9,8 +9,8 @@ from __future__ import annotations
 import io
 from typing import List
 
-from DEMON.core.registry import TTSRegistry
-from DEMON.speech.tts import TTSBackend, TTSResult
+from OpenDEMON.core.registry import TTSRegistry
+from OpenDEMON.speech.tts import TTSBackend, TTSResult
 
 
 @TTSRegistry.register("kokoro")

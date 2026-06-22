@@ -1,11 +1,11 @@
-﻿"""Tests for tools-pillar appliers."""
+"""Tests for tools-pillar appliers."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from DEMON.learning.spec_search.execute.base import ApplyContext
-from DEMON.learning.spec_search.models import (
+from OpenDEMON.learning.spec_search.execute.base import ApplyContext
+from OpenDEMON.learning.spec_search.models import (
     Edit,
     EditOp,
     EditPillar,
@@ -27,7 +27,7 @@ class TestAddToolToAgentApplier:
     """Tests for AddToolToAgentApplier."""
 
     def test_apply_adds_tool(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.tools import (
+        from OpenDEMON.learning.spec_search.execute.appliers.tools import (
             AddToolToAgentApplier,
         )
 
@@ -48,7 +48,7 @@ class TestAddToolToAgentApplier:
         assert "calculator" in content
 
     def test_validate_ok(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.tools import (
+        from OpenDEMON.learning.spec_search.execute.appliers.tools import (
             AddToolToAgentApplier,
         )
 
@@ -71,7 +71,7 @@ class TestRemoveToolFromAgentApplier:
     """Tests for RemoveToolFromAgentApplier."""
 
     def test_apply_removes_tool(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.tools import (
+        from OpenDEMON.learning.spec_search.execute.appliers.tools import (
             RemoveToolFromAgentApplier,
         )
 
@@ -96,7 +96,7 @@ class TestEditToolDescriptionApplier:
     """Tests for EditToolDescriptionApplier."""
 
     def test_apply_updates_description(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.tools import (
+        from OpenDEMON.learning.spec_search.execute.appliers.tools import (
             EditToolDescriptionApplier,
         )
 
@@ -120,7 +120,7 @@ class TestEditToolDescriptionApplier:
         assert "Search the internet" in content
 
     def test_apply_adds_new_tool_section(self, tmp_path: Path) -> None:
-        from DEMON.learning.spec_search.execute.appliers.tools import (
+        from OpenDEMON.learning.spec_search.execute.appliers.tools import (
             EditToolDescriptionApplier,
         )
 

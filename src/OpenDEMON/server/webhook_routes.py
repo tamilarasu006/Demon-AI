@@ -1,4 +1,4 @@
-﻿"""Webhook endpoints for receiving messages from external platforms."""
+"""Webhook endpoints for receiving messages from external platforms."""
 
 from __future__ import annotations
 
@@ -195,10 +195,10 @@ def create_webhook_router(
             else:
                 # Direct agent fallback
                 try:
-                    from DEMON.agents.deep_research import (
+                    from OpenDEMON.agents.deep_research import (
                         DeepResearchAgent,
                     )
-                    from DEMON.server.agent_manager_routes import (
+                    from OpenDEMON.server.agent_manager_routes import (
                         _build_deep_research_tools,
                     )
 

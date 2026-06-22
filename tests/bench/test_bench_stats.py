@@ -1,4 +1,4 @@
-﻿"""Tests for benchmark stats output and Rich table rendering."""
+"""Tests for benchmark stats output and Rich table rendering."""
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ from unittest.mock import MagicMock
 
 from rich.console import Console
 
-from DEMON.bench._stubs import BenchmarkResult
-from DEMON.cli.bench_cmd import _render_stats_table
+from OpenDEMON.bench._stubs import BenchmarkResult
+from OpenDEMON.cli.bench_cmd import _render_stats_table
 
 
 class TestLatencyBenchmarkStats:
     def test_latency_includes_std(self):
         """LatencyBenchmark should include std_latency in metrics."""
-        from DEMON.bench.latency import LatencyBenchmark
+        from OpenDEMON.bench.latency import LatencyBenchmark
 
         bench = LatencyBenchmark()
         engine = MagicMock()

@@ -1,4 +1,4 @@
-﻿"""SkillOrchestraAgent — inference-time router (Wang et al., 2026).
+"""SkillOrchestraAgent — inference-time router (Wang et al., 2026).
 
 Paper: arXiv:2602.19672. The published pipeline is four phases — explore
 (run every pool model, collect traces), learn (induce a skill handbook
@@ -32,11 +32,11 @@ from __future__ import annotations
 import json
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import LocalCloudAgent
-from DEMON.agents.hybrid._prices import supports_temperature
-from DEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import LocalCloudAgent
+from OpenDEMON.agents.hybrid._prices import supports_temperature
+from OpenDEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
+from OpenDEMON.core.registry import AgentRegistry
 
 # ---------- Skill catalog (compact, GAIA-relevant) ----------
 #

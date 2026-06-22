@@ -1,11 +1,11 @@
-﻿"""REST endpoints for the proactive-agent approval queue."""
+"""REST endpoints for the proactive-agent approval queue."""
 
 from __future__ import annotations
 
 import logging
 from typing import Any, Dict, Optional
 
-from DEMON.tools.approval_store import (
+from OpenDEMON.tools.approval_store import (
     STATUS_APPROVED,
     STATUS_DENIED,
     ApprovalStore,

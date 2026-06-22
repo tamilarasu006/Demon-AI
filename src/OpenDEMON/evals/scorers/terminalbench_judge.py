@@ -1,4 +1,4 @@
-﻿"""TerminalBench scorer — LLM-as-judge for terminal task evaluation.
+"""TerminalBench scorer — LLM-as-judge for terminal task evaluation.
 
 Compares predicted terminal output / commands against the expected
 answer using an LLM judge.
@@ -10,8 +10,8 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import LLMJudgeScorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import LLMJudgeScorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

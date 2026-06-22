@@ -1,4 +1,4 @@
-﻿"""Tests for the git tools (status, diff, commit, log).
+"""Tests for the git tools (status, diff, commit, log).
 
 Tests mock the Rust backend (``get_rust_module``) so that the compiled
 ``DEMON_rust`` extension is not required.  The mock simulates Rust
@@ -11,7 +11,7 @@ from __future__ import annotations
 import subprocess
 from unittest.mock import MagicMock, patch
 
-from DEMON.tools.git_tool import (
+from OpenDEMON.tools.git_tool import (
     GitCommitTool,
     GitDiffTool,
     GitLogTool,

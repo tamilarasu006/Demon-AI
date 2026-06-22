@@ -1,13 +1,13 @@
-﻿"""MCP Client — connects to MCP servers and discovers/calls tools."""
+"""MCP Client — connects to MCP servers and discovers/calls tools."""
 
 from __future__ import annotations
 
 import itertools
 from typing import Any, Dict, List
 
-from DEMON.mcp.protocol import MCPError, MCPRequest, MCPResponse
-from DEMON.mcp.transport import MCPTransport
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.mcp.protocol import MCPError, MCPRequest, MCPResponse
+from OpenDEMON.mcp.transport import MCPTransport
+from OpenDEMON.tools._stubs import ToolSpec
 
 
 class MCPClient:

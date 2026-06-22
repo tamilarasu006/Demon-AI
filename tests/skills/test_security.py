@@ -1,14 +1,14 @@
-﻿"""Tests for skill security — capability validation and trust tiers."""
+"""Tests for skill security — capability validation and trust tiers."""
 
 from __future__ import annotations
 
-from DEMON.skills.security import (
+from OpenDEMON.skills.security import (
     TrustTier,
     classify_trust_tier,
     has_dangerous_capabilities,
     validate_capabilities,
 )
-from DEMON.skills.types import SkillManifest
+from OpenDEMON.skills.types import SkillManifest
 
 
 class TestTrustTiers:

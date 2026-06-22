@@ -1,4 +1,4 @@
-﻿"""Tests for BoundaryGuard — scanning at device exit points."""
+"""Tests for BoundaryGuard — scanning at device exit points."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from typing import List
 
 import pytest
 
-from DEMON.core.types import ToolCall
+from OpenDEMON.core.types import ToolCall
 
 # ---------------------------------------------------------------------------
 # Lightweight mock scanners that don't depend on Rust
@@ -51,7 +51,7 @@ class _MockSecretScanner:
 
 def _make_guard(mode: str = "redact", enabled: bool = True):
     """Create a BoundaryGuard with mock scanners (no Rust needed)."""
-    from DEMON.security.boundary import BoundaryGuard
+    from OpenDEMON.security.boundary import BoundaryGuard
 
     return BoundaryGuard(
         mode=mode,
@@ -88,7 +88,7 @@ class TestBoundaryGuardScanOutbound:
         assert result == text
 
     def test_block_mode_raises(self) -> None:
-        from DEMON.security.boundary import SecurityBlockError
+        from OpenDEMON.security.boundary import SecurityBlockError
 
         guard = _make_guard(mode="block")
         text = "Use this key: sk-proj-abc123def456ghi789jkl012mno345pqr678stu"
@@ -126,7 +126,7 @@ class TestBoundaryGuardCheckOutbound:
         assert result.arguments == tc.arguments
 
     def test_block_mode_raises_on_tool_call(self) -> None:
-        from DEMON.security.boundary import SecurityBlockError
+        from OpenDEMON.security.boundary import SecurityBlockError
 
         guard = _make_guard(mode="block")
         tc = ToolCall(
@@ -152,22 +152,22 @@ class TestEngineTagging:
     """Cloud engines must have is_cloud=True, local engines is_cloud=False."""
 
     def test_inference_engine_default_is_local(self) -> None:
-        from DEMON.engine._stubs import InferenceEngine
+        from OpenDEMON.engine._stubs import InferenceEngine
 
         assert InferenceEngine.is_cloud is False
 
     def test_cloud_engine_is_cloud(self) -> None:
-        from DEMON.engine.cloud import CloudEngine
+        from OpenDEMON.engine.cloud import CloudEngine
 
         assert CloudEngine.is_cloud is True
 
     def test_litellm_engine_is_cloud(self) -> None:
-        from DEMON.engine.litellm import LiteLLMEngine
+        from OpenDEMON.engine.litellm import LiteLLMEngine
 
         assert LiteLLMEngine.is_cloud is True
 
     def test_ollama_engine_is_local(self) -> None:
-        from DEMON.engine.ollama import OllamaEngine
+        from OpenDEMON.engine.ollama import OllamaEngine
 
         assert OllamaEngine.is_cloud is False
 
@@ -176,32 +176,32 @@ class TestToolTagging:
     """External tools must have is_local=False, local tools is_local=True."""
 
     def test_base_tool_default_is_local(self) -> None:
-        from DEMON.tools._stubs import BaseTool
+        from OpenDEMON.tools._stubs import BaseTool
 
         assert BaseTool.is_local is True
 
     def test_web_search_is_external(self) -> None:
-        from DEMON.tools.web_search import WebSearchTool
+        from OpenDEMON.tools.web_search import WebSearchTool
 
         assert WebSearchTool.is_local is False
 
     def test_http_request_is_external(self) -> None:
-        from DEMON.tools.http_request import HttpRequestTool
+        from OpenDEMON.tools.http_request import HttpRequestTool
 
         assert HttpRequestTool.is_local is False
 
     def test_channel_send_is_external(self) -> None:
-        from DEMON.tools.channel_tools import ChannelSendTool
+        from OpenDEMON.tools.channel_tools import ChannelSendTool
 
         assert ChannelSendTool.is_local is False
 
     def test_think_tool_is_local(self) -> None:
-        from DEMON.tools.think import ThinkTool
+        from OpenDEMON.tools.think import ThinkTool
 
         assert ThinkTool.is_local is True
 
     def test_calculator_is_local(self) -> None:
-        from DEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.tools.calculator import CalculatorTool
 
         assert CalculatorTool.is_local is True
 
@@ -210,7 +210,7 @@ class TestToolExecutorBoundaryIntegration:
     """ToolExecutor should use BoundaryGuard for external tool calls."""
 
     def _make_executor(self, boundary_guard=None):
-        from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+        from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
         class FakeExternalTool(BaseTool):
             tool_id = "fake_external"
@@ -228,7 +228,7 @@ class TestToolExecutorBoundaryIntegration:
                 )
 
             def execute(self, **params):
-                from DEMON.core.types import ToolResult
+                from OpenDEMON.core.types import ToolResult
 
                 return ToolResult(
                     tool_name="fake_external",

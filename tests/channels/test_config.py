@@ -1,11 +1,11 @@
-﻿"""Tests for channel configuration."""
+"""Tests for channel configuration."""
 
 from __future__ import annotations
 
 import textwrap
 from pathlib import Path
 
-from DEMON.core.config import ChannelConfig, DEMONConfig, load_config
+from OpenDEMON.core.config import ChannelConfig, DEMONConfig, load_config
 
 
 class TestChannelConfigDefaults:

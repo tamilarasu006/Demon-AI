@@ -1,4 +1,4 @@
-﻿"""``DEMON doctor`` — run diagnostic checks on the DEMON installation."""
+"""``DEMON doctor`` — run diagnostic checks on the DEMON installation."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from DEMON.core.config import DEFAULT_CONFIG_PATH, load_config
+from OpenDEMON.core.config import DEFAULT_CONFIG_PATH, load_config
 
 
 @dataclass
@@ -64,7 +64,7 @@ def _check_config_parses() -> CheckResult:
 def _ensure_engines_imported() -> None:
     """Import engine modules to trigger registration decorators."""
     try:
-        import DEMON.engine  # noqa: F401
+        import OpenDEMON.engine  # noqa: F401
     except Exception:
         pass
 
@@ -74,7 +74,7 @@ def _get_config() -> Any:
     try:
         return load_config()
     except Exception:
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.core.config import DEMONConfig
 
         return DEMONConfig()
 
@@ -85,8 +85,8 @@ def _check_engines() -> List[CheckResult]:
 
     _ensure_engines_imported()
 
-    from DEMON.core.registry import EngineRegistry
-    from DEMON.engine import _discovery
+    from OpenDEMON.core.registry import EngineRegistry
+    from OpenDEMON.engine import _discovery
 
     config = _get_config()
 
@@ -114,8 +114,8 @@ def _check_models() -> List[CheckResult]:
 
     _ensure_engines_imported()
 
-    from DEMON.core.registry import EngineRegistry
-    from DEMON.engine import _discovery
+    from OpenDEMON.core.registry import EngineRegistry
+    from OpenDEMON.engine import _discovery
 
     config = _get_config()
 
@@ -167,8 +167,8 @@ def _check_default_model() -> CheckResult:
 
     _ensure_engines_imported()
 
-    from DEMON.core.registry import EngineRegistry
-    from DEMON.engine import _discovery
+    from OpenDEMON.core.registry import EngineRegistry
+    from OpenDEMON.engine import _discovery
 
     preferred = config.intelligence.preferred_engine or config.engine.default
     check_order = []
@@ -226,7 +226,7 @@ def _check_optional_deps() -> List[CheckResult]:
 def _check_speech_backend() -> CheckResult:
     """Check whether the configured speech backend can load."""
     try:
-        from DEMON.speech._discovery import get_speech_backend
+        from OpenDEMON.speech._discovery import get_speech_backend
 
         config = _get_config()
         backend = get_speech_backend(config)
@@ -267,7 +267,7 @@ def _check_speech_backend() -> CheckResult:
 def _check_security_profile() -> CheckResult:
     """Check if a security profile is configured."""
     try:
-        from DEMON.core.config import load_config
+        from OpenDEMON.core.config import load_config
 
         config = load_config()
         if config.security.profile:
@@ -395,8 +395,8 @@ def doctor(as_json: bool) -> None:
     console.print()
 
     # Background tasks section
-    from DEMON.cli._bg_state import get_status
-    from DEMON.core.paths import get_config_dir
+    from OpenDEMON.cli._bg_state import get_status
+    from OpenDEMON.core.paths import get_config_dir
 
     scripts_dir = get_config_dir() / ".scripts"
     console.print("[bold]Background tasks[/bold]")

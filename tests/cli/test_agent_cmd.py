@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON agents`` CLI commands."""
+"""Tests for the ``DEMON agents`` CLI commands."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestAgentCmd:

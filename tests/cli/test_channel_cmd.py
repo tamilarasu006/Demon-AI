@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON channel`` CLI commands."""
+"""Tests for the ``DEMON channel`` CLI commands."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.channels._stubs import ChannelStatus
-from DEMON.cli import cli
+from OpenDEMON.channels._stubs import ChannelStatus
+from OpenDEMON.cli import cli
 
 
 def _patch_channel(

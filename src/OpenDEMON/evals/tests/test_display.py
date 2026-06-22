@@ -1,4 +1,4 @@
-﻿"""Tests for eval display functions."""
+"""Tests for eval display functions."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from io import StringIO
 
 from rich.console import Console
 
-from DEMON.evals.core.display import (
+from OpenDEMON.evals.core.display import (
     print_accuracy_panel,
     print_compact_table,
     print_energy_table,
@@ -14,7 +14,7 @@ from DEMON.evals.core.display import (
     print_latency_table,
     print_trace_summary,
 )
-from DEMON.evals.core.types import MetricStats, RunSummary
+from OpenDEMON.evals.core.types import MetricStats, RunSummary
 
 
 def _make_summary(**overrides) -> RunSummary:

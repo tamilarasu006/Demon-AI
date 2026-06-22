@@ -1,16 +1,16 @@
-﻿"""Tests for A2A protocol (Phase 16.1)."""
+"""Tests for A2A protocol (Phase 16.1)."""
 
 from __future__ import annotations
 
-from DEMON.a2a.protocol import (
+from OpenDEMON.a2a.protocol import (
     A2ARequest,
     A2AResponse,
     A2ATask,
     AgentCard,
     TaskState,
 )
-from DEMON.a2a.server import A2AServer
-from DEMON.core.events import EventBus, EventType
+from OpenDEMON.a2a.server import A2AServer
+from OpenDEMON.core.events import EventBus, EventType
 
 
 class TestAgentCard:

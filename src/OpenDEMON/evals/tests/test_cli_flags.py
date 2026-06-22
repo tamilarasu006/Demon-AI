@@ -1,10 +1,10 @@
-﻿"""Tests for eval CLI display flags."""
+"""Tests for eval CLI display flags."""
 
 from __future__ import annotations
 
 from click.testing import CliRunner
 
-from DEMON.evals.cli import main
+from OpenDEMON.evals.cli import main
 
 
 class TestCompactFlag:

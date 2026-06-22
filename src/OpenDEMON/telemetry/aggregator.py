@@ -1,4 +1,4 @@
-﻿"""Read-only telemetry aggregation — query stored inference records."""
+"""Read-only telemetry aggregation — query stored inference records."""
 
 from __future__ import annotations
 
@@ -117,7 +117,7 @@ class TelemetryAggregator:
             clauses.append("timestamp <= ?")
             params.append(until)
         if current_methodology_only and self._safe_col("token_counting_version"):
-            from DEMON.core.types import TOKEN_COUNTING_VERSION
+            from OpenDEMON.core.types import TOKEN_COUNTING_VERSION
 
             clauses.append("token_counting_version = ?")
             params.append(TOKEN_COUNTING_VERSION)

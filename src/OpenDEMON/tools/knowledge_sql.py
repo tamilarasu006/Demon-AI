@@ -1,4 +1,4 @@
-﻿"""KnowledgeSQLTool — read-only SQL queries against the KnowledgeStore.
+"""KnowledgeSQLTool — read-only SQL queries against the KnowledgeStore.
 
 Allows agents to run SELECT queries for aggregation, counting, ranking,
 and filtering operations that BM25 search cannot handle.
@@ -9,10 +9,10 @@ from __future__ import annotations
 import sqlite3
 from typing import Any, Optional
 
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 _MAX_ROWS = 50
 

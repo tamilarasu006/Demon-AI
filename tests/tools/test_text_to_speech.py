@@ -1,22 +1,22 @@
-﻿"""Tests for the text_to_speech tool."""
+"""Tests for the text_to_speech tool."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-from DEMON.core.registry import ToolRegistry
-from DEMON.speech.tts import TTSResult
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.speech.tts import TTSResult
 
 
 def test_tts_tool_registered():
-    from DEMON.tools.text_to_speech import TextToSpeechTool
+    from OpenDEMON.tools.text_to_speech import TextToSpeechTool
 
     ToolRegistry.register_value("text_to_speech", TextToSpeechTool)
     assert ToolRegistry.contains("text_to_speech")
 
 
 def test_tts_tool_execute(tmp_path):
-    from DEMON.tools.text_to_speech import TextToSpeechTool
+    from OpenDEMON.tools.text_to_speech import TextToSpeechTool
 
     tool = TextToSpeechTool()
     mock_result = TTSResult(
@@ -46,7 +46,7 @@ def test_tts_tool_execute(tmp_path):
 
 
 def test_tts_tool_empty_text():
-    from DEMON.tools.text_to_speech import TextToSpeechTool
+    from OpenDEMON.tools.text_to_speech import TextToSpeechTool
 
     tool = TextToSpeechTool()
     result = tool.execute(text="")

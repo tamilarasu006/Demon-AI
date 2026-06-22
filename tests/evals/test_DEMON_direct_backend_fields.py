@@ -1,4 +1,4 @@
-﻿"""Verify DEMONDirectBackend.generate_full returns the spec §6.2 extended fields."""
+"""Verify DEMONDirectBackend.generate_full returns the spec §6.2 extended fields."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock
 
 class TestDEMONDirectExtendedFields:
     def test_generate_full_includes_framework_and_commit(self) -> None:
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
 
         # Build the backend without invoking __init__ (which would spin up an
         # engine); set required attrs directly. DEMONDirectBackend.generate_full

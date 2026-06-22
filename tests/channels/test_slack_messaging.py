@@ -1,4 +1,4 @@
-﻿"""Tests for Slack messaging channel — Socket Mode binding and message handling."""
+"""Tests for Slack messaging channel — Socket Mode binding and message handling."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, patch
 
 def test_slack_channel_connect_with_tokens() -> None:
     """SlackChannel.connect() succeeds with bot_token + app_token."""
-    from DEMON.channels.slack import SlackChannel
+    from OpenDEMON.channels.slack import SlackChannel
 
     ch = SlackChannel(
         bot_token="xoxb-test-token",
@@ -17,19 +17,19 @@ def test_slack_channel_connect_with_tokens() -> None:
     with patch("DEMON.channels.slack.SlackChannel._socket_mode_loop"):
         ch.connect()
 
-    from DEMON.channels._stubs import ChannelStatus
+    from OpenDEMON.channels._stubs import ChannelStatus
 
     assert ch.status() == ChannelStatus.CONNECTED
 
 
 def test_slack_channel_send_only_without_app_token() -> None:
     """SlackChannel with only bot_token enters send-only mode."""
-    from DEMON.channels.slack import SlackChannel
+    from OpenDEMON.channels.slack import SlackChannel
 
     ch = SlackChannel(bot_token="xoxb-test-token")
     ch.connect()
 
-    from DEMON.channels._stubs import ChannelStatus
+    from OpenDEMON.channels._stubs import ChannelStatus
 
     assert ch.status() == ChannelStatus.CONNECTED
     assert ch._listener_thread is None  # No Socket Mode listener
@@ -37,32 +37,32 @@ def test_slack_channel_send_only_without_app_token() -> None:
 
 def test_slack_channel_no_token_errors() -> None:
     """SlackChannel without any token enters error state."""
-    from DEMON.channels.slack import SlackChannel
+    from OpenDEMON.channels.slack import SlackChannel
 
     ch = SlackChannel()
     ch.connect()
 
-    from DEMON.channels._stubs import ChannelStatus
+    from OpenDEMON.channels._stubs import ChannelStatus
 
     assert ch.status() == ChannelStatus.ERROR
 
 
 def test_slack_channel_disconnect() -> None:
     """SlackChannel.disconnect() sets status to disconnected."""
-    from DEMON.channels.slack import SlackChannel
+    from OpenDEMON.channels.slack import SlackChannel
 
     ch = SlackChannel(bot_token="xoxb-test-token")
     ch.connect()
     ch.disconnect()
 
-    from DEMON.channels._stubs import ChannelStatus
+    from OpenDEMON.channels._stubs import ChannelStatus
 
     assert ch.status() == ChannelStatus.DISCONNECTED
 
 
 def test_slack_channel_handler_registration() -> None:
     """on_message registers a handler that receives messages."""
-    from DEMON.channels.slack import SlackChannel
+    from OpenDEMON.channels.slack import SlackChannel
 
     ch = SlackChannel(bot_token="xoxb-test-token")
     handler = MagicMock()
@@ -72,7 +72,7 @@ def test_slack_channel_handler_registration() -> None:
 
 def test_slack_channel_send_without_connection_fails_gracefully() -> None:
     """send() to an unconnected channel returns False without crashing."""
-    from DEMON.channels.slack import SlackChannel
+    from OpenDEMON.channels.slack import SlackChannel
 
     ch = SlackChannel()  # No token
     result = ch.send("C123456", "Hello from test")
@@ -81,7 +81,7 @@ def test_slack_channel_send_without_connection_fails_gracefully() -> None:
 
 def test_slack_channel_send_with_token_is_callable() -> None:
     """send() with a token is callable and returns a bool."""
-    from DEMON.channels.slack import SlackChannel
+    from OpenDEMON.channels.slack import SlackChannel
 
     ch = SlackChannel(bot_token="xoxb-test-token")
     # Don't actually call the API, just verify interface

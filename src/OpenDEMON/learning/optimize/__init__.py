@@ -1,26 +1,26 @@
-﻿"""Optimization framework for DEMON configuration tuning."""
+"""Optimization framework for DEMON configuration tuning."""
 
-from DEMON.learning.optimize.config import (
+from OpenDEMON.learning.optimize.config import (
     load_benchmark_specs,
     load_objectives,
     load_optimize_config,
 )
-from DEMON.learning.optimize.llm_optimizer import LLMOptimizer
-from DEMON.learning.optimize.optimizer import (
+from OpenDEMON.learning.optimize.llm_optimizer import LLMOptimizer
+from OpenDEMON.learning.optimize.optimizer import (
     OptimizationEngine,
     compute_pareto_frontier,
 )
-from DEMON.learning.optimize.search_space import (
+from OpenDEMON.learning.optimize.search_space import (
     DEFAULT_SEARCH_SPACE,
     build_search_space,
 )
-from DEMON.learning.optimize.store import OptimizationStore
-from DEMON.learning.optimize.trial_runner import (
+from OpenDEMON.learning.optimize.store import OptimizationStore
+from OpenDEMON.learning.optimize.trial_runner import (
     BenchmarkSpec,
     MultiBenchTrialRunner,
     TrialRunner,
 )
-from DEMON.learning.optimize.types import (
+from OpenDEMON.learning.optimize.types import (
     ALL_OBJECTIVES,
     DEFAULT_OBJECTIVES,
     BenchmarkScore,

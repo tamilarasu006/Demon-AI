@@ -1,6 +1,6 @@
-﻿"""Tests for the daily_digest dataset."""
+"""Tests for the daily_digest dataset."""
 
-from DEMON.evals.datasets.daily_digest import DailyDigestDataset
+from OpenDEMON.evals.datasets.daily_digest import DailyDigestDataset
 
 
 def test_dataset_loads():

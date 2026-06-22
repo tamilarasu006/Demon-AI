@@ -1,4 +1,4 @@
-﻿"""LLM-based optimizer for DEMON configuration tuning.
+"""LLM-based optimizer for DEMON configuration tuning.
 
 Uses a cloud LLM to propose optimal DEMON configs, inspired by DSPy's
 GEPA approach: textual feedback from execution traces rather than just scalar
@@ -13,10 +13,10 @@ import re
 import uuid
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.types import Trace
-from DEMON.evals.core.backend import InferenceBackend
-from DEMON.evals.core.types import RunSummary
-from DEMON.learning.optimize.types import (
+from OpenDEMON.core.types import Trace
+from OpenDEMON.evals.core.backend import InferenceBackend
+from OpenDEMON.evals.core.types import RunSummary
+from OpenDEMON.learning.optimize.types import (
     BenchmarkScore,
     SampleScore,
     SearchSpace,

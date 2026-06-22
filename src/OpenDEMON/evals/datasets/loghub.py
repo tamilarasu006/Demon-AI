@@ -1,4 +1,4 @@
-﻿"""LogHub log anomaly detection dataset.
+"""LogHub log anomaly detection dataset.
 
 Supports HDFS, BGL, and Thunderbird log datasets from
 https://github.com/logpai/loghub for evaluating log analysis agents.
@@ -13,9 +13,9 @@ import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 logger = logging.getLogger(__name__)
 

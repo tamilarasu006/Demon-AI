@@ -1,4 +1,4 @@
-﻿"""SkillBenchmarkRunner — orchestrate the 4-condition × N-seed × M-task
+"""SkillBenchmarkRunner — orchestrate the 4-condition × N-seed × M-task
 PinchBench sweep that measures whether skills + DSPy/GEPA optimization
 improves agent performance.
 
@@ -16,7 +16,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 LOGGER = logging.getLogger(__name__)
 
@@ -155,7 +155,7 @@ class SkillBenchmarkRunner:
         Separate from `_backend_kwargs_for_condition` so the kwarg logic
         can be tested without instantiating an engine.
         """
-        from DEMON.evals.backends.DEMON_agent import DEMONAgentBackend
+        from OpenDEMON.evals.backends.DEMON_agent import DEMONAgentBackend
 
         kw = self._backend_kwargs_for_condition(condition)
         return DEMONAgentBackend(
@@ -187,11 +187,11 @@ class SkillBenchmarkRunner:
         shim so tests can monkeypatch it without instantiating an
         engine or running real benchmark tasks.
         """
-        from DEMON.evals.backends.DEMON_direct import DEMONDirectBackend
-        from DEMON.evals.core.runner import EvalRunner
-        from DEMON.evals.core.types import RunConfig
-        from DEMON.evals.datasets.pinchbench import PinchBenchDataset
-        from DEMON.evals.scorers.pinchbench import PinchBenchScorer
+        from OpenDEMON.evals.backends.DEMON_direct import DEMONDirectBackend
+        from OpenDEMON.evals.core.runner import EvalRunner
+        from OpenDEMON.evals.core.types import RunConfig
+        from OpenDEMON.evals.datasets.pinchbench import PinchBenchDataset
+        from OpenDEMON.evals.scorers.pinchbench import PinchBenchScorer
 
         backend = self._build_backend_for_condition(condition)
 

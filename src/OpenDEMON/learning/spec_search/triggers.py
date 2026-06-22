@@ -1,4 +1,4 @@
-﻿"""Trigger types for the spec-search subsystem.
+"""Trigger types for the spec-search subsystem.
 
 A trigger is what kicks off a learning session. Four trigger types exist,
 all funneling into ``SpecSearchOrchestrator.run(trigger)``. The trigger
@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from DEMON.learning.spec_search.models import TriggerKind
+from OpenDEMON.learning.spec_search.models import TriggerKind
 
 
 @dataclass

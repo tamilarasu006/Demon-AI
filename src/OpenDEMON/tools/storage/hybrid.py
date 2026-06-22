@@ -1,12 +1,12 @@
-﻿"""Hybrid memory backend — Reciprocal Rank Fusion of two retrievers."""
+"""Hybrid memory backend — Reciprocal Rank Fusion of two retrievers."""
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from DEMON.core.events import EventType, get_event_bus
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.core.events import EventType, get_event_bus
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
 
 
 def reciprocal_rank_fusion(

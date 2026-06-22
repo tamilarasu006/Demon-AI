@@ -1,10 +1,10 @@
-﻿"""Tests for core data types."""
+"""Tests for core data types."""
 
 from __future__ import annotations
 
 import time
 
-from DEMON.core.types import (
+from OpenDEMON.core.types import (
     Conversation,
     Message,
     ModelSpec,

@@ -1,4 +1,4 @@
-﻿"""End-to-end integration tests for Phase 3 and Phase 4 components."""
+"""End-to-end integration tests for Phase 3 and Phase 4 components."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents._stubs import AgentContext, AgentResult
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import AgentRegistry, RouterPolicyRegistry, ToolRegistry
-from DEMON.core.types import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import AgentRegistry, RouterPolicyRegistry, ToolRegistry
+from OpenDEMON.core.types import (
     Conversation,
     Message,
     Role,
@@ -23,8 +23,8 @@ from DEMON.core.types import (
 
 
 def _register_agents():
-    from DEMON.agents.orchestrator import OrchestratorAgent
-    from DEMON.agents.simple import SimpleAgent
+    from OpenDEMON.agents.orchestrator import OrchestratorAgent
+    from OpenDEMON.agents.simple import SimpleAgent
 
     if not AgentRegistry.contains("simple"):
         AgentRegistry.register_value("simple", SimpleAgent)
@@ -33,8 +33,8 @@ def _register_agents():
 
 
 def _register_tools():
-    from DEMON.tools.calculator import CalculatorTool
-    from DEMON.tools.think import ThinkTool
+    from OpenDEMON.tools.calculator import CalculatorTool
+    from OpenDEMON.tools.think import ThinkTool
 
     if not ToolRegistry.contains("calculator"):
         ToolRegistry.register_value("calculator", CalculatorTool)
@@ -101,7 +101,7 @@ class TestOrchestratorWithCalculator:
         _register_agents()
         _register_tools()
 
-        from DEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.tools.calculator import CalculatorTool
 
         engine = MagicMock()
         engine.engine_id = "mock"
@@ -164,7 +164,7 @@ class TestAPIServerRoundtrip:
         pytest.importorskip("fastapi")
         from fastapi.testclient import TestClient
 
-        from DEMON.server.app import create_app
+        from OpenDEMON.server.app import create_app
 
         engine = _make_engine("API response!")
         app = create_app(engine, "test-model")
@@ -189,7 +189,7 @@ class TestAPIServerRoundtrip:
         pytest.importorskip("fastapi")
         from fastapi.testclient import TestClient
 
-        from DEMON.server.app import create_app
+        from OpenDEMON.server.app import create_app
 
         engine = _make_engine()
         app = create_app(engine, "test-model")
@@ -241,7 +241,7 @@ class TestTelemetryThroughAgent:
     def test_telemetry_record_created(self):
         """Telemetry records are now produced by InstrumentedEngine,
         not by agents directly."""
-        from DEMON.telemetry.instrumented_engine import InstrumentedEngine
+        from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
 
         _register_agents()
         bus = EventBus(record_history=True)
@@ -264,9 +264,9 @@ class TestToolExecutorIntegration:
 
     def test_calculator_and_think(self):
         _register_tools()
-        from DEMON.tools._stubs import ToolExecutor
-        from DEMON.tools.calculator import CalculatorTool
-        from DEMON.tools.think import ThinkTool
+        from OpenDEMON.tools._stubs import ToolExecutor
+        from OpenDEMON.tools.calculator import CalculatorTool
+        from OpenDEMON.tools.think import ThinkTool
 
         bus = EventBus(record_history=True)
         executor = ToolExecutor([CalculatorTool(), ThinkTool()], bus=bus)
@@ -301,8 +301,8 @@ class TestHeuristicRewardWithTelemetry:
     """HeuristicRewardFunction scores using TelemetryRecord data."""
 
     def test_reward_from_telemetry_record(self):
-        from DEMON.learning._stubs import RoutingContext
-        from DEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
+        from OpenDEMON.learning._stubs import RoutingContext
+        from OpenDEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
 
         rec = TelemetryRecord(
             timestamp=0.0,
@@ -330,7 +330,7 @@ class TestRouterPolicyRegistryDiscovery:
     """RouterPolicyRegistry discovers both heuristic and learned."""
 
     def test_both_policies_registered(self):
-        from DEMON.learning import ensure_registered
+        from OpenDEMON.learning import ensure_registered
 
         ensure_registered()
         assert RouterPolicyRegistry.contains("heuristic")
@@ -343,8 +343,8 @@ class TestTelemetryPipeline:
     def test_store_then_aggregate(self, tmp_path):
         import time
 
-        from DEMON.telemetry.aggregator import TelemetryAggregator
-        from DEMON.telemetry.store import TelemetryStore
+        from OpenDEMON.telemetry.aggregator import TelemetryAggregator
+        from OpenDEMON.telemetry.store import TelemetryStore
 
         db = tmp_path / "telemetry.db"
         store = TelemetryStore(db)
@@ -387,8 +387,8 @@ class TestEventBusTelemetryAggregator:
     """EventBus → TelemetryStore → TelemetryAggregator end-to-end."""
 
     def test_event_driven_pipeline(self, tmp_path):
-        from DEMON.telemetry.aggregator import TelemetryAggregator
-        from DEMON.telemetry.store import TelemetryStore
+        from OpenDEMON.telemetry.aggregator import TelemetryAggregator
+        from OpenDEMON.telemetry.store import TelemetryStore
 
         db = tmp_path / "telemetry.db"
         store = TelemetryStore(db)
@@ -419,9 +419,9 @@ class TestAskFlowWithRouterPolicy:
     """Full ask flow with router policy (mocked)."""
 
     def test_mocked_ask_with_registry_router(self):
-        from DEMON.learning._stubs import RoutingContext
-        from DEMON.learning.routing.heuristic_policy import ensure_registered
-        from DEMON.learning.routing.router import HeuristicRouter
+        from OpenDEMON.learning._stubs import RoutingContext
+        from OpenDEMON.learning.routing.heuristic_policy import ensure_registered
+        from OpenDEMON.learning.routing.router import HeuristicRouter
 
         ensure_registered()
         router_cls = RouterPolicyRegistry.get("heuristic")
@@ -442,10 +442,10 @@ class TestRewardTelemetryIntegration:
     def test_score_from_aggregated_stats(self, tmp_path):
         import time
 
-        from DEMON.learning._stubs import RoutingContext
-        from DEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
-        from DEMON.telemetry.aggregator import TelemetryAggregator
-        from DEMON.telemetry.store import TelemetryStore
+        from OpenDEMON.learning._stubs import RoutingContext
+        from OpenDEMON.learning.routing.heuristic_reward import HeuristicRewardFunction
+        from OpenDEMON.telemetry.aggregator import TelemetryAggregator
+        from OpenDEMON.telemetry.store import TelemetryStore
 
         db = tmp_path / "telemetry.db"
         store = TelemetryStore(db)
@@ -487,7 +487,7 @@ class TestRewardTelemetryIntegration:
 
 
 class TestSDKImport:
-    """Verify DEMON class is importable from DEMON."""
+    """Verify DEMON class is importable from OpenDEMON."""
 
     def test_DEMON_imports(self):
         from DEMON import DEMON
@@ -501,8 +501,8 @@ class TestSDKAskFlow:
     def test_sdk_ask_e2e(self):
         from unittest.mock import patch
 
-        from DEMON.core.config import DEMONConfig
-        from DEMON.sdk import DEMON
+        from OpenDEMON.core.config import DEMONConfig
+        from OpenDEMON.sdk import DEMON
 
         engine = _make_engine("SDK response")
         with patch("DEMON.sdk.get_engine", return_value=("mock", engine)):
@@ -516,8 +516,8 @@ class TestSDKMemoryHandle:
     """SDK memory handle with SQLite backend."""
 
     def test_index_and_search(self, tmp_path):
-        from DEMON.core.config import DEMONConfig
-        from DEMON.sdk import MemoryHandle
+        from OpenDEMON.core.config import DEMONConfig
+        from OpenDEMON.sdk import MemoryHandle
 
         cfg = DEMONConfig()
         handle = MemoryHandle(cfg)
@@ -550,8 +550,8 @@ class TestBenchmarkRegistryDiscovery:
     """BenchmarkRegistry discovers latency + throughput."""
 
     def test_discovers_benchmarks(self):
-        from DEMON.bench import ensure_registered
-        from DEMON.core.registry import BenchmarkRegistry
+        from OpenDEMON.bench import ensure_registered
+        from OpenDEMON.core.registry import BenchmarkRegistry
 
         ensure_registered()
         assert BenchmarkRegistry.contains("latency")
@@ -564,9 +564,9 @@ class TestBenchmarkSuiteRunAll:
     def test_suite_produces_jsonl(self):
         import json
 
-        from DEMON.bench import ensure_registered
-        from DEMON.bench._stubs import BenchmarkSuite
-        from DEMON.core.registry import BenchmarkRegistry
+        from OpenDEMON.bench import ensure_registered
+        from OpenDEMON.bench._stubs import BenchmarkSuite
+        from OpenDEMON.core.registry import BenchmarkRegistry
 
         ensure_registered()
         benchmarks = [cls() for _, cls in BenchmarkRegistry.items()]
@@ -588,10 +588,10 @@ class TestFullPipeline:
     def test_full_pipeline(self, tmp_path):
         from unittest.mock import patch
 
-        from DEMON.agents._stubs import AgentResult
-        from DEMON.core.config import DEMONConfig
-        from DEMON.core.registry import AgentRegistry
-        from DEMON.sdk import DEMON
+        from OpenDEMON.agents._stubs import AgentResult
+        from OpenDEMON.core.config import DEMONConfig
+        from OpenDEMON.core.registry import AgentRegistry
+        from OpenDEMON.sdk import DEMON
 
         engine = _make_engine("Pipeline response")
 

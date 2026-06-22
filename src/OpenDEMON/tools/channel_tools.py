@@ -1,4 +1,4 @@
-﻿"""Channel MCP tools — expose channel operations as BaseTool instances.
+"""Channel MCP tools — expose channel operations as BaseTool instances.
 
 These tools wrap the ``BaseChannel`` ABC so that channel operations
 (send, list, status) are discoverable and callable via MCP.
@@ -8,10 +8,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from DEMON.channels._stubs import BaseChannel
-from DEMON.core.registry import ToolRegistry
-from DEMON.core.types import ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.channels._stubs import BaseChannel
+from OpenDEMON.core.registry import ToolRegistry
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 
 @ToolRegistry.register("channel_send")

@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON bench`` CLI commands."""
+"""Tests for the ``DEMON bench`` CLI commands."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestBenchCLI:

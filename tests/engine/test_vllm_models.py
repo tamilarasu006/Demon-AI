@@ -1,4 +1,4 @@
-﻿"""Tests for vLLM engine with extended local model set."""
+"""Tests for vLLM engine with extended local model set."""
 
 from __future__ import annotations
 
@@ -8,10 +8,10 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.openai_compat_engines import VLLMEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.openai_compat_engines import VLLMEngine
 
 VLLM_HOST = "http://testhost:8000"
 NEW_MODELS = ["gpt-oss:120b", "qwen3:8b", "glm-4.7-flash", "trinity-mini"]

@@ -1,4 +1,4 @@
-﻿# src/DEMON/mining/_constants.py
+# src/DEMON/mining/_constants.py
 """Constants for the Pearl mining subsystem.
 
 Pinned Pearl ref OJ has tested against. Bumped per OJ release after
@@ -9,7 +9,7 @@ section 7.3 for the rev-bump workflow.
 
 from __future__ import annotations
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 PEARL_REPO = "https://github.com/pearl-research-labs/pearl.git"
 # TODO at implementation time: replace with the specific commit/tag verified

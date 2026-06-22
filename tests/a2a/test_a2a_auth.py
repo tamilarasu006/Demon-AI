@@ -1,9 +1,9 @@
-﻿"""A2A server authentication tests (issue #217)."""
+"""A2A server authentication tests (issue #217)."""
 
 from __future__ import annotations
 
-from DEMON.a2a.protocol import AgentCard
-from DEMON.a2a.server import A2AServer
+from OpenDEMON.a2a.protocol import AgentCard
+from OpenDEMON.a2a.server import A2AServer
 
 
 def _request():

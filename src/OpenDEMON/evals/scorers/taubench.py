@@ -1,4 +1,4 @@
-﻿"""TauBench scorer — wraps tau2-bench's evaluation results.
+"""TauBench scorer — wraps tau2-bench's evaluation results.
 
 Since TauBench runs its own simulation loop (agent + user simulator +
 tools + evaluation), the scorer simply reads the reward that was
@@ -9,8 +9,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 
 class TauBenchScorer(Scorer):

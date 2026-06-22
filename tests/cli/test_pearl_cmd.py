@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON pearl`` CLI wrappers."""
+"""Tests for the ``DEMON pearl`` CLI wrappers."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import subprocess
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 def test_pearl_help_lists_wrappers() -> None:

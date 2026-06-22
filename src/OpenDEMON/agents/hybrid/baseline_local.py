@@ -1,4 +1,4 @@
-﻿"""BaselineLocalAgent — local-only reference for the hybrid ablation.
+"""BaselineLocalAgent — local-only reference for the hybrid ablation.
 
 Mirror of :class:`BaselineCloudAgent` (`baseline_cloud.py`) but the entire
 trajectory runs on the local vLLM model. No cloud teacher / router / advisor
@@ -22,10 +22,10 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Tuple
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.hybrid._base import LocalCloudAgent
-from DEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
-from DEMON.core.registry import AgentRegistry
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.hybrid._base import LocalCloudAgent
+from OpenDEMON.agents.hybrid.mini_swe_agent import run_swe_agent_loop
+from OpenDEMON.core.registry import AgentRegistry
 
 
 @AgentRegistry.register("baseline_local")

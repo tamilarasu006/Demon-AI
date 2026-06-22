@@ -1,4 +1,4 @@
-﻿"""HTTP route: ``POST /api/research`` — agentic research over the knowledge store.
+"""HTTP route: ``POST /api/research`` — agentic research over the knowledge store.
 
 Drives :class:`DEMON.agents.research_loop.ResearchAgent` and streams a
 custom SSE event schema back to the client:
@@ -31,17 +31,17 @@ from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from DEMON.agents.research_loop import (
+from OpenDEMON.agents.research_loop import (
     DEFAULT_PLANNER_MODEL,
     ResearchAgent,
 )
-from DEMON.connectors.embeddings import OllamaEmbedder
-from DEMON.connectors.hybrid_search import HybridSearch
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.types import TelemetryRecord
-from DEMON.engine.ollama import OllamaEngine
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.connectors.embeddings import OllamaEmbedder
+from OpenDEMON.connectors.hybrid_search import HybridSearch
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.types import TelemetryRecord
+from OpenDEMON.engine.ollama import OllamaEngine
+from OpenDEMON.telemetry.store import TelemetryStore
 
 logger = logging.getLogger(__name__)
 

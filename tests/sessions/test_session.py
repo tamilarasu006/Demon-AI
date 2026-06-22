@@ -1,10 +1,10 @@
-﻿"""Tests for session management (Phase 15.4)."""
+"""Tests for session management (Phase 15.4)."""
 
 from __future__ import annotations
 
 import time
 
-from DEMON.sessions.session import (
+from OpenDEMON.sessions.session import (
     Session,
     SessionIdentity,
     SessionStore,

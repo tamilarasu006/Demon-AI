@@ -1,4 +1,4 @@
-﻿"""LiveCodeBench scorer — sandboxed code execution with test cases.
+"""LiveCodeBench scorer — sandboxed code execution with test cases.
 
 Extracts code from model output, runs it against test cases in a
 sandboxed subprocess with timeout and resource limits, and scores
@@ -16,9 +16,9 @@ import subprocess
 import tempfile
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.core import get_python_executable
-from DEMON.evals.core.scorer import Scorer
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core import get_python_executable
+from OpenDEMON.evals.core.scorer import Scorer
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 

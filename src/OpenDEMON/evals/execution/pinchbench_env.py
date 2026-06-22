@@ -1,4 +1,4 @@
-﻿"""PinchBench task environment — per-task workspace setup and grading."""
+"""PinchBench task environment — per-task workspace setup and grading."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 from types import TracebackType
 from typing import Any, Optional, Type
 
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.types import EvalRecord
 
 LOGGER = logging.getLogger(__name__)
 
@@ -95,7 +95,7 @@ class PinchBenchTaskEnv:
         Called by AgenticRunner after agent execution, before QueryTrace
         is constructed. Builds transcript from raw EventRecorder events.
         """
-        from DEMON.evals.scorers.pinchbench import (
+        from OpenDEMON.evals.scorers.pinchbench import (
             events_to_transcript,
             grade_pinchbench_task,
         )

@@ -1,4 +1,4 @@
-﻿"""RLM (Recursive Language Model) Agent — recursive decomposition via persistent REPL.
+"""RLM (Recursive Language Model) Agent — recursive decomposition via persistent REPL.
 
 Based on the RLM paper (arxiv:2512.24601). Instead of passing long context
 directly in the LLM prompt, RLM stores context as a Python variable in a
@@ -12,17 +12,17 @@ import json
 import re
 from typing import Any, Dict, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
-from DEMON.agents.prompt_loader import (
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, ToolUsingAgent
+from OpenDEMON.agents.prompt_loader import (
     load_few_shot_exemplars,
     load_system_prompt_override,
 )
-from DEMON.agents.rlm_repl import RLMRepl
-from DEMON.core.events import EventBus
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Message, Role, ToolCall, ToolResult
-from DEMON.engine._stubs import InferenceEngine
-from DEMON.tools._stubs import BaseTool, build_tool_descriptions
+from OpenDEMON.agents.rlm_repl import RLMRepl
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Message, Role, ToolCall, ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
+from OpenDEMON.tools._stubs import BaseTool, build_tool_descriptions
 
 # ---------------------------------------------------------------------------
 # System prompt

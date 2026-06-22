@@ -1,11 +1,11 @@
-﻿"""Skill security — capability validation and trust tiers."""
+"""Skill security — capability validation and trust tiers."""
 
 from __future__ import annotations
 
 from enum import Enum
 from typing import List, Set
 
-from DEMON.skills.types import SkillManifest
+from OpenDEMON.skills.types import SkillManifest
 
 DANGEROUS_CAPABILITIES: frozenset[str] = frozenset(
     {"shell:execute", "network:listen", "filesystem:write"}

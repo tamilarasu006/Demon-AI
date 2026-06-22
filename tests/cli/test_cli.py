@@ -1,4 +1,4 @@
-﻿"""Tests for the CLI skeleton."""
+"""Tests for the CLI skeleton."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from unittest import mock
 from click.testing import CliRunner
 
 import DEMON
-from DEMON.cli import cli, main
+from OpenDEMON.cli import cli, main
 
 
 class TestMainEntryPoint:
@@ -151,7 +151,7 @@ class TestStartupResilience:
         # Run in a fresh subprocess: the pytest session itself almost certainly
         # has numpy loaded from other tests, so an in-process check is useless.
         code = (
-            "import DEMON.cli, sys; "
+            "import OpenDEMON.cli, sys; "
             "leaked=[m for m in sys.modules if m=='numpy' or m.startswith('numpy.')]; "
             "assert not leaked, leaked; "
             "print('numpy-free')"

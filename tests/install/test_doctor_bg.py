@@ -1,4 +1,4 @@
-﻿"""Tests for the doctor 'Background tasks' section."""
+"""Tests for the doctor 'Background tasks' section."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
-from DEMON.cli.doctor_cmd import doctor
+from OpenDEMON.cli.doctor_cmd import doctor
 
 
 def test_doctor_shows_bg_section_when_state_present(tmp_DEMON_home: Path) -> None:

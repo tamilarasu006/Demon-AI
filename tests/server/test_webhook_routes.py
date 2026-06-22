@@ -1,4 +1,4 @@
-﻿"""Tests for webhook routes."""
+"""Tests for webhook routes."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ pytest.importorskip("fastapi", reason="DEMON[server] not installed")
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from DEMON.server.webhook_routes import create_webhook_router
+from OpenDEMON.server.webhook_routes import create_webhook_router
 
 
 @pytest.fixture

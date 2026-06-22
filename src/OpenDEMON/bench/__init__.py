@@ -1,16 +1,16 @@
-﻿"""Benchmarking framework for DEMON inference engines."""
+"""Benchmarking framework for DEMON inference engines."""
 
 from __future__ import annotations
 
-from DEMON.bench._stubs import BaseBenchmark, BenchmarkResult, BenchmarkSuite
-from DEMON.core.registry import BenchmarkRegistry
+from OpenDEMON.bench._stubs import BaseBenchmark, BenchmarkResult, BenchmarkSuite
+from OpenDEMON.core.registry import BenchmarkRegistry
 
 
 def ensure_registered() -> None:
     """Ensure all benchmark implementations are registered."""
-    from DEMON.bench.energy import ensure_registered as _reg_energy
-    from DEMON.bench.latency import ensure_registered as _reg_latency
-    from DEMON.bench.throughput import ensure_registered as _reg_throughput
+    from OpenDEMON.bench.energy import ensure_registered as _reg_energy
+    from OpenDEMON.bench.latency import ensure_registered as _reg_latency
+    from OpenDEMON.bench.throughput import ensure_registered as _reg_throughput
 
     _reg_latency()
     _reg_throughput()

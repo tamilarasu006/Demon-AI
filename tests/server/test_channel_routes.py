@@ -1,4 +1,4 @@
-﻿"""Tests for /v1/channels endpoints.
+"""Tests for /v1/channels endpoints.
 
 Requires the ``[server]`` optional extra (fastapi, uvicorn, pydantic).
 Skipped automatically when those packages are not installed.
@@ -12,7 +12,7 @@ import pytest
 
 pytest.importorskip("fastapi", reason="DEMON[server] not installed")
 
-from DEMON.channels._stubs import ChannelStatus  # noqa: E402
+from OpenDEMON.channels._stubs import ChannelStatus  # noqa: E402
 
 
 @pytest.fixture
@@ -44,7 +44,7 @@ def mock_bridge():
 @pytest.fixture
 def app_with_bridge(mock_engine, mock_bridge):
     """FastAPI app with channel bridge configured."""
-    from DEMON.server.app import create_app
+    from OpenDEMON.server.app import create_app
 
     return create_app(
         mock_engine,
@@ -56,7 +56,7 @@ def app_with_bridge(mock_engine, mock_bridge):
 @pytest.fixture
 def app_without_bridge(mock_engine):
     """FastAPI app without channel bridge."""
-    from DEMON.server.app import create_app
+    from OpenDEMON.server.app import create_app
 
     return create_app(mock_engine, "test-model")
 

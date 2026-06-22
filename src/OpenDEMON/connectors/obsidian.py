@@ -1,4 +1,4 @@
-﻿"""Obsidian / Markdown vault connector.
+"""Obsidian / Markdown vault connector.
 
 Reads ``.md``, ``.markdown``, and ``.txt`` files from a local vault directory,
 parses optional YAML frontmatter, and yields :class:`Document` objects that
@@ -13,9 +13,9 @@ from pathlib import Path
 from typing import Any, Dict, Iterator, List, Optional, Tuple
 from urllib.parse import quote
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.registry import ConnectorRegistry
-from DEMON.tools._stubs import ToolSpec
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.registry import ConnectorRegistry
+from OpenDEMON.tools._stubs import ToolSpec
 
 # ---------------------------------------------------------------------------
 # Constants

@@ -1,4 +1,4 @@
-﻿"""Container runner and sandboxed agent wrapper.
+"""Container runner and sandboxed agent wrapper.
 
 ``ContainerRunner`` manages Docker container lifecycle for sandboxed
 agent execution.  ``SandboxedAgent`` wraps any ``BaseAgent`` to run
@@ -14,10 +14,10 @@ import subprocess
 import uuid
 from typing import Any, Dict, List, Optional
 
-from DEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
-from DEMON.core.events import EventBus
-from DEMON.core.types import ToolResult
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.agents._stubs import AgentContext, AgentResult, BaseAgent
+from OpenDEMON.core.events import EventBus
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.engine._stubs import InferenceEngine
 
 logger = logging.getLogger(__name__)
 
@@ -65,12 +65,12 @@ class ContainerRunner:
     def _load_allowlist(self):
         """Load mount allowlist if configured."""
         if not self._mount_allowlist_path:
-            from DEMON.sandbox.mount_security import (
+            from OpenDEMON.sandbox.mount_security import (
                 MountAllowlist,
             )
 
             return MountAllowlist()
-        from DEMON.sandbox.mount_security import (
+        from OpenDEMON.sandbox.mount_security import (
             load_mount_allowlist,
         )
 
@@ -96,7 +96,7 @@ class ContainerRunner:
         """Validate mounts against the allowlist."""
         if not mounts:
             return []
-        from DEMON.sandbox.mount_security import (
+        from OpenDEMON.sandbox.mount_security import (
             validate_mounts,
         )
 

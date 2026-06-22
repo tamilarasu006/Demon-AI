@@ -1,4 +1,4 @@
-﻿"""GAIA benchmark dataset (gaia-benchmark/GAIA).
+"""GAIA benchmark dataset (gaia-benchmark/GAIA).
 
 Adapted from IPW's gaia.py dataset loader.
 """
@@ -11,10 +11,10 @@ import shutil
 from pathlib import Path
 from typing import Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.core.paths import get_cache_dir
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.splits import apply_split
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.core.paths import get_cache_dir
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.splits import apply_split
+from OpenDEMON.evals.core.types import EvalRecord
 
 _DEFAULT_CACHE_DIR = get_cache_dir() / "gaia_benchmark"
 

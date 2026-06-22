@@ -1,6 +1,6 @@
-﻿"""Recipe loader — load and resolve TOML recipe files.
+"""Recipe loader — load and resolve TOML recipe files.
 
-Recipes are the universal composition format for DEMON.  Each recipe
+Recipes are the universal composition format for OpenDEMON.  Each recipe
 specifies all five primitives (Intelligence, Engine, Agent, Tools, Learning)
 and carries a ``kind`` that determines its lifecycle:
 
@@ -19,7 +19,7 @@ try:
 except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore[no-redef]
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 # Built-in recipes directory (package data)
 _PROJECT_RECIPES_DIR = Path(__file__).resolve().parent / "data"
@@ -137,7 +137,7 @@ class Recipe:
         and the recipe's benchmarks (or *benchmarks* override) as
         ``[[benchmarks]]``, inheriting agent type and tools.
         """
-        from DEMON.recipes.composer import recipe_to_eval_suite
+        from OpenDEMON.recipes.composer import recipe_to_eval_suite
 
         return recipe_to_eval_suite(
             self,
@@ -148,7 +148,7 @@ class Recipe:
 
     def to_operator_manifest(self) -> Any:
         """Convert this recipe into an ``OperatorManifest``."""
-        from DEMON.recipes.composer import recipe_to_operator
+        from OpenDEMON.recipes.composer import recipe_to_operator
 
         return recipe_to_operator(self)
 

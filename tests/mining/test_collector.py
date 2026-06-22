@@ -1,4 +1,4 @@
-﻿"""Tests for MiningTelemetryCollector, shipped in v1 but unwired."""
+"""Tests for MiningTelemetryCollector, shipped in v1 but unwired."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import pytest
 
 @pytest.mark.asyncio
 async def test_collector_collect_once_returns_stats(written_sidecar):
-    from DEMON.mining._collector import MiningTelemetryCollector
+    from OpenDEMON.mining._collector import MiningTelemetryCollector
 
     sample = (
         "pearl_gateway_shares_submitted_total 50\n"
@@ -35,7 +35,7 @@ async def test_collector_collect_once_returns_stats(written_sidecar):
 
 @pytest.mark.asyncio
 async def test_collector_run_loop_writes_to_store_then_stops(written_sidecar):
-    from DEMON.mining._collector import MiningTelemetryCollector
+    from OpenDEMON.mining._collector import MiningTelemetryCollector
 
     sample = "pearl_gateway_shares_submitted_total 1\n"
     with patch("DEMON.mining._collector.httpx.get") as get:
@@ -58,7 +58,7 @@ async def test_collector_run_loop_writes_to_store_then_stops(written_sidecar):
 
 @pytest.mark.asyncio
 async def test_collector_handles_gateway_errors_gracefully(written_sidecar):
-    from DEMON.mining._collector import MiningTelemetryCollector
+    from OpenDEMON.mining._collector import MiningTelemetryCollector
 
     with patch("DEMON.mining._collector.httpx.get") as get:
         get.side_effect = ConnectionError("nope")

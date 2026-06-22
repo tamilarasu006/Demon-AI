@@ -1,11 +1,11 @@
-﻿"""Tests for scheduler MCP tools."""
+"""Tests for scheduler MCP tools."""
 
 from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from DEMON.scheduler.scheduler import ScheduledTask
-from DEMON.scheduler.tools import (
+from OpenDEMON.scheduler.scheduler import ScheduledTask
+from OpenDEMON.scheduler.tools import (
     CancelScheduledTaskTool,
     ListScheduledTasksTool,
     PauseScheduledTaskTool,

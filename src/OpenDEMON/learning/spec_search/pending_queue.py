@@ -1,4 +1,4 @@
-﻿"""Pending review queue for edits awaiting user approval.
+"""Pending review queue for edits awaiting user approval.
 
 Edits in the ``review`` tier (when autonomy mode is ``tiered``) are
 written here as JSON files. Callers consume the queue via
@@ -15,7 +15,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from DEMON.learning.spec_search.models import Edit
+from OpenDEMON.learning.spec_search.models import Edit
 
 logger = logging.getLogger(__name__)
 

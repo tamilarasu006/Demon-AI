@@ -1,4 +1,4 @@
-﻿"""Rich display helpers for the evaluation framework and bench CLI."""
+"""Rich display helpers for the evaluation framework and bench CLI."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from rich.table import Table
 if TYPE_CHECKING:
     from pathlib import Path
 
-    from DEMON.evals.core.types import MetricStats, RunSummary
+    from OpenDEMON.evals.core.types import MetricStats, RunSummary
 
 DEMON_BANNER = r"""
   ___                       _                  _

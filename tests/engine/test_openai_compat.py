@@ -1,4 +1,4 @@
-﻿"""Tests for the OpenAI-compatible engine base (covers vLLM + llama.cpp)."""
+"""Tests for the OpenAI-compatible engine base (covers vLLM + llama.cpp)."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ import httpx
 import pytest
 import respx
 
-from DEMON.core.registry import EngineRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._base import EngineConnectionError
-from DEMON.engine.openai_compat_engines import VLLMEngine
+from OpenDEMON.core.registry import EngineRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._base import EngineConnectionError
+from OpenDEMON.engine.openai_compat_engines import VLLMEngine
 
 
 @pytest.fixture()

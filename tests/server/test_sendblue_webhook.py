@@ -1,4 +1,4 @@
-﻿"""Integration tests for the SendBlue webhook endpoint.
+"""Integration tests for the SendBlue webhook endpoint.
 
 Tests the /webhooks/sendblue route, health check endpoint, and the
 full flow from incoming webhook -> bridge -> agent -> send response.
@@ -15,13 +15,13 @@ pytest.importorskip("fastapi", reason="DEMON[server] not installed")
 from fastapi import FastAPI  # noqa: E402
 from starlette.testclient import TestClient  # noqa: E402
 
-from DEMON.core.registry import ChannelRegistry  # noqa: E402
+from OpenDEMON.core.registry import ChannelRegistry  # noqa: E402
 
 
 @pytest.fixture(autouse=True)
 def _register_sendblue():
     if not ChannelRegistry.contains("sendblue"):
-        from DEMON.channels.sendblue import SendBlueChannel
+        from OpenDEMON.channels.sendblue import SendBlueChannel
 
         ChannelRegistry.register_value("sendblue", SendBlueChannel)
 
@@ -35,7 +35,7 @@ def mock_bridge():
 
 @pytest.fixture
 def sendblue_channel():
-    from DEMON.channels.sendblue import SendBlueChannel
+    from OpenDEMON.channels.sendblue import SendBlueChannel
 
     ch = SendBlueChannel(
         api_key_id="test_key",
@@ -51,7 +51,7 @@ def sendblue_channel():
 
 @pytest.fixture
 def webhook_app(mock_bridge, sendblue_channel):
-    from DEMON.server.webhook_routes import create_webhook_router
+    from OpenDEMON.server.webhook_routes import create_webhook_router
 
     app = FastAPI()
     router = create_webhook_router(
@@ -127,8 +127,8 @@ class TestSendBlueWebhook:
 
     def test_webhook_secret_validation(self, mock_bridge):
         """When a webhook secret is set, reject requests without it."""
-        from DEMON.channels.sendblue import SendBlueChannel
-        from DEMON.server.webhook_routes import create_webhook_router
+        from OpenDEMON.channels.sendblue import SendBlueChannel
+        from OpenDEMON.server.webhook_routes import create_webhook_router
 
         ch = SendBlueChannel(
             api_key_id="k",
@@ -169,7 +169,7 @@ class TestSendBlueWebhook:
 
     def test_no_bridge_returns_200(self, sendblue_channel):
         """When no bridge exists, webhook should not crash."""
-        from DEMON.server.webhook_routes import create_webhook_router
+        from OpenDEMON.server.webhook_routes import create_webhook_router
 
         app = FastAPI()
         router = create_webhook_router(bridge=None, sendblue_channel=sendblue_channel)
@@ -188,8 +188,8 @@ class TestSendBlueWebhook:
 
     def test_no_secret_configured_is_rejected(self, mock_bridge):
         """Fail closed: a channel without a webhook_secret rejects all posts."""
-        from DEMON.channels.sendblue import SendBlueChannel
-        from DEMON.server.webhook_routes import create_webhook_router
+        from OpenDEMON.channels.sendblue import SendBlueChannel
+        from OpenDEMON.server.webhook_routes import create_webhook_router
 
         ch = SendBlueChannel(
             api_key_id="k", api_secret_key="s", from_number="+1555"
@@ -221,7 +221,7 @@ class TestSendBlueHealth:
         app.state.channel_bridge = MagicMock()
         app.state.channel_bridge._channels = {"sendblue": sendblue_channel}
 
-        from DEMON.server.agent_manager_routes import (
+        from OpenDEMON.server.agent_manager_routes import (
             create_agent_manager_router,
         )
 
@@ -245,7 +245,7 @@ class TestSendBlueHealth:
         app = FastAPI()
         # No sendblue_channel or bridge on state
 
-        from DEMON.server.agent_manager_routes import (
+        from OpenDEMON.server.agent_manager_routes import (
             create_agent_manager_router,
         )
 

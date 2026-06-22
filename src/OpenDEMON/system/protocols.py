@@ -1,19 +1,19 @@
-﻿"""Structural protocols for substituting fakes in place of DEMONSystem."""
+"""Structural protocols for substituting fakes in place of DEMONSystem."""
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Optional, Protocol
 
 if TYPE_CHECKING:
-    from DEMON.core.config import DEMONConfig
-    from DEMON.core.events import EventBus
-    from DEMON.engine._stubs import InferenceEngine
-    from DEMON.security.capabilities import CapabilityPolicy
-    from DEMON.sessions.session import SessionStore
-    from DEMON.tools._stubs import BaseTool
-    from DEMON.tools.storage._stubs import MemoryBackend
-    from DEMON.traces.collector import TraceCollector
-    from DEMON.traces.store import TraceStore
+    from OpenDEMON.core.config import DEMONConfig
+    from OpenDEMON.core.events import EventBus
+    from OpenDEMON.engine._stubs import InferenceEngine
+    from OpenDEMON.security.capabilities import CapabilityPolicy
+    from OpenDEMON.sessions.session import SessionStore
+    from OpenDEMON.tools._stubs import BaseTool
+    from OpenDEMON.tools.storage._stubs import MemoryBackend
+    from OpenDEMON.traces.collector import TraceCollector
+    from OpenDEMON.traces.store import TraceStore
 
 
 class OrchestratorDeps(Protocol):

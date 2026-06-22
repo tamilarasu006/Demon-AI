@@ -1,4 +1,4 @@
-﻿"""Rate limiter -- token bucket algorithm for per-agent/per-tool throttling."""
+"""Rate limiter -- token bucket algorithm for per-agent/per-tool throttling."""
 
 from __future__ import annotations
 
@@ -67,7 +67,7 @@ class RateLimiter:
         self._buckets: Dict[str, TokenBucket] = {}
         self._lock = threading.Lock()
 
-        from DEMON._rust_bridge import get_rust_module
+        from OpenDEMON._rust_bridge import get_rust_module
 
         _rust = get_rust_module()
         self._rust_impl = _rust.RateLimiter(

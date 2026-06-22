@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON add`` CLI command."""
+"""Tests for the ``DEMON add`` CLI command."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-from DEMON.cli.add_cmd import _MCP_TEMPLATES, add
+from OpenDEMON.cli.add_cmd import _MCP_TEMPLATES, add
 
 
 class TestAddCmd:

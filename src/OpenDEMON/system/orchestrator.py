@@ -1,15 +1,15 @@
-﻿"""Executes user queries through the engine or through an agent."""
+"""Executes user queries through the engine or through an agent."""
 
 from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
-from DEMON.core.types import Message, Role
-from DEMON.tools._stubs import BaseTool
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.tools._stubs import BaseTool
 
 if TYPE_CHECKING:
-    from DEMON.system.protocols import OrchestratorDeps
+    from OpenDEMON.system.protocols import OrchestratorDeps
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ class QueryOrchestrator:
 
         if context and s.memory_backend and s.config.agent.context_from_memory:
             try:
-                from DEMON.tools.storage.context import (
+                from OpenDEMON.tools.storage.context import (
                     ContextConfig,
                     inject_context,
                 )
@@ -96,7 +96,7 @@ class QueryOrchestrator:
         """Detect if a query should be routed to a specific agent."""
         import re
 
-        from DEMON.core.registry import AgentRegistry
+        from OpenDEMON.core.registry import AgentRegistry
 
         if re.search(
             r"\b(good\s+morning|morning\s+digest|daily\s+briefing|morning\s+briefing)\b",
@@ -122,9 +122,9 @@ class QueryOrchestrator:
         prior_messages=None,
     ) -> Dict[str, Any]:
         """Run through an agent."""
-        from DEMON.agents._stubs import AgentContext
-        from DEMON.core.events import EventType
-        from DEMON.core.registry import AgentRegistry
+        from OpenDEMON.agents._stubs import AgentContext
+        from OpenDEMON.core.events import EventType
+        from OpenDEMON.core.registry import AgentRegistry
 
         s = self._system
 
@@ -186,8 +186,8 @@ class QueryOrchestrator:
                     "honorific": dc.honorific,
                 }
             )
-            from DEMON.tools.digest_collect import DigestCollectTool
-            from DEMON.tools.text_to_speech import TextToSpeechTool
+            from OpenDEMON.tools.digest_collect import DigestCollectTool
+            from OpenDEMON.tools.text_to_speech import TextToSpeechTool
 
             digest_tools = [DigestCollectTool(), TextToSpeechTool()]
             existing = agent_kwargs.get("tools", [])
@@ -213,7 +213,7 @@ class QueryOrchestrator:
         # instances (e.g. the judge backend).
         try:
             if s.trace_store is not None:
-                from DEMON.traces.collector import TraceCollector
+                from OpenDEMON.traces.collector import TraceCollector
 
                 collector = TraceCollector(
                     ag,
@@ -293,18 +293,18 @@ class QueryOrchestrator:
 
     def _build_tools(self, tool_names: List[str]) -> List[BaseTool]:
         """Build tool instances from tool names."""
-        from DEMON.core.registry import ToolRegistry
+        from OpenDEMON.core.registry import ToolRegistry
 
         s = self._system
         tools: List[BaseTool] = []
         for name in tool_names:
             try:
                 if name == "retrieval" and s.memory_backend:
-                    from DEMON.tools.retrieval import RetrievalTool
+                    from OpenDEMON.tools.retrieval import RetrievalTool
 
                     tools.append(RetrievalTool(s.memory_backend))
                 elif name == "llm":
-                    from DEMON.tools.llm_tool import LLMTool
+                    from OpenDEMON.tools.llm_tool import LLMTool
 
                     tools.append(LLMTool(s.engine, model=s.model))
                 elif ToolRegistry.contains(name):

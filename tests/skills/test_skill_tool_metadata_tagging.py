@@ -1,12 +1,12 @@
-﻿"""Tests for SkillTool metadata tagging (Plan 2A trace tagging)."""
+"""Tests for SkillTool metadata tagging (Plan 2A trace tagging)."""
 
 from __future__ import annotations
 
-from DEMON.core.types import ToolResult
-from DEMON.skills.executor import SkillExecutor
-from DEMON.skills.tool_adapter import SkillTool
-from DEMON.skills.types import SkillManifest, SkillStep
-from DEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
+from OpenDEMON.core.types import ToolResult
+from OpenDEMON.skills.executor import SkillExecutor
+from OpenDEMON.skills.tool_adapter import SkillTool
+from OpenDEMON.skills.types import SkillManifest, SkillStep
+from OpenDEMON.tools._stubs import BaseTool, ToolExecutor, ToolSpec
 
 
 class _EchoTool(BaseTool):

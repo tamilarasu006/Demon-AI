@@ -1,12 +1,12 @@
-﻿"""Tests for activity-based stall detection."""
+"""Tests for activity-based stall detection."""
 
 import time
 from unittest.mock import patch
 
-from DEMON.agents._stubs import AgentResult
-from DEMON.agents.executor import AgentExecutor
-from DEMON.agents.manager import AgentManager
-from DEMON.core.events import EventBus, EventType
+from OpenDEMON.agents._stubs import AgentResult
+from OpenDEMON.agents.executor import AgentExecutor
+from OpenDEMON.agents.manager import AgentManager
+from OpenDEMON.core.events import EventBus, EventType
 
 
 def test_activity_tracking_updates_last_activity_at(tmp_path):
@@ -69,7 +69,7 @@ def test_reconcile_detects_stalled_agent(tmp_path):
     mgr = AgentManager(str(tmp_path / "test.db"))
     bus = EventBus(record_history=True)
     executor = AgentExecutor(mgr, bus)
-    from DEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.agents.scheduler import AgentScheduler
 
     scheduler = AgentScheduler(mgr, executor, event_bus=bus)
 
@@ -99,7 +99,7 @@ def test_reconcile_skips_active_agent(tmp_path):
     mgr = AgentManager(str(tmp_path / "test.db"))
     bus = EventBus(record_history=True)
     executor = AgentExecutor(mgr, bus)
-    from DEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.agents.scheduler import AgentScheduler
 
     scheduler = AgentScheduler(mgr, executor, event_bus=bus)
 
@@ -118,7 +118,7 @@ def test_reconcile_retries_exhausted_sets_error(tmp_path):
     mgr = AgentManager(str(tmp_path / "test.db"))
     bus = EventBus()
     executor = AgentExecutor(mgr, bus)
-    from DEMON.agents.scheduler import AgentScheduler
+    from OpenDEMON.agents.scheduler import AgentScheduler
 
     scheduler = AgentScheduler(mgr, executor, event_bus=bus)
 

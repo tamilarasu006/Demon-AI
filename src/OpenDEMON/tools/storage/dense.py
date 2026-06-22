@@ -1,4 +1,4 @@
-﻿"""In-memory dense retrieval backend.
+"""In-memory dense retrieval backend.
 
 Uses any :class:`Embedder` (default: :class:`OllamaEmbedder` with
 ``nomic-embed-text``) to embed stored text, then ranks queries by
@@ -28,9 +28,9 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
-from DEMON.core.registry import MemoryRegistry
-from DEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
-from DEMON.tools.storage.embeddings import Embedder, OllamaEmbedder
+from OpenDEMON.core.registry import MemoryRegistry
+from OpenDEMON.tools.storage._stubs import MemoryBackend, RetrievalResult
+from OpenDEMON.tools.storage.embeddings import Embedder, OllamaEmbedder
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-﻿"""Tests for the shell_exec tool.
+"""Tests for the shell_exec tool.
 
 Tests mock the Rust backend to verify the Python wrapper handles
 the Rust output format correctly:
@@ -15,8 +15,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.core import get_python_executable
-from DEMON.tools.shell_exec import ShellExecTool
+from OpenDEMON.core import get_python_executable
+from OpenDEMON.tools.shell_exec import ShellExecTool
 
 
 def _rust_output(stdout: str = "", stderr: str = "", code: int = 0) -> str:
@@ -40,8 +40,8 @@ def _make_mock_rust(side_effect=None, return_value=None):
 
 class TestShellExecTool:
     def test_registered_via_tools_package_import(self):
-        import DEMON.tools as tools_pkg
-        from DEMON.core.registry import ToolRegistry
+        import OpenDEMON.tools as tools_pkg
+        from OpenDEMON.core.registry import ToolRegistry
 
         sys.modules.pop("DEMON.tools.shell_exec", None)
         importlib.reload(tools_pkg)
@@ -278,3 +278,4 @@ class TestShellExecTool:
             result = tool.execute(command="/nonexistent_binary")
         assert result.success is False
         assert result.metadata["returncode"] == -1
+ code"] == -1

@@ -1,4 +1,4 @@
-﻿"""``DEMON ask`` — send a query to the assistant."""
+"""``DEMON ask`` — send a query to the assistant."""
 
 from __future__ import annotations
 
@@ -12,24 +12,24 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from DEMON.cli._banner import print_banner
-from DEMON.cli._tool_names import resolve_tool_names
-from DEMON.cli.hints import hint_no_engine
-from DEMON.core.config import load_config
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.types import Message, Role
-from DEMON.engine import (
+from OpenDEMON.cli._banner import print_banner
+from OpenDEMON.cli._tool_names import resolve_tool_names
+from OpenDEMON.cli.hints import hint_no_engine
+from OpenDEMON.core.config import load_config
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine import (
     EngineConnectionError,
     discover_engines,
     discover_models,
     get_engine,
 )
-from DEMON.intelligence import (
+from OpenDEMON.intelligence import (
     merge_discovered_models,
     register_builtin_models,
 )
-from DEMON.telemetry.instrumented_engine import InstrumentedEngine
-from DEMON.telemetry.store import TelemetryStore
+from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
+from OpenDEMON.telemetry.store import TelemetryStore
 
 logger = logging.getLogger(__name__)
 
@@ -53,11 +53,11 @@ def _run_research(
     from rich.markdown import Markdown
     from rich.theme import Theme
 
-    from DEMON.agents.research_loop import DEFAULT_PLANNER_MODEL, ResearchAgent
-    from DEMON.connectors.embeddings import OllamaEmbedder
-    from DEMON.connectors.hybrid_search import HybridSearch
-    from DEMON.connectors.store import KnowledgeStore
-    from DEMON.engine.ollama import OllamaEngine
+    from OpenDEMON.agents.research_loop import DEFAULT_PLANNER_MODEL, ResearchAgent
+    from OpenDEMON.connectors.embeddings import OllamaEmbedder
+    from OpenDEMON.connectors.hybrid_search import HybridSearch
+    from OpenDEMON.connectors.store import KnowledgeStore
+    from OpenDEMON.engine.ollama import OllamaEngine
 
     store_kwargs: dict = {}
     if knowledge_db:
@@ -226,8 +226,8 @@ def _get_memory_backend(config):
     tool is the hallucination vector.
     """
     try:
-        import DEMON.tools.storage  # noqa: F401
-        from DEMON.core.registry import MemoryRegistry
+        import OpenDEMON.tools.storage  # noqa: F401
+        from OpenDEMON.core.registry import MemoryRegistry
 
         key = config.memory.default_backend
         if not MemoryRegistry.contains(key):
@@ -273,7 +273,7 @@ def _build_tools(
     provided — these are the failure modes that silently cascade into
     hallucinated or dropped replies downstream.
     """
-    from DEMON.core.registry import ToolRegistry
+    from OpenDEMON.core.registry import ToolRegistry
 
     tools = []
     for name in tool_names:
@@ -329,9 +329,9 @@ def _run_agent(
 ):
     """Instantiate and run an agent, returning the AgentResult."""
     # Import agents to trigger registration
-    import DEMON.agents  # noqa: F401
-    from DEMON.agents._stubs import AgentContext
-    from DEMON.core.registry import AgentRegistry
+    import OpenDEMON.agents  # noqa: F401
+    from OpenDEMON.agents._stubs import AgentContext
+    from OpenDEMON.core.registry import AgentRegistry
 
     if not AgentRegistry.contains(agent_name):
         raise click.ClickException(
@@ -346,14 +346,14 @@ def _run_agent(
     tools = []
     if tool_names:
         # Trigger tool registration
-        import DEMON.tools  # noqa: F401
+        import OpenDEMON.tools  # noqa: F401
 
         tools = _build_tools(tool_names, config, engine, model_name)
 
     # MCP tools from config.tools.mcp.servers. Loaded regardless of
     # tool_names — if the caller passed --tools, the loader filters MCP
     # tools to those names; otherwise every MCP tool is included.
-    from DEMON.mcp.loader import load_mcp_tools_from_config
+    from OpenDEMON.mcp.loader import load_mcp_tools_from_config
 
     mcp_tools, mcp_clients = load_mcp_tools_from_config(
         config.tools.mcp,
@@ -392,7 +392,7 @@ def _run_agent(
     import inspect as _inspect
 
     if "prompt_builder" in _inspect.signature(agent_cls.__init__).parameters:
-        from DEMON.prompt.builder import SystemPromptBuilder
+        from OpenDEMON.prompt.builder import SystemPromptBuilder
 
         agent_kwargs["prompt_builder"] = SystemPromptBuilder(
             agent_template=config.agent.default_system_prompt or "",
@@ -412,7 +412,7 @@ def _run_agent(
     # Inject memory context into conversation if available
     if config.agent.context_from_memory:
         try:
-            from DEMON.tools.storage.context import ContextConfig, inject_context
+            from OpenDEMON.tools.storage.context import ContextConfig, inject_context
 
             backend = _get_memory_backend(config)
             if backend is not None:
@@ -681,7 +681,7 @@ def ask(
             sys.exit(1)
     if capture_screen:
         try:
-            from DEMON.cli._screen import capture_screen_to_temp
+            from OpenDEMON.cli._screen import capture_screen_to_temp
 
             _shot = capture_screen_to_temp()
             with open(_shot, "rb") as _fh:
@@ -740,7 +740,7 @@ def ask(
         max_tokens = config.intelligence.max_tokens
 
     # Run complexity analysis on the query
-    from DEMON.learning.routing.complexity import (
+    from OpenDEMON.learning.routing.complexity import (
         ComplexityResult,
         adjust_tokens_for_model,
         score_complexity,
@@ -806,7 +806,7 @@ def ask(
         return
 
     # Apply security guardrails
-    from DEMON.security import setup_security
+    from OpenDEMON.security import setup_security
 
     sec = setup_security(config, engine, bus)
     engine = sec.engine
@@ -816,7 +816,7 @@ def ask(
     want_energy = config.telemetry.gpu_metrics or enable_profile
     if want_energy:
         try:
-            from DEMON.telemetry.energy_monitor import create_energy_monitor
+            from OpenDEMON.telemetry.energy_monitor import create_energy_monitor
 
             energy_monitor = create_energy_monitor(
                 prefer_vendor=config.telemetry.energy_vendor or None,
@@ -951,7 +951,7 @@ def ask(
     # Memory-augmented context injection
     if not no_context and config.agent.context_from_memory:
         try:
-            from DEMON.tools.storage.context import (
+            from OpenDEMON.tools.storage.context import (
                 ContextConfig,
                 inject_context,
             )

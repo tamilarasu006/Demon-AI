@@ -1,4 +1,4 @@
-﻿"""Tests for the Operators subsystem."""
+"""Tests for the Operators subsystem."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from DEMON.operators.types import OperatorManifest
+from OpenDEMON.operators.types import OperatorManifest
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -109,8 +109,8 @@ def _make_system(
     memory_backend=None,
 ):
     """Build a minimal mock DEMONSystem."""
-    from DEMON.core.config import DEMONConfig
-    from DEMON.core.events import EventBus
+    from OpenDEMON.core.config import DEMONConfig
+    from OpenDEMON.core.events import EventBus
 
     system = MagicMock()
     system.config = DEMONConfig()
@@ -169,7 +169,7 @@ class TestOperatorManifest:
 
 class TestOperatorLoader:
     def test_load_from_toml(self, tmp_path):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         toml_content = """\
 [operator]
@@ -204,7 +204,7 @@ system_prompt = "You are a test operator."
         assert m.system_prompt == "You are a test operator."
 
     def test_inline_prompt(self, tmp_path):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         toml_content = """\
 [operator]
@@ -221,7 +221,7 @@ system_prompt = "Do things."
         assert m.system_prompt == "Do things."
 
     def test_external_prompt_file(self, tmp_path):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         prompt_file = tmp_path / "prompt.md"
         prompt_file.write_text("External prompt content.")
@@ -241,7 +241,7 @@ system_prompt_path = "prompt.md"
         assert m.system_prompt == "External prompt content."
 
     def test_missing_file_returns_empty_prompt(self, tmp_path):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         toml_content = """\
 [operator]
@@ -258,7 +258,7 @@ system_prompt_path = "nonexistent.md"
         assert m.system_prompt == ""
 
     def test_stem_as_default_id(self, tmp_path):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         toml_content = """\
 [operator]
@@ -278,7 +278,7 @@ name = "NoID"
 
 class TestOperatorManager:
     def test_register(self):
-        from DEMON.operators.manager import OperatorManager
+        from OpenDEMON.operators.manager import OperatorManager
 
         system = _make_system()
         mgr = OperatorManager(system)
@@ -288,7 +288,7 @@ class TestOperatorManager:
         assert mgr.get_manifest("test") is m
 
     def test_discover(self, tmp_path):
-        from DEMON.operators.manager import OperatorManager
+        from OpenDEMON.operators.manager import OperatorManager
 
         toml_content = """\
 [operator]
@@ -305,8 +305,8 @@ name = "Discovered"
         assert mgr.get_manifest("discovered") is not None
 
     def test_activate_creates_scheduler_task(self):
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
 
         store = FakeSchedulerStore()
         scheduler = TaskScheduler(store)
@@ -330,8 +330,8 @@ name = "Discovered"
         assert task_dict["agent"] == "operative"
 
     def test_activate_uses_operative_agent(self):
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
 
         store = FakeSchedulerStore()
         scheduler = TaskScheduler(store)
@@ -346,8 +346,8 @@ name = "Discovered"
         assert task_dict["agent"] == "operative"
 
     def test_activate_passes_metadata(self):
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
 
         store = FakeSchedulerStore()
         scheduler = TaskScheduler(store)
@@ -370,8 +370,8 @@ name = "Discovered"
         assert meta["temperature"] == 0.5
 
     def test_deactivate(self):
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
 
         store = FakeSchedulerStore()
         scheduler = TaskScheduler(store)
@@ -387,8 +387,8 @@ name = "Discovered"
         assert task_dict["status"] == "cancelled"
 
     def test_pause_resume(self):
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
 
         store = FakeSchedulerStore()
         scheduler = TaskScheduler(store)
@@ -408,7 +408,7 @@ name = "Discovered"
         assert task_dict["status"] == "active"
 
     def test_status(self):
-        from DEMON.operators.manager import OperatorManager
+        from OpenDEMON.operators.manager import OperatorManager
 
         system = _make_system()
         mgr = OperatorManager(system)
@@ -423,8 +423,8 @@ name = "Discovered"
         assert statuses[0]["status"] == "registered"
 
     def test_activate_idempotent(self):
-        from DEMON.operators.manager import OperatorManager
-        from DEMON.scheduler.scheduler import TaskScheduler
+        from OpenDEMON.operators.manager import OperatorManager
+        from OpenDEMON.scheduler.scheduler import TaskScheduler
 
         store = FakeSchedulerStore()
         scheduler = TaskScheduler(store)
@@ -438,7 +438,7 @@ name = "Discovered"
         assert id1 == id2
 
     def test_activate_without_scheduler_raises(self):
-        from DEMON.operators.manager import OperatorManager
+        from OpenDEMON.operators.manager import OperatorManager
 
         system = _make_system(scheduler=None)
         mgr = OperatorManager(system)
@@ -450,7 +450,7 @@ name = "Discovered"
             mgr.activate("no_sched")
 
     def test_run_once(self):
-        from DEMON.operators.manager import OperatorManager
+        from OpenDEMON.operators.manager import OperatorManager
 
         system = _make_system()
         system.ask = MagicMock(return_value={"content": "Tick done."})
@@ -482,7 +482,7 @@ name = "Discovered"
 
 class TestOperativeAgent:
     def test_init_defaults(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         engine = FakeEngine()
         with patch(
@@ -496,12 +496,12 @@ class TestOperativeAgent:
         assert agent._max_turns == 20
 
     def test_accepts_tools(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         assert OperativeAgent.accepts_tools is True
 
     def test_run_with_system_prompt(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         engine = FakeEngine([{"content": "Response with prompt."}])
         agent = OperativeAgent(
@@ -520,7 +520,7 @@ class TestOperativeAgent:
         )
 
     def test_run_loads_session(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         session_store = FakeSessionStore()
         # Pre-populate session with history
@@ -541,7 +541,7 @@ class TestOperativeAgent:
         assert result.content == "New tick done."
 
     def test_run_saves_session(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         session_store = FakeSessionStore()
 
@@ -561,7 +561,7 @@ class TestOperativeAgent:
         assert saved[1]["content"] == "Tick response."
 
     def test_run_recalls_state(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         memory = FakeMemoryBackend()
         memory.store("operator:recall_test:state", '{"last_run": "2024-01-01"}')
@@ -583,8 +583,8 @@ class TestOperativeAgent:
         assert any("Previous State" in m.content for m in sys_msgs)
 
     def test_run_tool_loop(self):
-        from DEMON.agents.operative import OperativeAgent
-        from DEMON.tools._stubs import BaseTool
+        from OpenDEMON.agents.operative import OperativeAgent
+        from OpenDEMON.tools._stubs import BaseTool
 
         # Mock tool
         tool = MagicMock(spec=BaseTool)
@@ -623,7 +623,7 @@ class TestOperativeAgent:
         assert result.turns == 2
 
     def test_run_without_persistence(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         engine = FakeEngine([{"content": "No persistence needed."}])
         agent = OperativeAgent(engine, "test-model")
@@ -631,7 +631,7 @@ class TestOperativeAgent:
         assert result.content == "No persistence needed."
 
     def test_run_auto_persists_state(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         memory = FakeMemoryBackend()
 
@@ -649,7 +649,7 @@ class TestOperativeAgent:
         assert "Tick complete." in state
 
     def test_max_turns_exceeded(self):
-        from DEMON.agents.operative import OperativeAgent
+        from OpenDEMON.agents.operative import OperativeAgent
 
         # Engine always returns tool calls, never a final answer
         responses = [
@@ -696,7 +696,7 @@ class TestOperativeAgent:
 class TestSystemAskPassthrough:
     def test_system_prompt_forwarded(self):
         """system_prompt kwarg reaches the agent."""
-        from DEMON.system import DEMONSystem
+        from OpenDEMON.system import DEMONSystem
 
         engine = FakeEngine([{"content": "OK"}])
         system = _make_system(engine=engine)
@@ -717,7 +717,7 @@ class TestSystemAskPassthrough:
             captured.update(kwargs)
             return {"content": "OK"}
 
-        from DEMON.system import QueryOrchestrator
+        from OpenDEMON.system import QueryOrchestrator
 
         with patch.object(QueryOrchestrator, "_run_agent", patched_run_agent):
             real_system = DEMONSystem(
@@ -734,7 +734,7 @@ class TestSystemAskPassthrough:
 
     def test_operator_id_forwarded(self):
         """operator_id kwarg reaches the agent."""
-        from DEMON.system import DEMONSystem
+        from OpenDEMON.system import DEMONSystem
 
         engine = FakeEngine([{"content": "OK"}])
         system = _make_system(engine=engine)
@@ -754,7 +754,7 @@ class TestSystemAskPassthrough:
             captured.update(kwargs)
             return {"content": "OK"}
 
-        from DEMON.system import QueryOrchestrator
+        from OpenDEMON.system import QueryOrchestrator
 
         with patch.object(QueryOrchestrator, "_run_agent", patched_run_agent):
             real_system = DEMONSystem(
@@ -778,7 +778,7 @@ class TestSystemAskPassthrough:
 class TestSchedulerOperatorExecution:
     def test_execute_task_with_operator_metadata(self):
         """Scheduler passes operator metadata through to system.ask()."""
-        from DEMON.scheduler.scheduler import ScheduledTask, TaskScheduler
+        from OpenDEMON.scheduler.scheduler import ScheduledTask, TaskScheduler
 
         store = FakeSchedulerStore()
         mock_system = MagicMock()
@@ -820,7 +820,7 @@ class TestSchedulerOperatorExecution:
 
 class TestOperatorsConfig:
     def test_config_defaults(self):
-        from DEMON.core.config import OperatorsConfig
+        from OpenDEMON.core.config import OperatorsConfig
 
         cfg = OperatorsConfig()
         assert cfg.enabled is False
@@ -828,7 +828,7 @@ class TestOperatorsConfig:
         assert cfg.auto_activate == ""
 
     def test_config_in_DEMON_config(self):
-        from DEMON.core.config import DEMONConfig
+        from OpenDEMON.core.config import DEMONConfig
 
         cfg = DEMONConfig()
         assert hasattr(cfg, "operators")
@@ -842,7 +842,7 @@ class TestOperatorsConfig:
 
 class TestOperatorEvents:
     def test_event_types_exist(self):
-        from DEMON.core.events import EventType
+        from OpenDEMON.core.events import EventType
 
         assert hasattr(EventType, "OPERATOR_TICK_START")
         assert hasattr(EventType, "OPERATOR_TICK_END")
@@ -857,11 +857,11 @@ class TestOperatorEvents:
 
 class TestAgentRegistration:
     def test_operative_registered(self):
-        from DEMON.core.registry import AgentRegistry
+        from OpenDEMON.core.registry import AgentRegistry
 
         # Re-register if cleared by another test
         if not AgentRegistry.contains("operative"):
-            from DEMON.agents.operative import OperativeAgent
+            from OpenDEMON.agents.operative import OperativeAgent
 
             AgentRegistry.register_value("operative", OperativeAgent)
 
@@ -889,7 +889,7 @@ class TestLoadBundledOperators:
         return ops_dir
 
     def test_researcher_loads(self, operators_dir):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         m = load_operator(operators_dir / "researcher.toml")
         assert m.id == "researcher"
@@ -897,21 +897,21 @@ class TestLoadBundledOperators:
         assert m.schedule_type == "interval"
 
     def test_news_digest_loads(self, operators_dir):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         m = load_operator(operators_dir / "news_digest.toml")
         assert m.id == "news_digest"
         assert m.schedule_type == "cron"
 
     def test_knowledge_curator_loads(self, operators_dir):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         m = load_operator(operators_dir / "knowledge_curator.toml")
         assert m.id == "knowledge_curator"
         assert "knowledge_add_entity" in m.tools
 
     def test_system_monitor_loads(self, operators_dir):
-        from DEMON.operators.loader import load_operator
+        from OpenDEMON.operators.loader import load_operator
 
         m = load_operator(operators_dir / "system_monitor.toml")
         assert m.id == "system_monitor"

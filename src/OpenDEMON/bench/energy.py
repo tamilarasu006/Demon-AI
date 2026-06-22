@@ -1,4 +1,4 @@
-﻿"""Energy benchmark — per-sample energy, power, and efficiency measurement."""
+"""Energy benchmark — per-sample energy, power, and efficiency measurement."""
 
 from __future__ import annotations
 
@@ -6,11 +6,11 @@ import logging
 import time
 from typing import Any, List, Optional
 
-from DEMON.bench._stats import compute_stats
-from DEMON.bench._stubs import BaseBenchmark, BenchmarkResult
-from DEMON.core.registry import BenchmarkRegistry
-from DEMON.core.types import Message, Role
-from DEMON.engine._stubs import InferenceEngine
+from OpenDEMON.bench._stats import compute_stats
+from OpenDEMON.bench._stubs import BaseBenchmark, BenchmarkResult
+from OpenDEMON.core.registry import BenchmarkRegistry
+from OpenDEMON.core.types import Message, Role
+from OpenDEMON.engine._stubs import InferenceEngine
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +61,7 @@ class EnergyBenchmark(BaseBenchmark):
         energy_method = ""
 
         if energy_monitor is not None:
-            from DEMON.telemetry.steady_state import SteadyStateDetector
+            from OpenDEMON.telemetry.steady_state import SteadyStateDetector
 
             detector = SteadyStateDetector()
             energy_method = getattr(energy_monitor, "energy_method", lambda: "")()

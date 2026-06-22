@@ -1,4 +1,4 @@
-﻿"""Tests for AgentConfigEvolver — trace-driven agent config evolution."""
+"""Tests for AgentConfigEvolver — trace-driven agent config evolution."""
 
 from __future__ import annotations
 
@@ -13,9 +13,9 @@ try:
 except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore[no-redef]
 
-from DEMON.core.types import StepType, Trace, TraceStep
-from DEMON.learning.agents.agent_evolver import AgentConfigEvolver
-from DEMON.traces.store import TraceStore
+from OpenDEMON.core.types import StepType, Trace, TraceStep
+from OpenDEMON.learning.agents.agent_evolver import AgentConfigEvolver
+from OpenDEMON.traces.store import TraceStore
 
 # ---------------------------------------------------------------------------
 # Helpers

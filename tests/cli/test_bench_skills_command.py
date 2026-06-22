@@ -1,4 +1,4 @@
-﻿"""Tests for DEMON bench skills CLI command (Plan 2B)."""
+"""Tests for DEMON bench skills CLI command (Plan 2B)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from click.testing import CliRunner
 
-from DEMON.cli import cli
+from OpenDEMON.cli import cli
 
 
 class TestBenchSkillsCommand:
@@ -17,7 +17,7 @@ class TestBenchSkillsCommand:
         assert "condition" in result.output.lower()
 
     def test_runs_all_conditions_with_mocked_runner(self, tmp_path: Path) -> None:
-        from DEMON.evals.skill_benchmark import (
+        from OpenDEMON.evals.skill_benchmark import (
             ConditionComparison,
             ConditionResult,
             SkillBenchmarkConfig,
@@ -77,7 +77,7 @@ class TestBenchSkillsCommand:
                 assert "skills_optimized_dspy" in result.output
 
     def test_runs_single_condition(self, tmp_path: Path) -> None:
-        from DEMON.evals.skill_benchmark import ConditionResult
+        from OpenDEMON.evals.skill_benchmark import ConditionResult
 
         fake_result = ConditionResult(
             condition="skills_optimized_dspy",

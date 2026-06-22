@@ -1,7 +1,7 @@
-﻿"""Tests for PinchBench grading functions."""
+"""Tests for PinchBench grading functions."""
 
-from DEMON.evals.core.types import EvalRecord
-from DEMON.evals.scorers.pinchbench import (
+from OpenDEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.scorers.pinchbench import (
     _grade_automated,
     _parse_judge_response,
     _summarize_transcript,

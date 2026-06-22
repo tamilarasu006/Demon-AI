@@ -1,4 +1,4 @@
-﻿"""SWEfficiency dataset (swefficiency/swefficiency).
+"""SWEfficiency dataset (swefficiency/swefficiency).
 
 Agentic benchmark for software performance optimization.
 """
@@ -9,8 +9,8 @@ import json
 import random
 from typing import Any, Iterable, List, MutableMapping, Optional, Sequence
 
-from DEMON.evals.core.dataset import DatasetProvider
-from DEMON.evals.core.types import EvalRecord
+from OpenDEMON.evals.core.dataset import DatasetProvider
+from OpenDEMON.evals.core.types import EvalRecord
 
 _HF_PATH = "swefficiency/swefficiency"
 

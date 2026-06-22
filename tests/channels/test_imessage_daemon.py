@@ -1,4 +1,4 @@
-﻿"""Tests for iMessage AppleScript daemon."""
+"""Tests for iMessage AppleScript daemon."""
 
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ def _create_fake_chat_db(db_path: Path) -> None:
 
 
 def test_poll_new_messages(tmp_path: Path) -> None:
-    from DEMON.channels.imessage_daemon import poll_new_messages
+    from OpenDEMON.channels.imessage_daemon import poll_new_messages
 
     db_path = tmp_path / "chat.db"
     _create_fake_chat_db(db_path)
@@ -48,7 +48,7 @@ def test_poll_new_messages(tmp_path: Path) -> None:
 
 
 def test_poll_skips_old_messages(tmp_path: Path) -> None:
-    from DEMON.channels.imessage_daemon import poll_new_messages
+    from OpenDEMON.channels.imessage_daemon import poll_new_messages
 
     db_path = tmp_path / "chat.db"
     _create_fake_chat_db(db_path)
@@ -61,7 +61,7 @@ def test_poll_skips_old_messages(tmp_path: Path) -> None:
 
 
 def test_poll_filters_by_chat(tmp_path: Path) -> None:
-    from DEMON.channels.imessage_daemon import poll_new_messages
+    from OpenDEMON.channels.imessage_daemon import poll_new_messages
 
     db_path = tmp_path / "chat.db"
     _create_fake_chat_db(db_path)
@@ -74,7 +74,7 @@ def test_poll_filters_by_chat(tmp_path: Path) -> None:
 
 
 def test_poll_skips_own_messages(tmp_path: Path) -> None:
-    from DEMON.channels.imessage_daemon import poll_new_messages
+    from OpenDEMON.channels.imessage_daemon import poll_new_messages
 
     db_path = tmp_path / "chat.db"
     conn = sqlite3.connect(str(db_path))

@@ -1,4 +1,4 @@
-﻿"""``DEMON scan`` — audit your environment for privacy and security risks."""
+"""``DEMON scan`` — audit your environment for privacy and security risks."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from typing import Callable, List
 
 import click
 
-from DEMON.core.paths import get_config_dir
+from OpenDEMON.core.paths import get_config_dir
 
 # Engine ports that should only be listening on localhost.
 _ENGINE_PORTS = {11434, 8080, 8000, 30000, 1234, 52415, 18181}
@@ -483,7 +483,7 @@ def _render_results(results: List[ScanResult]) -> None:
     if fail_count:
         console.print(
             "[red bold]Action required:[/red bold] address critical findings "
-            "before storing sensitive data with DEMON."
+            "before storing sensitive data with OpenDEMON."
         )
         console.print()
     elif warn_count:

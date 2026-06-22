@@ -1,4 +1,4 @@
-﻿"""SQLite-backed telemetry storage."""
+"""SQLite-backed telemetry storage."""
 
 from __future__ import annotations
 
@@ -9,8 +9,8 @@ import time
 from pathlib import Path
 from typing import Any
 
-from DEMON.core.events import Event, EventBus, EventType
-from DEMON.core.types import TelemetryRecord
+from OpenDEMON.core.events import Event, EventBus, EventType
+from OpenDEMON.core.types import TelemetryRecord
 
 logger = logging.getLogger(__name__)
 

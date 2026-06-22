@@ -1,4 +1,4 @@
-﻿"""Tests for SyncScheduler — periodic incremental sync background thread."""
+"""Tests for SyncScheduler — periodic incremental sync background thread."""
 
 from __future__ import annotations
 
@@ -8,11 +8,11 @@ from typing import Iterator, Optional
 
 import pytest
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.connectors.pipeline import IngestionPipeline
-from DEMON.connectors.scheduler import SyncScheduler
-from DEMON.connectors.store import KnowledgeStore
-from DEMON.connectors.sync_engine import SyncEngine
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.connectors.pipeline import IngestionPipeline
+from OpenDEMON.connectors.scheduler import SyncScheduler
+from OpenDEMON.connectors.store import KnowledgeStore
+from OpenDEMON.connectors.sync_engine import SyncEngine
 
 # ---------------------------------------------------------------------------
 # Fixtures and helpers

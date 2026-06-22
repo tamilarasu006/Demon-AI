@@ -1,4 +1,4 @@
-﻿"""Tests for the ``DEMON vault`` CLI commands."""
+"""Tests for the ``DEMON vault`` CLI commands."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest import mock
 import pytest
 from click.testing import CliRunner
 
-from DEMON.cli.vault_cmd import vault
+from OpenDEMON.cli.vault_cmd import vault
 
 
 class TestVaultCmd:

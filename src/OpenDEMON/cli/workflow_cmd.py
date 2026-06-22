@@ -1,4 +1,4 @@
-﻿"""``DEMON workflow`` — workflow management commands."""
+"""``DEMON workflow`` — workflow management commands."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ def list_workflows() -> None:
     """List available workflow definitions."""
     console = Console(stderr=True)
     try:
-        from DEMON.workflow.loader import discover_workflows
+        from OpenDEMON.workflow.loader import discover_workflows
 
         workflows = discover_workflows()
         if not workflows:
@@ -43,7 +43,7 @@ def run(workflow_name: str, input_text: str | None) -> None:
     console = Console(stderr=True)
     console.print(f"[yellow]Running workflow: {workflow_name}[/yellow]")
     try:
-        from DEMON.workflow.loader import discover_workflows
+        from OpenDEMON.workflow.loader import discover_workflows
 
         workflows = discover_workflows()
         if workflow_name not in workflows:

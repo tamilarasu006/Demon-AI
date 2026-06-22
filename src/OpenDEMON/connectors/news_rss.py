@@ -1,4 +1,4 @@
-﻿"""News/RSS connector — aggregate headlines from RSS and Atom feeds.
+"""News/RSS connector — aggregate headlines from RSS and Atom feeds.
 
 Uses stdlib xml.etree.ElementTree for parsing (no extra dependencies).
 Config file lists feeds to follow. All HTTP calls are in module-level
@@ -16,9 +16,9 @@ from typing import Dict, Iterator, List, Optional
 
 import httpx
 
-from DEMON.connectors._stubs import BaseConnector, Document, SyncStatus
-from DEMON.core.config import DEFAULT_CONFIG_DIR
-from DEMON.core.registry import ConnectorRegistry
+from OpenDEMON.connectors._stubs import BaseConnector, Document, SyncStatus
+from OpenDEMON.core.config import DEFAULT_CONFIG_DIR
+from OpenDEMON.core.registry import ConnectorRegistry
 
 _DEFAULT_CONFIG_PATH = str(DEFAULT_CONFIG_DIR / "connectors" / "news_rss.json")
 

@@ -1,4 +1,4 @@
-﻿"""Tests for NativeReActAgent (formerly ReActAgent)."""
+"""Tests for NativeReActAgent (formerly ReActAgent)."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from DEMON.agents._stubs import AgentContext
-from DEMON.agents.native_react import NativeReActAgent
-from DEMON.core.events import EventBus, EventType
-from DEMON.core.registry import AgentRegistry
-from DEMON.core.types import Conversation, Message, Role, ToolResult
-from DEMON.tools._stubs import BaseTool, ToolSpec
+from OpenDEMON.agents._stubs import AgentContext
+from OpenDEMON.agents.native_react import NativeReActAgent
+from OpenDEMON.core.events import EventBus, EventType
+from OpenDEMON.core.registry import AgentRegistry
+from OpenDEMON.core.types import Conversation, Message, Role, ToolResult
+from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
 # ---------------------------------------------------------------------------
 # Helpers

@@ -1,10 +1,10 @@
-﻿"""Tests for taint tracking system (Phase 14.5)."""
+"""Tests for taint tracking system (Phase 14.5)."""
 
 from __future__ import annotations
 
 import pytest
 
-from DEMON.security.taint import (
+from OpenDEMON.security.taint import (
     SINK_POLICY,
     TaintLabel,
     TaintSet,

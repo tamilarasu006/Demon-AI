@@ -4,7 +4,13 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = 8080;
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '';
+const OPENAI_API_KEY = OPENROUTER_API_KEY; // alias used below
+
+// OpenRouter base
+const OR_HOST = 'openrouter.ai';
+const OR_CHAT = '/api/v1/chat/completions';
+const OR_MODEL = 'openai/gpt-4o-mini';
 
 // ── serve a file ──────────────────────────────────────────────────────────────
 function serveFile(res, filePath, contentType) {
@@ -40,20 +46,22 @@ function proxyOpenAI(req, res) {
     }
 
     const payload = JSON.stringify({
-      model: parsed.model || 'gpt-4o-mini',
+      model: parsed.model || OR_MODEL,
       messages: parsed.messages || [{ role: 'user', content: parsed.prompt || '' }],
       max_tokens: parsed.max_tokens || 1024,
       temperature: parsed.temperature !== undefined ? parsed.temperature : 0.7,
     });
 
     const options = {
-      hostname: 'api.openai.com',
+      hostname: OR_HOST,
       port: 443,
-      path: '/v1/chat/completions',
+      path: OR_CHAT,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'http://localhost:8080',
+        'X-Title': 'DEMON AI',
         'Content-Length': Buffer.byteLength(payload),
       }
     };
@@ -98,15 +106,15 @@ const server = http.createServer((req, res) => {
   // Health check
   if (req.method === 'GET' && url === '/health') {
     res.writeHead(200, corsHeaders({ 'Content-Type': 'application/json' }));
-    res.end(JSON.stringify({ status: 'ok', model: 'gpt-4o-mini', engine: 'openai' }));
+    res.end(JSON.stringify({ status: 'ok', model: OR_MODEL, engine: 'openrouter' }));
     return;
   }
 
-  // OpenAI chat proxy
+  // OpenRouter chat proxy
   if (req.method === 'POST' && url === '/v1/chat/completions') {
-    if (!OPENAI_API_KEY) {
+    if (!OPENROUTER_API_KEY) {
       res.writeHead(500, corsHeaders({ 'Content-Type': 'application/json' }));
-      res.end(JSON.stringify({ error: 'OPENAI_API_KEY not set on server' }));
+      res.end(JSON.stringify({ error: 'OPENROUTER_API_KEY not set on server' }));
       return;
     }
     proxyOpenAI(req, res);
@@ -173,5 +181,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`DEMON AI server running at http://localhost:${PORT}`);
-  console.log(`OpenAI key: ${OPENAI_API_KEY ? 'SET ✓' : 'MISSING ✗'}`);
+  console.log(`OpenRouter key: ${OPENROUTER_API_KEY ? 'SET ✓' : 'MISSING ✗'}`);
+  console.log(`Model: ${OR_MODEL}`);
 });

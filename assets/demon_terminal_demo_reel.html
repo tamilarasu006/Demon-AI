@@ -258,16 +258,47 @@ ttsToggle.addEventListener('click', ()=>{
   addLine('<span style="color:#555">Voice reply '+(ttsOn?'ON':'OFF')+'</span>');
 });
 
+// ── OpenAI TTS (nova voice) ───────────────────────────────────────────────────
+let currentAudio = null;
+
 function speak(text){
-  if(!ttsOn || !window.speechSynthesis) return Promise.resolve();
-  return new Promise(resolve=>{
-    window.speechSynthesis.cancel();
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.rate=1.0; utt.pitch=1.0;
-    utt.onstart = ()=>setMode('speaking');
-    utt.onend = utt.onerror = ()=>{ resolve(); };
-    window.speechSynthesis.speak(utt);
+  if(!ttsOn) return Promise.resolve();
+  // stop any playing audio
+  if(currentAudio){ currentAudio.pause(); currentAudio=null; }
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+
+  return new Promise(async resolve=>{
+    setMode('speaking');
+    try{
+      const res = await fetch(API_BASE+'/v1/tts',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ text, voice:'nova', speed:1.0 }),
+        signal: AbortSignal.timeout(20000)
+      });
+      if(!res.ok){ throw new Error('TTS error '+res.status); }
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      currentAudio = new Audio(url);
+      currentAudio.onended  = ()=>{ URL.revokeObjectURL(url); currentAudio=null; resolve(); };
+      currentAudio.onerror  = ()=>{ URL.revokeObjectURL(url); currentAudio=null; resolve(); };
+      currentAudio.play();
+    } catch(e){
+      // fallback to browser TTS if OpenAI TTS fails
+      if(window.speechSynthesis){
+        const utt = new SpeechSynthesisUtterance(text);
+        utt.onend = utt.onerror = ()=>resolve();
+        window.speechSynthesis.speak(utt);
+      } else {
+        resolve();
+      }
+    }
   });
+}
+
+function stopSpeaking(){
+  if(currentAudio){ currentAudio.pause(); currentAudio=null; }
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
 }
 
 // ── Wake-word continuous listener ─────────────────────────────────────────────
@@ -392,7 +423,8 @@ async function handleCommand(text){
 
   // stop command
   if(STOP_WORDS.some(w=>text.toLowerCase().includes(w))){
-    window.speechSynthesis && window.speechSynthesis.cancel();
+    if(currentAudio){ currentAudio.pause(); currentAudio=null; }
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
     addLine('<span style="color:#555">Stopped.</span>');
     if(wakeWatching){ setMode('wake-watching'); setTimeout(()=>_runWakeLoop(),300); }
     else setMode('idle');

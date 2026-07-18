@@ -102,7 +102,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // OpenAI proxy endpoint
+  // OpenAI chat proxy
   if (req.method === 'POST' && url === '/v1/chat/completions') {
     if (!OPENAI_API_KEY) {
       res.writeHead(500, corsHeaders({ 'Content-Type': 'application/json' }));
@@ -110,6 +110,59 @@ const server = http.createServer((req, res) => {
       return;
     }
     proxyOpenAI(req, res);
+    return;
+  }
+
+  // OpenAI TTS proxy — streams mp3 audio back to browser
+  if (req.method === 'POST' && url === '/v1/tts') {
+    if (!OPENAI_API_KEY) {
+      res.writeHead(500, corsHeaders({ 'Content-Type': 'application/json' }));
+      res.end(JSON.stringify({ error: 'OPENAI_API_KEY not set' }));
+      return;
+    }
+    let body = '';
+    req.on('data', c => { body += c; });
+    req.on('end', () => {
+      let parsed = {};
+      try { parsed = JSON.parse(body); } catch(e) {}
+      const payload = JSON.stringify({
+        model: 'tts-1',
+        input: parsed.text || '',
+        voice: parsed.voice || 'nova',    // nova = warm friendly female
+        response_format: 'mp3',
+        speed: parsed.speed || 1.0,
+      });
+      const opts = {
+        hostname: 'api.openai.com',
+        port: 443,
+        path: '/v1/audio/speech',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${OPENAI_API_KEY}`,
+          'Content-Length': Buffer.byteLength(payload),
+        }
+      };
+      const apiReq = https.request(opts, (apiRes) => {
+        if (apiRes.statusCode !== 200) {
+          let errData = '';
+          apiRes.on('data', c => { errData += c; });
+          apiRes.on('end', () => {
+            res.writeHead(apiRes.statusCode, corsHeaders({ 'Content-Type': 'application/json' }));
+            res.end(errData);
+          });
+          return;
+        }
+        res.writeHead(200, corsHeaders({ 'Content-Type': 'audio/mpeg' }));
+        apiRes.pipe(res);
+      });
+      apiReq.on('error', e => {
+        res.writeHead(502, corsHeaders({ 'Content-Type': 'application/json' }));
+        res.end(JSON.stringify({ error: e.message }));
+      });
+      apiReq.write(payload);
+      apiReq.end();
+    });
     return;
   }
 

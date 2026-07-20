@@ -1,0 +1,47 @@
+# DEMON configuration — OpenAI cloud engine
+
+[intelligence]
+default_model = "gpt-4o-mini"
+preferred_engine = "cloud"
+provider = "openai"
+temperature = 0.7
+max_tokens = 2048
+
+[agent]
+default_agent = "simple"
+max_turns = 10
+tools = "web_search,calculator,think"
+objective = "Answer questions helpfully and accurately"
+context_from_memory = false
+
+[tools.storage]
+default_backend = "sqlite"
+db_path = "~/.DEMON/memory.db"
+
+[tools.mcp]
+enabled = false
+
+[engine]
+default = "cloud"
+
+[engine.cloud]
+provider = "openai"
+model = "gpt-4o-mini"
+
+[engine.ollama]
+host = "http://localhost:11434"
+
+[learning]
+enabled = false
+
+[telemetry]
+enabled = false
+
+[traces]
+enabled = true
+db_path = "~/.DEMON/traces.db"
+
+[server]
+host = "127.0.0.1"
+port = 8000
+agent = "simple"

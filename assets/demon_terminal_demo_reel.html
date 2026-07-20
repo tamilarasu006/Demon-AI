@@ -526,7 +526,7 @@ async function boot(){
 
   try{
     const r = await fetch(API_BASE+'/health',{signal:AbortSignal.timeout(5000)});
-    if(r.ok){ setStatus('online'); addLine('<span style="color:#28c840">Backend online. Engine: GPT-4o-mini via OpenRouter</span>'); }
+    if(r.ok){ setStatus('online'); addLine('<span style="color:#28c840">Backend online. Engine: Free AI via OpenRouter (no credits needed)</span>'); }
     else throw new Error('HTTP '+r.status);
   }catch(e){
     setStatus('offline');

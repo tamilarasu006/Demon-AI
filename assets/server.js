@@ -10,7 +10,7 @@ const OPENAI_API_KEY = OPENROUTER_API_KEY; // alias used below
 // OpenRouter base
 const OR_HOST = 'openrouter.ai';
 const OR_CHAT = '/api/v1/chat/completions';
-const OR_MODEL = 'openai/gpt-4o-mini';
+const OR_MODEL = 'openrouter/free'; // auto-selects a free model, no credits needed
 
 // ── serve a file ──────────────────────────────────────────────────────────────
 function serveFile(res, filePath, contentType) {
@@ -106,7 +106,7 @@ const server = http.createServer((req, res) => {
   // Health check
   if (req.method === 'GET' && url === '/health') {
     res.writeHead(200, corsHeaders({ 'Content-Type': 'application/json' }));
-    res.end(JSON.stringify({ status: 'ok', model: OR_MODEL, engine: 'openrouter' }));
+    res.end(JSON.stringify({ status: 'ok', model: OR_MODEL, engine: 'openrouter-free' }));
     return;
   }
 

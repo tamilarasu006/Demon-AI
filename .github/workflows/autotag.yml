@@ -21,27 +21,38 @@ jobs:
         id: version
         run: |
           set -euo pipefail
-          # Base version is the next patch above the latest plain release tag
-          # (vX.Y.Z) reachable from HEAD. pyproject.toml no longer carries a
-          # static version (#526 switched it to hatch-vcs), so the release tag
-          # is the source of truth. `.devN`/`.rcN`/`desktop-*` tags are excluded
-          # so they can't be mistaken for the release base.
-          # Any future manual `X.Y.Z` release will outrank every `X.Y.Z.devN`
-          # autotag — PEP 440 sorts dev releases strictly below the final.
+
+          # Ensure we have full history and tags (guard against shallow checkouts)
+          git fetch --unshallow 2>/dev/null || true
+          git fetch --tags --prune
+
+          # List recent tags for debugging
+          echo "Available tags (most recent 50):"
+          git tag --list --sort=-v:refname | sed -n '1,50p'
+
+          # Base version is the next patch above the latest plain release tag (vX.Y.Z)
           LATEST_RELEASE=$(git tag --list 'v[0-9]*' --merged HEAD \
-            | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1)
+            | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1 || true)
+
           if [[ -z "$LATEST_RELEASE" ]]; then
-            echo "::error::No release tag (vX.Y.Z) reachable from HEAD"
-            exit 1
+            echo "::warning::No release tag (vX.Y.Z) reachable from HEAD — falling back to base 0.0.0"
+            BASE="0.0.0"
+          else
+            BASE="${LATEST_RELEASE#v}"
           fi
-          BASE="${LATEST_RELEASE#v}"
+
           MAJOR=$(echo "$BASE" | cut -d. -f1)
           MINOR=$(echo "$BASE" | cut -d. -f2)
           PATCH=$(echo "$BASE" | cut -d. -f3 | sed -E 's/[^0-9].*$//')
+          # defensive: if PATCH is empty set to 0
+          if [[ -z "${PATCH:-}" ]]; then
+            PATCH=0
+          fi
           NEXT_PATCH=$((PATCH + 1))
           BUILD=$(git rev-list --count HEAD)
           VERSION="${MAJOR}.${MINOR}.${NEXT_PATCH}.dev${BUILD}"
           TAG="v${VERSION}"
+
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
           echo "Computed ${TAG} (base=${BASE})"

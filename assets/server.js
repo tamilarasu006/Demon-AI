@@ -5,12 +5,25 @@ const path = require('path');
 
 const PORT = 8080;
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '';
-const OPENAI_API_KEY = OPENROUTER_API_KEY; // alias used below
+const NVIDIA_API_KEY     = process.env.NVIDIA_API_KEY || '';
+const OPENAI_API_KEY     = OPENROUTER_API_KEY; // alias
 
-// OpenRouter base
-const OR_HOST = 'openrouter.ai';
-const OR_CHAT = '/api/v1/chat/completions';
-const OR_MODEL = 'openrouter/free'; // auto-selects a free model, no credits needed
+// OpenRouter base (fallback)
+const OR_HOST  = 'openrouter.ai';
+const OR_CHAT  = '/api/v1/chat/completions';
+const OR_MODEL = 'openrouter/free';
+
+// NVIDIA NIM base (primary when key is set)
+const NV_HOST  = 'integrate.api.nvidia.com';
+const NV_CHAT  = '/v1/chat/completions';
+const NV_MODEL = 'meta/llama-3.1-8b-instruct'; // fast, free-tier NIM model
+
+// Pick active engine
+const USE_NVIDIA = !!NVIDIA_API_KEY;
+const ACTIVE_HOST  = USE_NVIDIA ? NV_HOST  : OR_HOST;
+const ACTIVE_PATH  = USE_NVIDIA ? NV_CHAT  : OR_CHAT;
+const ACTIVE_MODEL = USE_NVIDIA ? NV_MODEL : OR_MODEL;
+const ACTIVE_KEY   = USE_NVIDIA ? NVIDIA_API_KEY : OPENROUTER_API_KEY;
 
 // ── serve a file ──────────────────────────────────────────────────────────────
 function serveFile(res, filePath, contentType) {
@@ -46,20 +59,20 @@ function proxyOpenAI(req, res) {
     }
 
     const payload = JSON.stringify({
-      model: parsed.model || OR_MODEL,
+      model: parsed.model || ACTIVE_MODEL,
       messages: parsed.messages || [{ role: 'user', content: parsed.prompt || '' }],
       max_tokens: parsed.max_tokens || 1024,
       temperature: parsed.temperature !== undefined ? parsed.temperature : 0.7,
     });
 
     const options = {
-      hostname: OR_HOST,
+      hostname: ACTIVE_HOST,
       port: 443,
-      path: OR_CHAT,
+      path: ACTIVE_PATH,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'Authorization': `Bearer ${ACTIVE_KEY}`,
         'HTTP-Referer': 'http://localhost:8080',
         'X-Title': 'DEMON AI',
         'Content-Length': Buffer.byteLength(payload),
@@ -106,15 +119,21 @@ const server = http.createServer((req, res) => {
   // Health check
   if (req.method === 'GET' && url === '/health') {
     res.writeHead(200, corsHeaders({ 'Content-Type': 'application/json' }));
-    res.end(JSON.stringify({ status: 'ok', model: OR_MODEL, engine: 'openrouter-free' }));
+    res.end(JSON.stringify({
+      status: 'ok',
+      model: ACTIVE_MODEL,
+      engine: USE_NVIDIA ? 'nvidia-nim' : 'openrouter-free',
+      nvidia: !!NVIDIA_API_KEY,
+      openrouter: !!OPENROUTER_API_KEY
+    }));
     return;
   }
 
-  // OpenRouter chat proxy
+  // Chat proxy
   if (req.method === 'POST' && url === '/v1/chat/completions') {
-    if (!OPENROUTER_API_KEY) {
+    if (!ACTIVE_KEY) {
       res.writeHead(500, corsHeaders({ 'Content-Type': 'application/json' }));
-      res.end(JSON.stringify({ error: 'OPENROUTER_API_KEY not set on server' }));
+      res.end(JSON.stringify({ error: 'No API key configured on server' }));
       return;
     }
     proxyOpenAI(req, res);
@@ -181,6 +200,8 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`DEMON AI server running at http://localhost:${PORT}`);
-  console.log(`OpenRouter key: ${OPENROUTER_API_KEY ? 'SET ✓' : 'MISSING ✗'}`);
-  console.log(`Model: ${OR_MODEL}`);
+  console.log(`Engine : ${USE_NVIDIA ? 'NVIDIA NIM' : 'OpenRouter free'}`);
+  console.log(`Model  : ${ACTIVE_MODEL}`);
+  console.log(`NV key : ${NVIDIA_API_KEY     ? 'SET ✓' : 'not set'}`);
+  console.log(`OR key : ${OPENROUTER_API_KEY ? 'SET ✓' : 'not set'}`);
 });

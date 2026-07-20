@@ -133,6 +133,55 @@
   /* wake-activate btn */
   #wakeBtn{border:1px solid #444;color:#444;font-size:11px;padding:4px 10px;}
   #wakeBtn.watching{border-color:#0af;color:#0af;animation:pulse 2s ease-in-out infinite;}
+
+  /* ── Attachment button ── */
+  #attachBtn{
+    border:1px solid #333;color:#555;font-size:17px;padding:2px 8px;
+    position:relative;
+  }
+  #attachBtn:hover{border-color:#0af;color:#0af;background:rgba(0,170,255,0.08);}
+
+  /* ── Attachment popup menu ── */
+  .attach-menu{
+    position:absolute;bottom:56px;left:0;
+    background:#141414;border:1px solid #222;border-radius:10px;
+    padding:6px 0;min-width:220px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.7);
+    z-index:100;display:none;
+    font-family:'Share Tech Mono',monospace;
+  }
+  .attach-menu.open{display:block;animation:menuIn .15s ease;}
+  @keyframes menuIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .attach-menu-item{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 18px;cursor:pointer;font-size:13px;color:#bbb;
+    transition:background .12s,color .12s;position:relative;
+  }
+  .attach-menu-item:hover{background:#1e1e1e;color:#0cf;}
+  .attach-menu-item .icon{font-size:18px;width:22px;text-align:center;flex-shrink:0;}
+  .attach-menu-item .badge{
+    font-size:9px;background:#0af;color:#000;border-radius:4px;
+    padding:1px 5px;margin-left:auto;font-weight:bold;letter-spacing:.04em;
+  }
+  .attach-divider{height:1px;background:#1e1e1e;margin:4px 0;}
+  .attach-submenu-arrow{margin-left:auto;color:#444;font-size:11px;}
+
+  /* ── Attached file preview chips ── */
+  .attach-preview{
+    background:#0d0d0d;border-top:1px solid #1a1a1a;
+    padding:6px 14px;display:none;flex-wrap:wrap;gap:6px;
+    flex-shrink:0;
+  }
+  .attach-preview.has-files{display:flex;}
+  .file-chip{
+    display:flex;align-items:center;gap:6px;
+    background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;
+    padding:4px 10px;font-size:11px;color:#aaa;max-width:180px;
+  }
+  .file-chip .chip-icon{font-size:14px;}
+  .file-chip .chip-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;}
+  .file-chip .chip-remove{cursor:pointer;color:#555;margin-left:4px;}
+  .file-chip .chip-remove:hover{color:#f55;}
 </style>
 </head>
 <body>
@@ -169,14 +218,47 @@
     <div id="lines"></div>
   </div>
 
+  <!-- attached files preview strip -->
+  <div class="attach-preview" id="attachPreview"></div>
+
   <!-- text input bar -->
-  <div class="input-bar">
+  <div class="input-bar" style="position:relative;">
+
+    <!-- attachment popup menu -->
+    <div class="attach-menu" id="attachMenu">
+      <div class="attach-menu-item" id="menuUploadFiles">
+        <span class="icon">📎</span> Upload files
+      </div>
+      <div class="attach-menu-item" id="menuUploadImage">
+        <span class="icon">🖼️</span> Photos &amp; images
+      </div>
+      <div class="attach-menu-item" id="menuImportCode">
+        <span class="icon">&#x3C;&#x3E;</span> Import code
+      </div>
+      <div class="attach-divider"></div>
+      <div class="attach-menu-item" id="menuCanvas">
+        <span class="icon">🖊️</span> Canvas <span class="badge">NEW</span>
+      </div>
+      <div class="attach-menu-item" id="menuScreenshot">
+        <span class="icon">📸</span> Screenshot
+      </div>
+      <div class="attach-menu-item" id="menuPaste">
+        <span class="icon">📋</span> Paste text / JSON
+      </div>
+    </div>
+
+    <!-- hidden file inputs -->
+    <input type="file" id="fileInputAny"    style="display:none" multiple accept="*/*"/>
+    <input type="file" id="fileInputImage"  style="display:none" multiple accept="image/*"/>
+    <input type="file" id="fileInputCode"   style="display:none" multiple accept=".py,.js,.ts,.html,.css,.json,.yaml,.yml,.md,.txt,.sh,.c,.cpp,.h,.java,.rs,.go,.rb,.php,.sql"/>
+
     <span class="input-prompt">
       <span class="prompt-user">(demon)</span>
       <span class="prompt-user"> user</span><span class="prompt-at">@</span><span class="prompt-user">DEMON-AI</span>
       <span class="prompt-at">:</span><span class="prompt-dir">~/DEMON</span><span class="prompt-sym">$</span>
     </span>
     <input id="userInput" type="text" placeholder="or type here and press Enter..." autocomplete="off" spellcheck="false"/>
+    <button class="btn" id="attachBtn" title="Attach files">📎</button>
     <button class="btn" id="wakeBtn">WAKE OFF</button>
     <button class="btn" id="ttsToggle" title="Voice reply">🔊</button>
     <button class="btn" id="sendBtn">SEND</button>
@@ -200,6 +282,150 @@ const sendBtn    = document.getElementById('sendBtn');
 const wakeBtn    = document.getElementById('wakeBtn');
 const ttsToggle  = document.getElementById('ttsToggle');
 const statusBadge= document.getElementById('statusBadge');
+
+// ── Attachment refs ───────────────────────────────────────────────────────────
+const attachBtn      = document.getElementById('attachBtn');
+const attachMenu     = document.getElementById('attachMenu');
+const attachPreview  = document.getElementById('attachPreview');
+const fileInputAny   = document.getElementById('fileInputAny');
+const fileInputImage = document.getElementById('fileInputImage');
+const fileInputCode  = document.getElementById('fileInputCode');
+
+// Stores {name, type, content (base64 or text)} for each attached file
+let attachedFiles = [];
+
+// ── Toggle menu open/close ────────────────────────────────────────────────────
+attachBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  attachMenu.classList.toggle('open');
+});
+document.addEventListener('click', () => attachMenu.classList.remove('open'));
+attachMenu.addEventListener('click', (e) => e.stopPropagation());
+
+// ── Menu item handlers ────────────────────────────────────────────────────────
+document.getElementById('menuUploadFiles').addEventListener('click', () => {
+  attachMenu.classList.remove('open');
+  fileInputAny.click();
+});
+document.getElementById('menuUploadImage').addEventListener('click', () => {
+  attachMenu.classList.remove('open');
+  fileInputImage.click();
+});
+document.getElementById('menuImportCode').addEventListener('click', () => {
+  attachMenu.classList.remove('open');
+  fileInputCode.click();
+});
+document.getElementById('menuScreenshot').addEventListener('click', async () => {
+  attachMenu.classList.remove('open');
+  try {
+    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+    const track  = stream.getVideoTracks()[0];
+    const cap    = new ImageCapture(track);
+    const bmp    = await cap.grabFrame();
+    track.stop();
+    const canvas = document.createElement('canvas');
+    canvas.width = bmp.width; canvas.height = bmp.height;
+    canvas.getContext('2d').drawImage(bmp, 0, 0);
+    const b64 = canvas.toDataURL('image/png').split(',')[1];
+    addAttachedFile({ name: 'screenshot.png', type: 'image/png', content: b64, isBase64: true });
+    addLine('<span style="color:#555">Screenshot captured.</span>');
+  } catch(e) {
+    addLine('<span style="color:#555">Screenshot cancelled or not supported.</span>');
+  }
+});
+document.getElementById('menuPaste').addEventListener('click', async () => {
+  attachMenu.classList.remove('open');
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text.trim()) {
+      addAttachedFile({ name: 'pasted.txt', type: 'text/plain', content: text, isBase64: false });
+      addLine('<span style="color:#555">Clipboard content attached (' + text.length + ' chars).</span>');
+    }
+  } catch(e) {
+    addLine('<span style="color:#555">Clipboard access denied. Paste manually into the text box.</span>');
+  }
+});
+document.getElementById('menuCanvas').addEventListener('click', () => {
+  attachMenu.classList.remove('open');
+  addLine('<span style="color:#555">Canvas mode: draw or write in the text box below.</span>');
+});
+
+// ── Read files from input elements ────────────────────────────────────────────
+function handleFileInput(files) {
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    const isImage = file.type.startsWith('image/');
+    if (isImage) {
+      reader.onload = e => {
+        const b64 = e.target.result.split(',')[1];
+        addAttachedFile({ name: file.name, type: file.type, content: b64, isBase64: true, size: file.size });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      reader.onload = e => {
+        addAttachedFile({ name: file.name, type: file.type, content: e.target.result, isBase64: false, size: file.size });
+      };
+      reader.readAsText(file);
+    }
+  });
+}
+
+fileInputAny.addEventListener('change',   e => { handleFileInput(e.target.files); e.target.value=''; });
+fileInputImage.addEventListener('change', e => { handleFileInput(e.target.files); e.target.value=''; });
+fileInputCode.addEventListener('change',  e => { handleFileInput(e.target.files); e.target.value=''; });
+
+// ── Add a file to the attached list and show preview chip ─────────────────────
+function fileIcon(type, name) {
+  if (type.startsWith('image/'))   return '🖼️';
+  if (type.includes('pdf'))        return '📄';
+  if (type.includes('json'))       return '{}';
+  if (name.match(/\.(py|js|ts|html|css|sh|c|cpp|java|rs|go)$/i)) return '💻';
+  if (name.match(/\.(md|txt)$/i))  return '📝';
+  return '📎';
+}
+
+function addAttachedFile(fileObj) {
+  attachedFiles.push(fileObj);
+  renderPreviews();
+  addLine('<span style="color:#0af">Attached:</span> <span style="color:#888">' + escHtml(fileObj.name) + ' (' + (fileObj.size ? Math.round(fileObj.size/1024)+'KB' : 'clipboard') + ')</span>');
+}
+
+function renderPreviews() {
+  if (attachedFiles.length === 0) {
+    attachPreview.innerHTML = '';
+    attachPreview.classList.remove('has-files');
+    return;
+  }
+  attachPreview.classList.add('has-files');
+  attachPreview.innerHTML = attachedFiles.map((f, i) =>
+    `<div class="file-chip">
+      <span class="chip-icon">${fileIcon(f.type, f.name)}</span>
+      <span class="chip-name" title="${escHtml(f.name)}">${escHtml(f.name)}</span>
+      <span class="chip-remove" data-idx="${i}" title="Remove">✕</span>
+    </div>`
+  ).join('');
+  attachPreview.querySelectorAll('.chip-remove').forEach(el => {
+    el.addEventListener('click', () => {
+      attachedFiles.splice(parseInt(el.dataset.idx), 1);
+      renderPreviews();
+    });
+  });
+}
+
+// ── Build context string from attached files ──────────────────────────────────
+function buildFileContext() {
+  if (attachedFiles.length === 0) return '';
+  let ctx = '\n\n--- Attached Files ---\n';
+  attachedFiles.forEach(f => {
+    if (f.isBase64) {
+      ctx += `[Image: ${f.name}] (base64 image attached)\n`;
+    } else {
+      const preview = f.content.length > 8000 ? f.content.slice(0, 8000) + '\n...(truncated)' : f.content;
+      ctx += `\n[File: ${f.name}]\n\`\`\`\n${preview}\n\`\`\`\n`;
+    }
+  });
+  return ctx;
+}
 
 // ── state ─────────────────────────────────────────────────────────────────────
 let mode         = 'idle';   // idle | wake-watching | listening | thinking | speaking
@@ -431,11 +657,23 @@ async function handleCommand(text){
     return;
   }
 
+  // Build full prompt including file context
+  const fileCtx = buildFileContext();
+  const fullPrompt = text + fileCtx;
+
   inputEl.value = '';
   setMode('thinking');
   setStatus('thinking');
-  addLine(promptHtml(text), 'line-prompt');
+
+  // Show user message with attachment count indicator
+  const attachCount = attachedFiles.length;
+  const attachNote = attachCount > 0 ? ` <span style="color:#0af">[+${attachCount} file${attachCount>1?'s':''}]</span>` : '';
+  addLine(promptHtml(text) + attachNote, 'line-prompt');
   const thinkEl = addLine('<span class="thinking">⬤ DEMON is thinking...</span>', 'line-ai');
+
+  // Clear attachments after sending
+  attachedFiles = [];
+  renderPreviews();
 
   try{
     const res = await fetch(API_BASE+'/v1/chat/completions',{
@@ -443,7 +681,7 @@ async function handleCommand(text){
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         model:'gpt-4o-mini',
-        messages:[{role:'user',content:text}],
+        messages:[{role:'user',content:fullPrompt}],
         stream:false
       }),
       signal: AbortSignal.timeout(30000)

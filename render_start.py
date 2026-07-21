@@ -69,6 +69,14 @@ class EchoEngine(InferenceEngine):
             await asyncio.sleep(0.01)
 
     def list_models(self) -> List[str]:
+        if os.environ.get("NVIDIA_API_KEY"):
+            return [
+                "meta/llama-3.3-70b-instruct",
+                "meta/llama-3.1-405b-instruct",
+                "nvidia/llama-3.1-nemotron-ultra-253b-v1",
+                "mistralai/mistral-large-2-instruct",
+                "google/gemma-3-27b-it",
+            ]
         return ["echo-1"]
 
     def health(self) -> bool:
@@ -110,11 +118,31 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     host = "0.0.0.0"
 
+    # Set NVIDIA NIM API key as the primary cloud engine key if provided.
+    # NIM uses an OpenAI-compatible API at https://integrate.api.nvidia.com/v1
+    nvidia_key = os.environ.get("NVIDIA_API_KEY", "")
+    if nvidia_key:
+        # Override OPENAI env vars so the OpenAI client points to NVIDIA NIM
+        os.environ["OPENAI_API_KEY"] = nvidia_key
+        os.environ.setdefault("OPENAI_BASE_URL", "https://integrate.api.nvidia.com/v1")
+        print("[OpenDemon] NVIDIA NIM API key active — using integrate.api.nvidia.com", flush=True)
+
     config = load_config()
     register_builtin_models()
 
     engine_name, engine = _patched_get_engine(config)
+
+    # Pick default model based on active engine/key
+    default_model = "echo-1"
+    if nvidia_key:
+        default_model = "meta/llama-3.3-70b-instruct"
+    elif os.environ.get("OPENAI_API_KEY") and not nvidia_key:
+        default_model = "gpt-4o-mini"
+    elif os.environ.get("ANTHROPIC_API_KEY"):
+        default_model = "claude-haiku-4-5"
+
     print(f"[OpenDemon] Engine: {engine_name}", flush=True)
+    print(f"[OpenDemon] Default model: {default_model}", flush=True)
     print(f"[OpenDemon] Starting on http://{host}:{port}", flush=True)
 
     bus = EventBus()
@@ -124,7 +152,7 @@ if __name__ == "__main__":
 
     app = create_app(
         engine,
-        "echo-1",
+        default_model,
         agent=None,
         bus=bus,
         engine_name=engine_name,

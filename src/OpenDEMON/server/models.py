@@ -28,6 +28,7 @@ class ChatCompletionRequest(BaseModel):
     max_tokens: int = 1024
     stream: bool = False
     tools: Optional[List[Dict[str, Any]]] = None
+    skills: Optional[List[str]] = None  # filter active skill set per-request
 
 
 # ---------------------------------------------------------------------------

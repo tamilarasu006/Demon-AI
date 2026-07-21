@@ -314,6 +314,44 @@ def _build_tools(
     return tools
 
 
+def _build_catalog_xml_for_subset(skill_manager, names: list[str]) -> str:
+    """Build <available_skills> XML containing only the named skills."""
+    import html as _html
+    lines = ["<available_skills>"]
+    for name in names:
+        try:
+            manifest = skill_manager.resolve(name)
+        except KeyError:
+            continue
+        if getattr(manifest, "disable_model_invocation", False):
+            continue
+        lines.append(
+            f"  <skill name={_html.escape(name)!r}"
+            f" description={_html.escape(manifest.description or name)!r} />"
+        )
+    lines.append("</available_skills>")
+    return "\n".join(lines)
+
+
+def _build_few_shot_for_subset(skill_manager, names: list[str]) -> list[str]:
+    """Return few-shot examples only for the named skills."""
+    examples: list[str] = []
+    for name in names:
+        try:
+            manifest = skill_manager.resolve(name)
+        except KeyError:
+            continue
+        oj = manifest.metadata.get("DEMON", {}) if manifest.metadata else {}
+        for ex in oj.get("few_shot", []) or []:
+            if not isinstance(ex, dict):
+                continue
+            inp = str(ex.get("input", ""))
+            out = str(ex.get("output", ""))
+            if inp or out:
+                examples.append(f"### {name}\nInput: {inp}\nOutput: {out}")
+    return examples
+
+
 def _run_agent(
     agent_name: str,
     query_text: str,
@@ -326,6 +364,8 @@ def _run_agent(
     max_tokens: int,
     capability_policy=None,
     memory_files_config=None,
+    skill_catalog_xml: str | None = None,
+    skill_few_shot_examples: list[str] | None = None,
 ):
     """Instantiate and run an agent, returning the AgentResult."""
     # Import agents to trigger registration
@@ -398,6 +438,8 @@ def _run_agent(
             agent_template=config.agent.default_system_prompt or "",
             memory_files_config=memory_files_config or config.memory_files,
             system_prompt_config=config.system_prompt,
+            skill_catalog_xml=skill_catalog_xml,
+            skill_few_shot_examples=skill_few_shot_examples or [],
         )
 
     agent = agent_cls(engine, model_name, **agent_kwargs)
@@ -644,6 +686,18 @@ def _print_profile(
         "(overrides config). Pass 'none' to disable all persona files."
     ),
 )
+@click.option(
+    "--skill",
+    "skill_names",
+    multiple=True,
+    help="Skill name to enable (repeatable). e.g. --skill cuopt-install",
+)
+@click.option(
+    "--skills",
+    "skills_shorthand",
+    default=None,
+    help="Comma-separated skill names (shorthand). e.g. --skills 'cuopt-install,aiq-deploy'",
+)
 @click.pass_context
 def ask(
     ctx: click.Context,
@@ -663,6 +717,8 @@ def ask(
     persona_name: str | None,
     image_paths: tuple[str, ...] = (),
     capture_screen: bool = False,
+    skill_names: tuple[str, ...] = (),
+    skills_shorthand: str | None = None,
 ) -> None:
     """Ask DEMON a question."""
     quiet = (ctx.obj or {}).get("quiet", False) or output_json
@@ -860,6 +916,68 @@ def ask(
             model_name,
         )
 
+    # --- Skill selection ---------------------------------------------------
+    # Merge --skill (repeatable) and --skills (comma-separated shorthand)
+    _combined_skills: list[str] = list(skill_names)
+    if skills_shorthand and skills_shorthand.strip():
+        for _part in skills_shorthand.split(","):
+            _trimmed = _part.strip()
+            if _trimmed:
+                _combined_skills.append(_trimmed)
+    # Deduplicate preserving order
+    active_skill_names: list[str] | None = None
+    if _combined_skills:
+        active_skill_names = list(dict.fromkeys(_combined_skills))
+
+    # Validate skill names if requested
+    _skill_manager = None
+    _active_skill_tools: list | None = None
+    _active_catalog_xml: str | None = None
+    _active_few_shot: list[str] | None = None
+    if active_skill_names is not None:
+        try:
+            from OpenDEMON.core.events import EventBus as _EB
+            from OpenDEMON.skills.manager import SkillManager as _SM
+            from OpenDEMON.skills.validation import (
+                UnknownSkillsError as _USE,
+                resolve_skill_names as _rsn,
+            )
+
+            _skill_manager = _SM(_EB())
+            # Discover from configured skill paths
+            _skill_paths = []
+            try:
+                _skill_paths = [
+                    __import__("pathlib").Path(p)
+                    for p in (getattr(config.skills, "paths", None) or [])
+                ]
+            except Exception:
+                pass
+            if _skill_paths:
+                _skill_manager.discover(_skill_paths)
+            else:
+                _skill_manager.discover()
+
+            try:
+                active_skill_names = _rsn(
+                    active_skill_names,
+                    _skill_manager,
+                    catalog_is_empty=len(_skill_manager.skill_names()) == 0,
+                )
+            except _USE as _exc:
+                console.print(f"[red]{_exc}[/red]")
+                sys.exit(1)
+
+            console.print(
+                "[dim]Active skills: " + ", ".join(active_skill_names) + "[/dim]",
+            )
+            _active_skill_tools = _skill_manager.get_filtered_skill_tools(active_skill_names)
+            _active_catalog_xml = _build_catalog_xml_for_subset(_skill_manager, active_skill_names)
+            _active_few_shot = _build_few_shot_for_subset(_skill_manager, active_skill_names)
+        except ImportError:
+            console.print("[yellow]Skills subsystem unavailable; ignoring --skill.[/yellow]")
+    # --- End skill selection ----------------------------------------------
+
     # Agent mode (treat empty-string `--agent ""` as explicit opt-out)
     if agent_name:
         parsed_tools = resolve_tool_names(
@@ -880,6 +998,8 @@ def ask(
                 max_tokens,
                 capability_policy=sec.capability_policy,
                 memory_files_config=effective_mf,
+                skill_catalog_xml=_active_catalog_xml,
+                skill_few_shot_examples=_active_few_shot,
             )
         except EngineConnectionError as exc:
             console.print(f"[red]Engine error:[/red] {exc}")

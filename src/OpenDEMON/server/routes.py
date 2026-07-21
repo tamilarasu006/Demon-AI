@@ -183,6 +183,33 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
                 exc_info=True,
             )
 
+    # --- Skill selection (per-request; never mutates global skill_manager) ---
+    _validated_skills: list[str] | None = None
+    _skill_manager = getattr(request.app.state, "skill_manager", None)
+    if _skill_manager is not None and request_body.skills:
+        _requested_skills = [s for s in request_body.skills if s and s.strip()]
+        if _requested_skills:
+            from OpenDEMON.skills.validation import (
+                UnknownSkillsError as _USE,
+                resolve_skill_names as _rsn,
+            )
+            try:
+                _validated_skills = _rsn(
+                    _requested_skills,
+                    _skill_manager,
+                    catalog_is_empty=len(_skill_manager.skill_names()) == 0,
+                )
+            except _USE as _exc:
+                _detail: dict = {"unknown_skills": _exc.unknown_names}
+                if _exc.catalog_empty:
+                    _detail["detail"] = "No skills are installed."
+                raise HTTPException(status_code=422, detail=_detail)
+            if _validated_skills is not None:
+                logging.getLogger("DEMON.server").debug(
+                    "Skill selection active for request: %s", _validated_skills
+                )
+    # --- End skill selection -----------------------------------------------
+
     if request_body.stream:
         # When the client passes `tools`, stream the model's raw
         # OpenAI-compat function-calling decision directly from the engine
@@ -751,15 +778,8 @@ async def pull_model(request: Request):
         raise HTTPException(status_code=400, detail="'model' field is required")
 
     engine = request.app.state.engine
-    engine_name = getattr(request.app.state, "engine_name", "")
-    # Only Ollama supports pulling
-    if engine_name != "ollama" and getattr(engine, "engine_id", "") != "ollama":
-        raise HTTPException(
-            status_code=501,
-            detail="Model pulling is only supported with the Ollama engine",
-        )
-
     import httpx as _httpx
+
 
     host = getattr(engine, "_host", "http://localhost:11434")
     client = _httpx.Client(base_url=host, timeout=600.0)

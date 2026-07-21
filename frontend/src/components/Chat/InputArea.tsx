@@ -457,6 +457,14 @@ export function InputArea() {
       // numbers don't get stuck on the last sample.
       useAppStore.getState().setLiveEnergy(null);
     } finally {
+      // Reset stream state IMMEDIATELY so the textarea is re-enabled
+      // before any async cleanup (digest fetch, savings fetch, etc.)
+      resetStream();
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+
       if (!accumulatedContent) {
         accumulatedContent = 'No response was generated. Please try again.';
       }
@@ -478,7 +486,10 @@ export function InputArea() {
       // Check if the response has digest audio available
       let audioMeta: { url: string } | undefined;
       try {
-        const digestRes = await fetch(`${getBase()}/api/digest`);
+        const digestController = new AbortController();
+        const digestTimeout = setTimeout(() => digestController.abort(), 2000);
+        const digestRes = await fetch(`${getBase()}/api/digest`, { signal: digestController.signal });
+        clearTimeout(digestTimeout);
         if (digestRes.ok) {
           const digest = await digestRes.json();
           if (digest.audio_available) {
@@ -499,21 +510,12 @@ export function InputArea() {
         researchTraces.length > 0 ? researchTraces : undefined,
         researchSourcesByRef.size > 0 ? flushSources() : undefined,
       );
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-      resetStream();
       useAppStore.getState().addLogEntry({
         timestamp: Date.now(), level: 'info', category: 'chat',
         message: `Response: ${accumulatedContent.length} chars`,
       });
       abortRef.current = null;
 
-      // Research path updates session counters optimistically from the
-      // `done` event's usage payload — re-fetching here would overwrite
-      // it with a potentially stale snapshot if the server's research
-      // telemetry hasn't been merged into /v1/savings yet.
       if (!deepResearch) {
         fetchSavings()
           .then((data) => useAppStore.getState().setSavings(data))
@@ -589,7 +591,7 @@ export function InputArea() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={selectedModel ? 'Message OpenJarvis...' : 'Pick a model first (⌘K)...'}
+          placeholder={selectedModel ? 'Message OpenDemon...' : 'Pick a model first (⌘K)...'}
           rows={1}
           className="flex-1 bg-transparent outline-none resize-none text-sm leading-relaxed"
           style={{ color: 'var(--color-text)', maxHeight: '200px' }}

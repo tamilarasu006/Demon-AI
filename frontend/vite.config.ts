@@ -14,7 +14,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
-    outDir: '../src/DEMON/server/static',
+    outDir: '../src/OpenDEMON/server/static',
     emptyOutDir: true,
     minify: 'esbuild',
     rollupOptions: {

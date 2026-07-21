@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: opendemon
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DEMON_API_KEY
+        sync: false
+    autoDeploy: true

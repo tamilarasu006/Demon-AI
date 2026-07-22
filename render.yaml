@@ -2,8 +2,9 @@ services:
   - type: web
     name: opendemon
     runtime: python
+    rootDir: .
     buildCommand: pip install uv && uv pip install --system ".[server]"
-    startCommand: python render_start.py
+    startCommand: python src/render_start.py
     plan: free
     healthCheckPath: /health
     envVars:

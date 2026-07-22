@@ -144,6 +144,14 @@ if __name__ == "__main__":
     print(f"[OpenDemon] Model   : {default_model}", flush=True)
     print(f"[OpenDemon] Listening on {host}:{port}", flush=True)
 
+    # Initialize MongoDB connection if URI is provided
+    if os.environ.get("MONGODB_URI"):
+        try:
+            from OpenDEMON.mongodb import get_db
+            get_db()  # triggers connection + ping
+        except Exception as exc:
+            print(f"[OpenDemon] MongoDB init error: {exc}", flush=True)
+
     bus = EventBus()
 
     app = create_app(

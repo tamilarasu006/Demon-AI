@@ -302,6 +302,16 @@ def create_app(
     app.include_router(analytics_router)
     include_all_routes(app)
 
+    # MongoDB routes (only mounted when MONGODB_URI is set)
+    import os as _os
+    if _os.environ.get("MONGODB_URI"):
+        try:
+            from OpenDEMON.server.mongodb_routes import router as mongo_router
+            app.include_router(mongo_router)
+            logger.info("MongoDB routes mounted at /api/mongo")
+        except Exception as _exc:
+            logger.debug("MongoDB routes skipped: %s", _exc)
+
     # Restore SendBlue channel bindings from database on startup
     _restore_sendblue_bindings(app)
 

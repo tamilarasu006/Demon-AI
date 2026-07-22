@@ -1,9 +1,9 @@
 services:
   - type: web
     name: opendemon
-    runtime: docker
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
+    runtime: python
+    buildCommand: pip install uv && uv pip install --system ".[server]"
+    startCommand: python src/render_start.py
     plan: free
     healthCheckPath: /health
     envVars:
@@ -17,4 +17,6 @@ services:
         sync: false
       - key: DEMON_API_KEY
         sync: false
+      - key: PYTHON_VERSION
+        value: "3.12"
     autoDeploy: true

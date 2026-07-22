@@ -1,4 +1,4 @@
-﻿[package]
+[package]
 name = "DEMON-desktop"
 version = "1.0.1"
 description = "DEMON Desktop — Native AI assistant with energy monitoring, trace debugging, and learning visualization"

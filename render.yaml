@@ -3,8 +3,8 @@ services:
     name: opendemon
     runtime: python
     rootDir: .
-    buildCommand: pip install uv && uv pip install --system ".[server]"
-    startCommand: python src/render_start.py
+    buildCommand: bash render_build.sh
+    startCommand: python render_start.py
     plan: free
     healthCheckPath: /health
     envVars:
@@ -24,4 +24,12 @@ services:
         value: opendemon
       - key: PYTHON_VERSION
         value: "3.12"
+      - key: NODE_VERSION
+        value: 20.0.0
+      - key: DEMON_HOME
+        value: /var/lib/opendemon
+    disk:
+      name: opendemon-data
+      mountPath: /var/lib/opendemon
+      sizeGB: 1
     autoDeploy: true

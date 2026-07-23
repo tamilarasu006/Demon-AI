@@ -756,11 +756,10 @@ async def list_models(request: Request) -> ModelListResponse:
     from OpenDEMON.server.cloud_router import is_cloud_model, list_local_models
 
     # Prefer engine.list_models() so mock engines work in tests.
-    # Filter out any cloud model IDs that may appear via MultiEngine.
-    # Fall back to direct Ollama query only when the engine returns nothing.
+    # We now include ALL models (both local and configured cloud models)
+    # so they all appear in the Installed Models UI.
     engine = request.app.state.engine
-    all_ids = engine.list_models()
-    model_ids = [m for m in all_ids if not is_cloud_model(m)]
+    model_ids = engine.list_models()
     if not model_ids:
         model_ids = await list_local_models()
 

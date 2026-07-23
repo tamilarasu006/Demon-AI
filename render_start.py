@@ -36,7 +36,7 @@ class EchoEngine(InferenceEngine):
         **kwargs: Any,
     ) -> Dict[str, Any]:
         last = next(
-            (m.content for m in reversed(list(messages)) if m.role.value == "user"),
+            (m.content for m in reversed(list(messages)) if getattr(m.role, "value", m.role) == "user"),
             "Hello!",
         )
         reply = (

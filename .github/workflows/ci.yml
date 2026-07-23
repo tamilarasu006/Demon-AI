@@ -1,4 +1,4 @@
-﻿name: CI
+name: CI
 
 on:
   push:
@@ -60,7 +60,7 @@ jobs:
         run: uv sync --extra dev --extra framework-comparison --extra server
 
       - name: Build Rust extension
-        run: uv run maturin develop --manifest-path rust/crates/DEMON-python/Cargo.toml
+        run: uv run maturin develop --manifest-path rust/crates/OpenDEMON-python/Cargo.toml
 
       - name: Run tests
         run: |
@@ -116,8 +116,8 @@ jobs:
       - name: Verify Windows RAM detection (#373)
         shell: bash
         run: |
+        run: |
           uv run python -c "from DEMON.core.config import _total_ram_gb; ram = _total_ram_gb(); print(f'GlobalMemoryStatusEx RAM = {ram} GB'); assert ram > 0, f'Windows RAM detection returned {ram}, expected > 0'"
-
       - name: Run Windows-specific tests (hardware + CLI)
         shell: bash
         run: |
@@ -129,7 +129,7 @@ jobs:
       - name: Build + import the PyO3 extension on Windows
         shell: bash
         run: |
-          uv run maturin develop --manifest-path rust/crates/DEMON-python/Cargo.toml
+          uv run maturin develop --manifest-path rust/crates/OpenDEMON-python/Cargo.toml
           uv run python -c "import DEMON_rust; print('DEMON_rust imports on Windows OK')"
 
       - name: Smoke-test CLI

@@ -14,15 +14,15 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.0.0
+        uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
         run: uv sync --extra dev --extra framework-comparison --extra server
@@ -33,10 +33,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -44,7 +44,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cargo cache
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/registry
@@ -54,7 +54,7 @@ jobs:
           restore-keys: rust-${{ runner.os }}-
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.0.0
+        uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
         run: uv sync --extra dev --extra framework-comparison --extra server
@@ -98,15 +98,15 @@ jobs:
         # is exactly how the source-build failure slips in on Windows.
         python-version: ["3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.0.0
+        uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
         run: uv sync --extra dev --extra server
@@ -115,7 +115,6 @@ jobs:
       # install can never mask the actual RAM-detection verification.
       - name: Verify Windows RAM detection (#373)
         shell: bash
-        run: |
         run: |
           uv run python -c "from DEMON.core.config import _total_ram_gb; ram = _total_ram_gb(); print(f'GlobalMemoryStatusEx RAM = {ram} GB'); assert ram > 0, f'Windows RAM detection returned {ram}, expected > 0'"
       - name: Run Windows-specific tests (hardware + CLI)
@@ -143,7 +142,7 @@ jobs:
       run:
         working-directory: rust
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -151,7 +150,7 @@ jobs:
           components: clippy
 
       - name: Cargo cache
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/registry

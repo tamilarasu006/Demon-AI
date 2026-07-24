@@ -6,7 +6,7 @@ echo "Installing uv..."
 pip install uv
 
 echo "Installing backend dependencies..."
-uv pip install --system ".[server]"
+uv pip install ".[server]"
 
 echo "Building frontend..."
 cd frontend

@@ -222,7 +222,12 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
         # from the engine for true real-time output.
         if request_body.tools:
             return await _handle_stream_tools(
-                engine, model, request_body, complexity_info, app_config=config
+                engine,
+                model,
+                request_body,
+                complexity_info,
+                app_config=config,
+                bus=getattr(request.app.state, "bus", None),
             )
         return await _handle_stream(
             engine,
@@ -231,6 +236,7 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
             complexity_info,
             trace_store=getattr(request.app.state, "trace_store", None),
             app_config=config,
+            bus=getattr(request.app.state, "bus", None),
         )
 
     # Non-streaming: use agent if available, otherwise direct engine call.
@@ -459,6 +465,7 @@ async def _handle_stream_tools(
     complexity_info=None,
     *,
     app_config=None,
+    bus=None,
 ):
     """Stream a raw OpenAI-compat function-calling response via SSE.
 
@@ -474,13 +481,32 @@ async def _handle_stream_tools(
     regresses non-tool-capable engines.
     """
     from OpenDEMON.server.cloud_router import is_cloud_model
+    import time
 
     messages = _to_messages(req.messages)
     messages = _ensure_identity_prompt(messages, app_config)
     chunk_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     use_cloud = is_cloud_model(model)
+    
+    # Last user message — recorded as the trace query.
+    query_text = ""
+    for _m in reversed(req.messages):
+        if _m.role == "user" and _m.content:
+            query_text = _m.content
+            break
 
     async def generate():
+        started_at = time.time()
+        if bus:
+            from OpenDEMON.core.events import EventType
+            bus.publish(
+                EventType.INFERENCE_START,
+                {
+                    "model": model,
+                    "message_count": len(messages),
+                },
+            )
+            
         # Send the role chunk first (OpenAI convention).
         first_chunk = ChatCompletionChunk(
             id=chunk_id,
@@ -490,6 +516,8 @@ async def _handle_stream_tools(
         yield f"data: {first_chunk.model_dump_json()}\n\n"
 
         finish_reason = "stop"
+        token_count = 0
+        token_timestamps = []
         try:
             async for sc in engine.stream_full(
                 messages,
@@ -498,6 +526,10 @@ async def _handle_stream_tools(
                 max_tokens=req.max_tokens,
                 tools=req.tools,
             ):
+                if sc.content or sc.tool_calls:
+                    token_count += 1
+                    token_timestamps.append(time.time())
+                
                 if sc.content:
                     content_chunk = ChatCompletionChunk(
                         id=chunk_id,
@@ -539,6 +571,63 @@ async def _handle_stream_tools(
             yield f"data: {error_chunk.model_dump_json()}\n\n"
             yield "data: [DONE]\n\n"
             return
+            
+        latency = time.time() - started_at
+        ttft = token_timestamps[0] - started_at if token_timestamps else 0.0
+        throughput = token_count / latency if latency > 0 else 0.0
+        
+        if bus is not None:
+            from OpenDEMON.core.events import EventType
+            from OpenDEMON.core.types import TelemetryRecord, TOKEN_COUNTING_VERSION
+            from OpenDEMON.telemetry.instrumented_engine import _compute_itl_stats
+            
+            itl_values_ms = [
+                (token_timestamps[i] - token_timestamps[i - 1]) * 1000
+                for i in range(1, len(token_timestamps))
+            ]
+            itl_stats = _compute_itl_stats(itl_values_ms)
+            
+            prompt_tok = len(query_text) // 4
+            
+            record = TelemetryRecord(
+                timestamp=started_at,
+                model_id=model,
+                completion_tokens=token_count,
+                prompt_tokens=prompt_tok,
+                prompt_tokens_evaluated=prompt_tok,
+                total_tokens=prompt_tok + token_count,
+                latency_seconds=latency,
+                ttft=ttft,
+                throughput_tok_per_sec=throughput,
+                prefill_latency_seconds=ttft if ttft > 0 else 0.0,
+                decode_latency_seconds=latency - ttft if ttft > 0 else latency,
+                mean_itl_ms=itl_stats["mean"],
+                median_itl_ms=itl_stats["median"],
+                p90_itl_ms=itl_stats["p90"],
+                p95_itl_ms=itl_stats["p95"],
+                p99_itl_ms=itl_stats["p99"],
+                std_itl_ms=itl_stats["std"],
+                is_streaming=True,
+                engine="cloud" if use_cloud else "ollama",
+                energy_method="",
+                energy_vendor="",
+                token_counting_version=TOKEN_COUNTING_VERSION,
+            )
+            
+            event_data = {
+                "model": model,
+                "latency": latency,
+                "ttft": ttft,
+                "throughput_tok_per_sec": throughput,
+                "completion_tokens": token_count,
+                "is_streaming": True,
+                "mean_itl_ms": itl_stats["mean"],
+                "median_itl_ms": itl_stats["median"],
+                "p95_itl_ms": itl_stats["p95"],
+            }
+            
+            bus.publish(EventType.INFERENCE_END, event_data)
+            bus.publish(EventType.TELEMETRY_RECORD, {"record": record})
 
         import json as _json
 
@@ -572,6 +661,7 @@ async def _handle_stream(
     *,
     trace_store=None,
     app_config=None,
+    bus=None,
 ):
     """Stream response using SSE format.
 
@@ -606,6 +696,16 @@ async def _handle_stream(
 
     async def generate():
         started_at = time.time()
+        if bus:
+            from OpenDEMON.core.events import EventType
+            bus.publish(
+                EventType.INFERENCE_START,
+                {
+                    "model": model,
+                    "message_count": len(messages),
+                },
+            )
+
         full_content = ""
         # Send role chunk first
         first_chunk = ChatCompletionChunk(
@@ -618,6 +718,9 @@ async def _handle_stream(
             ],
         )
         yield f"data: {first_chunk.model_dump_json()}\n\n"
+
+        token_count = 0
+        token_timestamps = []
 
         try:
             # Cloud models → direct cloud API (reads keys from disk).
@@ -659,6 +762,8 @@ async def _handle_stream(
                         max_tokens=req.max_tokens,
                     )
             async for token in token_iter:
+                token_count += 1
+                token_timestamps.append(time.time())
                 full_content += token
                 chunk = ChatCompletionChunk(
                     id=chunk_id,
@@ -711,6 +816,64 @@ async def _handle_stream(
                 started_at=started_at,
                 ended_at=time.time(),
             )
+            
+        latency = time.time() - started_at
+        ttft = token_timestamps[0] - started_at if token_timestamps else 0.0
+        throughput = token_count / latency if latency > 0 else 0.0
+        
+        if bus is not None:
+            from OpenDEMON.core.events import EventType
+            from OpenDEMON.core.types import TelemetryRecord, TOKEN_COUNTING_VERSION
+            from OpenDEMON.telemetry.instrumented_engine import _compute_itl_stats
+            
+            itl_values_ms = [
+                (token_timestamps[i] - token_timestamps[i - 1]) * 1000
+                for i in range(1, len(token_timestamps))
+            ]
+            itl_stats = _compute_itl_stats(itl_values_ms)
+            
+            # Simple prompt token estimation based on length for bypassed path
+            prompt_tok = len(query_text) // 4
+            
+            record = TelemetryRecord(
+                timestamp=started_at,
+                model_id=model,
+                completion_tokens=token_count,
+                prompt_tokens=prompt_tok,
+                prompt_tokens_evaluated=prompt_tok,
+                total_tokens=prompt_tok + token_count,
+                latency_seconds=latency,
+                ttft=ttft,
+                throughput_tok_per_sec=throughput,
+                prefill_latency_seconds=ttft if ttft > 0 else 0.0,
+                decode_latency_seconds=latency - ttft if ttft > 0 else latency,
+                mean_itl_ms=itl_stats["mean"],
+                median_itl_ms=itl_stats["median"],
+                p90_itl_ms=itl_stats["p90"],
+                p95_itl_ms=itl_stats["p95"],
+                p99_itl_ms=itl_stats["p99"],
+                std_itl_ms=itl_stats["std"],
+                is_streaming=True,
+                engine="cloud" if use_cloud else "ollama",
+                energy_method="",
+                energy_vendor="",
+                token_counting_version=TOKEN_COUNTING_VERSION,
+            )
+            
+            event_data = {
+                "model": model,
+                "latency": latency,
+                "ttft": ttft,
+                "throughput_tok_per_sec": throughput,
+                "completion_tokens": token_count,
+                "is_streaming": True,
+                "mean_itl_ms": itl_stats["mean"],
+                "median_itl_ms": itl_stats["median"],
+                "p95_itl_ms": itl_stats["p95"],
+            }
+            
+            bus.publish(EventType.INFERENCE_END, event_data)
+            bus.publish(EventType.TELEMETRY_RECORD, {"record": record})
 
         # Send finish chunk with usage data if available
         import json as _json

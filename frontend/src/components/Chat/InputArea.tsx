@@ -6,6 +6,7 @@ import { streamChat, streamResearch } from '../../lib/sse';
 import { fetchSavings, getBase } from '../../lib/api';
 import { listConnectors, getSyncStatus } from '../../lib/connectors-api';
 import { MicButton } from './MicButton';
+import { AttachmentMenu } from './AttachmentMenu';
 import { useSpeech } from '../../hooks/useSpeech';
 import type {
   ChatMessage,
@@ -155,6 +156,12 @@ export function InputArea() {
     el.style.height = 'auto';
     el.style.height = Math.min(el.scrollHeight, 200) + 'px';
   }, [input]);
+
+  useEffect(() => {
+    if (!streamState.isStreaming && !modelLoading) {
+      textareaRef.current?.focus();
+    }
+  }, [streamState.isStreaming, modelLoading]);
 
   const stopStreaming = useCallback(() => {
     abortRef.current?.abort();
@@ -586,6 +593,7 @@ export function InputArea() {
           boxShadow: 'var(--shadow-sm)',
         }}
       >
+        <AttachmentMenu deepResearch={deepResearch} setDeepResearch={setDeepResearch} />
         <textarea
           ref={textareaRef}
           value={input}
@@ -593,6 +601,7 @@ export function InputArea() {
           onKeyDown={handleKeyDown}
           placeholder={selectedModel ? 'Message OpenDemon...' : 'Pick a model first (⌘K)...'}
           rows={1}
+          autoFocus
           className="flex-1 bg-transparent outline-none resize-none text-sm leading-relaxed"
           style={{ color: 'var(--color-text)', maxHeight: '200px' }}
           disabled={streamState.isStreaming || modelLoading}

@@ -1,4 +1,4 @@
-﻿import type { ModelInfo, SavingsData, ServerInfo } from '../types';
+import type { ModelInfo, SavingsData, ServerInfo } from '../types';
 
 // ---------------------------------------------------------------------------
 // Supabase config — safe to embed (RLS protects writes)
@@ -1099,4 +1099,30 @@ export async function setInferenceSource(
     // required…", "Could not store the API key…") as proper Error instances.
     throw new Error(e?.message ?? e ?? 'Failed to save inference source');
   }
+}
+
+// ---------------------------------------------------------------------------
+// Uploads
+// ---------------------------------------------------------------------------
+
+export async function uploadFiles(files: FileList | File[]): Promise<{ chunks_added: number }> {
+  const formData = new FormData();
+  for (let i = 0; i < files.length; i++) {
+    formData.append('files', files[i]);
+  }
+  // Remove default content-type so fetch sets the correct multipart boundary
+  const headers = authHeaders();
+  
+  const res = await fetch(`${getBase()}/v1/connectors/upload/ingest/files`, {
+    method: 'POST',
+    headers, // Omit Content-Type to let the browser set it automatically
+    body: formData,
+  });
+  
+  if (!res.ok) {
+    const errorText = await res.text().catch(() => 'Upload failed');
+    throw new Error(`Upload failed: ${res.status} - ${errorText}`);
+  }
+  
+  return res.json();
 }

@@ -71,11 +71,12 @@ class EchoEngine(InferenceEngine):
     def list_models(self) -> List[str]:
         if os.environ.get("NVIDIA_API_KEY"):
             return [
+                "meta/llama-3.1-8b-instruct",
+                "meta/llama-3.1-8b-instruct",
                 "meta/llama-3.3-70b-instruct",
                 "meta/llama-3.1-405b-instruct",
                 "nvidia/llama-3.1-nemotron-ultra-253b-v1",
                 "mistralai/mistral-large-2-instruct",
-                "google/gemma-3-27b-it",
             ]
         return ["echo-1"]
 
@@ -135,7 +136,7 @@ if __name__ == "__main__":
     # Pick default model based on active engine/key
     default_model = "echo-1"
     if nvidia_key:
-        default_model = "meta/llama-3.3-70b-instruct"
+        default_model = "meta/llama-3.1-8b-instruct"
     elif os.environ.get("OPENAI_API_KEY") and not nvidia_key:
         default_model = "gpt-4o-mini"
     elif os.environ.get("ANTHROPIC_API_KEY"):

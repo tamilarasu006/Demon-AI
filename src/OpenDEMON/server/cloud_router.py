@@ -141,9 +141,15 @@ async def _stream_openai(
     messages: Sequence[Message],
     temperature: float,
     max_tokens: int,
-    base_url: str = "https://api.openai.com/v1",
+    base_url: str | None = None,
     api_key_name: str = "OPENAI_API_KEY",
 ) -> AsyncIterator[str]:
+    if base_url is None:
+        base_url = os.environ.get("OPENAI_BASE_URL") or "https://api.openai.com/v1"
+
+    if "integrate.api.nvidia.com" in base_url and model.startswith(("gpt-", "o1-", "o3-", "o4-", "chatgpt-")):
+        model = "meta/llama-3.1-8b-instruct"
+
     keys = _load_keys()
     api_key = keys.get(api_key_name, "")
     if not api_key:
@@ -350,50 +356,66 @@ async def stream_cloud(
 ) -> AsyncIterator[str]:
     """Stream tokens from a cloud provider for the given model."""
     provider = get_provider(model)
+    keys = _load_keys()
+    
+    base_url = os.environ.get("OPENAI_BASE_URL", "")
+    is_nim = "integrate.api.nvidia.com" in base_url
 
     if provider == "openai":
         async for token in _stream_openai(model, messages, temperature, max_tokens):
             yield token
 
     elif provider == "anthropic":
-        async for token in _stream_anthropic(model, messages, temperature, max_tokens):
-            yield token
+        if is_nim and not keys.get("ANTHROPIC_API_KEY"):
+            async for token in _stream_openai("meta/llama-3.1-8b-instruct", messages, temperature, max_tokens):
+                yield token
+        else:
+            async for token in _stream_anthropic(model, messages, temperature, max_tokens):
+                yield token
 
     elif provider == "google":
-        async for token in _stream_google(model, messages, temperature, max_tokens):
-            yield token
+        if is_nim and not (keys.get("GEMINI_API_KEY") or keys.get("GOOGLE_API_KEY")):
+            async for token in _stream_openai("meta/llama-3.1-8b-instruct", messages, temperature, max_tokens):
+                yield token
+        else:
+            async for token in _stream_google(model, messages, temperature, max_tokens):
+                yield token
 
     elif provider == "openrouter":
-        keys = _load_keys()
         api_key = keys.get("OPENROUTER_API_KEY", "")
-        if not api_key:
-            raise ValueError(
-                "OPENROUTER_API_KEY not set — add it in the Cloud Models tab"
-            )
-        async for token in _stream_openai(
-            model,
-            messages,
-            temperature,
-            max_tokens,
-            base_url="https://openrouter.ai/api/v1",
-            api_key_name="OPENROUTER_API_KEY",
-        ):
-            yield token
+        if is_nim and not api_key:
+            async for token in _stream_openai("meta/llama-3.1-8b-instruct", messages, temperature, max_tokens):
+                yield token
+        else:
+            if not api_key:
+                raise ValueError("OPENROUTER_API_KEY not set — add it in the Cloud Models tab")
+            async for token in _stream_openai(
+                model,
+                messages,
+                temperature,
+                max_tokens,
+                base_url="https://openrouter.ai/api/v1",
+                api_key_name="OPENROUTER_API_KEY",
+            ):
+                yield token
 
     elif provider == "minimax":
-        keys = _load_keys()
         api_key = keys.get("MINIMAX_API_KEY", "")
-        if not api_key:
-            raise ValueError("MINIMAX_API_KEY not set — add it in the Cloud Models tab")
-        async for token in _stream_openai(
-            model,
-            messages,
-            temperature,
-            max_tokens,
-            base_url="https://api.minimax.io/v1",
-            api_key_name="MINIMAX_API_KEY",
-        ):
-            yield token
+        if is_nim and not api_key:
+            async for token in _stream_openai("meta/llama-3.1-8b-instruct", messages, temperature, max_tokens):
+                yield token
+        else:
+            if not api_key:
+                raise ValueError("MINIMAX_API_KEY not set — add it in the Cloud Models tab")
+            async for token in _stream_openai(
+                model,
+                messages,
+                temperature,
+                max_tokens,
+                base_url="https://api.minimax.io/v1",
+                api_key_name="MINIMAX_API_KEY",
+            ):
+                yield token
 
     else:
         raise ValueError(f"Unknown cloud provider for model: {model!r}")

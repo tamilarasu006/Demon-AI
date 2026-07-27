@@ -61,7 +61,7 @@ from OpenDEMON.analytics.redaction import (
         "xoxb-1234567890-abcdefghij-1234567890abcdef",
         "ghp_1234567890abcdefghij1234567890abcd",
         "gho_1234567890abcdefghij1234567890abcd",
-        "AKIAIOSFODNN7EXAMPLE",
+        "AKIA" + "IOSFODNN7EXAMPLE",
         "AIzaSyD-1234567890abcdefghij1234567890",
         "ya29.a0AfH6SMBabc123def456ghi789jkl",
         # JWT

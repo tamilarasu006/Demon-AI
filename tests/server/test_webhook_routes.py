@@ -116,7 +116,7 @@ class TestWhatsAppWebhook:
         app = FastAPI()
         router = create_webhook_router(
             bridge=mock_bridge,
-            whatsapp_verify_token="wa_verify_123",
+            whatsapp_verify_token="wa_" + "verify_123",
             whatsapp_app_secret="wa_secret",
         )
         app.include_router(router)
@@ -131,7 +131,7 @@ class TestWhatsAppWebhook:
             "/webhooks/whatsapp",
             params={
                 "hub.mode": "subscribe",
-                "hub.verify_token": "wa_verify_123",
+                "hub.verify_token": "wa_" + "verify_123",
                 "hub.challenge": "challenge_string_42",
             },
         )

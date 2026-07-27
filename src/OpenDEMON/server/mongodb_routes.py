@@ -3,21 +3,28 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request, Path
 from pydantic import BaseModel
 
 router = APIRouter(prefix="/api/mongo", tags=["mongodb"])
 
 
-class ConversationBody(BaseModel):
-    id: str
-    title: Optional[str] = "New chat"
-    model: Optional[str] = ""
-    messages: Optional[List[Dict[str, Any]]] = []
+from OpenDEMON.server.models import StrictBaseModel
+from pydantic import Field
 
+class ConversationBody(StrictBaseModel):
+    id: str = Field(..., min_length=1, max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")
+    title: Optional[str] = Field(default="New chat", max_length=255)
+    model: Optional[str] = Field(default="", max_length=100)
+    messages: Optional[List[Dict[str, Any]]] = None
+
+
+from OpenDEMON.server.limiter import limiter
+from OpenDEMON.core.config import load_config
 
 @router.get("/health")
-def mongo_health():
+@limiter.limit(lambda: load_config().server.ratelimit_public)
+async def mongo_health(request: Request):
     """Check MongoDB connectivity."""
     try:
         from OpenDEMON.mongodb import ping
@@ -38,7 +45,7 @@ def list_conversations():
 
 
 @router.get("/conversations/{conversation_id}")
-def get_conversation(conversation_id: str):
+def get_conversation(conversation_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Get a specific conversation."""
     try:
         from OpenDEMON.mongodb import load_conversation
@@ -64,7 +71,7 @@ def save_conversation(body: ConversationBody):
 
 
 @router.delete("/conversations/{conversation_id}")
-def delete_conversation(conversation_id: str):
+def delete_conversation(conversation_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Delete a conversation."""
     try:
         from OpenDEMON.mongodb import delete_conversation as _delete

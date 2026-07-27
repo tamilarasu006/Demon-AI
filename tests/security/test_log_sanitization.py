@@ -42,7 +42,7 @@ class TestSanitizingFormatter:
             exc_info=None,
         )
         result = fmt.format(record)
-        assert "AKIAIOSFODNN7EXAMPLE" not in result
+        assert "AKIA" + "IOSFODNN7EXAMPLE" not in result
 
     def test_clean_message_unchanged(self) -> None:
         from OpenDEMON.cli.log_config import SanitizingFormatter

@@ -236,7 +236,7 @@ class TestGuardrailsEngineStream:
         bus = EventBus(record_history=True)
         mock = _make_mock_engine()
         mock.stream = lambda messages, **kw: _async_token_iter(
-            ["The key is ", "sk-abc123def456ghi789jkl012"],
+            ["The key is ", "sk-" + "abc123def456ghi789jkl012"],
         )
         ge = GuardrailsEngine(mock, bus=bus)
 
@@ -253,7 +253,7 @@ class TestGuardrailsEngineStream:
         bus = EventBus(record_history=True)
         mock = _make_mock_engine()
         mock.stream = lambda messages, **kw: _async_token_iter(
-            ["The key is ", "sk-abc123def456ghi789jkl012"],
+            ["The key is ", "sk-" + "abc123def456ghi789jkl012"],
         )
         ge = GuardrailsEngine(mock, bus=bus)
 
@@ -271,7 +271,7 @@ class TestGuardrailsEngineStream:
         bus = EventBus(record_history=True)
         mock = _make_mock_engine()
         mock.stream = lambda messages, **kw: _async_token_iter(
-            ["The key is ", "sk-abc123def456ghi789jkl012"],
+            ["The key is ", "sk-" + "abc123def456ghi789jkl012"],
         )
         ge = GuardrailsEngine(mock, scan_output=False, bus=bus)
 

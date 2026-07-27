@@ -994,6 +994,18 @@ class ServerConfig:
     agent: str = "orchestrator"
     model: str = ""
     workers: int = 1
+    ratelimit_public: str = field(
+        default_factory=lambda: os.getenv("DEMON_RATELIMIT_PUBLIC", "60/minute")
+    )
+    ratelimit_auth: str = field(
+        default_factory=lambda: os.getenv("DEMON_RATELIMIT_AUTH", "30/minute")
+    )
+    auth_backoff_base_seconds: int = field(
+        default_factory=lambda: int(os.getenv("DEMON_AUTH_BACKOFF_BASE_SECONDS", "2"))
+    )
+    auth_backoff_max_seconds: int = field(
+        default_factory=lambda: int(os.getenv("DEMON_AUTH_BACKOFF_MAX_SECONDS", "60"))
+    )
     cors_origins: list = field(
         default_factory=lambda: [
             "http://localhost:3000",

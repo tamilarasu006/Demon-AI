@@ -80,6 +80,64 @@ def load_conversation(conversation_id: str) -> Optional[Dict[str, Any]]:
         return None
 
 
+def load_latest_telemetry_batch(limit: int = 10) -> List[Dict[str, Any]]:
+    """Load the latest telemetry batches."""
+    db = get_db()
+    if db is None:
+        return []
+    try:
+        cursor = db.telemetry.find().sort("timestamp", -1).limit(limit)
+        return list(cursor)
+    except Exception as exc:
+        logger.debug("[MongoDB] load_latest_telemetry_batch error: %s", exc)
+        return []
+
+
+# ── Users ─────────────────────────────────────────────────────────────────
+
+import uuid
+_mock_users = []
+
+def create_user(user_data: Dict[str, Any]) -> bool:
+    """Create a new user in MongoDB."""
+    db = get_db()
+    if db is None:
+        user_data["created_at"] = datetime.now(timezone.utc)
+        if "_id" not in user_data:
+            user_data["_id"] = str(uuid.uuid4())
+        _mock_users.append(user_data)
+        return True
+    try:
+        user_data["created_at"] = datetime.now(timezone.utc)
+        db.users.insert_one(user_data)
+        return True
+    except Exception as exc:
+        logger.debug("[MongoDB] create_user error: %s", exc)
+        return False
+
+def get_user_by_email(email: str) -> Optional[Dict[str, Any]]:
+    """Load a user by email."""
+    db = get_db()
+    if db is None:
+        return next((u for u in _mock_users if u.get("email") == email), None)
+    try:
+        return db.users.find_one({"email": email})
+    except Exception as exc:
+        logger.debug("[MongoDB] get_user_by_email error: %s", exc)
+        return None
+
+def get_user_by_id(user_id: str) -> Optional[Dict[str, Any]]:
+    """Load a user by ID."""
+    db = get_db()
+    if db is None:
+        return next((u for u in _mock_users if str(u.get("_id")) == str(user_id)), None)
+    try:
+        return db.users.find_one({"_id": user_id})
+    except Exception as exc:
+        logger.debug("[MongoDB] get_user_by_id error: %s", exc)
+        return None
+
+
 def list_conversations(limit: int = 100) -> List[Dict[str, Any]]:
     """List all conversations sorted by most recent."""
     db = get_db()

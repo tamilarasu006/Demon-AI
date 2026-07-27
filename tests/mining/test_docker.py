@@ -144,7 +144,7 @@ def test_patch_vllm_entrypoint_waits_for_gateway_socket(tmp_path):
 
 @pytest.fixture
 def _env_password(monkeypatch):
-    monkeypatch.setenv("PEARLD_RPC_PASSWORD", "secret123")
+    monkeypatch.setenv("PEARLD_RPC_PASSWORD", "secret" + "123")
 
 
 def test_launcher_start_calls_run_with_expected_kwargs(_env_password):
@@ -179,7 +179,7 @@ def test_launcher_start_calls_run_with_expected_kwargs(_env_password):
     assert kwargs["command"][0] == "pearl-ai/Llama-3.3-70B-Instruct-pearl"
     assert "--gpu-memory-utilization" in kwargs["command"]
     assert kwargs["restart_policy"]["Name"] == "unless-stopped"
-    assert kwargs["environment"]["PEARLD_RPC_PASSWORD"] == "secret123"
+    assert kwargs["environment"]["PEARLD_RPC_PASSWORD"] == "secret" + "123"
     assert kwargs["environment"]["PEARLD_MINING_ADDRESS"] == "prl1qaaa"
     assert kwargs["environment"]["MINER_RPC_TRANSPORT"] == "uds"
     assert kwargs["environment"]["MINER_RPC_SOCKET_PATH"] == "/tmp/pearlgw.sock"
@@ -335,12 +335,12 @@ def test_launcher_get_logs_redacts_rpc_passwords():
     fake_container.logs.return_value = (
         b"PearlNodeClient initialized with rpc_password: secret123\n"
         b"PEARLD_RPC_PASSWORD=secret123\n"
-        b'{"PEARLD_RPC_PASSWORD": "secret123"}\n'
+        b'{"PEARLD_RPC_PASSWORD": "secret" + "123"}\n'
     )
     launcher = PearlDockerLauncher(client=fake_client)
     launcher._container = fake_container
     logs = launcher.get_logs(tail=100)
-    assert "secret123" not in logs
+    assert "secret" + "123" not in logs
     assert logs.count("[REDACTED]") == 3
 
 

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
+import { getCurrentUser } from '../../lib/api';
 import {
   MessageSquare,
   Plus,
@@ -25,6 +26,11 @@ export function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  const [userProfile, setUserProfile] = useState<{name: string, email: string} | null>(null);
+
+  useEffect(() => {
+    getCurrentUser().then(setUserProfile).catch(() => {});
+  }, []);
 
   const sidebarOpen = useAppStore((s) => s.sidebarOpen);
   const toggleSidebar = useAppStore((s) => s.toggleSidebar);
@@ -90,7 +96,7 @@ export function Sidebar() {
           borderRight: sidebarOpen ? '1px solid var(--color-border)' : 'none',
         }}
       >
-        <div className="flex flex-col h-full w-[260px]">
+        <div className="flex flex-col h-full w-[260px] overflow-y-auto overflow-x-hidden min-h-0">
           {/* Header */}
           <div className="flex items-center justify-between px-3 pt-3 pb-2">
             <button
@@ -187,7 +193,7 @@ export function Sidebar() {
           </div>
 
           {/* Conversation list */}
-          <div className="flex-1 overflow-y-auto px-2">
+          <div className="flex-1 px-2 pb-2">
             <ConversationList searchQuery={searchQuery} />
           </div>
 
@@ -228,6 +234,21 @@ export function Sidebar() {
               );
             })}
           </nav>
+
+          {/* User Profile */}
+          {userProfile ? (
+            <div className="p-3 mx-2 mb-3 mt-1 rounded-lg border flex flex-col gap-1" style={{ borderColor: 'var(--color-border)', background: 'var(--color-bg-secondary)' }}>
+              <span className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>{userProfile.name}</span>
+              <span className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>{userProfile.email}</span>
+            </div>
+          ) : (
+            <div className="p-3 mx-2 mb-3 mt-1 rounded-lg border flex flex-col gap-2 items-center text-center" style={{ borderColor: 'var(--color-border)', background: 'var(--color-bg-secondary)' }}>
+              <span className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>Not authenticated</span>
+              <button onClick={() => navigate('/login')} className="w-full py-1.5 rounded text-xs font-medium transition-colors" style={{ background: 'var(--color-accent)', color: 'var(--color-bg-primary)' }}>
+                Login / Register
+              </button>
+            </div>
+          )}
         </div>
       </aside>
     </>

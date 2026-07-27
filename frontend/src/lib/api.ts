@@ -59,6 +59,8 @@ export const getBase = (): string => {
 // Returns '' when unset, so a keyless local server keeps working unchanged.
 export const getApiKey = (): string => {
   try {
+    const jwt = localStorage.getItem('jwt_token');
+    if (jwt) return jwt;
     const raw = localStorage.getItem('DEMON-settings');
     if (raw) {
       const parsed = JSON.parse(raw);
@@ -1126,3 +1128,60 @@ export async function uploadFiles(files: FileList | File[]): Promise<{ chunks_ad
   
   return res.json();
 }
+// ---------------------------------------------------------------------------
+// Authentication
+// ---------------------------------------------------------------------------
+
+export const registerUser = async (data: Record<string, string>) => {
+  const res = await apiFetch('/v1/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'Failed to register');
+  }
+  return res.json();
+};
+
+export const loginUser = async (data: Record<string, string>) => {
+  const res = await apiFetch('/v1/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'Failed to login');
+  }
+  const result = await res.json();
+  localStorage.setItem('jwt_token', result.access_token);
+  return result;
+};
+
+export const forgotPassword = async (email: string) => {
+  const res = await apiFetch('/v1/auth/forgot-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+  if (!res.ok) throw new Error('Failed to transmit recovery signal');
+  return res.json();
+};
+
+export const verifyOtp = async (otp: string) => {
+  const res = await apiFetch('/v1/auth/otp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ otp }),
+  });
+  if (!res.ok) throw new Error('Sequence confirmation failed');
+  return res.json();
+};
+
+export const getCurrentUser = async () => {
+  const res = await apiFetch('/v1/auth/me');
+  if (!res.ok) throw new Error('Not authenticated');
+  return res.json();
+};

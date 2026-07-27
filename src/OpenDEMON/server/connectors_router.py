@@ -71,16 +71,17 @@ def _ensure_connectors_registered() -> None:
 # ---------------------------------------------------------------------------
 
 try:
-    from pydantic import BaseModel as _BaseModel
+    from pydantic import Field
+    from OpenDEMON.server.models import StrictBaseModel
 
-    class ConnectRequest(_BaseModel):
+    class ConnectRequest(StrictBaseModel):
         """Credentials / connection parameters for a connector."""
 
-        path: Optional[str] = None
-        token: Optional[str] = None
-        code: Optional[str] = None
-        email: Optional[str] = None
-        password: Optional[str] = None
+        path: Optional[str] = Field(default=None, max_length=1024)
+        token: Optional[str] = Field(default=None, max_length=4096)
+        code: Optional[str] = Field(default=None, max_length=1024)
+        email: Optional[str] = Field(default=None, max_length=255)
+        password: Optional[str] = Field(default=None, max_length=255)
 
 except ImportError:
     ConnectRequest = None  # type: ignore[assignment,misc]
@@ -94,7 +95,7 @@ def create_connectors_router():
     this package.
     """
     try:
-        from fastapi import APIRouter, HTTPException
+        from fastapi import APIRouter, HTTPException, Request, Path
     except ImportError as exc:
         raise ImportError(
             "fastapi and pydantic are required for the connectors router"
@@ -318,7 +319,7 @@ def create_connectors_router():
         return {"connectors": results}
 
     @router.get("/{connector_id}")
-    async def connector_detail(connector_id: str):
+    async def connector_detail(connector_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         """Return detail for a single connector."""
         _ensure_connectors_registered()
         if not ConnectorRegistry.contains(connector_id):
@@ -374,7 +375,7 @@ def create_connectors_router():
         }
 
     @router.post("/{connector_id}/connect")
-    async def connect_connector(connector_id: str, req: ConnectRequest):
+    async def connect_connector(req: ConnectRequest, connector_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         """Connect a connector using the supplied credentials."""
         _ensure_connectors_registered()
         if not ConnectorRegistry.contains(connector_id):
@@ -456,7 +457,7 @@ def create_connectors_router():
         }
 
     @router.post("/{connector_id}/disconnect")
-    async def disconnect_connector(connector_id: str):
+    async def disconnect_connector(connector_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         """Disconnect a connector and clear its credentials."""
         _ensure_connectors_registered()
         if not ConnectorRegistry.contains(connector_id):
@@ -476,7 +477,7 @@ def create_connectors_router():
         }
 
     @router.get("/{connector_id}/oauth/start")
-    async def oauth_start(connector_id: str, request: Request):
+    async def oauth_start(request: Request, connector_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         """Redirect to the OAuth provider's consent page.
 
         The callback will come back to /v1/connectors/{id}/oauth/callback.
@@ -524,8 +525,8 @@ def create_connectors_router():
 
     @router.get("/{connector_id}/oauth/callback")
     async def oauth_callback(
-        connector_id: str,
         request: Request,
+        connector_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"),
         code: str = "",
         error: str = "",
     ):
@@ -613,7 +614,7 @@ def create_connectors_router():
         )
 
     @router.post("/{connector_id}/sync")
-    def trigger_sync(connector_id: str) -> Dict[str, Any]:
+    def trigger_sync(connector_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")) -> Dict[str, Any]:
         """Trigger a sync in the background and return immediately."""
         _ensure_connectors_registered()
         if not ConnectorRegistry.contains(connector_id):
@@ -631,7 +632,7 @@ def create_connectors_router():
         return {"connector_id": connector_id, "status": status}
 
     @router.get("/{connector_id}/sync")
-    async def sync_status(connector_id: str):
+    async def sync_status(connector_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         """Return the current sync status for a connector."""
         _ensure_connectors_registered()
         if not ConnectorRegistry.contains(connector_id):

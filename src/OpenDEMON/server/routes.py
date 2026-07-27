@@ -7,7 +7,10 @@ import uuid
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
+
+from OpenDEMON.core.config import load_config
+from OpenDEMON.server.limiter import limiter, user_limiter
 
 from OpenDEMON.core.paths import get_config_dir
 from OpenDEMON.core.types import Message, Role
@@ -90,6 +93,7 @@ def _ensure_identity_prompt(messages: list[Message], app_config) -> list[Message
 
 
 @router.post("/v1/chat/completions")
+@user_limiter.limit(lambda: load_config().server.ratelimit_auth)
 async def chat_completions(request_body: ChatCompletionRequest, request: Request):
     """Handle chat completion requests (streaming and non-streaming)."""
     engine = request.app.state.engine
@@ -910,6 +914,7 @@ async def _handle_stream(
 
 
 @router.get("/v1/models")
+@limiter.limit(lambda: load_config().server.ratelimit_auth)
 async def list_models(request: Request) -> ModelListResponse:
     """List locally installed models (Ollama).
 
@@ -932,6 +937,7 @@ async def list_models(request: Request) -> ModelListResponse:
 
 
 @router.post("/v1/models/pull")
+@user_limiter.limit(lambda: load_config().server.ratelimit_auth)
 async def pull_model(request: Request):
     """Pull / download a model from the Ollama registry."""
     body = await request.json()
@@ -1147,6 +1153,7 @@ async def server_info(request: Request):
 
 
 @router.get("/health")
+@limiter.limit(lambda: load_config().server.ratelimit_public)
 async def health(request: Request):
     """Health check endpoint."""
     engine = request.app.state.engine

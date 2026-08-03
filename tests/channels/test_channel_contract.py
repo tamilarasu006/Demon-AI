@@ -18,7 +18,7 @@ from OpenDEMON.core.registry import ChannelRegistry
 # Collect channel classes at import time (before registry gets cleared).
 # We store the actual class objects, not registry keys, so they survive
 # the autouse _clean_registries fixture.
-importlib.reload(DEMON.channels)
+importlib.reload(OpenDEMON.channels)
 _ALL_CHANNELS = [(key, ChannelRegistry.get(key)) for key in ChannelRegistry.keys()]
 
 

@@ -105,7 +105,7 @@ class TestShellExecTool:
         result = tool.execute(command="sleep 60", timeout=1)
         assert result.success is False
         assert "timed out" in result.content
-        assert result.metadata["returncode"] == -1
+        assert result.metadata["return_code"] == -1
         assert result.metadata["timeout_used"] == 1
 
     def test_timeout_capped_at_max(self):
@@ -277,5 +277,4 @@ class TestShellExecTool:
         ):
             result = tool.execute(command="/nonexistent_binary")
         assert result.success is False
-        assert result.metadata["returncode"] == -1
- code"] == -1
+        assert result.metadata["return_code"] == -1

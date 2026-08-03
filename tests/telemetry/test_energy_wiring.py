@@ -22,8 +22,8 @@ from OpenDEMON.telemetry.aggregator import AggregatedStats, TelemetryAggregator
 from OpenDEMON.telemetry.instrumented_engine import InstrumentedEngine
 from OpenDEMON.telemetry.store import TelemetryStore
 
-_ask_mod = importlib.import_module("DEMON.cli.ask")
-_bench_mod = importlib.import_module("DEMON.cli.bench_cmd")
+_ask_mod = importlib.import_module("OpenDEMON.cli.ask")
+_bench_mod = importlib.import_module("OpenDEMON.cli.bench_cmd")
 
 
 # ---------------------------------------------------------------------------

@@ -24,4 +24,3 @@ def test_DEMON_system_has_speech_backend():
     from OpenDEMON.system import DEMONSystem
 
     assert "speech_backend" in DEMONSystem.__dataclass_fields__
- ds__

@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-import DEMON
+import OpenDEMON
 from OpenDEMON.core.config import DEMONConfig
 from OpenDEMON.sdk import DEMON, MemoryHandle
 

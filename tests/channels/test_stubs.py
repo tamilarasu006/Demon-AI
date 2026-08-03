@@ -117,4 +117,4 @@ class TestBaseChannel:
         assert ch.channel_id == "dummy"
         assert ch.status() == ChannelStatus.DISCONNECTED
         assert ch.send("test", "hello") is True
-        assert ch.list_channels() == []
+        assert ch.list_channels

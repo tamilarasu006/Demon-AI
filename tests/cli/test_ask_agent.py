@@ -14,7 +14,7 @@ from OpenDEMON.cli import cli
 from OpenDEMON.core.types import ToolCall, ToolResult
 from OpenDEMON.tools._stubs import BaseTool, ToolSpec
 
-_ask_mod = importlib.import_module("DEMON.cli.ask")
+_ask_mod = importlib.import_module("OpenDEMON.cli.ask")
 
 
 def _mock_engine(content="Hello from engine"):

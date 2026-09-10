@@ -151,6 +151,15 @@ if __name__ == "__main__":
     # Allow all CORS origins for Render deployment
     cors_origins = ["*"]
 
+    agent_manager = None
+    try:
+        from OpenDEMON.agents.manager import AgentManager
+        from OpenDEMON.core.paths import get_config_dir
+        am_db = config.agent_manager.db_path or str(get_config_dir() / "agents.db")
+        agent_manager = AgentManager(db_path=am_db, clear_stale_running=True)
+    except Exception as exc:
+        logging.debug("Agent manager init failed: %s", exc)
+
     app = create_app(
         engine,
         default_model,
@@ -160,6 +169,7 @@ if __name__ == "__main__":
         agent_name="",
         config=config,
         cors_origins=cors_origins,
+        agent_manager=agent_manager,
     )
 
     uvicorn.run(app, host=host, port=port, log_level="info")

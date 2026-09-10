@@ -344,15 +344,13 @@ def create_app(
             return JSONResponse(status_code=500, content={"detail": "Internal Server Error"})
         raise exc
 
-    # MongoDB routes (only mounted when MONGODB_URI is set)
-    import os as _os
-    if _os.environ.get("MONGODB_URI"):
-        try:
-            from OpenDEMON.server.mongodb_routes import router as mongo_router
-            app.include_router(mongo_router)
-            logger.info("MongoDB routes mounted at /api/mongo")
-        except Exception as _exc:
-            logger.debug("MongoDB routes skipped: %s", _exc)
+    # PostgreSQL routes
+    try:
+        from OpenDEMON.server.db_routes import router as pg_router
+        app.include_router(pg_router)
+        logger.info("PostgreSQL routes mounted at /api/pg")
+    except Exception as _exc:
+        logger.debug("PostgreSQL routes skipped: %s", _exc)
 
     # Restore SendBlue channel bindings from database on startup
     _restore_sendblue_bindings(app)
@@ -414,6 +412,10 @@ def create_app(
         @app.get("/{full_path:path}")
         async def spa_catch_all(full_path: str):
             """Serve static files directly, fall back to index.html for SPA routes."""
+            if full_path.startswith("v1/") or full_path.startswith("api/"):
+                from fastapi import HTTPException
+                raise HTTPException(status_code=404, detail="Not Found")
+                
             if full_path:
                 candidate = (static_dir / full_path).resolve()
                 # Path traversal prevention

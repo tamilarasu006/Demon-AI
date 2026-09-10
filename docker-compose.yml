@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: demon_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: demon_ai
+      POSTGRES_USER: demon
+      POSTGRES_PASSWORD: development_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - demon_pgdata:/var/lib/postgresql/data
+
+volumes:
+  demon_pgdata:

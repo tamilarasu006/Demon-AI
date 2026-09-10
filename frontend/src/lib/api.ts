@@ -88,14 +88,21 @@ export const authHeaders = (
 // guarantees no /v1 or /api request is sent without auth — the bug in #266 was
 // that direct fetch() calls omitted the header and 401'd. `path` is the
 // server-relative path (e.g. "/v1/savings").
-export const apiFetch = (
+export const apiFetch = async (
   path: string,
   init: RequestInit = {},
 ): Promise<Response> => {
   const headers = authHeaders(
     (init.headers as Record<string, string> | undefined) ?? {},
   );
-  return fetch(`${getBase()}${path}`, { ...init, headers });
+  const res = await fetch(`${getBase()}${path}`, { ...init, headers });
+  if (res.status === 401 && !path.includes('/auth/login') && typeof window !== 'undefined') {
+    localStorage.removeItem('jwt_token');
+    if (window.location.pathname !== '/login') {
+      window.location.href = '/login';
+    }
+  }
+  return res;
 };
 
 async function tauriInvoke<T>(command: string, args: Record<string, unknown> = {}): Promise<T> {

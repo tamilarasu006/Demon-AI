@@ -32,4 +32,4 @@ def check_and_route(ctx: click.Context) -> None:
     if _cfg.DEFAULT_CONFIG_PATH.exists():
         ctx.invoke(chat_cmd)
     else:
-        ctx.invoke(init_cmd, from_bare_DEMON=True)
+        ctx.invoke(init_cmd, from_bare_demon=True)

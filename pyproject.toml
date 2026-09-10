@@ -52,6 +52,10 @@ dependencies = [
     "starlette>=0.37.2",
     "urllib3>=2.7.0",
     "python-multipart>=0.0.31",
+    "sqlalchemy>=2.0.0",
+    "asyncpg>=0.29.0",
+    "alembic>=1.13.0",
+    "pgvector>=0.2.5",
 ]
 
 [project.optional-dependencies]

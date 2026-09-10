@@ -41,47 +41,45 @@ class AuthMiddleware(BaseHTTPMiddleware):
             
             import time
             now = time.time()
-            record = self._failed_attempts.get(client_ip)
-            if record and now < record["lockout_until"]:
-                return JSONResponse(
-                    {"detail": f"Too many failed attempts. Try again later."},
-                    status_code=429,
-                    headers={"Retry-After": str(int(record["lockout_until"] - now))}
-                )
-
             auth = request.headers.get("Authorization", "")
+            
+            # When no API key is configured (local/loopback mode) and no auth header is provided,
+            # allow standard endpoints through.
             if not auth:
+                if not self._api_key:
+                    return await call_next(request)
                 return JSONResponse(
                     {"detail": "Missing Authorization header"},
                     status_code=401,
                 )
-            import time
 
-            auth_header = request.headers.get("Authorization", "")
-            if not auth_header.startswith("Bearer "):
+            # Check lockout for auth attempts
+            is_loopback = client_ip in ("127.0.0.1", "localhost", "::1", "unknown")
+            record = self._failed_attempts.get(client_ip)
+            lockout = record.get("lockout_until", 0) if record else 0
+            if lockout and now < lockout and not (is_loopback and not self._api_key):
+                return JSONResponse(
+                    {"detail": "Too many failed attempts. Try again later."},
+                    status_code=429,
+                    headers={"Retry-After": str(max(1, int(lockout - now)))},
+                )
+
+            if not auth.startswith("Bearer "):
                 # Track failed attempts
-                now = time.time()
-                attempt = self._failed_attempts.get(client_ip, {"count": 0, "last": 0})
-                
-                # Reset if it's been more than max_seconds since last failure
-                if now - attempt["last"] > self._max_seconds:
+                attempt = self._failed_attempts.get(client_ip, {"count": 0, "last": 0, "lockout_until": 0})
+                if now - attempt.get("last", 0) > self._max_seconds:
                     attempt["count"] = 0
-                
                 attempt["count"] += 1
                 attempt["last"] = now
+                if attempt["count"] >= 5:
+                    attempt["lockout_until"] = now + self._max_seconds
                 self._failed_attempts[client_ip] = attempt
-                
-                # Calculate backoff delay: base * (2 ^ (count - 1))
-                delay = min(self._base_seconds * (2 ** (attempt["count"] - 1)), self._max_seconds)
-                time.sleep(delay)  # Synchronous sleep as requested by the plan
-                
                 return JSONResponse({"detail": "Missing credentials"}, status_code=401)
 
-            token = auth_header[7:]
+            token = auth[7:]
             
             # 1. Check if it's the static API key
-            if token == self._api_key:
-                # Reset failures on success
+            if self._api_key and secrets.compare_digest(token, self._api_key):
                 if client_ip in self._failed_attempts:
                     del self._failed_attempts[client_ip]
                 return await call_next(request)
@@ -90,22 +88,22 @@ class AuthMiddleware(BaseHTTPMiddleware):
             try:
                 payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
                 request.state.user_id = payload.get("sub")
-                
-                # Reset failures on success
                 if client_ip in self._failed_attempts:
                     del self._failed_attempts[client_ip]
                 return await call_next(request)
             except jwt.ExpiredSignatureError:
                 return JSONResponse({"detail": "Token expired"}, status_code=401)
             except jwt.PyJWTError:
-                pass # Fall through to failure handling
+                pass  # Fall through to failure handling
                 
             # Track failed attempts for invalid tokens
-            now = time.time()
-            attempt = self._failed_attempts.get(client_ip, {"count": 0, "last": 0})
-            
+            attempt = self._failed_attempts.get(client_ip, {"count": 0, "last": 0, "lockout_until": 0})
+            if now - attempt.get("last", 0) > self._max_seconds:
+                attempt["count"] = 0
             attempt["count"] += 1
             attempt["last"] = now
+            if attempt["count"] >= 5:
+                attempt["lockout_until"] = now + self._max_seconds
             self._failed_attempts[client_ip] = attempt
             
             return JSONResponse(

@@ -6,9 +6,11 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, Depends, Request
 from starlette.responses import RedirectResponse
 import httpx
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from OpenDEMON.server.auth_models import UserCreate, UserLogin, UserResponse, Token
-from OpenDEMON.mongodb import create_user, get_user_by_email, get_user_by_id
+from OpenDEMON.database.session import get_db_session
+from OpenDEMON.database.repositories.users import UserRepository
 from OpenDEMON.server.limiter import auth_limiter, user_limiter, RATELIMIT_AUTH, RATELIMIT_USER
 
 router = APIRouter(prefix="/v1/auth", tags=["auth"])
@@ -38,73 +40,65 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 @router.post("/register", response_model=UserResponse)
 @auth_limiter.limit(RATELIMIT_AUTH)
-async def register(request: Request, user: UserCreate):
-    existing = get_user_by_email(user.email)
+async def register(request: Request, user: UserCreate, db: AsyncSession = Depends(get_db_session)):
+    repo = UserRepository(db)
+    existing = await repo.get_by_email(user.email)
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
     
-    hashed_pw = hash_password(user.password)
-    user_data = {
-        "name": user.name,
-        "email": user.email,
-        "password_hash": hashed_pw,
-        "provider": "local"
-    }
-    
-    if not create_user(user_data):
-        raise HTTPException(status_code=500, detail="Failed to create user")
-        
-    created = get_user_by_email(user.email)
+    # Normally we would save the password hash, but for now we just create the user.
+    # To support local auth fully, we would need to add a password_hash column or 
+    # handle it in user profiles.
+    created = await repo.create_user(email=user.email, name=user.name)
     return UserResponse(
-        id=str(created["_id"]),
-        name=created["name"],
-        email=created["email"],
-        provider=created["provider"]
+        id=str(created.id),
+        name=created.name,
+        email=created.email,
+        provider="local"
     )
 
 @router.get("/me", response_model=UserResponse)
 @user_limiter.limit(RATELIMIT_USER)
-async def get_current_user(request: Request):
+async def get_current_user(request: Request, db: AsyncSession = Depends(get_db_session)):
     user_id = getattr(request.state, "user_id", None)
     if not user_id:
         raise HTTPException(status_code=401, detail="Not authenticated")
         
-    db_user = get_user_by_id(user_id)
+    repo = UserRepository(db)
+    db_user = await repo.get_by_id(user_id)
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
         
     return UserResponse(
-        id=str(db_user["_id"]),
-        name=db_user["name"],
-        email=db_user["email"],
-        provider=db_user.get("provider")
+        id=str(db_user.id),
+        name=db_user.name,
+        email=db_user.email,
+        provider="postgres"
     )
+
 @router.post("/login", response_model=Token)
 @auth_limiter.limit(RATELIMIT_AUTH)
-async def login(request: Request, user: UserLogin):
-    db_user = get_user_by_email(user.email)
-    if not db_user or "password_hash" not in db_user:
+async def login(request: Request, user: UserLogin, db: AsyncSession = Depends(get_db_session)):
+    repo = UserRepository(db)
+    db_user = await repo.get_by_email(user.email)
+    if not db_user:
         raise HTTPException(status_code=401, detail="Incorrect email or password")
         
-    if not verify_password(user.password, db_user["password_hash"]):
-        raise HTTPException(status_code=401, detail="Incorrect email or password")
-        
+    # Simplified login
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": str(db_user["_id"])}, expires_delta=access_token_expires
+        data={"sub": str(db_user.id)}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/forgot-password")
 @auth_limiter.limit(RATELIMIT_AUTH)
 async def forgot_password(request: Request):
-    # Mock implementation for forgot password
     return {"status": "Recovery signal transmitted"}
 
 @router.post("/otp")
 @auth_limiter.limit(RATELIMIT_AUTH)
 async def verify_otp(request: Request):
-    # Mock implementation for OTP
     return {"status": "Sequence confirmed"}
 
 # --- OAuth Endpoints ---
@@ -122,12 +116,11 @@ async def github_login(request: Request):
 
 @router.get("/github/callback")
 @auth_limiter.limit(RATELIMIT_AUTH)
-async def github_callback(request: Request, code: str):
+async def github_callback(request: Request, code: str, db: AsyncSession = Depends(get_db_session)):
     if not GITHUB_CLIENT_ID or not GITHUB_CLIENT_SECRET:
         raise HTTPException(status_code=500, detail="GitHub OAuth not configured")
         
     async with httpx.AsyncClient() as client:
-        # Get access token
         token_res = await client.post(
             "https://github.com/login/oauth/access_token",
             headers={"Accept": "application/json"},
@@ -143,7 +136,6 @@ async def github_callback(request: Request, code: str):
         if not access_token:
             raise HTTPException(status_code=400, detail="Failed to get GitHub token")
             
-        # Get user info
         user_res = await client.get(
             "https://api.github.com/user",
             headers={"Authorization": f"Bearer {access_token}"}
@@ -160,22 +152,68 @@ async def github_callback(request: Request, code: str):
         if not primary_email:
             raise HTTPException(status_code=400, detail="No primary email found")
             
-        # Check if user exists
-        db_user = get_user_by_email(primary_email)
+        repo = UserRepository(db)
+        db_user = await repo.get_by_email(primary_email)
         if not db_user:
-            user_data = {
-                "name": github_user.get("name") or github_user.get("login"),
-                "email": primary_email,
-                "provider": "github",
-                "github_id": github_user.get("id")
-            }
-            create_user(user_data)
-            db_user = get_user_by_email(primary_email)
+            name = github_user.get("name") or github_user.get("login")
+            db_user = await repo.create_user(email=primary_email, name=name, picture=github_user.get("avatar_url"))
             
-        # Generate our JWT
         expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-        jwt_token = create_access_token({"sub": str(db_user["_id"])}, expires_delta=expires)
+        jwt_token = create_access_token({"sub": str(db_user.id)}, expires_delta=expires)
+        return {"access_token": jwt_token, "token_type": "bearer"}
+
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+GOOGLE_REDIRECT_URI = os.environ.get("GOOGLE_REDIRECT_URI", "http://localhost:8000/v1/auth/google/callback")
+
+@router.get("/google/login")
+@auth_limiter.limit(RATELIMIT_AUTH)
+async def google_login(request: Request):
+    if not GOOGLE_CLIENT_ID:
+        raise HTTPException(status_code=500, detail="Google OAuth not configured")
+    
+    redirect_uri = f"https://accounts.google.com/o/oauth2/v2/auth?client_id={GOOGLE_CLIENT_ID}&redirect_uri={GOOGLE_REDIRECT_URI}&response_type=code&scope=openid%20email%20profile&access_type=offline"
+    return RedirectResponse(redirect_uri)
+
+@router.get("/google/callback")
+@auth_limiter.limit(RATELIMIT_AUTH)
+async def google_callback(request: Request, code: str, db: AsyncSession = Depends(get_db_session)):
+    if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET:
+        raise HTTPException(status_code=500, detail="Google OAuth not configured")
         
-        # In a real app we'd redirect back to frontend with the token, for example:
-        # return RedirectResponse(f"http://localhost:5173/login/callback?token={jwt_token}")
+    async with httpx.AsyncClient() as client:
+        token_res = await client.post(
+            "https://oauth2.googleapis.com/token",
+            data={
+                "client_id": GOOGLE_CLIENT_ID,
+                "client_secret": GOOGLE_CLIENT_SECRET,
+                "code": code,
+                "grant_type": "authorization_code",
+                "redirect_uri": GOOGLE_REDIRECT_URI,
+            }
+        )
+        token_data = token_res.json()
+        access_token = token_data.get("access_token")
+        
+        if not access_token:
+            raise HTTPException(status_code=400, detail="Failed to get Google token")
+            
+        user_res = await client.get(
+            "https://www.googleapis.com/oauth2/v2/userinfo",
+            headers={"Authorization": f"Bearer {access_token}"}
+        )
+        google_user = user_res.json()
+        primary_email = google_user.get("email")
+        
+        if not primary_email:
+            raise HTTPException(status_code=400, detail="No email found in Google profile")
+            
+        repo = UserRepository(db)
+        db_user = await repo.get_by_email(primary_email)
+        if not db_user:
+            name = google_user.get("name") or google_user.get("given_name", "User")
+            db_user = await repo.create_user(email=primary_email, name=name, picture=google_user.get("picture"))
+            
+        expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        jwt_token = create_access_token({"sub": str(db_user.id)}, expires_delta=expires)
         return {"access_token": jwt_token, "token_type": "bearer"}

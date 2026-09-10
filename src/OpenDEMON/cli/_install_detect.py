@@ -44,7 +44,7 @@ def detect_install() -> InstallInfo:
     try:
         import DEMON
 
-        pkg_file = Path(OpenDEMON.__file__).resolve()
+        pkg_file = Path(DEMON.__file__).resolve()
     except Exception:
         return InstallInfo(
             kind="unknown",

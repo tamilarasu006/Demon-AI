@@ -17,7 +17,7 @@ COPY scripts/install scripts/install
 COPY deploy/windows deploy/windows
 
 # Copy built frontend into the server static directory
-COPY --from=frontend /src/openjarvis/server/static src/openjarvis/server/static/
+COPY --from=frontend /src/opendemon/server/static src/opendemon/server/static/
 
 RUN pip install --no-cache-dir uv && \
     uv pip install --system ".[server]"

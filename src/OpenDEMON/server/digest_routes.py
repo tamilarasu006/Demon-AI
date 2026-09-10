@@ -6,7 +6,8 @@ from typing import Optional
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from pydantic import Field
+from OpenDEMON.server.models import StrictBaseModel
 
 from OpenDEMON.agents.digest_store import DigestStore
 from OpenDEMON.cli.digest_cmd import (
@@ -17,11 +18,11 @@ from OpenDEMON.cli.digest_cmd import (
 from OpenDEMON.core.config import load_config
 
 
-class ScheduleUpdate(BaseModel):
+class ScheduleUpdate(StrictBaseModel):
     """Request body for updating the digest schedule."""
 
     enabled: bool
-    cron: Optional[str] = None
+    cron: Optional[str] = Field(default=None, max_length=100)
 
 
 def create_digest_router(*, db_path: str = "") -> APIRouter:

@@ -1,4 +1,4 @@
-﻿import type { ModelInfo, SavingsData, ServerInfo } from '../types';
+import type { ModelInfo, SavingsData, ServerInfo } from '../types';
 
 // ---------------------------------------------------------------------------
 // Supabase config — safe to embed (RLS protects writes)
@@ -59,6 +59,8 @@ export const getBase = (): string => {
 // Returns '' when unset, so a keyless local server keeps working unchanged.
 export const getApiKey = (): string => {
   try {
+    const jwt = localStorage.getItem('jwt_token');
+    if (jwt) return jwt;
     const raw = localStorage.getItem('DEMON-settings');
     if (raw) {
       const parsed = JSON.parse(raw);
@@ -86,14 +88,21 @@ export const authHeaders = (
 // guarantees no /v1 or /api request is sent without auth — the bug in #266 was
 // that direct fetch() calls omitted the header and 401'd. `path` is the
 // server-relative path (e.g. "/v1/savings").
-export const apiFetch = (
+export const apiFetch = async (
   path: string,
   init: RequestInit = {},
 ): Promise<Response> => {
   const headers = authHeaders(
     (init.headers as Record<string, string> | undefined) ?? {},
   );
-  return fetch(`${getBase()}${path}`, { ...init, headers });
+  const res = await fetch(`${getBase()}${path}`, { ...init, headers });
+  if (res.status === 401 && !path.includes('/auth/login') && typeof window !== 'undefined') {
+    localStorage.removeItem('jwt_token');
+    if (window.location.pathname !== '/login') {
+      window.location.href = '/login';
+    }
+  }
+  return res;
 };
 
 async function tauriInvoke<T>(command: string, args: Record<string, unknown> = {}): Promise<T> {
@@ -1100,3 +1109,86 @@ export async function setInferenceSource(
     throw new Error(e?.message ?? e ?? 'Failed to save inference source');
   }
 }
+
+// ---------------------------------------------------------------------------
+// Uploads
+// ---------------------------------------------------------------------------
+
+export async function uploadFiles(files: FileList | File[]): Promise<{ chunks_added: number }> {
+  const formData = new FormData();
+  for (let i = 0; i < files.length; i++) {
+    formData.append('files', files[i]);
+  }
+  // Remove default content-type so fetch sets the correct multipart boundary
+  const headers = authHeaders();
+  
+  const res = await fetch(`${getBase()}/v1/connectors/upload/ingest/files`, {
+    method: 'POST',
+    headers, // Omit Content-Type to let the browser set it automatically
+    body: formData,
+  });
+  
+  if (!res.ok) {
+    const errorText = await res.text().catch(() => 'Upload failed');
+    throw new Error(`Upload failed: ${res.status} - ${errorText}`);
+  }
+  
+  return res.json();
+}
+// ---------------------------------------------------------------------------
+// Authentication
+// ---------------------------------------------------------------------------
+
+export const registerUser = async (data: Record<string, string>) => {
+  const res = await apiFetch('/v1/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'Failed to register');
+  }
+  return res.json();
+};
+
+export const loginUser = async (data: Record<string, string>) => {
+  const res = await apiFetch('/v1/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'Failed to login');
+  }
+  const result = await res.json();
+  localStorage.setItem('jwt_token', result.access_token);
+  return result;
+};
+
+export const forgotPassword = async (email: string) => {
+  const res = await apiFetch('/v1/auth/forgot-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+  if (!res.ok) throw new Error('Failed to transmit recovery signal');
+  return res.json();
+};
+
+export const verifyOtp = async (otp: string) => {
+  const res = await apiFetch('/v1/auth/otp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ otp }),
+  });
+  if (!res.ok) throw new Error('Sequence confirmation failed');
+  return res.json();
+};
+
+export const getCurrentUser = async () => {
+  const res = await apiFetch('/v1/auth/me');
+  if (!res.ok) throw new Error('Not authenticated');
+  return res.json();
+};

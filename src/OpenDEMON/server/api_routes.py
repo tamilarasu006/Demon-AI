@@ -7,54 +7,55 @@ import json
 import logging
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, HTTPException, Request, WebSocket, WebSocketDisconnect
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, Request, WebSocket, WebSocketDisconnect, Path, Query
+from pydantic import BaseModel, Field
+from OpenDEMON.server.models import StrictBaseModel
 
 logger = logging.getLogger(__name__)
 
 # ---- Request/Response models ----
 
 
-class AgentCreateRequest(BaseModel):
-    agent_type: str
+class AgentCreateRequest(StrictBaseModel):
+    agent_type: str = Field(..., min_length=1, max_length=100)
     tools: Optional[List[str]] = None
-    agent_id: Optional[str] = None
+    agent_id: Optional[str] = Field(default=None, max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")
 
 
-class AgentMessageRequest(BaseModel):
-    message: str
+class AgentMessageRequest(StrictBaseModel):
+    message: str = Field(..., min_length=1, max_length=128000)
 
 
-class MemoryStoreRequest(BaseModel):
-    content: str
+class MemoryStoreRequest(StrictBaseModel):
+    content: str = Field(..., min_length=1, max_length=128000)
     metadata: Optional[Dict[str, Any]] = None
 
 
-class MemorySearchRequest(BaseModel):
-    query: str
-    top_k: int = 5
+class MemorySearchRequest(StrictBaseModel):
+    query: str = Field(..., min_length=1, max_length=4096)
+    top_k: int = Field(default=5, ge=1, le=100)
 
 
-class MemoryIndexRequest(BaseModel):
-    path: str
+class MemoryIndexRequest(StrictBaseModel):
+    path: str = Field(..., min_length=1, max_length=4096)
 
 
-class BudgetLimitsRequest(BaseModel):
-    max_tokens_per_day: Optional[int] = None
-    max_requests_per_hour: Optional[int] = None
+class BudgetLimitsRequest(StrictBaseModel):
+    max_tokens_per_day: Optional[int] = Field(default=None, ge=1)
+    max_requests_per_hour: Optional[int] = Field(default=None, ge=1)
 
 
-class FeedbackScoreRequest(BaseModel):
-    trace_id: str
-    score: float
-    source: str = "api"
+class FeedbackScoreRequest(StrictBaseModel):
+    trace_id: str = Field(..., min_length=1, max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")
+    score: float = Field(..., ge=0.0, le=1.0)
+    source: str = Field(default="api", max_length=50)
 
 
-class OptimizeRunRequest(BaseModel):
-    benchmark: str
-    max_trials: int = 20
-    optimizer_model: str = "claude-sonnet-4-6"
-    max_samples: int = 50
+class OptimizeRunRequest(StrictBaseModel):
+    benchmark: str = Field(..., min_length=1, max_length=255)
+    max_trials: int = Field(default=20, ge=1, le=1000)
+    optimizer_model: str = Field(default="claude-sonnet-4-6", max_length=255)
+    max_samples: int = Field(default=50, ge=1, le=10000)
 
 
 # ---- Agent routes ----
@@ -118,7 +119,7 @@ async def create_agent(req: AgentCreateRequest, request: Request):
 
 
 @agents_router.delete("/{agent_id}")
-async def kill_agent(agent_id: str, request: Request):
+async def delete_agent(request: Request, agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Kill a running agent."""
     try:
         from OpenDEMON.tools.agent_tools import AgentKillTool
@@ -133,13 +134,13 @@ async def kill_agent(agent_id: str, request: Request):
 
 
 @agents_router.post("/{agent_id}/message")
-async def message_agent(agent_id: str, req: AgentMessageRequest, request: Request):
+async def agent_message(request: Request, body: AgentMessageRequest, agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Send a message to a running agent."""
     try:
         from OpenDEMON.tools.agent_tools import AgentSendTool
 
         tool = AgentSendTool()
-        result = tool.execute(agent_id=agent_id, message=req.message)
+        result = tool.execute(agent_id=agent_id, message=body.message)
         if not result.success:
             raise HTTPException(status_code=404, detail=result.content)
         return {"status": "sent", "content": result.content}
@@ -389,7 +390,7 @@ async def list_traces(request: Request, limit: int = 20):
 
 
 @traces_router.get("/{trace_id}")
-async def get_trace(trace_id: str, request: Request):
+async def get_trace(request: Request, trace_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Get a specific trace by ID."""
     try:
         store = getattr(request.app.state, "trace_store", None)
@@ -509,7 +510,7 @@ async def install_skill(request: Request):
 
 
 @skills_router.delete("/{skill_name}")
-async def remove_skill(skill_name: str, request: Request):
+async def remove_skill(request: Request, skill_name: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Remove a skill (placeholder)."""
     return {
         "status": "not_implemented",
@@ -537,7 +538,7 @@ async def list_sessions(request: Request, limit: int = 20):
 
 
 @sessions_router.get("/{session_id}")
-async def get_session(session_id: str, request: Request):
+async def get_session(request: Request, session_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Get a specific session."""
     try:
         from OpenDEMON.sessions.store import SessionStore
@@ -999,7 +1000,7 @@ async def list_optimize_runs(request: Request):
 
 
 @optimize_router.get("/runs/{run_id}")
-async def get_optimize_run(run_id: str, request: Request):
+async def get_optimize_run(request: Request, run_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
     """Get optimization run details."""
     try:
         from OpenDEMON.core.config import DEFAULT_CONFIG_DIR

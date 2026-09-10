@@ -1163,24 +1163,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
 
 [[package]]
-name = "openjarvis-a2a"
+name = "opendemon-a2a"
 version = "0.1.0"
 dependencies = [
- "openjarvis-core",
+ "opendemon-core",
  "serde",
  "serde_json",
  "uuid",
 ]
 
 [[package]]
-name = "openjarvis-agents"
+name = "opendemon-agents"
 version = "0.1.0"
 dependencies = [
  "async-trait",
  "once_cell",
- "openjarvis-core",
- "openjarvis-engine",
- "openjarvis-tools",
+ "opendemon-core",
+ "opendemon-engine",
+ "opendemon-tools",
  "parking_lot",
  "regex",
  "rig-core",
@@ -1193,7 +1193,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-core"
+name = "opendemon-core"
 version = "0.1.0"
 dependencies = [
  "chrono",
@@ -1210,13 +1210,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-engine"
+name = "opendemon-engine"
 version = "0.1.0"
 dependencies = [
  "async-trait",
  "futures",
  "once_cell",
- "openjarvis-core",
+ "opendemon-core",
  "reqwest 0.12.28",
  "rig-core",
  "schemars",
@@ -1229,12 +1229,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-learning"
+name = "opendemon-learning"
 version = "0.1.0"
 dependencies = [
  "once_cell",
- "openjarvis-core",
- "openjarvis-traces",
+ "opendemon-core",
+ "opendemon-traces",
  "parking_lot",
  "rand 0.8.5",
  "regex",
@@ -1247,11 +1247,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-mcp"
+name = "opendemon-mcp"
 version = "0.1.0"
 dependencies = [
- "openjarvis-core",
- "openjarvis-tools",
+ "opendemon-core",
+ "opendemon-tools",
  "serde",
  "serde_json",
  "thiserror 2.0.18",
@@ -1260,26 +1260,26 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-python"
+name = "opendemon-python"
 version = "0.1.0"
 dependencies = [
  "once_cell",
- "openjarvis-a2a",
- "openjarvis-agents",
- "openjarvis-core",
- "openjarvis-engine",
- "openjarvis-learning",
- "openjarvis-mcp",
- "openjarvis-recipes",
- "openjarvis-scheduler",
- "openjarvis-security",
- "openjarvis-sessions",
- "openjarvis-skills",
- "openjarvis-telemetry",
- "openjarvis-templates",
- "openjarvis-tools",
- "openjarvis-traces",
- "openjarvis-workflow",
+ "opendemon-a2a",
+ "opendemon-agents",
+ "opendemon-core",
+ "opendemon-engine",
+ "opendemon-learning",
+ "opendemon-mcp",
+ "opendemon-recipes",
+ "opendemon-scheduler",
+ "opendemon-security",
+ "opendemon-sessions",
+ "opendemon-skills",
+ "opendemon-telemetry",
+ "opendemon-templates",
+ "opendemon-tools",
+ "opendemon-traces",
+ "opendemon-workflow",
  "parking_lot",
  "pyo3",
  "serde",
@@ -1288,21 +1288,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-recipes"
+name = "opendemon-recipes"
 version = "0.1.0"
 dependencies = [
- "openjarvis-core",
+ "opendemon-core",
  "serde",
  "serde_json",
  "toml",
 ]
 
 [[package]]
-name = "openjarvis-scheduler"
+name = "opendemon-scheduler"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "openjarvis-core",
+ "opendemon-core",
  "rusqlite",
  "serde",
  "serde_json",
@@ -1310,15 +1310,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-security"
+name = "opendemon-security"
 version = "0.1.0"
 dependencies = [
  "async-trait",
  "chrono",
  "futures",
  "once_cell",
- "openjarvis-core",
- "openjarvis-engine",
+ "opendemon-core",
+ "opendemon-engine",
  "parking_lot",
  "regex",
  "rusqlite",
@@ -1333,10 +1333,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-sessions"
+name = "opendemon-sessions"
 version = "0.1.0"
 dependencies = [
- "openjarvis-core",
+ "opendemon-core",
  "rusqlite",
  "serde",
  "serde_json",
@@ -1344,25 +1344,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-skills"
+name = "opendemon-skills"
 version = "0.1.0"
 dependencies = [
  "ed25519-dalek",
- "openjarvis-core",
+ "opendemon-core",
  "serde",
  "serde_json",
  "toml",
 ]
 
 [[package]]
-name = "openjarvis-telemetry"
+name = "opendemon-telemetry"
 version = "0.1.0"
 dependencies = [
  "async-trait",
  "chrono",
  "futures",
- "openjarvis-core",
- "openjarvis-engine",
+ "opendemon-core",
+ "opendemon-engine",
  "parking_lot",
  "rusqlite",
  "serde",
@@ -1375,25 +1375,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-templates"
+name = "opendemon-templates"
 version = "0.1.0"
 dependencies = [
- "openjarvis-core",
+ "opendemon-core",
  "serde",
  "serde_json",
  "toml",
 ]
 
 [[package]]
-name = "openjarvis-tools"
+name = "opendemon-tools"
 version = "0.1.0"
 dependencies = [
  "chrono",
  "meval",
  "once_cell",
- "openjarvis-core",
- "openjarvis-engine",
- "openjarvis-security",
+ "opendemon-core",
+ "opendemon-engine",
+ "opendemon-security",
  "parking_lot",
  "regex",
  "reqwest 0.12.28",
@@ -1411,11 +1411,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-traces"
+name = "opendemon-traces"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "openjarvis-core",
+ "opendemon-core",
  "parking_lot",
  "rusqlite",
  "serde",
@@ -1426,10 +1426,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "openjarvis-workflow"
+name = "opendemon-workflow"
 version = "0.1.0"
 dependencies = [
- "openjarvis-core",
+ "opendemon-core",
  "serde",
  "serde_json",
  "toml",

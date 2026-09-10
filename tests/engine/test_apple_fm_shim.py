@@ -71,7 +71,7 @@ def shim(monkeypatch):
     monkeypatch.setattr(platform, "system", lambda: "Darwin")
     rec = _install_stub_sdk(stream_tokens=["Sure! ", "Sure! The ", "Sure! The answer."])
     sys.modules.pop("DEMON.engine.apple_fm_shim", None)
-    mod = importlib.import_module("DEMON.engine.apple_fm_shim")
+    mod = importlib.import_module("OpenDEMON.engine.apple_fm_shim")
     mod = importlib.reload(mod)
     yield mod, rec
     sys.modules.pop("DEMON.engine.apple_fm_shim", None)
@@ -158,7 +158,7 @@ class TestAppleFmShimSdkMigration:
         monkeypatch.setattr(platform, "system", lambda: "Darwin")
         rec = _install_stub_sdk(available=(False, "Apple Intelligence disabled"))
         sys.modules.pop("DEMON.engine.apple_fm_shim", None)
-        mod = importlib.import_module("DEMON.engine.apple_fm_shim")
+        mod = importlib.import_module("OpenDEMON.engine.apple_fm_shim")
         mod = importlib.reload(mod)
         try:
             client = TestClient(mod.app)

@@ -242,14 +242,16 @@ class _LiveGPUSampler:
 # ---------------------------------------------------------------------------
 
 
-class ResearchRequest(BaseModel):
-    query: str = Field(..., description="Natural-language question to research.")
+from OpenDEMON.server.models import StrictBaseModel
+
+class ResearchRequest(StrictBaseModel):
+    query: str = Field(..., min_length=1, max_length=128000, description="Natural-language question to research.")
     # Deep Research has its own model requirements (function-calling support,
     # sufficient reasoning capability) that the chat-model selector should not
     # override. We accept the field for forward-compat with older clients but
     # ignore it — the planner always runs on DEFAULT_PLANNER_MODEL.
     model: Optional[str] = Field(
-        default=None, description="Ignored; retained for client compatibility."
+        default=None, max_length=255, description="Ignored; retained for client compatibility."
     )
 
 

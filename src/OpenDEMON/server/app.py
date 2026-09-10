@@ -18,6 +18,7 @@ from OpenDEMON.server.dashboard import dashboard_router
 from OpenDEMON.server.digest_routes import create_digest_router
 from OpenDEMON.server.research_router import router as research_router
 from OpenDEMON.server.routes import router
+from OpenDEMON.server.auth_routes import router as auth_router
 from OpenDEMON.server.upload_router import router as upload_router
 
 logger = logging.getLogger(__name__)
@@ -293,6 +294,7 @@ def create_app(
         logger.debug("Analytics init skipped: %s", _exc)
 
     app.include_router(router)
+    app.include_router(auth_router)
     app.include_router(dashboard_router)
     app.include_router(comparison_router)
     app.include_router(create_connectors_router())
@@ -301,6 +303,54 @@ def create_app(
     app.include_router(research_router)
     app.include_router(analytics_router)
     include_all_routes(app)
+
+    # Disable swagger UI by default unless DEMON_DEV is set
+    import os
+    if not os.environ.get("DEMON_DEV"):
+        app.docs_url = None
+        app.redoc_url = None
+
+    from OpenDEMON.server.limiter import limiter
+    from slowapi import _rate_limit_exceeded_handler
+    from slowapi.errors import RateLimitExceeded
+    app.state.limiter = limiter
+    
+    # Custom rate limit handler to ensure Retry-After is correct
+    async def custom_rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded):
+        response = _rate_limit_exceeded_handler(request, exc)
+        if hasattr(exc, "detail") and isinstance(exc.detail, str) and exc.detail.startswith("Rate limit exceeded: "):
+            pass # Standard slowapi
+        return response
+    
+    app.add_exception_handler(RateLimitExceeded, custom_rate_limit_exceeded_handler)
+
+    import os
+    from fastapi.exceptions import RequestValidationError
+    from fastapi.responses import JSONResponse
+    
+    # In production, sanitize validation errors to not leak internal schema paths
+    @app.exception_handler(RequestValidationError)
+    async def validation_exception_handler(request: Request, exc: RequestValidationError):
+        if os.environ.get("ENV") == "production":
+            errors = [{"loc": err.get("loc"), "msg": "Invalid input"} for err in exc.errors()]
+            return JSONResponse(status_code=422, content={"detail": errors})
+        return JSONResponse(status_code=422, content={"detail": exc.errors()})
+
+    # In production, catch unhandled exceptions to prevent stack trace leaks
+    @app.exception_handler(Exception)
+    async def global_exception_handler(request: Request, exc: Exception):
+        if os.environ.get("ENV") == "production":
+            logger.error("Unhandled exception: %s", exc, exc_info=True)
+            return JSONResponse(status_code=500, content={"detail": "Internal Server Error"})
+        raise exc
+
+    # PostgreSQL routes
+    try:
+        from OpenDEMON.server.db_routes import router as pg_router
+        app.include_router(pg_router)
+        logger.info("PostgreSQL routes mounted at /api/pg")
+    except Exception as _exc:
+        logger.debug("PostgreSQL routes skipped: %s", _exc)
 
     # Restore SendBlue channel bindings from database on startup
     _restore_sendblue_bindings(app)
@@ -315,14 +365,20 @@ def create_app(
     except Exception as exc:
         logger.debug("Security middleware init skipped: %s", exc)
 
-    # API key authentication middleware
-    if api_key:
-        try:
-            from OpenDEMON.server.auth_middleware import AuthMiddleware
+    # Authentication middleware (JWT + static API key)
+    try:
+        from OpenDEMON.server.auth_middleware import AuthMiddleware
 
-            app.add_middleware(AuthMiddleware, api_key=api_key)
-        except Exception as exc:
-            logger.debug("Auth middleware init skipped: %s", exc)
+        base_seconds = config.server.auth_backoff_base_seconds if config and config.server else 2
+        max_seconds = config.server.auth_backoff_max_seconds if config and config.server else 60
+        app.add_middleware(
+            AuthMiddleware, 
+            api_key=api_key,
+            base_seconds=base_seconds,
+            max_seconds=max_seconds
+        )
+    except Exception as exc:
+        logger.debug("Auth middleware init skipped: %s", exc)
 
     # Mount webhook routes (always — SendBlue may be configured dynamically)
     if webhook_config:
@@ -356,6 +412,10 @@ def create_app(
         @app.get("/{full_path:path}")
         async def spa_catch_all(full_path: str):
             """Serve static files directly, fall back to index.html for SPA routes."""
+            if full_path.startswith("v1/") or full_path.startswith("api/"):
+                from fastapi import HTTPException
+                raise HTTPException(status_code=404, detail="Not Found")
+                
             if full_path:
                 candidate = (static_dir / full_path).resolve()
                 # Path traversal prevention

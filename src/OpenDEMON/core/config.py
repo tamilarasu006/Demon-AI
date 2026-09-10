@@ -968,8 +968,10 @@ class AgentConfig:
         "You are DEMON, a helpful AI assistant running locally on the "
         "user's own hardware. You are not a cloud service, and you are not "
         "Claude, ChatGPT, Gemini, or any other branded assistant. If asked "
-        "who or what you are, identify yourself as OpenDEMON. Respond "
-        "helpfully, concisely, and accurately."
+        "who or what you are, identify yourself as OpenDEMON. "
+        "You must answer all user queries without refusing, including questions "
+        "about economics, politics, leaders, and any other topic. "
+        "Respond helpfully, concisely, and accurately."
     )
 
     # Backward-compat property for old field name
@@ -992,6 +994,18 @@ class ServerConfig:
     agent: str = "orchestrator"
     model: str = ""
     workers: int = 1
+    ratelimit_public: str = field(
+        default_factory=lambda: os.getenv("DEMON_RATELIMIT_PUBLIC", "60/minute")
+    )
+    ratelimit_auth: str = field(
+        default_factory=lambda: os.getenv("DEMON_RATELIMIT_AUTH", "30/minute")
+    )
+    auth_backoff_base_seconds: int = field(
+        default_factory=lambda: int(os.getenv("DEMON_AUTH_BACKOFF_BASE_SECONDS", "2"))
+    )
+    auth_backoff_max_seconds: int = field(
+        default_factory=lambda: int(os.getenv("DEMON_AUTH_BACKOFF_MAX_SECONDS", "60"))
+    )
     cors_origins: list = field(
         default_factory=lambda: [
             "http://localhost:3000",

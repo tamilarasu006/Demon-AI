@@ -9,7 +9,7 @@ from click.testing import CliRunner
 
 from OpenDEMON.cli import cli
 
-_ask_mod = importlib.import_module("DEMON.cli.ask")
+_ask_mod = importlib.import_module("OpenDEMON.cli.ask")
 
 
 def _mock_engine():

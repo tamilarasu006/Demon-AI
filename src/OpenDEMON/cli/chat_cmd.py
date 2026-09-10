@@ -22,6 +22,44 @@ def _read_input(prompt: str = "You> ") -> Optional[str]:
         return None
 
 
+def _build_catalog_xml_for_subset(skill_manager, names: list[str]) -> str:
+    """Build <available_skills> XML containing only the named skills."""
+    import html as _html
+    lines = ["<available_skills>"]
+    for name in names:
+        try:
+            manifest = skill_manager.resolve(name)
+        except KeyError:
+            continue
+        if getattr(manifest, "disable_model_invocation", False):
+            continue
+        lines.append(
+            f"  <skill name={_html.escape(name)!r}"
+            f" description={_html.escape(manifest.description or name)!r} />"
+        )
+    lines.append("</available_skills>")
+    return "\n".join(lines)
+
+
+def _build_few_shot_for_subset(skill_manager, names: list[str]) -> list[str]:
+    """Return few-shot examples only for the named skills."""
+    examples: list[str] = []
+    for name in names:
+        try:
+            manifest = skill_manager.resolve(name)
+        except KeyError:
+            continue
+        oj = manifest.metadata.get("DEMON", {}) if manifest.metadata else {}
+        for ex in oj.get("few_shot", []) or []:
+            if not isinstance(ex, dict):
+                continue
+            inp = str(ex.get("input", ""))
+            out = str(ex.get("output", ""))
+            if inp or out:
+                examples.append(f"### {name}\nInput: {inp}\nOutput: {out}")
+    return examples
+
+
 @click.command()
 @click.option("-e", "--engine", "engine_key", default=None, help="Engine backend.")
 @click.option("-m", "--model", "model_name", default=None, help="Model to use.")
@@ -37,6 +75,12 @@ def _read_input(prompt: str = "You> ") -> Optional[str]:
         "(overrides config). Pass 'none' to disable all persona files."
     ),
 )
+@click.option(
+    "--skill",
+    "skill_names",
+    multiple=True,
+    help="Skill name to enable (repeatable). e.g. --skill cuopt-install",
+)
 def chat(
     engine_key: str | None,
     model_name: str | None,
@@ -44,6 +88,7 @@ def chat(
     tools: str | None,
     system_prompt: str | None,
     persona_name: str | None,
+    skill_names: tuple[str, ...] = (),
 ) -> None:
     """Start an interactive multi-turn chat session.
 
@@ -57,6 +102,57 @@ def chat(
     console = Console(stderr=True)
 
     config = load_config()
+
+    # --- Skill selection ---------------------------------------------------
+    _combined_skills: list[str] = list(skill_names)
+    active_skill_names: list[str] | None = None
+    if _combined_skills:
+        active_skill_names = list(dict.fromkeys(_combined_skills))
+
+    _skill_manager = None
+    _active_skill_tools: list | None = None
+    _active_catalog_xml: str | None = None
+    _active_few_shot: list[str] | None = None
+    if active_skill_names is not None:
+        try:
+            from OpenDEMON.core.events import EventBus as _EB
+            from OpenDEMON.skills.manager import SkillManager as _SM
+            from OpenDEMON.skills.validation import (
+                UnknownSkillsError as _USE,
+                resolve_skill_names as _rsn,
+            )
+            import pathlib as _pathlib
+
+            _skill_manager = _SM(_EB())
+            _skill_paths = []
+            try:
+                _skill_paths = [
+                    _pathlib.Path(p)
+                    for p in (getattr(config.skills, "paths", None) or [])
+                ]
+            except Exception:
+                pass
+            if _skill_paths:
+                _skill_manager.discover(_skill_paths)
+            else:
+                _skill_manager.discover()
+
+            try:
+                active_skill_names = _rsn(
+                    active_skill_names,
+                    _skill_manager,
+                    catalog_is_empty=len(_skill_manager.skill_names()) == 0,
+                )
+            except _USE as _exc:
+                console.print(f"[red]{_exc}[/red]")
+                sys.exit(1)
+
+            _active_skill_tools = _skill_manager.get_filtered_skill_tools(active_skill_names)
+            _active_catalog_xml = _build_catalog_xml_for_subset(_skill_manager, active_skill_names)
+            _active_few_shot = _build_few_shot_for_subset(_skill_manager, active_skill_names)
+        except ImportError:
+            console.print("[yellow]Skills subsystem unavailable; ignoring --skill.[/yellow]")
+    # --- End skill selection ----------------------------------------------
 
     import dataclasses as _dc
 
@@ -110,12 +206,12 @@ def chat(
                         getattr(config.tools, "enabled", None),
                         getattr(config.agent, "tools", None),
                     )
+                    tool_instances = []
                     if tool_names_list:
                         import OpenDEMON.tools  # noqa: F401 — trigger registration
                         from OpenDEMON.core.registry import ToolRegistry
                         from OpenDEMON.tools._stubs import BaseTool
 
-                        tool_instances = []
                         for tname in tool_names_list:
                             if ToolRegistry.contains(tname):
                                 tcls = ToolRegistry.get(tname)
@@ -125,8 +221,14 @@ def chat(
                                     tool_instances.append(tcls())
                                 elif isinstance(tcls, BaseTool):
                                     tool_instances.append(tcls)
-                        if tool_instances:
-                            kwargs["tools"] = tool_instances
+                    if _active_skill_tools:
+                        existing_names = {t.spec.name for t in tool_instances}
+                        for _st in _active_skill_tools:
+                            if _st.spec.name not in existing_names:
+                                tool_instances.append(_st)
+                                existing_names.add(_st.spec.name)
+                    if tool_instances:
+                        kwargs["tools"] = tool_instances
                     kwargs["max_turns"] = config.agent.max_turns
 
                     def _confirm(prompt: str) -> bool:
@@ -152,7 +254,13 @@ def chat(
                         agent_template=config.agent.default_system_prompt or "",
                         memory_files_config=effective_mf,
                         system_prompt_config=config.system_prompt,
+                        skill_catalog_xml=_active_catalog_xml,
+                        skill_few_shot_examples=_active_few_shot or [],
                     )
+
+                if getattr(agent_cls, "accepts_tools", False) and _active_skill_tools:
+                    existing_tools = kwargs.get("tools", [])
+                    kwargs["tools"] = list(_active_skill_tools) + list(existing_tools)
 
                 agent = agent_cls(engine, model, **kwargs)
         except Exception as exc:
@@ -165,6 +273,10 @@ def chat(
         f"  Agent: [cyan]{agent_key or 'direct'}[/cyan]\n"
         f"  Type /help for commands, /quit to exit.\n"
     )
+    if active_skill_names:
+        console.print(
+            "[dim]Active skills: " + ", ".join(active_skill_names) + "[/dim]"
+        )
 
     # Background-work status banner (disappears after first user message)
     from OpenDEMON.cli._bg_state import get_status
@@ -187,6 +299,8 @@ def chat(
             agent_template=config.agent.default_system_prompt or "",
             memory_files_config=effective_mf,
             system_prompt_config=config.system_prompt,
+            skill_catalog_xml=_active_catalog_xml,
+            skill_few_shot_examples=_active_few_shot or [],
         )
         system_prompt = builder.build()
 

@@ -47,7 +47,7 @@ def test_get_memory_backend_returns_backend_even_when_empty(
         db_path=str(tmp_path / "empty.db"),
     )
 
-    mod = importlib.import_module("DEMON.cli.ask")
+    mod = importlib.import_module("OpenDEMON.cli.ask")
     result = mod._get_memory_backend(config)
     assert result is not None
     # An empty backend should still retrieve cleanly (zero hits).
@@ -77,7 +77,7 @@ def test_get_memory_backend_returns_backend_with_docs(
     backend.store("test document content")
     backend.close()
 
-    mod = importlib.import_module("DEMON.cli.ask")
+    mod = importlib.import_module("OpenDEMON.cli.ask")
     result = mod._get_memory_backend(config)
     assert result is not None
     if hasattr(result, "close"):

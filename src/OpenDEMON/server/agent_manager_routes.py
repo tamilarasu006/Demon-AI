@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from OpenDEMON.agents.manager import AgentManager
 
 try:
-    from fastapi import APIRouter, HTTPException, Request
+    from fastapi import APIRouter, HTTPException, Request, Path
     from fastapi.responses import StreamingResponse
     from pydantic import BaseModel
 except ImportError:
@@ -17,46 +17,48 @@ except ImportError:
 
 logger = logging.getLogger("DEMON.server.agent_manager")
 
+from OpenDEMON.server.models import StrictBaseModel
+from pydantic import Field
 
-class CreateAgentRequest(BaseModel):
-    name: str
-    agent_type: str = "monitor_operative"
+class CreateAgentRequest(StrictBaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
+    agent_type: str = Field(default="monitor_operative", max_length=100)
     config: Optional[Dict[str, Any]] = None
-    template_id: Optional[str] = None
+    template_id: Optional[str] = Field(default=None, max_length=100)
 
 
-class UpdateAgentRequest(BaseModel):
-    name: Optional[str] = None
-    agent_type: Optional[str] = None
+class UpdateAgentRequest(StrictBaseModel):
+    name: Optional[str] = Field(default=None, min_length=1, max_length=100)
+    agent_type: Optional[str] = Field(default=None, min_length=1, max_length=100)
     config: Optional[Dict[str, Any]] = None
 
 
-class CreateTaskRequest(BaseModel):
-    description: str
+class CreateTaskRequest(StrictBaseModel):
+    description: str = Field(..., min_length=1, max_length=65535)
 
 
-class UpdateTaskRequest(BaseModel):
-    description: Optional[str] = None
-    status: Optional[str] = None
+class UpdateTaskRequest(StrictBaseModel):
+    description: Optional[str] = Field(default=None, min_length=1, max_length=65535)
+    status: Optional[str] = Field(default=None, max_length=50)
     progress: Optional[Dict[str, Any]] = None
     findings: Optional[List[Any]] = None
 
 
-class BindChannelRequest(BaseModel):
-    channel_type: str
+class BindChannelRequest(StrictBaseModel):
+    channel_type: str = Field(..., min_length=1, max_length=50)
     config: Optional[Dict[str, Any]] = None
-    routing_mode: str = "dedicated"
+    routing_mode: str = Field(default="dedicated", max_length=50)
 
 
-class SendMessageRequest(BaseModel):
-    content: str
-    mode: str = "queued"
+class SendMessageRequest(StrictBaseModel):
+    content: str = Field(..., min_length=1, max_length=128000)
+    mode: str = Field(default="queued", max_length=50)
     stream: bool = False  # SSE streaming mode
 
 
-class FeedbackRequest(BaseModel):
-    score: float
-    reason: Optional[str] = None
+class FeedbackRequest(StrictBaseModel):
+    score: float = Field(..., ge=0.0, le=1.0)
+    reason: Optional[str] = Field(default=None, max_length=4096)
 
 
 _BROWSER_SUB_TOOLS = {
@@ -1562,14 +1564,14 @@ def create_agent_manager_router(
         return agent
 
     @agents_router.get("/{agent_id}")
-    async def get_agent(agent_id: str):
+    async def get_agent(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         agent = manager.get_agent(agent_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Agent not found")
         return agent
 
     @agents_router.patch("/{agent_id}")
-    async def update_agent(agent_id: str, req: UpdateAgentRequest):
+    async def update_agent(req: UpdateAgentRequest, agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
         kwargs: Dict[str, Any] = {}
@@ -1582,28 +1584,28 @@ def create_agent_manager_router(
         return manager.update_agent(agent_id, **kwargs)
 
     @agents_router.delete("/{agent_id}")
-    async def delete_agent(agent_id: str):
+    async def delete_agent(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
         manager.delete_agent(agent_id)
         return {"status": "archived"}
 
     @agents_router.post("/{agent_id}/pause")
-    async def pause_agent(agent_id: str):
+    async def pause_agent(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
         manager.pause_agent(agent_id)
         return {"status": "paused"}
 
     @agents_router.post("/{agent_id}/resume")
-    async def resume_agent(agent_id: str):
+    async def resume_agent(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
         manager.resume_agent(agent_id)
         return {"status": "idle"}
 
     @agents_router.post("/{agent_id}/run")
-    async def run_agent(agent_id: str, request: Request):
+    async def run_agent(request: Request, agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         import threading
 
         agent = manager.get_agent(agent_id)
@@ -1682,24 +1684,24 @@ def create_agent_manager_router(
     # ── Tasks ────────────────────────────────────────────────
 
     @agents_router.get("/{agent_id}/tasks")
-    async def list_tasks(agent_id: str, status: Optional[str] = None):
+    async def list_tasks(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"), status: Optional[str] = None):
         return {"tasks": manager.list_tasks(agent_id, status=status)}
 
     @agents_router.post("/{agent_id}/tasks")
-    async def create_task(agent_id: str, req: CreateTaskRequest):
+    async def create_task(req: CreateTaskRequest, agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
         return manager.create_task(agent_id, description=req.description)
 
     @agents_router.get("/{agent_id}/tasks/{task_id}")
-    async def get_task(agent_id: str, task_id: str):
+    async def get_task(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"), task_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         task = manager._get_task(task_id)
         if not task:
             raise HTTPException(status_code=404, detail="Task not found")
         return task
 
     @agents_router.patch("/{agent_id}/tasks/{task_id}")
-    async def update_task(agent_id: str, task_id: str, req: UpdateTaskRequest):
+    async def update_task(req: UpdateTaskRequest, agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"), task_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         kwargs: Dict[str, Any] = {}
         if req.description is not None:
             kwargs["description"] = req.description
@@ -1712,21 +1714,21 @@ def create_agent_manager_router(
         return manager.update_task(task_id, **kwargs)
 
     @agents_router.delete("/{agent_id}/tasks/{task_id}")
-    async def delete_task(agent_id: str, task_id: str):
+    async def delete_task(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"), task_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         manager.delete_task(task_id)
         return {"status": "deleted"}
 
     # ── Channel bindings ─────────────────────────────────────
 
     @agents_router.get("/{agent_id}/channels")
-    async def list_channels(agent_id: str):
+    async def list_channels(agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         return {"bindings": manager.list_channel_bindings(agent_id)}
 
     @agents_router.post("/{agent_id}/channels")
     async def bind_channel(
-        agent_id: str,
         req: BindChannelRequest,
         request: Request,
+        agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"),
     ):
         if not manager.get_agent(agent_id):
             raise HTTPException(status_code=404, detail="Agent not found")
@@ -1916,9 +1918,9 @@ def create_agent_manager_router(
 
     @agents_router.delete("/{agent_id}/channels/{binding_id}")
     async def unbind_channel(
-        agent_id: str,
-        binding_id: str,
         request: Request,
+        agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"),
+        binding_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$"),
     ):
         try:
             binding = manager._get_binding(binding_id)
@@ -1948,7 +1950,7 @@ def create_agent_manager_router(
         return {"messages": manager.list_messages(agent_id)}
 
     @agents_router.post("/{agent_id}/messages")
-    async def send_message(agent_id: str, req: SendMessageRequest, request: Request):
+    async def send_message(req: SendMessageRequest, request: Request, agent_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         agent_record = manager.get_agent(agent_id)
         if not agent_record:
             raise HTTPException(status_code=404, detail="Agent not found")
@@ -2162,7 +2164,7 @@ def create_agent_manager_router(
         return {"templates": AgentManager.list_templates()}
 
     @templates_router.post("/{template_id}/instantiate")
-    async def instantiate_template(template_id: str, req: CreateAgentRequest):
+    async def instantiate_template(req: CreateAgentRequest, template_id: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         return manager.create_from_template(template_id, req.name, overrides=req.config)
 
     # ── Global agent endpoints ───────────────────────────────
@@ -2228,7 +2230,7 @@ def create_agent_manager_router(
         return {"tools": items}
 
     @tools_router.post("/{tool_name}/credentials")
-    async def save_tool_credentials(tool_name: str, request: Request):
+    async def save_tool_credentials(request: Request, tool_name: str = Path(..., max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")):
         from OpenDEMON.core.credentials import save_credential
 
         body = await request.json()

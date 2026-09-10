@@ -1,4 +1,4 @@
-﻿"""Pydantic request/response models for the OpenAI-compatible API."""
+"""Pydantic request/response models for the OpenAI-compatible API."""
 
 from __future__ import annotations
 
@@ -6,28 +6,32 @@ import time
 import uuid
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
+
+class StrictBaseModel(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
 
 # ---------------------------------------------------------------------------
 # Request models
 # ---------------------------------------------------------------------------
 
 
-class ChatMessage(BaseModel):
-    role: str
-    content: str = ""
-    name: Optional[str] = None
+class ChatMessage(StrictBaseModel):
+    role: str = Field(..., min_length=1, max_length=100, pattern=r"^[a-zA-Z0-9_\-]+$")
+    content: str = Field(default="", max_length=128000)
+    name: Optional[str] = Field(default=None, max_length=255, pattern=r"^[a-zA-Z0-9_\-]+$")
     tool_calls: Optional[List[Dict[str, Any]]] = None
-    tool_call_id: Optional[str] = None
+    tool_call_id: Optional[str] = Field(default=None, max_length=255)
 
 
-class ChatCompletionRequest(BaseModel):
-    model: str
+class ChatCompletionRequest(StrictBaseModel):
+    model: str = Field(..., min_length=1, max_length=255)
     messages: List[ChatMessage]
-    temperature: float = 0.7
-    max_tokens: int = 1024
+    temperature: float = Field(default=0.7, ge=0.0, le=2.0)
+    max_tokens: int = Field(default=1024, ge=1, le=128000)
     stream: bool = False
     tools: Optional[List[Dict[str, Any]]] = None
+    skills: Optional[List[str]] = None  # filter active skill set per-request
 
 
 # ---------------------------------------------------------------------------

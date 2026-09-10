@@ -23,7 +23,7 @@ from OpenDEMON.core.types import Role
 
 # Import the module (not the Click command attribute) so we can monkeypatch
 # the names it looks up at call time.
-_ask_mod = importlib.import_module("DEMON.cli.ask")
+_ask_mod = importlib.import_module("OpenDEMON.cli.ask")
 
 # A minimal but valid 1x1 PNG so ``click.Path(exists=True)`` is satisfied and
 # the bytes are deterministic.

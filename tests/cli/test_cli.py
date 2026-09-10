@@ -10,7 +10,7 @@ from unittest import mock
 
 from click.testing import CliRunner
 
-import DEMON
+import OpenDEMON
 from OpenDEMON.cli import cli, main
 
 

@@ -173,6 +173,51 @@ class SkillManager:
 
         return tools
 
+    def get_filtered_skill_tools(
+        self,
+        names: List[str],
+        *,
+        tool_executor: Optional[ToolExecutor] = None,
+    ) -> List[BaseTool]:
+        """Return SkillTool instances for the named skills only.
+
+        Parameters
+        ----------
+        names:
+            Skill names to include. Duplicates are deduplicated; order is
+            preserved (first occurrence wins). An empty list returns an empty
+            result without error.
+        tool_executor:
+            Optional executor override; falls back to self._tool_executor.
+
+        Returns
+        -------
+        List[BaseTool]
+            One SkillTool per unique name in ``names``.
+
+        Raises
+        ------
+        KeyError
+            If any name in ``names`` is not present in the Skill_Catalog.
+            The exception message identifies the missing name.
+        """
+        if not names:
+            return []
+
+        unique_names = list(dict.fromkeys(names))
+        executor = tool_executor or self._tool_executor
+        tools: List[BaseTool] = []
+
+        for name in unique_names:
+            manifest = self.resolve(name)  # raises KeyError if missing
+            real_executor = executor or _NullToolExecutor()
+            skill_exec = SkillExecutor(real_executor, bus=self._bus)
+            skill_exec.set_skill_resolver(self._make_resolver())
+            skill_tool = SkillTool(manifest, skill_exec, skill_manager=self)
+            tools.append(skill_tool)
+
+        return tools
+
     def _make_resolver(self):
         """Return a resolver callback that delegates sub-skill execution."""
 

@@ -11,7 +11,7 @@ from OpenDEMON.cli import cli
 from OpenDEMON.core.config import DEMONConfig
 
 # Import the actual module (not the Click group attribute)
-_model_mod = importlib.import_module("DEMON.cli.model")
+_model_mod = importlib.import_module("OpenDEMON.cli.model")
 
 
 def _mock_engine():

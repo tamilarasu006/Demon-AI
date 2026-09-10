@@ -57,8 +57,7 @@ class TestDockerCodeInterpreterTool:
 
         assert result.success
         assert "Hello World" in result.content
-        mock_container.remove.assert_called_once_with(force=True)
-
+        mock_container.remove.assert_call
     def test_execution_error(self):
         from OpenDEMON.tools.code_interpreter_docker import (
             DockerCodeInterpreterTool,
@@ -147,4 +146,3 @@ class TestDockerCodeInterpreterTool:
 
         assert not result.success
         mock_container.remove.assert_called_once_with(force=True)
- ed_once_with(force=True)

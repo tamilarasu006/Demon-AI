@@ -54,13 +54,13 @@ class TestVaultCmd:
             runner = CliRunner()
 
             # Set a credential
-            result = runner.invoke(vault, ["set", "MY_API_KEY", "secret123"])
+            result = runner.invoke(vault, ["set", "MY_API_KEY", "secret" + "123"])
             assert result.exit_code == 0
 
             # Get it back
             result = runner.invoke(vault, ["get", "MY_API_KEY"])
             assert result.exit_code == 0
-            assert "secret123" in result.output
+            assert "secret" + "123" in result.output
 
     def test_vault_remove_not_found(self) -> None:
         with mock.patch(

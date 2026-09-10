@@ -303,7 +303,7 @@ def init(
     host: Optional[str] = None,
     enable_digest: bool = False,
     preset: Optional[str] = None,
-    from_bare_DEMON: bool = False,
+    from_bare_demon: bool = False,
 ) -> None:
     """Detect hardware and generate ~/.DEMON/config.toml."""
     print_banner(quiet=(ctx.obj or {}).get("quiet", False))
@@ -373,7 +373,7 @@ def init(
     if engine is None and config is None:
         recommended = recommend_engine(hw)
         # Bare-DEMON cold path: use the recommended engine non-interactively.
-        if from_bare_DEMON:
+        if from_bare_demon:
             engine = recommended
         else:
             console.print()
@@ -538,7 +538,7 @@ sources = ["hackernews", "news_rss"]
             f"  [dim](selected for {avail:.0f} GB available memory)[/dim]"
         )
 
-        if not no_download and not from_bare_DEMON and spec:
+        if not no_download and not from_bare_demon and spec:
             prompt = f"  Download {model} (~{size_gb:.1f} GB) now?"
             if click.confirm(prompt, default=True):
                 _do_download(selected_engine, model, spec, console)

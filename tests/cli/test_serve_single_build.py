@@ -29,7 +29,7 @@ pytest.importorskip("uvicorn")
 
 # ``DEMON.cli.serve`` as an attribute resolves to the click *command*
 # (re-exported on the package); grab the real module to monkeypatch its globals.
-serve_mod = importlib.import_module("DEMON.cli.serve")
+serve_mod = importlib.import_module("OpenDEMON.cli.serve")
 
 
 def _fake_engine() -> MagicMock:

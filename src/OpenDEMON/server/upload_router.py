@@ -112,14 +112,17 @@ def _get_store() -> KnowledgeStore:
 # ---------------------------------------------------------------------------
 
 
-class PasteRequest(BaseModel):
-    title: str = ""
-    content: str
+from OpenDEMON.server.models import StrictBaseModel
+from pydantic import Field
+
+class PasteRequest(StrictBaseModel):
+    title: str = Field(default="", max_length=255)
+    content: str = Field(..., min_length=1, max_length=128000)
 
 
-class IngestResponse(BaseModel):
-    chunks_added: int
-    source: str = "upload"
+class IngestResponse(StrictBaseModel):
+    chunks_added: int = Field(..., ge=0)
+    source: str = Field(default="upload", max_length=100)
 
 
 # ---------------------------------------------------------------------------
@@ -174,7 +177,27 @@ async def ingest_files(
                 detail=(f"Unsupported file type: {ext}. Allowed: {allowed}"),
             )
 
-        data = await upload.read()
+        # Read with 10MB limit
+        MAX_FILE_SIZE = 10 * 1024 * 1024
+        data = b""
+        while True:
+            chunk = await upload.read(1024 * 1024)
+            if not chunk:
+                break
+            data += chunk
+            if len(data) > MAX_FILE_SIZE:
+                raise HTTPException(status_code=413, detail="File too large (max 10MB)")
+
+        # Validate Magic Bytes
+        try:
+            import magic
+            mime = magic.from_buffer(data[:2048], mime=True)
+            if ext == ".pdf" and mime != "application/pdf":
+                raise HTTPException(status_code=400, detail="Invalid PDF file content")
+            if ext == ".docx" and "wordprocessingml" not in mime:
+                raise HTTPException(status_code=400, detail="Invalid DOCX file content")
+        except ImportError:
+            logger.warning("python-magic not installed, skipping magic byte validation")
 
         # Parse content based on extension
         if ext in (".txt", ".md", ".csv"):

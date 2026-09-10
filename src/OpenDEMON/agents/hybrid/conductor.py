@@ -261,7 +261,7 @@ def _default_pool(local_model: Optional[str], local_endpoint: Optional[str]) -> 
             "id": len(pool),
             "name": "gemma3-27b-it",
             "endpoint": "openrouter",
-            "model": "google/gemma-3-27b-it",
+            "model": "meta/llama-3.1-8b-instruct",
             "description": (
                 "Google Gemma 3 27B Instruct (open weights via OpenRouter). "
                 "Mid-size instruction-tuned model. Cheap and fast; solid at "

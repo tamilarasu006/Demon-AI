@@ -7,7 +7,10 @@ import uuid
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
+
+from OpenDEMON.core.config import load_config
+from OpenDEMON.server.limiter import limiter, user_limiter
 
 from OpenDEMON.core.paths import get_config_dir
 from OpenDEMON.core.types import Message, Role
@@ -90,6 +93,7 @@ def _ensure_identity_prompt(messages: list[Message], app_config) -> list[Message
 
 
 @router.post("/v1/chat/completions")
+@user_limiter.limit(lambda: load_config().server.ratelimit_auth)
 async def chat_completions(request_body: ChatCompletionRequest, request: Request):
     """Handle chat completion requests (streaming and non-streaming)."""
     engine = request.app.state.engine
@@ -183,6 +187,33 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
                 exc_info=True,
             )
 
+    # --- Skill selection (per-request; never mutates global skill_manager) ---
+    _validated_skills: list[str] | None = None
+    _skill_manager = getattr(request.app.state, "skill_manager", None)
+    if _skill_manager is not None and request_body.skills:
+        _requested_skills = [s for s in request_body.skills if s and s.strip()]
+        if _requested_skills:
+            from OpenDEMON.skills.validation import (
+                UnknownSkillsError as _USE,
+                resolve_skill_names as _rsn,
+            )
+            try:
+                _validated_skills = _rsn(
+                    _requested_skills,
+                    _skill_manager,
+                    catalog_is_empty=len(_skill_manager.skill_names()) == 0,
+                )
+            except _USE as _exc:
+                _detail: dict = {"unknown_skills": _exc.unknown_names}
+                if _exc.catalog_empty:
+                    _detail["detail"] = "No skills are installed."
+                raise HTTPException(status_code=422, detail=_detail)
+            if _validated_skills is not None:
+                logging.getLogger("DEMON.server").debug(
+                    "Skill selection active for request: %s", _validated_skills
+                )
+    # --- End skill selection -----------------------------------------------
+
     if request_body.stream:
         # When the client passes `tools`, stream the model's raw
         # OpenAI-compat function-calling decision directly from the engine
@@ -195,7 +226,12 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
         # from the engine for true real-time output.
         if request_body.tools:
             return await _handle_stream_tools(
-                engine, model, request_body, complexity_info, app_config=config
+                engine,
+                model,
+                request_body,
+                complexity_info,
+                app_config=config,
+                bus=getattr(request.app.state, "bus", None),
             )
         return await _handle_stream(
             engine,
@@ -204,6 +240,7 @@ async def chat_completions(request_body: ChatCompletionRequest, request: Request
             complexity_info,
             trace_store=getattr(request.app.state, "trace_store", None),
             app_config=config,
+            bus=getattr(request.app.state, "bus", None),
         )
 
     # Non-streaming: use agent if available, otherwise direct engine call.
@@ -432,6 +469,7 @@ async def _handle_stream_tools(
     complexity_info=None,
     *,
     app_config=None,
+    bus=None,
 ):
     """Stream a raw OpenAI-compat function-calling response via SSE.
 
@@ -447,13 +485,32 @@ async def _handle_stream_tools(
     regresses non-tool-capable engines.
     """
     from OpenDEMON.server.cloud_router import is_cloud_model
+    import time
 
     messages = _to_messages(req.messages)
     messages = _ensure_identity_prompt(messages, app_config)
     chunk_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     use_cloud = is_cloud_model(model)
+    
+    # Last user message — recorded as the trace query.
+    query_text = ""
+    for _m in reversed(req.messages):
+        if _m.role == "user" and _m.content:
+            query_text = _m.content
+            break
 
     async def generate():
+        started_at = time.time()
+        if bus:
+            from OpenDEMON.core.events import EventType
+            bus.publish(
+                EventType.INFERENCE_START,
+                {
+                    "model": model,
+                    "message_count": len(messages),
+                },
+            )
+            
         # Send the role chunk first (OpenAI convention).
         first_chunk = ChatCompletionChunk(
             id=chunk_id,
@@ -463,6 +520,8 @@ async def _handle_stream_tools(
         yield f"data: {first_chunk.model_dump_json()}\n\n"
 
         finish_reason = "stop"
+        token_count = 0
+        token_timestamps = []
         try:
             async for sc in engine.stream_full(
                 messages,
@@ -471,6 +530,10 @@ async def _handle_stream_tools(
                 max_tokens=req.max_tokens,
                 tools=req.tools,
             ):
+                if sc.content or sc.tool_calls:
+                    token_count += 1
+                    token_timestamps.append(time.time())
+                
                 if sc.content:
                     content_chunk = ChatCompletionChunk(
                         id=chunk_id,
@@ -512,6 +575,63 @@ async def _handle_stream_tools(
             yield f"data: {error_chunk.model_dump_json()}\n\n"
             yield "data: [DONE]\n\n"
             return
+            
+        latency = time.time() - started_at
+        ttft = token_timestamps[0] - started_at if token_timestamps else 0.0
+        throughput = token_count / latency if latency > 0 else 0.0
+        
+        if bus is not None:
+            from OpenDEMON.core.events import EventType
+            from OpenDEMON.core.types import TelemetryRecord, TOKEN_COUNTING_VERSION
+            from OpenDEMON.telemetry.instrumented_engine import _compute_itl_stats
+            
+            itl_values_ms = [
+                (token_timestamps[i] - token_timestamps[i - 1]) * 1000
+                for i in range(1, len(token_timestamps))
+            ]
+            itl_stats = _compute_itl_stats(itl_values_ms)
+            
+            prompt_tok = len(query_text) // 4
+            
+            record = TelemetryRecord(
+                timestamp=started_at,
+                model_id=model,
+                completion_tokens=token_count,
+                prompt_tokens=prompt_tok,
+                prompt_tokens_evaluated=prompt_tok,
+                total_tokens=prompt_tok + token_count,
+                latency_seconds=latency,
+                ttft=ttft,
+                throughput_tok_per_sec=throughput,
+                prefill_latency_seconds=ttft if ttft > 0 else 0.0,
+                decode_latency_seconds=latency - ttft if ttft > 0 else latency,
+                mean_itl_ms=itl_stats["mean"],
+                median_itl_ms=itl_stats["median"],
+                p90_itl_ms=itl_stats["p90"],
+                p95_itl_ms=itl_stats["p95"],
+                p99_itl_ms=itl_stats["p99"],
+                std_itl_ms=itl_stats["std"],
+                is_streaming=True,
+                engine="cloud" if use_cloud else "ollama",
+                energy_method="",
+                energy_vendor="",
+                token_counting_version=TOKEN_COUNTING_VERSION,
+            )
+            
+            event_data = {
+                "model": model,
+                "latency": latency,
+                "ttft": ttft,
+                "throughput_tok_per_sec": throughput,
+                "completion_tokens": token_count,
+                "is_streaming": True,
+                "mean_itl_ms": itl_stats["mean"],
+                "median_itl_ms": itl_stats["median"],
+                "p95_itl_ms": itl_stats["p95"],
+            }
+            
+            bus.publish(EventType.INFERENCE_END, event_data)
+            bus.publish(EventType.TELEMETRY_RECORD, {"record": record})
 
         import json as _json
 
@@ -545,6 +665,7 @@ async def _handle_stream(
     *,
     trace_store=None,
     app_config=None,
+    bus=None,
 ):
     """Stream response using SSE format.
 
@@ -579,6 +700,16 @@ async def _handle_stream(
 
     async def generate():
         started_at = time.time()
+        if bus:
+            from OpenDEMON.core.events import EventType
+            bus.publish(
+                EventType.INFERENCE_START,
+                {
+                    "model": model,
+                    "message_count": len(messages),
+                },
+            )
+
         full_content = ""
         # Send role chunk first
         first_chunk = ChatCompletionChunk(
@@ -591,6 +722,9 @@ async def _handle_stream(
             ],
         )
         yield f"data: {first_chunk.model_dump_json()}\n\n"
+
+        token_count = 0
+        token_timestamps = []
 
         try:
             # Cloud models → direct cloud API (reads keys from disk).
@@ -632,6 +766,8 @@ async def _handle_stream(
                         max_tokens=req.max_tokens,
                     )
             async for token in token_iter:
+                token_count += 1
+                token_timestamps.append(time.time())
                 full_content += token
                 chunk = ChatCompletionChunk(
                     id=chunk_id,
@@ -684,6 +820,64 @@ async def _handle_stream(
                 started_at=started_at,
                 ended_at=time.time(),
             )
+            
+        latency = time.time() - started_at
+        ttft = token_timestamps[0] - started_at if token_timestamps else 0.0
+        throughput = token_count / latency if latency > 0 else 0.0
+        
+        if bus is not None:
+            from OpenDEMON.core.events import EventType
+            from OpenDEMON.core.types import TelemetryRecord, TOKEN_COUNTING_VERSION
+            from OpenDEMON.telemetry.instrumented_engine import _compute_itl_stats
+            
+            itl_values_ms = [
+                (token_timestamps[i] - token_timestamps[i - 1]) * 1000
+                for i in range(1, len(token_timestamps))
+            ]
+            itl_stats = _compute_itl_stats(itl_values_ms)
+            
+            # Simple prompt token estimation based on length for bypassed path
+            prompt_tok = len(query_text) // 4
+            
+            record = TelemetryRecord(
+                timestamp=started_at,
+                model_id=model,
+                completion_tokens=token_count,
+                prompt_tokens=prompt_tok,
+                prompt_tokens_evaluated=prompt_tok,
+                total_tokens=prompt_tok + token_count,
+                latency_seconds=latency,
+                ttft=ttft,
+                throughput_tok_per_sec=throughput,
+                prefill_latency_seconds=ttft if ttft > 0 else 0.0,
+                decode_latency_seconds=latency - ttft if ttft > 0 else latency,
+                mean_itl_ms=itl_stats["mean"],
+                median_itl_ms=itl_stats["median"],
+                p90_itl_ms=itl_stats["p90"],
+                p95_itl_ms=itl_stats["p95"],
+                p99_itl_ms=itl_stats["p99"],
+                std_itl_ms=itl_stats["std"],
+                is_streaming=True,
+                engine="cloud" if use_cloud else "ollama",
+                energy_method="",
+                energy_vendor="",
+                token_counting_version=TOKEN_COUNTING_VERSION,
+            )
+            
+            event_data = {
+                "model": model,
+                "latency": latency,
+                "ttft": ttft,
+                "throughput_tok_per_sec": throughput,
+                "completion_tokens": token_count,
+                "is_streaming": True,
+                "mean_itl_ms": itl_stats["mean"],
+                "median_itl_ms": itl_stats["median"],
+                "p95_itl_ms": itl_stats["p95"],
+            }
+            
+            bus.publish(EventType.INFERENCE_END, event_data)
+            bus.publish(EventType.TELEMETRY_RECORD, {"record": record})
 
         # Send finish chunk with usage data if available
         import json as _json
@@ -720,6 +914,7 @@ async def _handle_stream(
 
 
 @router.get("/v1/models")
+@limiter.limit(lambda: load_config().server.ratelimit_auth)
 async def list_models(request: Request) -> ModelListResponse:
     """List locally installed models (Ollama).
 
@@ -729,11 +924,10 @@ async def list_models(request: Request) -> ModelListResponse:
     from OpenDEMON.server.cloud_router import is_cloud_model, list_local_models
 
     # Prefer engine.list_models() so mock engines work in tests.
-    # Filter out any cloud model IDs that may appear via MultiEngine.
-    # Fall back to direct Ollama query only when the engine returns nothing.
+    # We now include ALL models (both local and configured cloud models)
+    # so they all appear in the Installed Models UI.
     engine = request.app.state.engine
-    all_ids = engine.list_models()
-    model_ids = [m for m in all_ids if not is_cloud_model(m)]
+    model_ids = engine.list_models()
     if not model_ids:
         model_ids = await list_local_models()
 
@@ -743,6 +937,7 @@ async def list_models(request: Request) -> ModelListResponse:
 
 
 @router.post("/v1/models/pull")
+@user_limiter.limit(lambda: load_config().server.ratelimit_auth)
 async def pull_model(request: Request):
     """Pull / download a model from the Ollama registry."""
     body = await request.json()
@@ -751,15 +946,8 @@ async def pull_model(request: Request):
         raise HTTPException(status_code=400, detail="'model' field is required")
 
     engine = request.app.state.engine
-    engine_name = getattr(request.app.state, "engine_name", "")
-    # Only Ollama supports pulling
-    if engine_name != "ollama" and getattr(engine, "engine_id", "") != "ollama":
-        raise HTTPException(
-            status_code=501,
-            detail="Model pulling is only supported with the Ollama engine",
-        )
-
     import httpx as _httpx
+
 
     host = getattr(engine, "_host", "http://localhost:11434")
     client = _httpx.Client(base_url=host, timeout=600.0)
@@ -965,6 +1153,7 @@ async def server_info(request: Request):
 
 
 @router.get("/health")
+@limiter.limit(lambda: load_config().server.ratelimit_public)
 async def health(request: Request):
     """Health check endpoint."""
     engine = request.app.state.engine

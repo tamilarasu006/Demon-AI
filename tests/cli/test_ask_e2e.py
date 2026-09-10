@@ -13,7 +13,7 @@ from OpenDEMON.cli import cli
 from OpenDEMON.core.config import DEMONConfig
 
 # Import the actual module (not the Click command attribute)
-_ask_mod = importlib.import_module("DEMON.cli.ask")
+_ask_mod = importlib.import_module("OpenDEMON.cli.ask")
 
 
 def _mock_engine_response():

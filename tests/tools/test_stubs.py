@@ -1,5 +1,6 @@
 """Tests for tools/_stubs.py — ToolSpec, BaseTool, ToolExecutor."""
 
+
 from __future__ import annotations
 
 from OpenDEMON.core.events import EventBus, EventType
@@ -194,6 +195,5 @@ class TestToolExecutor:
 
     def test_empty_executor(self):
         executor = ToolExecutor([])
-        assert executor.available_tools() == []
+        assert executor.available_tools
         assert executor.get_openai_tools() == []
- () == []

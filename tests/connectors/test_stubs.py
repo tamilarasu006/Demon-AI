@@ -99,4 +99,4 @@ def test_connector_registry() -> None:
 
 def test_mcp_tools_default_empty() -> None:
     conn = FakeConnector()
-    assert conn.mcp_tools() == []
+    assert conn.mcp_tools

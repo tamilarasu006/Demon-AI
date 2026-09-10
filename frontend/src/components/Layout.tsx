@@ -28,7 +28,6 @@ export function Layout() {
     <div className="flex flex-col h-full w-full overflow-hidden relative" style={{ paddingTop: '3px' }}>
       <div className="hud-backdrop" aria-hidden="true" />
       <SystemPulse apiReachable={apiReachable} />
-      <ApprovalBell />
 
       {/* Health check banner */}
       {apiReachable === false && (
@@ -44,7 +43,7 @@ export function Layout() {
             className="w-1.5 h-1.5 rounded-full shrink-0"
             style={{ background: 'var(--color-error)' }}
           />
-          <span>Cannot reach OpenJarvis backend</span>
+          <span>Cannot reach OpenDemon backend</span>
           <button
             onClick={() => navigate('/settings')}
             className="text-sm underline cursor-pointer ml-auto shrink-0"
@@ -64,6 +63,10 @@ export function Layout() {
           />
         )}
         <main className="flex-1 flex flex-col min-w-0 h-full relative overflow-hidden" style={{ background: 'transparent' }}>
+          {/* ApprovalBell anchored to the main content area, never overlapping sidebar */}
+          <div className="absolute top-2 right-4 z-50">
+            <ApprovalBell />
+          </div>
           <div className="flex-1 flex flex-col min-w-0 min-h-0 relative z-[2]">
             <Outlet />
           </div>

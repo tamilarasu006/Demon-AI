@@ -1,4 +1,4 @@
-// src/openjarvis/evals/backends/external/_runners/openclaw_runner.mjs
+// src/opendemon/evals/backends/external/_runners/openclaw_runner.mjs
 // Subprocess bridge: runs one task through OpenClaw and emits JSON.
 //
 // Invoked as:
@@ -51,7 +51,7 @@ async function main() {
   const requestedModel = String(args.model || '').includes('/')
     ? String(args.model || '')
     : `ollama/${args.model}`;
-  const runDir = mkdtempSync(join(tmpdir(), 'openjarvis-openclaw-'));
+  const runDir = mkdtempSync(join(tmpdir(), 'opendemon-openclaw-'));
   const configPath = join(runDir, 'openclaw.json');
   writeFileSync(configPath, JSON.stringify({
     agents: {
@@ -83,7 +83,7 @@ async function main() {
   // emits JSON. A unique --session-id per invocation gives each task a
   // fresh OpenClaw session (no carryover between eval tasks).
   const sessionId = (
-    `openjarvis-eval-${Date.now()}-` +
+    `opendemon-eval-${Date.now()}-` +
     Math.floor(Math.random() * 1e9).toString(36)
   );
   const child = spawn(nodeExe, [

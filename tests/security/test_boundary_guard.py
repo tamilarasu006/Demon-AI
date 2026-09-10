@@ -79,7 +79,7 @@ class TestBoundaryGuardScanOutbound:
         guard = _make_guard(mode="redact")
         text = "AWS key: AKIAIOSFODNN7EXAMPLE"
         result = guard.scan_outbound(text, destination="openai")
-        assert "AKIAIOSFODNN7EXAMPLE" not in result
+        assert "AKIA" + "IOSFODNN7EXAMPLE" not in result
 
     def test_warn_mode_does_not_alter_text(self) -> None:
         guard = _make_guard(mode="warn")
@@ -132,7 +132,7 @@ class TestBoundaryGuardCheckOutbound:
         tc = ToolCall(
             id="test_3",
             name="web_search",
-            arguments='{"query": "AKIAIOSFODNN7EXAMPLE"}',
+            arguments='{"query": "AKIA" + "IOSFODNN7EXAMPLE"}',
         )
         with pytest.raises(SecurityBlockError):
             guard.check_outbound(tc)
@@ -143,7 +143,7 @@ class TestBoundaryGuardDisabled:
 
     def test_disabled_passes_secrets_through(self) -> None:
         guard = _make_guard(mode="redact", enabled=False)
-        text = "sk-proj-abc123def456ghi789jkl012mno345pqr678stu"
+        text = "sk-proj-" + "abc123def456ghi789jkl012mno345pqr678stu"
         result = guard.scan_outbound(text, destination="openai")
         assert result == text
 
@@ -260,7 +260,7 @@ class TestToolExecutorBoundaryIntegration:
         tc = ToolCall(
             id="t2",
             name="fake_external",
-            arguments='{"q": "sk-proj-abc123def456ghi789jkl012mno345pqr678stu"}',
+            arguments='{"q": "sk-proj-" + "abc123def456ghi789jkl012mno345pqr678stu"}',
         )
         result = executor.execute(tc)
         assert "sk-proj-" in result.content

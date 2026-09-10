@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: opendemon
+    runtime: python
+    rootDir: .
+    buildCommand: bash render_build.sh
+    startCommand: python render_start.py
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: NVIDIA_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DEMON_API_KEY
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        value: opendemon
+      - key: PYTHON_VERSION
+        value: "3.12"
+      - key: NODE_VERSION
+        value: 20.0.0
+      - key: DEMON_HOME
+        value: /var/lib/opendemon
+    disk:
+      name: opendemon-data
+      mountPath: /var/lib/opendemon
+      sizeGB: 1
+    autoDeploy: true
